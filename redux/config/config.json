@@ -1,0 +1,46 @@
+{
+    "CONTRACT_ADDRESS": "0x056C2A5Ec90A78CaD6F36925dDF4DE35cFc0DD57",
+    "SCAN_NAME": "Polygonscan",
+    "SCAN_LINK": "https://polygonscan.com/address/0x056C2A5Ec90A78CaD6F36925dDF4DE35cFc0DD57",
+    "SCAN_LINK_CODE": "https://polygonscan.com/address/0x056C2A5Ec90A78CaD6F36925dDF4DE35cFc0DD57#code",
+    "RPC_URL": "https://polygon-rpc.com",
+    "NETWORK": {
+      "NAME": "Polygon Network",
+      "SYMBOL": "MATIC",
+      "ID": 137
+    },
+    "ENCODE_POST": "010120245555WinnoBearzNFT20240101",
+    "NFT_NAME": "WinnoBearz NFT",
+    "SYMBOL": "WBC",
+    "MINT_DATE": 1653004800000,
+    "MAX_SUPPLY": 5555,
+    "MAX_PER_WALLET": 150,
+    "MAX_PER_TRANSACTION": 30,
+    "WEI_COST": 75000000000000000000,
+    "DISPLAY_COST": 75,
+    "GAS_LIMIT": 285000,
+    "OPENSEA_NAME": "Opensea",
+    "MARKETPLACE": "Opensea",
+    "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/winnobearz-nft-egwjmzfenr",
+    "SHOW_BACKGROUND": true,
+
+    "MARKETPLACES" : {
+      "OPENSEA" : {
+        "NAME": "Opensea",
+        "URL": "https://testnets.opensea.io/collection/winnobearz-nft-qvqiwf85va"
+      }
+    },
+
+    "LINKS": {
+      "OPENSEA": {
+        "NAME": "Opensea",
+        "URL": "https://opensea.io/collection/winnobearz-nft"
+      }
+    },
+
+    "OPENSEA_LINK": "https://testnets.opensea.io/collection/winnobearz-nft-qvqiwf85va",
+    "TWITTER_LINK": "https://twitter.com/WinnoBearzClub",
+    "DISCORD_LINK": "https://testnets.opensea.io/collection/winnobearz-nft-egwjmzfenr",
+    "GITHUB_LINK": "https://github.com/Winno-Bearz-Club"
+    
+}

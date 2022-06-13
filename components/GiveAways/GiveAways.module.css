@@ -1,0 +1,72 @@
+.loading-button-mint {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
+    background-color: var(--primary);
+    color:black;
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.17);
+    width: 140px;
+    padding:10px;
+    border: none;
+}
+
+.loading-button-mint:hover {
+    -webkit-transform: translateY(-2px);
+	transform: translateY(-2px);
+    background-color: var(--brown-winno);
+    color:white;
+}
+
+.button-decrement-increment {
+    background-color: var(--primary);
+    color:black;
+    font-weight: bold;
+    font-size: large;
+    padding:1vh;
+    min-width: 5vw;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button-decrement-increment:hover {
+    background-color: var(--brown-winno);
+    color:white;
+    border-radius: 5px;
+}
+
+.input-mint {
+    color:black;
+    padding:1vh;
+    min-width: 3.5vw;
+    margin-left: 0.3vw;
+    margin-right: 0.3vw;
+    border-radius: 0px;
+    border: 1px solid black;
+    cursor: default;
+}
+
+.input-address {
+    color:black;
+    padding:1vh;
+    min-width: 3.5vw;
+    margin-left: 0.3vw;
+    margin-right: 0.3vw;
+    border-radius: 0px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+	.input-mint {
+        width: 50vw;
+    }
+
+    .input-address {
+        width: 70vw;
+    }
+
+    .button-decrement-increment {
+        padding:0.5vh;
+        min-width: 10vw;
+        border-radius: 5px;
+    }
+}

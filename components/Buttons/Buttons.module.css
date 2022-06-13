@@ -1,0 +1,10 @@
+.button-address-connected {
+    background-color: transparent;
+    color:var(--primary);
+    font-weight: bold;
+    border:none;
+}
+
+.button-address-connected:hover {
+    color:var(--primary);
+}

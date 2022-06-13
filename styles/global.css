@@ -1,0 +1,71 @@
+:root {
+  /* #f0f0f0 in decimal RGB */
+  --primary: #ebc908;
+  --primary-decimal:246,224,94;
+  --secondary: #733E39;
+  --secondary-decimal:115, 62, 57;
+
+
+  --yellow-team:#F4F122;
+  --yellow-team-decimal:244, 241, 34;
+
+  --brown-winno: #733E39;
+  --brown-winno-decimal:115, 62, 57;
+
+  --blue-winno:#0099DB;
+  --blue-winno-decimal:0, 153, 219;
+  --blue-dark-winno:#2769CA;
+  --blue-dark-winno-decimal:39, 105, 202;
+
+
+  --brown-bear: #872222;
+  --brown-bear-decimal: 135, 34, 34;
+  --brown-bear-dark: #571616;
+  --brown-bear-dark-decimal: 87, 22, 22;
+
+  --orange-metamask: #E4761B;
+  --orange-metamask-decimal: 228, 118, 27;
+  --brown-metamask: #763D16;
+  --brown-metamask-decimal: 118, 61, 22;
+
+  --purple-polygon:#8247E5;
+  --purple-polygon-decimal: 130, 71, 229;
+
+  --grey-ethereum: #8C8C8C;
+  --grey-ethereum-decimal: 140, 140, 140;
+
+  --grey-dark-ethereum: #343434;
+  --grey-dark-ethereum-decimal: 140, 140, 140;
+
+
+  
+  --black:#000000;
+  --black-decimal:0,0,0;
+  --white:#FFFFFF;
+  --white-decimal:255, 255, 255;
+  --grey: #727171;
+  --grey-decimal: 80,80,80;
+  --grey-light: #efefef;
+  --grey-light-decimal: 200, 200, 200;
+  --grey-dark:#1d1d1d;
+  --grey-dark-decimal: 29, 29,29;
+
+
+  --blue-opensea: #2081E2;
+  --blue-opensea-decimal: 32, 129, 226;
+  --purple-discord: #5865F2;
+  --purple-discord-decimal: 88, 101, 242;
+  --blue-twitter: #1D9BF0;
+  --blue-twitter-decimal: 29, 155, 240;
+
+  --primary-text: #000000;
+  --secondary: #FFBF34;
+  --secondary-text: #ffffff;
+  --accent: #505050;
+  --accent-text: #ffffff;
+
+
+
+  --red-decimal: 255,0,0;
+  --orange-decimal: 255,165,0;
+}

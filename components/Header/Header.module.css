@@ -1,0 +1,63 @@
+.divTitle {
+    /*font-family: 'Source Code Pro', monospace;*/
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    /*
+    margin-top: 20px;
+    */
+}
+
+.mintDate {
+    /*font-family: 'Source Code Pro', monospace;*/
+    font-family: 'Press Start 2P', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    /*
+    margin-top: 20px;
+    */
+}
+
+
+.countdown {
+    /*font-family: 'Source Code Pro', monospace;*/
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    /*
+    margin-top: 20px;
+    */
+}
+
+.countdown-item {
+    /*font-family: 'Source Code Pro', monospace;*/
+    padding: 1vw;
+    /*
+    margin-top: 20px;
+    */
+}
+
+@media (max-width: 500px) {
+    .mintDate {
+        /*font-family: 'Source Code Pro', monospace;*/
+        font-family: 'Press Start 2P', cursive;
+        font-size: 13px;
+        /*
+        margin-top: 20px;
+        */
+    }
+
+	.countdown {
+        font-size: 12px;
+    }
+
+    .countdown-item {
+        font-size: 12px;
+        padding: 1.5vw;
+    }
+
+}
+
+.divSubtitle {
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    margin-top: 20px;
+}

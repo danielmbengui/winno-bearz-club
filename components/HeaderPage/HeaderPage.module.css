@@ -1,0 +1,14 @@
+.divTitle {
+    /*font-family: 'Source Code Pro', monospace;*/
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    /*
+    margin-top: 20px;
+    */
+}
+
+.divSubtitle {
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+    margin-top: 20px;
+}

@@ -1,0 +1,15 @@
+.faq-01__question {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 20px 15px 20px 20px;
+	
+	border-radius: 4px;
+	text-align: left;
+	cursor: pointer;
+	font-weight: 700;
+	line-height: 1.6;
+	letter-spacing: 0.01em;
+	transition: border-color 0.25s ease, color 0.25s ease
+}

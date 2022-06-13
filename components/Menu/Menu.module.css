@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Raleway:wght@800&family=VT323&display=swap');
+
+.nav-02__box .button--empty .icon {
+	display: none !important
+}
+
+.comps .button--empty {
+	min-width: auto;
+	background-color: brown !important;
+	border-color: transparent !important;
+	box-shadow: none !important
+}
+
+
+.comps .button--empty:hover {
+	box-shadow: none !important
+}
+
+.comps .button--empty.button--white-outline:hover {
+	background-color: rgba(red, 0.95) !important;
+	color: purple;
+}
+
+.feature__button_box .button--empty {
+	padding: 0 !important;
+	background: none !important;
+	overflow: visible !important;
+	min-height: auto !important;
+	border-width: 0
+}
+
+.feature__button_box .button--empty:hover {
+	background: none !important
+}
+
+@media (max-width: 1100px) {
+	.nav-02__list--desktop .nav-02__item>.button--black-outline.button--empty {
+		padding-left: 5px;
+		padding-right: 5px
+	}
+}
+
+.header-27__link .button--empty {
+	margin-bottom: -10px
+}
+
+.tabs-03 .button--empty {
+	padding-left: 0
+}
+
+.comps p {
+	margin-bottom: 1em;
+	margin-top: 1em;
+	line-height: 1.6
+}
+
+.comps .button--white-outline {
+	background-color: transparent;
+	border-color: white;
+	color: white
+}
+
+.comps .button--white-outline .icon svg *,
+.comps .button--white-outline .button__system_icon svg * {
+	fill: white
+}
+
+.comps .button--empty.button--white-outline:hover {
+	background-color: rgba(var(--primary-decimal), 0.95) !important;
+	color: var(--primary-text);
+}
+.comps .button--has-arrow.button--white-outline:after {
+	border-color: #fff transparent transparent transparent
+}
+
+.content_box:not(.blog-editor__content_box) span:not([class^="hljs-"]):not(.button__text) {
+	color: inherit !important
+}
+
+.button__text {
+	vertical-align: middle;
+	font-size: 14px;
+	transition: opacity .2s ease, -webkit-transform .2s ease;
+	transition: opacity .2s ease, transform .2s ease;
+	transition: opacity .2s ease, transform .2s ease, -webkit-transform .2s ease
+}
+
+.state-show-spinner .button__text {
+	opacity: 0;
+	-webkit-transform: translateX(10px);
+	transform: translateX(10px)
+}
+
+.dropdown__item .button__text {
+	line-height: 1.4;
+	word-break: break-word
+}
+
+
+
+
+
+
+.text-logo-winno{
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: 16px;
+    margin-left: 20px;
+}
+@media (max-width: 400px) {
+	.text-logo-winno{
+        font-size: 11px;
+        margin-left: 10px;
+    }
+}
+
+.text-logo-winno:hover {
+	color: var(--primary);
+}

@@ -1,0 +1,57 @@
+{
+    "RASPBERRY" : {
+        "NAME": "Raspberry",
+        "PNG": "/assets/img/rarity/raspberry.png",
+        "GIF": "/assets/img/rarity/raspberry.gif",
+        "PATH": "/assets/img/rarity/raspberry.gif",
+        "POINTS_LAYER":1,
+        "POINTS_NFT":15,
+        "POINTS": 15,
+        "PERCENTAGE": 20
+    },
+
+    "PICNIC" : {
+        "NAME": "Picnic",
+        "PNG": "/assets/img/rarity/picnic.png",
+        "GIF": "/assets/img/rarity/picnic.gif",
+        "PATH": "/assets/img/rarity/picnic.gif",
+        "POINTS_LAYER":2,
+        "POINTS_NFT":20,
+        "POINTS": 20,
+        "PERCENTAGE": 15
+    },
+
+    "SALMON" : {
+        "NAME": "Salmon",
+        "PNG": "/assets/img/rarity/salmon.png",
+        "GIF": "/assets/img/rarity/salmon.gif",
+        "PATH": "/assets/img/rarity/salmon.gif",
+        "POINTS_LAYER":3,
+        "POINTS_NFT":25,
+        "POINTS": 25,
+        "PERCENTAGE": 10
+    },
+    
+    "HONEY" : {
+        "NAME": "Honey",
+        "PNG": "/assets/img/rarity/honey.png",
+        "GIF": "/assets/img/rarity/honey.gif",
+        "PATH": "/assets/img/rarity/honey.gif",
+        "POINTS_LAYER":4,
+        "POINTS_NFT":35,
+        "POINTS": 35,
+        "PERCENTAGE": 5
+    },
+
+    "BEEHIVE" : {
+        "NAME": "Beehive",
+        "PNG": "/assets/img/rarity/beehive.png",
+        "GIF": "/assets/img/rarity/beehive.gif",
+        "PATH": "/assets/img/rarity/beehive.gif",
+        "POINTS_LAYER":5,
+        "POINTS_NFT":40,
+        "POINTS": 40,
+        "PERCENTAGE": 1
+    }
+
+}

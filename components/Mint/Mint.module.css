@@ -1,0 +1,149 @@
+.divTitle {
+    color: black;
+
+    /*font-family: 'Source Code Pro', monospace;*/
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3.5vw;
+    /*
+    margin-top: 20px;
+    */
+}
+
+@media (max-width: 500px) {
+
+	.divTitle {
+        font-size: 5vw;
+        /*
+        margin-top: 20px;
+        */
+    }
+}
+
+.divSubtitle {
+    color: var(--brown-winno);
+    font-family: 'VT323', monospace;
+    font-size: 40px;
+}
+
+.contractText {
+    font-family: 'VT323', monospace;
+    font-size: 24px;
+}
+
+.button-action {
+    background-color: var(--primary);
+    color:black;
+    font-weight: bold;
+}
+
+
+
+.button-action:hover {
+    background-color: var(--brown-winno);
+    color:white;
+}
+
+.button-decrement-increment {
+    background-color: var(--primary);
+    color:black;
+    font-weight: bold;
+    font-size: large;
+    padding:1vh;
+    min-width: 5vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+}
+
+.button-decrement-increment:hover {
+    background-color: var(--brown-winno);
+    color:white;
+    border-radius: 5px;
+}
+
+.input-mint {
+    color:black;
+    padding:1vh;
+    min-width: 3.5vw;
+    margin-left: 0.3vw;
+    margin-right: 0.3vw;
+    border-radius: 0.5vw;
+    border: 1px solid black;
+    cursor: default;
+}
+
+@media (max-width: 500px) {
+	.input-mint {
+        width: 50vw;
+    }
+
+    .button-decrement-increment {
+        padding:0.5vh;
+        min-width: 10vw;
+        border-radius: 5px;
+    }
+}
+
+.loading-button-mint {
+    font-family: 'Source Code Pro', monospace;
+    font-weight: bold;
+    background-color: var(--primary);
+    color:black;
+    box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.17);
+    width: 120px;
+    padding:10px;
+    border: none;
+}
+
+.loading-button-mint:hover {
+    -webkit-transform: translateY(-2px);
+	transform: translateY(-2px);
+    background-color: var(--brown-winno);
+    color:white;
+}
+
+.style-alert {
+    width:65%;
+    margin: 0 auto;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.countdown {
+    /*font-family: 'Source Code Pro', monospace;*/
+    font-family: 'Press Start 2P', cursive;
+    font-family: 'VT323', monospace;
+    font-size: 16px;
+    color:black;
+    /*
+    margin-top: 20px;
+    */
+}
+
+.countdown-item {
+    /*font-family: 'Source Code Pro', monospace;*/
+    padding: 1vw;
+    /*
+    margin-top: 20px;
+    */
+}
+
+@media (max-width: 500px) {
+    .mintDate {
+        /*font-family: 'Source Code Pro', monospace;*/
+        font-family: 'Press Start 2P', cursive;
+        font-size: 13px;
+        /*
+        margin-top: 20px;
+        */
+    }
+
+	.countdown {
+        font-size: 14px;
+    }
+
+    .countdown-item {
+        font-size: 20px;
+        padding: 1.5vw;
+    }
+
+}

@@ -1,0 +1,14 @@
+.drop-listings {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.drop-listings-item {
+    padding-left: 1em; 
+    text-indent: -.7em;
+}
+
+.drop-listings-item::before { color: red; } /* text */
+
+

@@ -1,0 +1,126 @@
+{  
+    "EMAIL_LINK": "marketing@bearzclub.io",
+    "EMAIL_IMAGE_PATH_WHITE": "/assets/img/icons/social/white/email.svg",
+    "EMAIL_IMAGE_PATH_BLACK": "/assets/img/icons/social/black/email.svg",
+
+    "TWITTER_LINK": "https://twitter.com/WinnoBearz",
+    "TWITTER_IMAGE_PATH_WHITE": "/assets/img/icons/social/white/twitter.svg",
+    "TWITTER_IMAGE_PATH_BLACK": "/assets/img/icons/social/black/twitter.svg",
+
+    "DISCORD_LINK": "https://discord.gg/r8v5kSpW83",
+    "DISCORD_IMAGE_PATH_WHITE": "/assets/img/icons/social/white/discord.svg",
+    "DISCORD_IMAGE_PATH_BLACK": "/assets/img/icons/social/black/discord.svg",
+
+    "GITHUB_LINK": "https://github.com/Winno-Bearz-Club",
+    "GITHUB_IMAGE_PATH_WHITE": "/assets/img/icons/social/white/github.svg",
+    "GITHUB_IMAGE_PATH_BLACK": "/assets/img/icons/social/black/github.svg",
+
+
+    "OPENSEA_LINK": "https://opensea.io/collection/winnobearz-nft",
+    "OPENSEA_IMAGE_PATH_WHITE": "/assets/img/promo/opensea_white.png",
+    "OPENSEA_IMAGE_PATH_BLACK": "/assets/img/promo/opensea_black.png",
+
+    "SKURPY_LINK": "https://www.skurpy.com/members/winnnobearzclub/",
+    "SKURPY_IMAGE_PATH_WHITE": "/assets/img/promo/skurpy.png",
+    "SKURPY_IMAGE_PATH_BLACK": "/assets/img/promo/skurpy.png",
+
+    "DISBOARD_LINK": "https://disboard.org/fr/server/971060127186714715",
+    "DISBOARD_IMAGE_PATH_WHITE": "/assets/img/promo/disboard_white.png",
+    "DISBOARD_IMAGE_PATH_BLACK": "/assets/img/promo/disboard_black.png",
+
+    "NFT_CALENDAR_LINK": "https://nftcalendar.io/event/winnobearz-nft/",
+    "NFT_CALENDAR_IMAGE_PATH_WHITE": "/assets/img/promo/nftcalendar.png",
+    "NFT_CALENDAR_IMAGE_PATH_BLACK": "/assets/img/promo/nftcalendar.png",
+
+    "RARITY_SNIPER_LINK": "https://raritysniper.com/nft-drops-calendar?saleDate=2022-05-20",
+    "RARITY_SNIPER_IMAGE_PATH_WHITE": "/assets/img/promo/raritysniper_white.png",
+    "RARITY_SNIPER_IMAGE_PATH_BLACK": "/assets/img/promo/raritysniper_black.png",
+
+    "NFT_DESIRE_LINK": "https://nftdesire.io/upcoming-nft-projects/winnobearz-nft/",
+    "NFT_DESIRE_IMAGE_PATH_WHITE": "/assets/img/promo/nftdesire_white.png",
+    "NFT_DESIRE_IMAGE_PATH_BLACK": "/assets/img/promo/nftdesire_black.png",
+
+    "NEXT_NFT_DROP_LINK": "https://www.nextnftdrop.com/projects/winnobearz-nft/",
+    "NEXT_NFT_DROP_IMAGE_PATH_WHITE": "/assets/img/promo/nextnftdrop_white.png",
+    "NEXT_NFT_DROP_IMAGE_PATH_BLACK": "/assets/img/promo/nextnftdrop_black.png",
+
+    "NFT_EVENING_LINK": "https://nftevening.com/event/winnobearz-nft-drop/",
+    "NFT_EVENING_IMAGE_PATH_WHITE": "/assets/img/promo/nftevening_white.png",
+    "NFT_EVENING_IMAGE_PATH_BLACK": "/assets/img/promo/nftevening_black.png",
+
+    "EARLY_COINS_LINK": "https://www.earlycoins.io/coin-details/62880ab2ae364b2a79292277",
+    "EARLY_COINS_IMAGE_PATH_BLACK": "/assets/img/promo/earlycoins_black.png",
+    "EARLY_COINS_IMAGE_PATH_WHITE": "/assets/img/promo/earlycoins_white.png",
+
+    "NEW_NEXT_NFT_DROP_LINK": "https://www.nextnftdrop.net/project/winnobearz-nft",
+    "NEW_NEXT_NFT_DROP_IMAGE_PATH_BLACK": "/assets/img/promo/nextDropNFT_black.png",
+    "NEW_NEXT_NFT_DROP_IMAGE_PATH_WHITE": "/assets/img/promo/nextDropNFT_white.png",
+
+    "NFT_UNICORN_LINK": "https://thenftunicorn.com/todays-nft-drops/winnobearz-nft-drop/",
+    "NFT_UNICORN_IMAGE_PATH_WHITE": "/assets/img/promo/nft_unicorn.png",
+    "NFT_UNICORN_IMAGE_PATH_BLACK": "/assets/img/promo/nft_unicorn.png",
+
+    "ICO_HOLDER_LINK": "https://icoholder.com/en/winnobearz-1023657",
+    "ICO_HOLDER_IMAGE_PATH_WHITE": "/assets/img/promo/icoholder_white.png",
+    "ICO_HOLDER_IMAGE_PATH_BLACK": "/assets/img/promo/icoholder_black.png",
+
+    "NFT_LIST_LINK": "https://nft-list.io/event/winnobearz-nft",
+    "NFT_LIST_IMAGE_PATH_WHITE": "/assets/img/promo/nftlist.png",
+    "NFT_LIST_IMAGE_PATH_BLACK": "/assets/img/promo/nftlist.png",
+
+
+
+
+    "NFT_DROP_LINK": "https://nextdrop.is/project/10826",
+    "NFT_DROP_IMAGE_PATH_WHITE": "/assets/img/promo/nextdrop.png",
+    "NFT_DROP_IMAGE_PATH_BLACK": "/assets/img/promo/nextdrop.png",
+
+
+
+
+    "NFT_DROPS_CALENDAR_LINK": "https://www.nftdropscalendar.com/nft-drops/winnobearz-nft",
+    "NFT_DROPS_CALENDAR_IMAGE_PATH_WHITE": "/assets/img/promo/nftdropscalendar.png",
+    "NFT_DROPS_CALENDAR_IMAGE_PATH_BLACK": "/assets/img/promo/nftdropscalendar.png",
+
+    "UPCOMING_LINK": "https://upcomingnft.net/",
+    "UPCOMING_IMAGE_PATH_WHITE": "/assets/img/promo/upcoming_white.png",
+    "UPCOMING_IMAGE_PATH_BLACK": "/assets/img/promo/upcoming_black.png",
+
+    "NFT_HYPERDROPS_LINK": "https://nfthypedrops.com/",
+    "NFT_HYPERDROPS_IMAGE_PATH_WHITE": "/assets/img/promo/nfthyperdrops_white.png",
+    "NFT_HYPERDROPS_IMAGE_PATH_BLACK": "/assets/img/promo/nfthyperdrops_black.png",
+
+
+
+
+
+
+
+    "RARITY_TOOLS_LINK": "https://rarity.tools/",
+    "RARITY_TOOLS_IMAGE_PATH_WHITE": "/assets/img/promo/rarity_tools.png",
+
+    "NFT_DROOPS_LINK": "https://nftdroops.com/",
+    "NFT_DROOPS_IMAGE_PATH_WHITE": "/assets/img/promo/nftdroops.png"
+
+
+   
+
+    
+
+    
+
+  
+
+    
+
+    
+
+
+    
+
+
+    
+
+    
+    
+  }
