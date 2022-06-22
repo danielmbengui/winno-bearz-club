@@ -241,7 +241,7 @@ function handleGameOver(){
 // Les trucs a chopper
 const bubblesArray = [];
 const beeImage = new Image();
-beeImage.src = "bee.png";
+beeImage.src = "bee.gif";
 const beeHitImage = new Image();
 beeHitImage.src = "bee_hit.png";
 
