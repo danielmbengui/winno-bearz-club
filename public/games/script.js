@@ -1,4 +1,36 @@
 window.onload = function(){
+    
+    let device = '';
+    /*
+    let orientation = 'portrait';
+
+    if( screen.width < 768 ){
+        orientation = 'landscape'
+    }
+    */
+    //screen.orientation = orientation;
+    //screen.lockOrientation(orientation);
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+        // true for mobile device
+        //document.write("mobile device");
+        device = 'mobile';
+        screen.orientation.lock('landscape')
+        .then(function() {
+            alert('Locked');
+        })
+        .catch(function(error) {
+            alert(error);
+        });
+      }else{
+        // false for not mobile device
+        device = 'desktop';
+       // document.write("not mobile device");
+      }
+      console.log('device', device);
+    
+    
+    
     // Parametrer le canvas ---> le carré blanc avec contour noir
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
