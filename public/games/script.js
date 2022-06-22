@@ -1,5 +1,31 @@
+// Parametrer le canvas ---> le carré blanc avec contour noir
+const canvas = document.getElementById('canvas1');
+const ctx = canvas.getContext('2d');
+canvas.width = 1280;
+canvas.height = 800;
+
+let score = 0;
+let gameFrame = 0;
+ctx.font = '40px Georgia';
+let gameSpeed = 5;
+let gameOver = false;
+
+// Parametrer les evenements de la souris...
+// quand on clique sur un endroit, le rond rouge (nous) se déplace a cet endroit
+let canvasPosition = canvas.getBoundingClientRect();
+
+const mouse = {
+    x: canvas.width/2,
+    y: canvas.height/2,
+    click: false,
+}
+
+screen.orientation.addEventListener('change', function() {
+	console.log('Current orientation is ' + screen.orientation.type);
+    document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
+});
+
 window.onload = function(){
-    
     let device = '';
     /*
     let orientation = 'portrait';
@@ -29,33 +55,12 @@ window.onload = function(){
       }
       console.log('device', device);
     
-    
-    
-    // Parametrer le canvas ---> le carré blanc avec contour noir
-const canvas = document.getElementById('canvas1');
-const ctx = canvas.getContext('2d');
-canvas.width = 1280;
-canvas.height = 800;
-
-let score = 0;
-let gameFrame = 0;
-ctx.font = '40px Georgia';
-let gameSpeed = 5;
-let gameOver = false;
-
+        
 const mySound = document.getElementById('sound');
 mySound.voulme = 40;
 
 //const beeSound = document.getElementById('beeSound');
-// Parametrer les evenements de la souris...
-// quand on clique sur un endroit, le rond rouge (nous) se déplace a cet endroit
-let canvasPosition = canvas.getBoundingClientRect();
 
-const mouse = {
-    x: canvas.width/2,
-    y: canvas.height/2,
-    click: false,
-}
 
 /*
 canvas.addEventListener('mousemove', (event) => {
@@ -443,6 +448,7 @@ function animate(){
 
 animate();
 //mySound.play();
+}
 
 window.addEventListener('resize', () => {
     canvasPosition = canvas.getBoundingClientRect();
@@ -450,4 +456,3 @@ window.addEventListener('resize', () => {
     //clickEvent.initEvent('mouseup', true, true);
     //canvas.click();
 })
-}
