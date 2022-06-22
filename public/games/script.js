@@ -41,10 +41,10 @@ window.onload = function(){
         // true for mobile device
         //document.write("mobile device");
         device = 'mobile';
-        if(document.querySelector("#page").requestFullscreen)
-            document.querySelector("#page").requestFullscreen();
-        else if(document.querySelector("#page").webkitRequestFullScreen)
-            document.querySelector("#page").webkitRequestFullScreen();
+        if(document.getElementById("#page").requestFullscreen)
+            document.getElementById("#page").requestFullscreen();
+        else if(document.getElementById("#page").webkitRequestFullScreen)
+            document.getElementById("#page").webkitRequestFullScreen();
 
         screen.orientation.lock('landscape')
         .then(function() {
