@@ -64,15 +64,16 @@ mySound.voulme = 40;
 //const beeSound = document.getElementById('beeSound');
 
 
-
+/*
 canvas.addEventListener('mousemove', (event) => {
     mouse.click = true;
     mouse.x = event.x - canvasPosition.left;
     mouse.y = event.y - canvasPosition.top;
     console.log(mouse.x, mouse.y)
 });
+*/
 
-/*
+
 canvas.addEventListener('mousedown', (event) => {
     mouse.click = true;
     mouse.x = event.x - canvasPosition.left;
@@ -86,7 +87,7 @@ canvas.addEventListener('mouseup', (event) => {
     mouse.y = event.y - canvasPosition.top;
     console.log(mouse.x, mouse.y)
 });
-*/
+
 
 
 const playerLeft = new Image();
