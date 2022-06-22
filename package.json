@@ -40,6 +40,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^8.0.2",
+    "react-tweet": "^1.7.1",
     "react-twitter-embed": "^4.0.4",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
@@ -48,6 +49,7 @@
     "request": "^2.79.0",
     "styled-components": "^5.3.5",
     "twitter-api-v2": "^1.12.2",
+    "twitter-status": "^0.7.0",
     "twitter-v2": "^1.1.0",
     "web3": "^1.7.3",
     "web3-eth-contract": "^1.7.3"

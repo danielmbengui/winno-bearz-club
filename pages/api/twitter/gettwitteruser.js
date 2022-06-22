@@ -108,7 +108,16 @@ export default async function handler(req, res) {
         //console.log({CLIENT_USER_TWITTER_: v2Client});
         //User
         //return res.status(200).json({ user: new User(connectedUserId, relationship.source.following)});
-        return res.status(200).json({ isFollower:relationship.source.following, isLikedTargetTweet:isLikedTargetTweet, isRetweetedTargetTweet:isRetweetedTargetTweet, isQuotedTargetTweet:isQuotedTargetTweet});
+        
+
+        const tweetOfId20 = await v2Client.singleTweet(targetIdTweet, {
+          expansions: [
+            'entities.mentions.username',
+            'author_id',
+          ],
+        });
+        return res.status(200).json({tweet: tweetOfId20})
+        //return res.status(200).json({ isFollower:relationship.source.following, isLikedTargetTweet:isLikedTargetTweet, isRetweetedTargetTweet:isRetweetedTargetTweet, isQuotedTargetTweet:isQuotedTargetTweet});
     }else{
         return res.status(400).json({ error:'no method post' });
     }  

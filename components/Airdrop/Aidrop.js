@@ -74,28 +74,60 @@ const Airdrop = ({database, contractInfo,}) => {
     //console.log({AUTH: auth});
     //console.log({FOLLOER_USERNAME: getFollowerByUsername('wNFT_NFT')});
     //console.log({TWITTER_tokenS: process.env.TWITTER_tokenS ? JSON.parse(process.env.TWITTER_tokenS) : null})
-    
+    /*
+    useEffect( () => {
+      return async () => {
+        console.log('page airdrop', 'exit');
+        
+        let token = window.sessionStorage.getItem('token');
+        let secret = window.sessionStorage.getItem('secret');
+        if( window.sessionStorage.getItem('token') !== null && window.sessionStorage.getItem('secret') !== null ){
+          window.sessionStorage.removeItem('token');
+          window.sessionStorage.removeItem('secret');
+        }
+        
+
+        if( userFirestore && userTwitter ){
+          await updateUserFirestore(userFirestore, userTwitter.token, userTwitter.secret);
+          console.log('page airdrop', 'update user', userTwitter,);
+        }else{
+          console.log('page airdrop', 'update userFire', auth.currentUser, 'twitter', userTwitter);
+        }
+        //console.log('page airdrop', 'token', token, 'secret', secret);
+      }
+    }, []);
+    */
+
     useEffect( async() => {
       let currentUser = auth.currentUser;
-      if( uid ){
-        const docRef = doc(database, COLLECTION_USERS, uid);
+      let _user = null;
+      if( userFirestore ){
+        const docRef = doc(database, COLLECTION_USERS, userFirestore.uid);
         const docSnap = await getDoc(docRef);
+        
         if (docSnap.exists()) {
-          let _user = docSnap.data();
+          _user = docSnap.data().twitter;
           //let _token = _user.twitter.token;
           //let _secret = _user.twitter.secret;
           console.log("Document data:", docSnap.data().twitter);
-          setUserTwitter(_user.twitter);
+          //setUserTwitter(_user.twitter);
+        }else{
+          console.log("Document data:", 'no document');
+          let token = window.sessionStorage.getItem('token');
+          let secret = window.sessionStorage.getItem('secret');
+          _user = await updateUserFirestore(userFirestore, token, secret);
+          //setUserTwitter(_user);
         }
         
-        console.log('users', auth.currentUser)
+        console.log('users', _user)
+        setUserTwitter(_user);
       }else{
         setUserTwitter(null);
         console.log('users', 'meeerde')
       }
     
-      console.log('auth', currentUser)
-    }, [uid]);
+      console.log('auth', userFirestore, 'twitter', _user)
+    }, [userFirestore]);
 
     
     onAuthStateChanged(auth, (user) => {
@@ -167,6 +199,13 @@ const Airdrop = ({database, contractInfo,}) => {
         const _token = credential.accessToken;
         const _secret = credential.secret;
         const user = result.user;  
+        if( window.sessionStorage.getItem('token') === null ){
+          window.sessionStorage.setItem('token', _token);
+        }
+
+        if( window.sessionStorage.getItem('secret') === null ){
+          window.sessionStorage.setItem('secret', _secret);
+        }
         //const twitterId = result.user.providerData[0].uid;
         //await updateUserFirestore(user, _token, _secret);
        // setUser(user);
@@ -179,7 +218,13 @@ const Airdrop = ({database, contractInfo,}) => {
         // The signed-in user info.
         
         
-        
+        {
+          /*
+<a href="https://twitter.com/intent/tweet?in_reply_to=463440424141459456">Reply</a>
+<a href="https://twitter.com/intent/retweet?tweet_id=463440424141459456">Retweet</a>
+<a href="https://twitter.com/intent/like?tweet_id=463440424141459456">Like</a>
+          */
+        }
         
         //setDisplayNameTwitter(user.providerData[0].displayName);
 

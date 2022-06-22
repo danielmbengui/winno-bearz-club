@@ -23,6 +23,9 @@ import { useTheme, } from '@mui/material/styles';
 import TextMobileStepper from "./TextMobileStepper";
 import { Avatar, Badge } from '@mui/material';
 
+//import 'twitter-status';
+//import Tweet from 'react-tweet';
+
 const Twitter = require('twitter-v2');
 
 //import {TwitterStepFollow} from './TwitterStepper/TwitterStepFollow';
@@ -292,7 +295,7 @@ const StepTweet = ({handleBack, handleNext, userTwitter, isFollowerTwitter}) => 
 
           <div style={{display:'flex', direction:'row', justifyContent:'start', alignContent:'center', alignItems:'center', justifyItems:'start'}}>
         <p style={{textAlign:'left', verticalAlign:'middle'}}>
-          Like + Quote + Retweet <a href={`https://twitter.com/WinnoBearz/status/${tweetId}`} target="_blank">the tweet above</a>.
+          Like + Quote + Retweet <a href={`https://twitter.com/WinnoBearz/status/${tweetId}`} target="_blank">the tweet above</a>. please {"\nHLM rezidanbt"}
         </p>
         </div>
 
@@ -500,7 +503,10 @@ export default function TwitterStepper({signInTwitter, signOutTwitter, userTwitt
 
   <div style={{display:'flex', direction:'row', justifyContent:'center',}}>
   <TextMobileStepper updateUserFirestore={updateUserFirestore} signInTwitter={signInTwitter} signOutTwitter={signOutTwitter} userTwitter={userTwitter} isFollowerTwitter={isFollowerTwitter} />                              
-  </div>     
+  </div>   
+
+  <twitter-status status={'1536357854579412992'}></twitter-status>
+
     <Stepper activeStep={activeStep} orientation="vertical" sx={{display:{xs:'none', sm:'block'},}}>
 
     
