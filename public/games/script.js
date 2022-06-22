@@ -390,10 +390,10 @@ function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleBackground();
     handleBubbles();
-    handleEnemies();
+    
     player.update();
     player.draw();
-    
+    handleEnemies();
     //ctx.fillStyle = 'black';
     //ctx.fillText('Score : ' + score, 10, 50);
     document.getElementById('score').innerHTML = 'Score : ' + score;
