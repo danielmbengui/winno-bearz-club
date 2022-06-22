@@ -1,4 +1,5 @@
-// Parametrer le canvas ---> le carré blanc avec contour noir
+window.onload = function(){
+    // Parametrer le canvas ---> le carré blanc avec contour noir
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 1280;
@@ -330,8 +331,11 @@ function handleBubbles(){
     */
 }
 
+//const myGif = GIF();
+//myGif.load("background.gif");
+
 const background = new Image();
-background.src = 'background_game.png';
+background.src = 'background.png';
 const background1 = new Image();
 background1.src = 'cloud2.png';
 const background2 = new Image();
@@ -366,7 +370,7 @@ function handleBackground(){
     if( BG.x2 < -BG.width){ BG.x2 = BG.width }
     ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
     ctx.drawImage(background, BG.x2, BG.y, BG.width + 10, BG.height);
-    
+    //background.src = 'background.gif';
 /*
     BG.y1 -= gameSpeed;
     if( BG.x1 < -BG.height){ BG.y1 = BG.height }
@@ -414,3 +418,4 @@ window.addEventListener('resize', () => {
     //clickEvent.initEvent('mouseup', true, true);
     //canvas.click();
 })
+}
