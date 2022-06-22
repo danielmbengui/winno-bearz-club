@@ -41,6 +41,11 @@ window.onload = function(){
         // true for mobile device
         //document.write("mobile device");
         device = 'mobile';
+        if(document.querySelector("#canvas1").requestFullscreen)
+            document.querySelector("#canvas1").requestFullscreen();
+        else if(document.querySelector("#canvas1").webkitRequestFullScreen)
+            document.querySelector("#canvas1").webkitRequestFullScreen();
+
         screen.orientation.lock('landscape')
         .then(function() {
             alert('Locked');
