@@ -1,4 +1,9 @@
-// Parametrer le canvas ---> le carré blanc avec contour noir
+
+
+
+window.onload = function(){
+
+    // Parametrer le canvas ---> le carré blanc avec contour noir
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 1024;
@@ -99,9 +104,6 @@ screen.orientation.addEventListener('change', function() {
     }
     */
 });
-
-
-window.onload = function(){
     let device = 'desktop';
     /*
     let orientation = 'portrait';
