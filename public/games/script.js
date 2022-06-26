@@ -551,6 +551,7 @@ level.src = 'sprite/life3.png';
 const salmon = new Image();
 salmon.src = 'sprite/salmon.png';
 
+/*
 const island1 = new Image();
 island1.src = 'island1.png';
 
@@ -559,6 +560,7 @@ island2.src = 'island3.png';
 
 const island3 = new Image();
 island3.src = 'island2.png';
+*/
 
 
 
@@ -674,9 +676,10 @@ function animate(){
     
     //handleLife();
     handleEnemies();
+    handleBees();
     player.update();
     player.draw();
-    handleBees();
+    
     
     
     
