@@ -561,9 +561,6 @@ island2.src = 'island3.png';
 const island3 = new Image();
 island3.src = 'island2.png';
 */
-
-
-
 function handleBackground(){
     BG.x1 -= gameSpeed;
     if( BG.x1 < -BG.width){ BG.x1 = BG.width }
