@@ -1,9 +1,4 @@
-
-
-
-window.onload = function(){
-
-    // Parametrer le canvas ---> le carré blanc avec contour noir
+// Parametrer le canvas ---> le carré blanc avec contour noir
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 1024;
@@ -13,12 +8,17 @@ let score = 0;
 let gameFrame = 0;
 ctx.font = '60px Press Start 2P sans serif bold';
 let gameSpeed = 5;
-let nbLife = 1;
+let nbLife = 3;
 let gameOver = false;
 
 // Parametrer les evenements de la souris...
 // quand on clique sur un endroit, le rond rouge (nous) se déplace a cet endroit
 let canvasPosition = canvas.getBoundingClientRect();
+
+
+window.onload = function(){
+
+
 
 document.getElementById('fullScreen').addEventListener('click', function() {
 	console.log('click full screen');
@@ -96,13 +96,14 @@ const HEART = {
 screen.orientation.addEventListener('change', function() {
 	console.log('Current orientation is ' + screen.orientation.type);
     document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
-    /*
+    
     if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
         alert('NOTHING');
     }else{
         alert('IS OKAY !');
+        openFullscreen();
     }
-    */
+    
 });
     let device = 'desktop';
     /*
@@ -259,6 +260,9 @@ const player = new Player();
 const imgEnemy = new Image();
 imgEnemy.src = 'sprite/enemy.png';
 
+const imgEnemyTouch = new Image();
+imgEnemyTouch.src = 'sprite/enemy_touch.png';
+
 //const imgLife = document.getElementById('heart');
 const enemyTouch = document.createElement('audio');
 enemyTouch.src = 'sprite/touch.mp3';
@@ -332,6 +336,7 @@ class Enemy {
             player.life--;
             //enemyTouch.play();
             //handleGameOver();
+            ctx.drawImage(imgEnemyTouch, this.x - 66, this.y - 68, imgEnemyTouch.width/16, imgEnemyTouch.height/16); 
             if( player.life <= 0 ){
                 gameOver = true;
                 //player.life = 0
@@ -342,7 +347,9 @@ class Enemy {
                 this.y = Math.random() * (canvas.height - 150) + 90;
                 this.speed = Math.random() * 2 + 2;
                 
-            }      
+                 
+            }  
+              
         }
 /*
         level.src = `sprite/life${nbLife}.png`;
@@ -647,12 +654,10 @@ function handleLife(){
         
             //handleGameOver();   
             
-            ctx.fillStyle = 'red';
+            //ctx.fillStyle = 'red';
             //ctx.font();
-            ctx.font = 'bold 40px Courier';
-            ctx.fillText("Game is over! Your score : " + score, 400, 300);
-            
-            
+            //ctx.font = 'bold 40px Courier';
+            //ctx.fillText("Game is over! Your score : " + score, 400, 300);
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
     } 
    
