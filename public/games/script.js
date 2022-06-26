@@ -1,23 +1,90 @@
 // Parametrer le canvas ---> le carré blanc avec contour noir
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-canvas.width = 1280;
-canvas.height = 800;
+canvas.width = 1024;
+canvas.height = 512;
 
 let score = 0;
 let gameFrame = 0;
-ctx.font = '40px Georgia';
+ctx.font = '60px Press Start 2P sans serif bold';
 let gameSpeed = 5;
+let nbLife = 1;
 let gameOver = false;
 
 // Parametrer les evenements de la souris...
 // quand on clique sur un endroit, le rond rouge (nous) se déplace a cet endroit
 let canvasPosition = canvas.getBoundingClientRect();
 
+document.getElementById('fullScreen').addEventListener('click', function() {
+	console.log('click full screen');
+    openFullscreen();
+});
+
+function openFullscreen() {
+    if (canvas.requestFullscreen) {
+        canvas.requestFullscreen();
+    } else if (canvas.webkitRequestFullscreen) { /* Safari */
+    canvas.webkitRequestFullscreen();
+    } else if (canvas.msRequestFullscreen) { /* IE11 */
+    canvas.msRequestFullscreen();
+    }
+  }
+
 const mouse = {
     x: canvas.width/2,
     y: canvas.height/2,
     click: false,
+}
+
+const BG = {
+    //x:0,
+    x1: 0,
+    x2: canvas.width,
+    y: 0,
+    //y1:0,
+    //y2:canvas.height,
+    width: canvas.width,
+    height: canvas.height,
+
+    frame: 0,
+    frameX: 0,
+    frameY: 0,
+    spriteWidth: 1024,
+    spriteHeight: 512,
+}
+
+const SALMON = {
+    //x:0,
+    x1: 0,
+    x2: canvas.width,
+    y: 0,
+    //y1:0,
+    //y2:canvas.height,
+    width: canvas.width,
+    height: canvas.height,
+
+    frame: 0,
+    frameX: 0,
+    frameY: 0,
+    spriteWidth: 700,
+    spriteHeight: 700,
+}
+
+const HEART = {
+    //x:0,
+    x1: 0,
+    x2: canvas.width,
+    y: 0,
+    //y1:0,
+    //y2:canvas.height,
+    width: canvas.width,
+    height: canvas.height,
+
+    frame: 0,
+    frameX: 0,
+    frameY: 0,
+    spriteWidth: 960,
+    spriteHeight: 160,
 }
 
 
@@ -93,23 +160,25 @@ canvas.addEventListener('mouseup', (event) => {
 const playerLeft = new Image();
 playerLeft.src = 'pic-team.png';
 const playerRight = new Image();
-playerRight.src = 'pic-team.png';
-const imgEnemy = new Image();
-imgEnemy.src = 'enemy.png';
+playerRight.src = 'sprite/player.png';
+const imgGameOver = new Image();
+imgGameOver.src = `sprite/game_over.png`;
 
 
 // NOUS
 class Player {
     constructor(){
+        this.life = nbLife;
         this.x = canvas.width;
         this.y = canvas.height/2;
         this.radius = 40;
         this.angle = 0;
+
+        this.frame = 0;
         this.frameX = 0;
         this.frameY = 0;
-        this.frame = 0;
-        this.spriteWidth = 1024;
-        this.spriteHeight = 1024;
+        this.spriteWidth = 64;
+        this.spriteHeight = 64;
     }
 
     update(){
@@ -121,6 +190,19 @@ class Player {
 
         if( mouse.y != this.y ){
             this.y -= dy/20;   
+        }
+
+        if( gameFrame % 15 === 0 ){
+            this.frame++;
+            if( this.frame >= 3 ){
+                this.frame = 0;
+            }
+
+            if( this.frame === 2 ){
+                this.frameX = 0;
+            }else{
+                this.frameX++;
+            }   
         }
     }
 
@@ -142,19 +224,42 @@ class Player {
         ctx.fillRect(this.x, this.y, this.radius, 10);
         */
         
+        
+        
 
         ctx.save();
         //ctx.translate(this.x, this.y);
         
-        
+        /*
         ctx.drawImage(playerLeft, this.frameX * this.spriteWidth, 
             this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight,
             this.x - 53, this.y - 53, this.spriteWidth/10, this.spriteHeight/10);
+            */
+           
+            //handleLife(); 
+
+            //handleLife();
+            
+
+            ctx.drawImage(playerRight, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
+                this.spriteWidth, this.spriteHeight, this.x - 66, this.y - 68, this.spriteWidth * 2, this.spriteHeight * 2);
+
+            console.log('nb life', this.life);
+               
+            
             
             
     }
 }
 
+const player = new Player();
+
+const imgEnemy = new Image();
+imgEnemy.src = 'sprite/enemy.png';
+
+//const imgLife = document.getElementById('heart');
+const enemyTouch = document.createElement('audio');
+enemyTouch.src = 'sprite/touch.mp3';
 // OBSTACLE
 class Enemy {
     constructor(){
@@ -165,8 +270,8 @@ class Enemy {
         this.frame = 0;
         this.frameX = 0;
         this.frameY = 0;
-        this.spriteWidth = 641;
-        this.spriteHeight = 546;
+        this.spriteWidth = 64;
+        this.spriteHeight = 64;
     }
 
     draw(){
@@ -177,11 +282,19 @@ class Enemy {
         ctx.fill();
         */
         
+        
+        
+        
         //ctx.closePath();
         //ctx.fillRect(this.x, this.y, this.radius, 10);
         
+        handleLife();
+
+        
         ctx.drawImage(imgEnemy, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
-           this.spriteWidth, this.spriteHeight, this.x - 63, this.y - 60, this.spriteWidth/5, this.spriteHeight/5);
+           this.spriteWidth, this.spriteHeight, this.x - 66, this.y - 68, this.spriteWidth * 2, this.spriteHeight * 2);
+           
+           
            
         
     }
@@ -193,59 +306,80 @@ class Enemy {
             this.y = Math.random() * (canvas.height - 150) + 90;
             this.speed = Math.random() * 2 + 2;
         }
-/*
-        if( gameFrame % 5 === 0 ){
+
+        if( gameFrame % 15 === 0 ){
             this.frame++;
-            if( this.frame >= 12 ){
+            if( this.frame >= 3 ){
                 this.frame = 0;
             }
 
-            if( this.frame >= 12 ){
-                this.frame = 0;
-            }
+            if( this.frame === 2 ){
+                this.frameX = 0;
+            }else{
+                this.frameX++;
+            }   
         }
-        */
-
+        
         //collision with player
         const dx = this.x - player.x;
         const dy = this.y - player.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        
         if( distance < this.radius + player.radius ){
             console.log('collision', 'player collision enemy');
-            handleGameOver();
-        }
-        
+            player.life--;
+            //enemyTouch.play();
+            //handleGameOver();
+            if( player.life <= 0 ){
+                gameOver = true;
+                //player.life = 0
+              //  handleGameOver();
+            }else{
 
-        
+                this.x = canvas.width + 200;
+                this.y = Math.random() * (canvas.height - 150) + 90;
+                this.speed = Math.random() * 2 + 2;
+                
+            }      
+        }
+/*
+        level.src = `sprite/life${nbLife}.png`;
+        ctx.drawImage(level, HEART.frameX * HEART.spriteWidth, HEART.frameY * HEART.spriteHeight, 
+                HEART.spriteWidth, HEART.spriteHeight, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3);
+                */
     }
 }
 
 
-
-const player = new Player();
 const enemy = new Enemy();
+const gameOverSound = document.createElement('audio');
+gameOverSound.src = 'game_finish.mp3';
 
 function handleEnemies(){
+    enemy.update();   
     enemy.draw();
-    enemy.update();
-    
+   
 }
 
 function handleGameOver(){
-    ctx.fillStyle = 'black';
-    ctx.fillText("Game over, you reahed the score : " + score, 130, 250);
-    gameOver = true;
+    ctx.fillStyle = 'red';
+    //ctx.font();
+    ctx.font = 'bold 40px Courier';
+    ctx.fillText("Game is over! Your score : " + score, 400, 300);
+    const imgGameOver = new Image();
+    imgGameOver.src = `sprite/game_over.png`;
+    ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
+    
+    //gameOverSound.play();
 }
 // Les trucs a chopper
-const bubblesArray = [];
+const beesArray = [];
 const beeImage = new Image();
-beeImage.src = "bee.gif";
+beeImage.src = "sprite/sprite_bee.png";
 const beeHitImage = new Image();
 beeHitImage.src = "bee_hit.png";
 
-class Bubble {
+class Bee {
     constructor(){
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 100;
@@ -254,7 +388,13 @@ class Bubble {
         this.distance;
         this.counted = false;
         this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
-        //bubblePop1.play();
+
+        this.frame = 0;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.spriteWidth = 64;
+        this.spriteHeight = 64;
+        //beePop1.play();
     }
     update(){
         this.y -= this.speed;
@@ -263,9 +403,23 @@ class Bubble {
         const dy = this.y - player.y;
         this.distance = Math.sqrt(dx*dx + dy*dy)
         //ctx.moveTo(this.x, this.y);
-        //console.log(bubblesArray.length)
+        //console.log(beesArray.length)
+
+        if( gameFrame % 15 === 0 ){
+            this.frame++;
+            if( this.frame >= 3 ){
+                this.frame = 0;
+            }
+
+            if( this.frame === 2 ){
+                this.frameX = 0;
+            }else{
+                this.frameX++;
+            }   
+        }
     }
     draw(){
+        
         /*
         ctx.fillStyle = 'green';
         ctx.beginPath();
@@ -276,14 +430,26 @@ class Bubble {
         */
         
         
+        
+        
         //ctx.drawImage(beeImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
+
+
         
-        
+        ctx.drawImage(beeImage, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
+            this.spriteWidth, this.spriteHeight, this.x - 60, this.y - 72, this.spriteWidth * 2, this.spriteHeight * 2);
+            
+
+            
+
+
+        /*
         if( !this.counted ){
             ctx.drawImage(beeImage, this.x - 60, this.y - 72, this.radius * 2.8, this.radius * 2.8);
         }else{
             ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
         }
+        */
         
         
         
@@ -300,72 +466,68 @@ const beeSound1 = document.createElement('audio');
 beeSound1.src = 'flyswatter4.wav';
 const beeSoundOut = document.createElement('audio');
 beeSoundOut.src = 'bee.wav';
+
+
 //const beeSound1 = document.createElement('audio');
 
 
-function handleBubbles(){
+function handleBees(){
     if( gameFrame % 50 === 0 ){
-        bubblesArray.push(new Bubble());
+        beesArray.push(new Bee());
         
         //beeSound.play();
-        //bubblePop1.play();
-        //console.log(bubblesArray.length)
+        //beePop1.play();
+        //console.log(beesArray.length)
     }
     
-    for (let i = 0; i < bubblesArray.length; i++) {
-        //const element = bubblesArray[i];
+    for (let i = 0; i < beesArray.length; i++) {
+        //const element = beesArray[i];
             
-            if( bubblesArray[i].y < 0 - bubblesArray[i].radius * 2 ){
-                //bubblePop1.play();
-                bubblesArray.splice(i, 1);
+            if( beesArray[i].y < 0 - beesArray[i].radius * 2 ){
+                //beePop1.play();
+                beesArray.splice(i, 1);
                 console.log('finito : ' + i);
                // beeSound.muted = false;
-               //bubblePop1.src = 'bee.wav';
+               //beePop1.src = 'bee.wav';
                //beeSoundOut.play();
             
             }
 
-            if( bubblesArray[i] ){
-                if( bubblesArray[i].distance < bubblesArray[i].radius + player.radius){
+            if( beesArray[i] ){
+                if( beesArray[i].distance < beesArray[i].radius + player.radius){
                     console.log('collision')
-                    if( !bubblesArray[i].counted ){
-                        
+                    if( !beesArray[i].counted ){
                         /*
-                        if( bubblesArray[i].sound == 'sound1' ){
+                        if( beesArray[i].sound == 'sound1' ){
                             beeSound.play();
                         }else {
                             beeSound1.play();
                         }
                         */
-                        
-                        
-                        
-                        
-                        
                         //beeHitImage.src = 'bee_hit.png';
-                        ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
+                        //ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
                         
                         //beeSound.play();
                         score++;
-                        bubblesArray[i].counted = true;
-                        bubblesArray[i].update();
-                        bubblesArray[i].draw();
-                        bubblesArray.splice(i, 1);
+                        beesArray[i].counted = true;
+                        beesArray[i].update();
+                        beesArray[i].draw();
+                        beesArray.splice(i, 1);
                     }
                 }
             }
         
-            if( bubblesArray[i] ){
-                bubblesArray[i].update();
-                bubblesArray[i].draw();
+            if( beesArray[i] ){
+                beesArray[i].update();
+                beesArray[i].draw();
             }
     }
     /*
-    for (let i = 0; i < bubblesArray.length; i++) {
-        //const element = bubblesArray[i];
+    for (let i = 0; i < beesArray.length; i++) {
+        //const element = beesArray[i];
         
-        if( bubblesArray[i].y < 0 ){
-            bubblesArray.splice(i, 1);
+        if( beesArray[i].y < 0 ){
+            beesArray.splice(i, 1);
         }
     }
     */
@@ -375,11 +537,17 @@ function handleBubbles(){
 //myGif.load("background.gif");
 
 const background = new Image();
-background.src = 'background.png';
+background.src = 'sprite/background.png';
 const background1 = new Image();
-background1.src = 'cloud2.png';
+background1.src = 'sprite/background1.png';
 const background2 = new Image();
-background2.src = 'cloud3.png';
+background2.src = 'sprite/background2.png';
+
+const level = new Image();
+level.src = 'sprite/life3.png';
+
+const salmon = new Image();
+salmon.src = 'sprite/salmon.png';
 
 const island1 = new Image();
 island1.src = 'island1.png';
@@ -390,26 +558,59 @@ island2.src = 'island3.png';
 const island3 = new Image();
 island3.src = 'island2.png';
 
-const BG = {
-    //x:0,
-    x1: 0,
-    x2: canvas.width,
-    y: 0,
-    //y1:0,
-    //y2:canvas.height,
-    width: canvas.width,
-    height: canvas.height,
-}
+
 
 function handleBackground(){
-    
     BG.x1 -= gameSpeed;
     if( BG.x1 < -BG.width){ BG.x1 = BG.width }
 
     BG.x2 -= gameSpeed;
     if( BG.x2 < -BG.width){ BG.x2 = BG.width }
-    ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
-    ctx.drawImage(background, BG.x2, BG.y, BG.width + 10, BG.height);
+    //ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
+    //ctx.drawImage(background, BG.x2, BG.y, BG.width + 10, BG.height);
+
+    ctx.drawImage(background2, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+        BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y, BG.width, BG.height);
+        ctx.drawImage(background2, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+            BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.spriteWidth, BG.spriteHeight);
+
+    ctx.drawImage(salmon, SALMON.frameX * SALMON.spriteWidth, SALMON.frameY * SALMON.spriteHeight, 
+        SALMON.spriteWidth, SALMON.spriteHeight, SALMON.width/2, SALMON.height/2, SALMON.spriteWidth/3, SALMON.spriteHeight/3);
+
+        
+        
+        
+
+        //ctx.drawImage(level, HEART.x1, HEART.y, this.radius * 2.8, this.radius * 2.8);
+    //ctx.drawImage(salmon, BG.x1, BG.y, background.width, BG.height);
+
+        if( gameFrame % 30 === 0 ){
+            BG.frame++;
+            if( BG.frame >= 2 ){
+                BG.frame = 0;
+            }
+
+            if( BG.frame === 1 ){
+                BG.frameX = 0;
+            }else{
+                BG.frameX++;
+            }   
+        }
+
+        if( gameFrame % 15 === 0 ){
+            SALMON.frame++;
+            if( SALMON.frame >= 3 ){
+                SALMON.frame = 0;
+            }
+
+            if( SALMON.frame === 2 ){
+                SALMON.frameX = 0;
+            }else{
+                SALMON.frameX++;
+            }   
+        }
+
+        
     //background.src = 'background.gif';
 /*
     BG.y1 -= gameSpeed;
@@ -429,24 +630,68 @@ function handleBackground(){
   //  ctx.drawImage(island2, BG.x1 + background.width, BG.y, background1.width, BG.height);
    // ctx.drawImage(island3, BG.x1 + (island1.width*2) + (island2.width*2), BG.y, BG.width/2, BG.height);
 }
+
+const imgScore = new Image();
+imgScore.src = 'sprite/bee_score.png';
+
+function handleLife(){
+    console.log('nb life', player.life);
+    if( player.life >= 0 ){
+        level.src = `sprite/life${player.life}.png`;
+            //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3);
+             
+    }else{
+        //player.life = 0;
+        level.src = `sprite/life0.png`;
+        
+            //handleGameOver();   
+            
+            ctx.fillStyle = 'red';
+            //ctx.font();
+            ctx.font = 'bold 40px Courier';
+            ctx.fillText("Game is over! Your score : " + score, 400, 300);
+            
+            
+            ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
+    } 
+   
+    ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3); 
+    ctx.drawImage(imgScore, HEART.x1 + 20 + HEART.spriteWidth/3, HEART.y + 10, HEART.spriteHeight/3, HEART.spriteHeight/3);  
+    ctx.fillStyle = 'red';
+    //ctx.font();
+    ctx.font = '60px VT323 bold';
+    ctx.fillText("Score : " + score, HEART.x1 + 30 + HEART.spriteWidth/3 + HEART.spriteHeight/3, HEART.spriteHeight/3);
+    
+}
     // Animation loop
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     handleBackground();
-    handleBubbles();
+    
+    
+    
+    //handleLife();
     handleEnemies();
     player.update();
     player.draw();
+    handleBees();
+    
+    
+    
     
     //ctx.fillStyle = 'black';
     //ctx.fillText('Score : ' + score, 10, 50);
     document.getElementById('score').innerHTML = 'Score : ' + score;
+    document.getElementById('life').innerHTML = 'Life : ' + player.life;
+    //imgLife.src = `sprite/life${nbLife}.png`;
+    //level.src = `sprite/life${nbLife}.png`;
     gameFrame++;
     //console.log(gameFrame);
-    if( !gameOver ){
+    if( player.life >= 0 ){
+        //level.src = `sprite/life${nbLife}.png`;
         requestAnimationFrame(animate);  
     }
-     
+    
 }
 
 animate();

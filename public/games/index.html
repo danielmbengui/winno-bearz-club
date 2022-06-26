@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save Winno Game</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Raleway:wght@800&family=VT323&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap" rel="stylesheet" />
 
 </head>
 
@@ -14,10 +18,20 @@
         <source src="fishin.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <span id="score">Score : 0</span>
+    <span id="score">Score : 0 / </span>
+    <span id="life">Life : 0 / </span>
+
+    <button id="fullScreen">Full screen</button>
+    <!-- 
+
+    <span id="life">Life : 3</span><span>Life : <img id="heart" width="50%" height="50%" src="sprite/life3.png" alt="life" /></span>
+    -->
+    
 <canvas id="canvas1">
     
     <script src="script.js"></script>
 </canvas>
+
+
 </body>
 </html>
