@@ -70,13 +70,18 @@ document.getElementById('fullScreen').addEventListener('click', function() {
 });
 
 function openFullscreen() {
-    if (canvas.requestFullscreen) {
-        canvas.requestFullscreen();
-    } else if (canvas.webkitRequestFullscreen) { /* Safari */
-    canvas.webkitRequestFullscreen();
-    } else if (canvas.msRequestFullscreen) { /* IE11 */
-    canvas.msRequestFullscreen();
+    if (page.requestFullscreen) {
+        page.requestFullscreen();
+    } else if (page.webkitRequestFullscreen) { /* Safari */
+    page.webkitRequestFullscreen();
+    } else if (page.msRequestFullscreen) { /* IE11 */
+    page.msRequestFullscreen();
     }
+    //canvasPosition = canvas.getBoundingClientRect();
+    //mouse.x = canvas.width/2;
+    //mouse.y = canvas.height/2;
+    //mouse.click= false;
+
   }
 
 
@@ -124,10 +129,11 @@ screen.orientation.addEventListener('change', function() {
     
     if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
         //alert('NOTHING');
-    }else{
         if( isMobile ){
             //openFullscreen();
         }
+    }else{
+        
         //alert('IS OKAY !');
         //openFullscreen();
     }
