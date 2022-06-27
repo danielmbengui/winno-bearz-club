@@ -1,8 +1,13 @@
 // Parametrer le canvas ---> le carré blanc avec contour noir
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
+canvas.width = screen.width * (53.5/100);
+canvas.height = screen.height * (47.5/100);
+
 canvas.width = 1024;
 canvas.height = 512;
+//var heightRatio = 3;
+//canvas.height = canvas.width / heightRatio;
 
 let score = 0;
 let gameFrame = 0;
@@ -15,6 +20,8 @@ let gameOver = false;
 // quand on clique sur un endroit, le rond rouge (nous) se déplace a cet endroit
 let canvasPosition = canvas.getBoundingClientRect();
 
+console.log('screen width', screen.width, 'screen height', screen.height);
+console.log('canvas', canvas.width, 'canvas width', canvas.height,);
 
 window.onload = function(){
 
@@ -41,22 +48,7 @@ const mouse = {
     click: false,
 }
 
-const BG = {
-    //x:0,
-    x1: 0,
-    x2: canvas.width,
-    y: 0,
-    //y1:0,
-    //y2:canvas.height,
-    width: canvas.width,
-    height: canvas.height,
 
-    frame: 0,
-    frameX: 0,
-    frameY: 0,
-    spriteWidth: 1024,
-    spriteHeight: 512,
-}
 
 const SALMON = {
     //x:0,
@@ -98,10 +90,10 @@ screen.orientation.addEventListener('change', function() {
     document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
     
     if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
-        alert('NOTHING');
+        //alert('NOTHING');
     }else{
-        alert('IS OKAY !');
-        openFullscreen();
+        //alert('IS OKAY !');
+        //openFullscreen();
     }
     
 });
@@ -124,8 +116,7 @@ screen.orientation.addEventListener('change', function() {
     }
 
     
-      console.log('device', device, 'screen width', screen.width, 'screen height', screen.height);
-      console.log('canvas', canvas.width, 'canvas width', canvas.height,);
+     
     
         
 const mySound = document.getElementById('sound');
@@ -247,7 +238,7 @@ class Player {
             ctx.drawImage(playerRight, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
                 this.spriteWidth, this.spriteHeight, this.x - 66, this.y - 68, this.spriteWidth * 2, this.spriteHeight * 2);
 
-            console.log('nb life', this.life);
+            //console.log('nb life', this.life);
                
             
             
@@ -294,8 +285,8 @@ class Enemy {
         //ctx.closePath();
         //ctx.fillRect(this.x, this.y, this.radius, 10);
         
+        
         handleLife();
-
         
         ctx.drawImage(imgEnemy, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
            this.spriteWidth, this.spriteHeight, this.x - 66, this.y - 68, this.spriteWidth * 2, this.spriteHeight * 2);
@@ -332,11 +323,10 @@ class Enemy {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if( distance < this.radius + player.radius ){
-            console.log('collision', 'player collision enemy');
+            //console.log('collision', 'player collision enemy');
             player.life--;
             //enemyTouch.play();
             //handleGameOver();
-            ctx.drawImage(imgEnemyTouch, this.x - 66, this.y - 68, imgEnemyTouch.width/16, imgEnemyTouch.height/16); 
             if( player.life <= 0 ){
                 gameOver = true;
                 //player.life = 0
@@ -495,7 +485,7 @@ function handleBees(){
             if( beesArray[i].y < 0 - beesArray[i].radius * 2 ){
                 //beePop1.play();
                 beesArray.splice(i, 1);
-                console.log('finito : ' + i);
+                //console.log('finito : ' + i);
                // beeSound.muted = false;
                //beePop1.src = 'bee.wav';
                //beeSoundOut.play();
@@ -504,7 +494,7 @@ function handleBees(){
 
             if( beesArray[i] ){
                 if( beesArray[i].distance < beesArray[i].radius + player.radius){
-                    console.log('collision')
+                    //console.log('collision')
                     if( !beesArray[i].counted ){
                         /*
                         if( beesArray[i].sound == 'sound1' ){
@@ -568,26 +558,51 @@ island2.src = 'island3.png';
 const island3 = new Image();
 island3.src = 'island2.png';
 */
+const BG = {
+    //x:0,
+    x1: 0,
+    x2: canvas.width,
+    y: 0,
+    //y1:0,
+    //y2:canvas.height,
+    width: canvas.width,
+    height: canvas.height,
+
+    frame: 0,
+    frameX: 0,
+    frameY: 0,
+    spriteWidth: 1024,
+    spriteHeight: 512,
+}
+
 function handleBackground(){
     BG.x1 -= gameSpeed;
-    if( BG.x1 < -BG.width){ BG.x1 = BG.width }
+    if( BG.x1 < -BG.width){ BG.x1 = BG.width-3; }
 
     BG.x2 -= gameSpeed;
-    if( BG.x2 < -BG.width){ BG.x2 = BG.width }
+    if( BG.x2 < -BG.width){ BG.x1 = 0;BG.x2 = BG.width; }
     //ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
     //ctx.drawImage(background, BG.x2, BG.y, BG.width + 10, BG.height);
-
-    ctx.drawImage(background2, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
-        BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y, BG.width, BG.height);
+    if( score < 5 ){
+        ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y, BG.width, BG.height);
+            ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);
+    }else if( score < 10 ){
         ctx.drawImage(background2, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
-            BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.spriteWidth, BG.spriteHeight);
+            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y, BG.width, BG.height);
+            ctx.drawImage(background2, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);
+    }else {
+        ctx.drawImage(background1, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y, BG.width, BG.height);
+            ctx.drawImage(background1, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight, 
+                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);
+    }
+    
 
     ctx.drawImage(salmon, SALMON.frameX * SALMON.spriteWidth, SALMON.frameY * SALMON.spriteHeight, 
         SALMON.spriteWidth, SALMON.spriteHeight, SALMON.width/2, SALMON.height/2, SALMON.spriteWidth/3, SALMON.spriteHeight/3);
-
-        
-        
-        
 
         //ctx.drawImage(level, HEART.x1, HEART.y, this.radius * 2.8, this.radius * 2.8);
     //ctx.drawImage(salmon, BG.x1, BG.y, background.width, BG.height);
@@ -618,7 +633,7 @@ function handleBackground(){
             }   
         }
 
-        
+        //handleLife();
     //background.src = 'background.gif';
 /*
     BG.y1 -= gameSpeed;
@@ -643,15 +658,16 @@ const imgScore = new Image();
 imgScore.src = 'sprite/bee_score.png';
 
 function handleLife(){
-    console.log('nb life', player.life);
+    //console.log('nb life', player.life);
     if( player.life >= 0 ){
         level.src = `sprite/life${player.life}.png`;
             //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3);
+        ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3); 
              
     }else{
         //player.life = 0;
         level.src = `sprite/life0.png`;
-        
+        ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3); 
             //handleGameOver();   
             
             //ctx.fillStyle = 'red';
@@ -661,7 +677,7 @@ function handleLife(){
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
     } 
    
-    ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3); 
+    
     ctx.drawImage(imgScore, HEART.x1 + 20 + HEART.spriteWidth/3, HEART.y + 10, HEART.spriteHeight/3, HEART.spriteHeight/3);  
     ctx.fillStyle = 'red';
     //ctx.font();
@@ -676,6 +692,7 @@ function animate(){
     
     
     
+    //handleLife();
     //handleLife();
     handleEnemies();
     handleBees();
@@ -706,6 +723,9 @@ animate();
 }
 
 window.addEventListener('resize', () => {
+    console.log('resize screen')
+    //canvas.width = screen.width * (53.5/100);
+    //canvas.height = screen.height * (47.5/100);
     canvasPosition = canvas.getBoundingClientRect();
     //var clickEvent = document.createEvent('MouseEvents');
     //clickEvent.initEvent('mouseup', true, true);
