@@ -51,13 +51,16 @@ const mouse = {
 
 window.onload = function(){
 
+    const mySound = document.getElementById('sound');
+mySound.voulme = 40;
     
 
 
 document.getElementById('startGame').addEventListener('click', function() {
 	console.log('Start game');
-    //openFullscreen();
+    openFullscreen();
     animate();
+    mySound.play();
     //openFullscreen();
 });
 
@@ -146,8 +149,7 @@ screen.orientation.addEventListener('change', function() {
      
     
         
-const mySound = document.getElementById('sound');
-mySound.voulme = 40;
+
 
 //const beeSound = document.getElementById('beeSound');
 
@@ -307,22 +309,10 @@ class Enemy {
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
         */
-        
-        
-        
-        
-        //ctx.closePath();
-        //ctx.fillRect(this.x, this.y, this.radius, 10);
-        
-        
         handleLife();
         
         ctx.drawImage(imgEnemy, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
-           this.spriteWidth, this.spriteHeight, this.x - 66/ratioDevice, this.y - 68/ratioDevice, this.spriteWidth * 2 / ratioDevice, this.spriteHeight * 2 / ratioDevice);
-           
-           
-           
-        
+           this.spriteWidth, this.spriteHeight, this.x - 66/ratioDevice, this.y - 68/ratioDevice, this.spriteWidth * 2 / ratioDevice, this.spriteHeight * 2 / ratioDevice);   
     }
 
     update(){
@@ -354,7 +344,7 @@ class Enemy {
         if( distance < this.radius + player.radius ){
             //console.log('collision', 'player collision enemy');
             player.life--;
-            //enemyTouch.play();
+            enemyTouch.play();
             //handleGameOver();
             if( player.life <= 0 ){
                 gameOver = true;
@@ -525,13 +515,13 @@ function handleBees(){
                 if( beesArray[i].distance < beesArray[i].radius + player.radius){
                     //console.log('collision')
                     if( !beesArray[i].counted ){
-                        /*
+                        
                         if( beesArray[i].sound == 'sound1' ){
                             beeSound.play();
                         }else {
                             beeSound1.play();
                         }
-                        */
+                        
                         //beeHitImage.src = 'bee_hit.png';
                         //ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
                         
@@ -696,6 +686,7 @@ function handleLife(){
     }else{
         //player.life = 0;
         level.src = `sprite/life0.png`;
+        ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
         ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
             //handleGameOver();   
             
@@ -703,7 +694,7 @@ function handleLife(){
             //ctx.font();
             //ctx.font = 'bold 40px Courier';
             //ctx.fillText("Game is over! Your score : " + score, 400, 300);
-            ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
+            
     } 
    
     
