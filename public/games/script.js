@@ -354,6 +354,8 @@ class Enemy {
             //handleGameOver();
             if( player.life <= 0 ){
                 gameOver = true;
+                mySound.pause();
+            mySound.currentTime = 0; 
                 //player.life = 0
               //  handleGameOver();
             }else{
@@ -700,7 +702,8 @@ function handleLife(){
             //ctx.font();
             //ctx.font = 'bold 40px Courier';
             //ctx.fillText("Game is over! Your score : " + score, 400, 300);
-            
+            //mySound.stop();
+              
     } 
    
     
