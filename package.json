@@ -51,6 +51,7 @@
     "twitter-api-v2": "^1.12.2",
     "twitter-status": "^0.7.0",
     "twitter-v2": "^1.1.0",
+    "use-image": "^1.0.12",
     "web3": "^1.7.3",
     "web3-eth-contract": "^1.7.3"
   }

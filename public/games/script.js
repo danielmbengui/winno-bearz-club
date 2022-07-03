@@ -355,24 +355,16 @@ class Enemy {
             if( player.life <= 0 ){
                 gameOver = true;
                 mySound.pause();
-            mySound.currentTime = 0; 
+                mySound.currentTime = 0; 
                 //player.life = 0
               //  handleGameOver();
             }else{
-
                 this.x = canvas.width + 200;
                 this.y = Math.random() * (canvas.height - 150) + 90;
                 this.speed = Math.random() * 2 + 2;
-                
-                 
             }  
               
         }
-/*
-        level.src = `sprite/life${nbLife}.png`;
-        ctx.drawImage(level, HEART.frameX * HEART.spriteWidth, HEART.frameY * HEART.spriteHeight, 
-                HEART.spriteWidth, HEART.spriteHeight, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3);
-                */
     }
 }
 
@@ -383,8 +375,7 @@ gameOverSound.src = 'game_finish.mp3';
 
 function handleEnemies(){
     enemy.update();   
-    enemy.draw();
-   
+    enemy.draw(); 
 }
 
 function handleGameOver(){
@@ -455,33 +446,9 @@ class Bee {
         ctx.stroke();
         */
         
-        
-        
-        
-        //ctx.drawImage(beeImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
-
-
-        
         ctx.drawImage(beeImage, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
             this.spriteWidth, this.spriteHeight, this.x - 60/ratioDevice, this.y - 72/ratioDevice, this.spriteWidth * 2 / ratioDevice, this.spriteHeight * 2 / ratioDevice);
             
-
-            
-
-
-        /*
-        if( !this.counted ){
-            ctx.drawImage(beeImage, this.x - 60, this.y - 72, this.radius * 2.8, this.radius * 2.8);
-        }else{
-            ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
-        }
-        */
-        
-        
-        
-        
-        
-        //ctx.drawImage(beeImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
     }
 }
 
@@ -500,10 +467,6 @@ beeSoundOut.src = 'bee.wav';
 function handleBees(){
     if( gameFrame % 50 === 0 ){
         beesArray.push(new Bee());
-        
-        //beeSound.play();
-        //beePop1.play();
-        //console.log(beesArray.length)
     }
     
     for (let i = 0; i < beesArray.length; i++) {
@@ -548,15 +511,6 @@ function handleBees(){
                 beesArray[i].draw();
             }
     }
-    /*
-    for (let i = 0; i < beesArray.length; i++) {
-        //const element = beesArray[i];
-        
-        if( beesArray[i].y < 0 ){
-            beesArray.splice(i, 1);
-        }
-    }
-    */
 }
 
 //const myGif = GIF();
@@ -695,15 +649,7 @@ function handleLife(){
         //player.life = 0;
         level.src = `sprite/life0.png`;
         ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
-        ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
-            //handleGameOver();   
-            
-            //ctx.fillStyle = 'red';
-            //ctx.font();
-            //ctx.font = 'bold 40px Courier';
-            //ctx.fillText("Game is over! Your score : " + score, 400, 300);
-            //mySound.stop();
-              
+        ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);               
     } 
    
     
@@ -727,11 +673,6 @@ function animate(){
     handleBees();
     player.update();
     player.draw();
-    
-    
-    
-    
-    
     //ctx.fillStyle = 'black';
     //ctx.fillText('Score : ' + score, 10, 50);
     document.getElementById('score').innerHTML = 'Score : ' + score;
