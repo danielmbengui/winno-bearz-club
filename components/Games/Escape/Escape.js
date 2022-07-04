@@ -107,6 +107,10 @@ const Escape = ({database, contractInfo,}) => {
 
             const imgEnemy = new window.Image();
             imgEnemy.src = link + 'enemy-sprite.png';
+            const imgEnemy1 = new window.Image();
+            imgEnemy1.src = link + 'enemy1-sprite.png';
+            const imgEnemy2 = new window.Image();
+            imgEnemy2.src = link + 'enemy2-sprite.png';
 
             const beeImage = new window.Image();
             beeImage.src = link + "bee-sprite.png";
@@ -135,7 +139,9 @@ const Escape = ({database, contractInfo,}) => {
             level, imgScore, imgGameOver, animate);
 
             const winno = new Winno(escapeGame, playerImage, playerTouchImage);
-            const belzeBear = new BelzeBearz(escapeGame, winno, imgEnemy);
+            const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed, imgEnemy);
+            const belzeBear1 = new BelzeBearz(escapeGame, winno, gameSpeed + 1,  imgEnemy1);
+            const belzeBear2 = new BelzeBearz(escapeGame, winno, gameSpeed + 2, imgEnemy2);
 
 
             const player = new Player(canvas, ctx, mouse, nbLife, gameFrame, ratioDevice, playerImage, level, imgGameOver, imgScore);
@@ -199,6 +205,16 @@ const Escape = ({database, contractInfo,}) => {
 
                 belzeBear.update();
                 belzeBear.draw();
+
+                if( escapeGame.score >= 5 ){
+                    belzeBear1.update();
+                    belzeBear1.draw();
+                }
+
+                if( escapeGame.score >= 10 ){
+                    belzeBear2.update();
+                    belzeBear2.draw();
+                }
                 /*
                 if( player.score === 5 ){
                     const enemy1 = new Enemy(canvas, ctx, mouse, player, gameFrame, ratioDevice, imgEnemy);
@@ -317,6 +333,8 @@ const Escape = ({database, contractInfo,}) => {
                     escapeGame.handleLife();
                     winno.draw();
                     belzeBear.draw();
+                    belzeBear1.draw();
+                    belzeBear2.draw();
                     handleBees();
                     
                 }

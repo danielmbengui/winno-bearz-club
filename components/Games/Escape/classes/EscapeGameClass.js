@@ -137,7 +137,7 @@ class EscapeGame {
         if( this.gameOver ){
             //level.src = link + "life0.png";
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
-            //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
+            ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
             setTimeout(() => {
                 console.log("Delayed for 1 second.", level);
                 //level.src = link + "life.png";

@@ -1,10 +1,11 @@
 class BelzeBearz {
-    constructor(game, player = null, imgEnemy){
+    constructor(game, player = null, enemySpeed = 0, imgEnemy){
         this.game = game;
         this.canvas = game.canvas;
         this.ctx = game.ctx;
         this.mouse = game.mouse;
         this.player = player;
+        this.enemySpeed = enemySpeed > 0 ? enemySpeed : game.gameSpeed;
         this.imgEnemy = imgEnemy;
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
@@ -13,7 +14,7 @@ class BelzeBearz {
         this.x = game.canvas.width + 200;
         this.y = Math.random() * (game.canvas.height - 150) + 90;
         this.radius = 40/game.ratioDevice;
-        this.speed = Math.random() * (game.gameSpeed - 3) + 2;
+        this.speed = Math.random() * ((enemySpeed > 0 ? enemySpeed : game.gameSpeed) - 3) + 2;
         this.frame = 0;
         this.frameX = 0;
         this.frameY = 0;
