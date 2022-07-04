@@ -49,17 +49,6 @@ const Escape = ({database, contractInfo,}) => {
     const openFullscreen = () => {
         refButtonStart.current.style.display = 'none';
         
-        if( isMobile() ){
-            screen.orientation.lock("landscape-primary")
-            .then(function() {
-               // _LOCK_BUTTON.style.display = 'none';
-               // _UNLOCK_BUTTON.style.display = 'block';
-            })
-            .catch(function(error) {
-                alert(error);
-            });
-        }
-        
         if (refCanvas.current.requestFullscreen) {
             refCanvas.current.requestFullscreen();
         } else if (refCanvas.current.webkitRequestFullscreen) { /* Safari */
@@ -67,6 +56,8 @@ const Escape = ({database, contractInfo,}) => {
         } else if (refCanvas.current.msRequestFullscreen) { /* IE11 */
             refCanvas.current.msRequestFullscreen();
         }
+
+        
 
         
         //canvasPosition = canvas.getBoundingClientRect();
@@ -427,6 +418,16 @@ const Escape = ({database, contractInfo,}) => {
                 initGame();
                 if( isMobile() ){
                     openFullscreen();
+                    if( isMobile() ){
+                        screen.orientation.lock("landscape-primary")
+                        .then(function() {
+                           // _LOCK_BUTTON.style.display = 'none';
+                           // _UNLOCK_BUTTON.style.display = 'block';
+                        })
+                        .catch(function(error) {
+                            alert(error);
+                        });
+                    }
                 }
             }}>Start a game</Button>
         
