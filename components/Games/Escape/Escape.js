@@ -9,6 +9,7 @@ import useImage from 'use-image';
 
 
 
+
 import Player from './classes/PlayerClass';
 import Enemy from './classes/EnemyClass';
 import Bee from './classes/BeeClass';
@@ -22,6 +23,8 @@ import BelzeBearz from './classes/BelzeBearzClass';
 const Escape = ({database, contractInfo,}) => {
     const theme = useTheme();
     const refCanvas = useRef();
+    const refDiv = useRef();
+    const refButtonStart = useRef();
     const refSound = useRef();
     //const [canvas, setCanvas] = useState();
     const [canvasPosition, setCanvasPosition] = useState();
@@ -43,13 +46,42 @@ const Escape = ({database, contractInfo,}) => {
         return false;
     }
 
+    const openFullscreen = () => {
+        refButtonStart.current.style.display = 'none';
+        
+        if( isMobile() ){
+            screen.orientation.lock("landscape-primary")
+            .then(function() {
+               // _LOCK_BUTTON.style.display = 'none';
+               // _UNLOCK_BUTTON.style.display = 'block';
+            })
+            .catch(function(error) {
+                alert(error);
+            });
+        }
+        
+        if (refCanvas.current.requestFullscreen) {
+            refCanvas.current.requestFullscreen();
+        } else if (refCanvas.current.webkitRequestFullscreen) { /* Safari */
+            refCanvas.current.webkitRequestFullscreen();
+        } else if (refCanvas.current.msRequestFullscreen) { /* IE11 */
+            refCanvas.current.msRequestFullscreen();
+        }
 
+        
+        //canvasPosition = canvas.getBoundingClientRect();
+        //mouse.x = canvas.width/2;
+        //mouse.y = canvas.height/2;
+        //mouse.click= false;
     
-    useEffect(()=>{
-        console.log('refCanvas NORM', refCanvas.current, 'document NORM', document.getElementById('oook'))
+      }
+
+    const initGame = () => {
+        console.log('refCanvas NORM', window.page, 'document NORM', document.getElementById('oook'))
         if( refCanvas.current ){
-            refCanvas.current.width = 800;
-            refCanvas.current.height = 500;
+            //refCanvas.current.width = 800;
+            //refCanvas.current.height = 500;
+            refCanvas.current.style.display = 'block';
             const canvas = refCanvas.current;
             const ctx = canvas.getContext('2d');
             //canvas.width = screen.width * (53.5/100);
@@ -77,6 +109,7 @@ const Escape = ({database, contractInfo,}) => {
                 canvas.height = 250;
                 ratioDevice = 2;
             }
+            
             let canvasPosition = canvas.getBoundingClientRect();
             const mouse = {
                 x: canvas.width/2,
@@ -331,56 +364,24 @@ const Escape = ({database, contractInfo,}) => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     escapeGame.handleBackground();
                     escapeGame.handleLife();
-                    winno.draw();
+                    
                     belzeBear.draw();
                     belzeBear1.draw();
                     belzeBear2.draw();
+                    winno.draw();
                     handleBees();
                     
-                }
-                //requestAnimationFrame(animate);
-                /*
-                //handleBackground();
-                //handleLife();
-                //handleLife();
-                game.animate();
-                //game.handleLife();
-                //player.handleLife();
-                //handleLife();
-                handleEnemies();
-                //this.enemy.handleEnemies();
-                handleBees();
-                player.update();
-                player.draw();
-                game.handleLife();
-                //ctx.fillStyle = 'black';
-                //ctx.fillText('Score : ' + score, 10, 50);
-                //document.getElementById('score').innerHTML = 'Score : ' + score;
-                //document.getElementById('life').innerHTML = 'Life : ' + player.life;
-                //imgLife.src = `sprite/life${nbLife}.png`;
-                //level.src = `sprite/life${nbLife}.png`;
-                gameFrame++;
-                game.gameFrame++;
-                enemy.gameFrame++;
-                player.gameFrame++;
-
-                for (let i = 0; i < beesArray.length; i++) {
-                    beesArray[i].gameFrame++;
-                }
-                
-                console.log('page game nb life', player.life, player.gameOver);
-                if( !player.gameOver ){
-                    //level.src = `sprite/life${nbLife}.png`;
-                    requestAnimationFrame(animate);  
-                }
-                */
-                
+                } 
             }
             animate();
-            //game.animate();
 
             window.addEventListener('resize', () => {
                 console.log('resize screen');
+                canvasPosition = canvas.getBoundingClientRect();
+            });
+            
+            window.addEventListener('fullscreenchange', () => {
+                console.log('full screen');
                 canvasPosition = canvas.getBoundingClientRect();
             });
 
@@ -389,8 +390,12 @@ const Escape = ({database, contractInfo,}) => {
                 canvasPosition = canvas.getBoundingClientRect();
             });
         }
+    }
 
 
+    
+    useEffect(()=>{
+        
     }, []);
 
 
@@ -407,13 +412,23 @@ const Escape = ({database, contractInfo,}) => {
           paddingTop:'50px',
           paddingBottom:'50px',
           color:theme.palette.text.primary,
-          background:'blue'
+          //background:'blue'
       }}>
-        <div className="container">
+        <div ref={refDiv} className="container">
         
 
 
         <div className={`${styleEscape['div-escape']}`}>
+            <Button 
+            ref={refButtonStart}
+                variant='contained'
+                onClick={()=>{
+                    
+                initGame();
+                if( isMobile() ){
+                    openFullscreen();
+                }
+            }}>Start a game</Button>
         
     <canvas id="oook" ref={refCanvas} className={`${styleEscape['canvas']}`}>
 

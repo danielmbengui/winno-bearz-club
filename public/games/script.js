@@ -73,9 +73,9 @@ function openFullscreen() {
     if (page.requestFullscreen) {
         page.requestFullscreen();
     } else if (page.webkitRequestFullscreen) { /* Safari */
-    page.webkitRequestFullscreen();
+        page.webkitRequestFullscreen();
     } else if (page.msRequestFullscreen) { /* IE11 */
-    page.msRequestFullscreen();
+        page.msRequestFullscreen();
     }
     //canvasPosition = canvas.getBoundingClientRect();
     //mouse.x = canvas.width/2;
