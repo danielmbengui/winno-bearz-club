@@ -1,5 +1,5 @@
 class BelzeBearz {
-    constructor(game, player = null, enemySpeed = 0, imgEnemy){
+    constructor(game, player = null, enemySpeed = 0, imgEnemy, enemyTouchSound){
         this.game = game;
         this.canvas = game.canvas;
         this.ctx = game.ctx;
@@ -7,6 +7,7 @@ class BelzeBearz {
         this.player = player;
         this.enemySpeed = enemySpeed > 0 ? enemySpeed : game.gameSpeed;
         this.imgEnemy = imgEnemy;
+        this.enemyTouchSound = enemyTouchSound;
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
 
@@ -66,7 +67,7 @@ class BelzeBearz {
             //console.log('collision', 'player collision enemy');
             this.game.life--;
             this.game.handleLife();
-            //enemyTouch.play();
+            this.enemyTouchSound.play();
             //handleGameOver();
             console.log('touch ENEMY', this.game.life) 
                 this.game.paused = true;

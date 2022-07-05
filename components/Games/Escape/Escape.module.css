@@ -12,10 +12,22 @@
 .canvas {
     border: 4px solid black;
     display: none;
+    font-size: xx-large; 
+    font-family: 'Press Start 2P', sans-serif;
     /*background: linear-gradient(to bottom, lightblue, blue, darkblue);*/
 }
 
 #score {
     font-size: xx-large;
     
+}
+
+#score {
+    font-size: xx-large; 
+    font-family: 'VT323', monospace;
+}
+
+#life {
+    font-size: xx-large; 
+    font-family: 'Press Start 2P', sans-serif;
 }

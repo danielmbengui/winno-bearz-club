@@ -56,8 +56,8 @@ class Winno {
             this.ctx.lineWidth = 1;
             this.ctx.beginPath();
             this.ctx.moveTo(this.x, this.y);
-            this.ctx.lineTo(this.mouse.x, this.mouse.y);
-            this.ctx.stroke();
+            //this.ctx.lineTo(this.mouse.x, this.mouse.y);
+            //this.ctx.stroke();
         }
 
         

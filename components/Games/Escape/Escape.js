@@ -72,6 +72,7 @@ const Escape = ({database, contractInfo,}) => {
         if( refCanvas.current ){
             //refCanvas.current.width = 800;
             //refCanvas.current.height = 500;
+            
             refCanvas.current.style.display = 'block';
             const canvas = refCanvas.current;
             const ctx = canvas.getContext('2d');
@@ -85,7 +86,7 @@ const Escape = ({database, contractInfo,}) => {
 
             let score = 0;
             let gameFrame = 0;
-            ctx.font = '60px Press Start 2P sans serif bold';
+            //ctx.font = 'bold 60px Arial';
             let gameSpeed = 5;
             let nbLife = 3;
             let gameOver = false;
@@ -215,18 +216,32 @@ const Escape = ({database, contractInfo,}) => {
             imgGameOver.src = link + `game_over.png`;
             const imgScore = new window.Image();
             imgScore.src = link + 'bee_score.png';
-            const salmon = new window.Image();
-            salmon.src = link + 'salmon.png';
+            const ImgSalmon = new window.Image();
+            ImgSalmon.src = link + 'salmon.png';
+
+            /*
+            const mySound = document.getElementById('sound');
+            mySound.voulme = 40;
+            */
+            const musicSound = document.createElement('audio');
+            musicSound.src = link + 'music.mp3';
+            const enemyTouchSound = document.createElement('audio');
+            enemyTouchSound.src = link + 'touch.mp3';
+
+            const beeTouchSound = document.createElement('audio');
+            beeTouchSound.src = 'flyswatter.wav';
+            const beeTouchSound1 = document.createElement('audio');
+            beeTouchSound1.src = 'flyswatter4.wav';
 
             //const playerImage = useImage(link);
             //console.log('image', playerImage);
-            const escapeGame = new EscapeGame(canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, background, backgroundStorm, background2,
-            level, imgScore, imgGameOver, animate);
+            const escapeGame = new EscapeGame(canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, background, backgroundStorm, background2, ImgSalmon,
+            level, imgScore, imgGameOver, musicSound, animate);
 
             const winno = new Winno(escapeGame, playerImage, playerTouchImage);
-            const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed, imgEnemy);
-            const belzeBear1 = new BelzeBearz(escapeGame, winno, gameSpeed + 1,  imgEnemy1);
-            const belzeBear2 = new BelzeBearz(escapeGame, winno, gameSpeed + 2, imgEnemy2);
+            const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed, imgEnemy, enemyTouchSound);
+            const belzeBear1 = new BelzeBearz(escapeGame, winno, gameSpeed + 1,  imgEnemy1, enemyTouchSound);
+            const belzeBear2 = new BelzeBearz(escapeGame, winno, gameSpeed + 2, imgEnemy2, enemyTouchSound);
 
 
             const player = new Player(canvas, ctx, mouse, nbLife, gameFrame, ratioDevice, playerImage, level, imgGameOver, imgScore);
@@ -324,13 +339,13 @@ const Escape = ({database, contractInfo,}) => {
                             if( beesArray[i].distance < beesArray[i].radius + player.radius){
                                 //console.log('collision')
                                 if( !beesArray[i].counted ){
-                                    /*
+                                    
                                     if( beesArray[i].sound == 'sound1' ){
-                                        beeSound.play();
+                                        beeTouchSound.play();
                                     }else {
-                                        beeSound1.play();
+                                        beeTouchSound1.play();
                                     }
-                                    */
+                                    
                                     
                                     //beeHitImage.src = 'bee_hit.png';
                                     //ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
@@ -386,6 +401,12 @@ const Escape = ({database, contractInfo,}) => {
             }
             */
             function animate(){
+                
+                if( musicSound.played ){
+                    musicSound.volume = 0.5;
+                    musicSound.play();
+                }
+
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 escapeGame.handleBackground();
                 escapeGame.gameFrame++;
@@ -416,12 +437,12 @@ const Escape = ({database, contractInfo,}) => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     escapeGame.handleBackground();
                     escapeGame.handleLife();
-                    
                     belzeBear.draw();
                     belzeBear1.draw();
                     belzeBear2.draw();
                     winno.draw();
                     handleBees();
+                    musicSound.pause();
                     
                 } 
             }

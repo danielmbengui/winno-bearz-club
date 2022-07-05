@@ -50,13 +50,14 @@ class Bee {
     }
 
     draw(){
-        
+        /*
         this.ctx.fillStyle = 'green';
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         this.ctx.fill();
         this.ctx.closePath();
         this.ctx.stroke();
+        */
         
         this.ctx.drawImage(this.beeImage, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, 
             this.spriteWidth, this.spriteHeight, this.x - 78/this.ratioDevice, this.y - 68/this.ratioDevice, this.spriteWidth * 2 / this.ratioDevice, this.spriteHeight * 2 / this.ratioDevice); 
