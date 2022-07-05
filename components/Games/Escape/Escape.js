@@ -49,12 +49,12 @@ const Escape = ({database, contractInfo,}) => {
     const openFullscreen = () => {
         refButtonStart.current.style.display = 'none';
         
-        if (refCanvas.current.requestFullscreen) {
-            refCanvas.current.requestFullscreen();
-        } else if (refCanvas.current.webkitRequestFullscreen) { /* Safari */
-            refCanvas.current.webkitRequestFullscreen();
-        } else if (refCanvas.current.msRequestFullscreen) { /* IE11 */
-            refCanvas.current.msRequestFullscreen();
+        if (refDiv.current.requestFullscreen) {
+            refDiv.current.requestFullscreen();
+        } else if (refDiv.current.webkitRequestFullscreen) { /* Safari */
+        refDiv.current.webkitRequestFullscreen();
+        } else if (refDiv.current.msRequestFullscreen) { /* IE11 */
+        refDiv.current.msRequestFullscreen();
         }
 
         
@@ -99,9 +99,12 @@ const Escape = ({database, contractInfo,}) => {
                 canvas.width = 700;
                 canvas.height = 250;
                 ratioDevice = 2;
+            }else{
+
             }
             
             let canvasPosition = canvas.getBoundingClientRect();
+            console.log('canvasPoistion', canvasPosition);
             const mouse = {
                 x: canvas.width/2,
                 y: canvas.height/2,
@@ -109,12 +112,52 @@ const Escape = ({database, contractInfo,}) => {
             }
             
             if( isMobile() ){
-                canvas.addEventListener('touchmove', (event) => {
-                    mouse.click = true;
-                    mouse.x = event.x - canvasPosition.left;
-                    mouse.y = event.y - canvasPosition.top;
-                    console.log(mouse.x, mouse.y)
+                let startx = 0;
+                let starty = 0;
+
+                /*
+                canvas.addEventListener('touchstart', (event) => {
+                    let touchObj = event.changedTouches[0]; // erster Finger
+                    startx = parseInt(touchObj.clientX); // X/Y-Koordinaten relativ zum Viewport
+                    starty = parseInt(touchObj.clientY);
+                    //let touchObj = event.changedTouches[0];
+                   // mouse.click = true;
+                    mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
+                    mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
+                    console.log(mouse.x, mouse.y);
+                    event.preventDefault();
                 });
+                */
+                
+                canvas.addEventListener('touchmove', (event) => {
+                    let touchObj = event.changedTouches[0];
+                    mouse.click = true;
+                    mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
+                    mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
+                    console.log(mouse.x, mouse.y);
+                    event.preventDefault();
+                });
+
+                canvas.addEventListener('touchcancel', (event) => {
+                    //let touchObj = event.changedTouches[0];
+                    mouse.click = true;
+                    mouse.x = canvasPosition.left;
+                    mouse.y = canvasPosition.top;
+                    console.log('touch cancel', mouse.x, mouse.y);
+                    event.preventDefault();
+                });
+                
+/*
+                canvas.addEventListener('touchend', (event) => {
+                    let touchObj = event.changedTouches[0];
+                    mouse.click = true;
+                    mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
+                    mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
+                    console.log(mouse.x, mouse.y);
+                    event.preventDefault();
+                });
+                */
+                
             }else{
                 canvas.addEventListener('mousemove', (event) => {
                     mouse.click = true;
@@ -389,7 +432,7 @@ const Escape = ({database, contractInfo,}) => {
                 canvasPosition = canvas.getBoundingClientRect();
             });
             
-            window.addEventListener('fullscreenchange', () => {
+            refDiv.current.addEventListener('fullscreenchange', () => {
                 console.log('full screen', screen.width, screen.height);
                 //canvas.width = screen.width;
                 //canvas.height = screen.height;
@@ -397,6 +440,7 @@ const Escape = ({database, contractInfo,}) => {
                 canvas.height = 250;
                 //ratioDevice = 2;
                 canvasPosition = canvas.getBoundingClientRect();
+                console.log('canvasPoistion FULL SCREEN', canvasPosition);
             });
 
             window.addEventListener('scroll', () => {
