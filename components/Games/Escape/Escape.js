@@ -108,12 +108,21 @@ const Escape = ({database, contractInfo,}) => {
                 click: false,
             }
             
-            canvas.addEventListener('mousemove', (event) => {
-                mouse.click = true;
-                mouse.x = event.x - canvasPosition.left;
-                mouse.y = event.y - canvasPosition.top;
-                console.log(mouse.x, mouse.y)
-            });
+            if( isMobile() ){
+                canvas.addEventListener('touchmove', (event) => {
+                    mouse.click = true;
+                    mouse.x = event.x - canvasPosition.left;
+                    mouse.y = event.y - canvasPosition.top;
+                    console.log(mouse.x, mouse.y)
+                });
+            }else{
+                canvas.addEventListener('mousemove', (event) => {
+                    mouse.click = true;
+                    mouse.x = event.x - canvasPosition.left;
+                    mouse.y = event.y - canvasPosition.top;
+                    console.log(mouse.x, mouse.y)
+                });
+            }
 /*
             canvas.addEventListener('mousedown', (event) => {
                 mouse.click = true;
