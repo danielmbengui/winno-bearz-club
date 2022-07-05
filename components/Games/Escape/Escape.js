@@ -68,7 +68,7 @@ const Escape = ({database, contractInfo,}) => {
       }
 
     const initGame = () => {
-        console.log('refCanvas NORM', window.page, 'document NORM', document.getElementById('oook'))
+        console.log('refCanvas NORM', isMobile() ? 'true' : 'false', 'document NORM', document.getElementById('oook'))
         if( refCanvas.current ){
             //refCanvas.current.width = 800;
             //refCanvas.current.height = 500;
@@ -107,6 +107,14 @@ const Escape = ({database, contractInfo,}) => {
                 y: canvas.height/2,
                 click: false,
             }
+            
+            canvas.addEventListener('mousemove', (event) => {
+                mouse.click = true;
+                mouse.x = event.x - canvasPosition.left;
+                mouse.y = event.y - canvasPosition.top;
+                console.log(mouse.x, mouse.y)
+            });
+/*
             canvas.addEventListener('mousedown', (event) => {
                 mouse.click = true;
                 mouse.x = event.x - canvasPosition.left;
@@ -120,6 +128,7 @@ const Escape = ({database, contractInfo,}) => {
                 mouse.y = event.y - canvasPosition.top;
                 console.log(mouse.x, mouse.y)
             });
+            */
 
 
            // const image = require("../../../public/assets/games/escape/player-sprite.png")
@@ -372,7 +381,12 @@ const Escape = ({database, contractInfo,}) => {
             });
             
             window.addEventListener('fullscreenchange', () => {
-                console.log('full screen');
+                console.log('full screen', screen.width, screen.height);
+                //canvas.width = screen.width;
+                //canvas.height = screen.height;
+                canvas.width = 700;
+                canvas.height = 250;
+                //ratioDevice = 2;
                 canvasPosition = canvas.getBoundingClientRect();
             });
 
