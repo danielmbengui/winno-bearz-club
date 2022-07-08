@@ -136,7 +136,7 @@ const Escape = ({database, contractInfo,}) => {
                     mouse.click = true;
                     mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
                     mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
-                    console.log(mouse.x, mouse.y);
+                    //console.log(mouse.x, mouse.y);
                     event.preventDefault();
                 });
 
@@ -145,7 +145,7 @@ const Escape = ({database, contractInfo,}) => {
                     mouse.click = true;
                     mouse.x = canvasPosition.left;
                     mouse.y = canvasPosition.top;
-                    console.log('touch cancel', mouse.x, mouse.y);
+                    //console.log('touch cancel', mouse.x, mouse.y);
                     event.preventDefault();
                 });
                 
@@ -165,7 +165,7 @@ const Escape = ({database, contractInfo,}) => {
                     mouse.click = true;
                     mouse.x = event.x - canvasPosition.left;
                     mouse.y = event.y - canvasPosition.top;
-                    console.log(mouse.x, mouse.y)
+                    //console.log(mouse.x, mouse.y)
                 });
             }
 /*
@@ -186,45 +186,51 @@ const Escape = ({database, contractInfo,}) => {
 
 
            // const image = require("../../../public/assets/games/escape/player-sprite.png")
-            let link = "/assets/games/escape/";
-            const playerImage = new window.Image() // can't use new Image()
-            playerImage.src = link + 'player-sprite.png';
-            const playerTouchImage = new window.Image() // can't use new Image()
-            playerTouchImage.src = link + 'player-reverse-sprite.png';
+            const assetPath = "/assets/games/escape/";
+            //const playerImage = new window.Image() // can't use new Image()
+            //playerImage.src = link + 'player-sprite.png';
+            //const playerTouchImage = new window.Image() // can't use new Image()
+            //playerTouchImage.src = link + 'player-reverse-sprite.png';
 
-            const imgEnemy = new window.Image();
-            imgEnemy.src = link + 'enemy-sprite.png';
-            const imgEnemy1 = new window.Image();
-            imgEnemy1.src = link + 'enemy1-sprite.png';
-            const imgEnemy2 = new window.Image();
-            imgEnemy2.src = link + 'enemy2-sprite.png';
+            //const imgEnemy = new window.Image();
+            //imgEnemy.src = link + 'enemy-sprite.png';
+            //const imgEnemy1 = new window.Image();
+            //imgEnemy1.src = link + 'enemy1-sprite.png';
+            //const imgEnemy2 = new window.Image();
+            //imgEnemy2.src = link + 'enemy2-sprite.png';
 
-            const beeImage = new window.Image();
-            beeImage.src = link + "bee-sprite.png";
+            //const beeImage = new window.Image();
+            //beeImage.src = link + "bee-sprite.png";
 
-            const background = new window.Image();
-            background.src = link + 'background.png';
-            const background1 = new window.Image();
-            background1.src = link + 'background1.png';
-            const background2 = new window.Image();
-            background2.src = link + 'background2.png';
-            const backgroundStorm = new window.Image();
-            background2.src = link + 'background-storm.png';
+            //const imgWinner = new window.Image();
+            //imgWinner.src = link + 'winner-sprite.png';
+            
 
-            const level = new window.Image();
-            level.src = link + `life${nbLife}.png`;
+            //const background = new window.Image();
+            //background.src = link + 'background.png';
+            //const background1 = new window.Image();
+            //background1.src = link + 'background1.png';
+            //const background2 = new window.Image();
+            //background2.src = link + 'background2.png';
+            //const backgroundStorm = new window.Image();
+            //background2.src = link + 'background-storm.png';
 
-            const imgMute = new window.Image();
-            imgMute.src = link + `mute.png`;
-            const imgUnmute = new window.Image();
-            imgUnmute.src = link + `unmute.png`;
+            //const level = new window.Image();
+            //level.src = link + `life${nbLife}.png`;
 
-            const imgGameOver = new window.Image();
-            imgGameOver.src = link + `game_over.png`;
-            const imgScore = new window.Image();
-            imgScore.src = link + 'bee_score.png';
-            const ImgSalmon = new window.Image();
-            ImgSalmon.src = link + 'salmon.png';
+            //const imgMute = new window.Image();
+            //imgMute.src = link + `mute.png`;
+            //const imgUnmute = new window.Image();
+            //imgUnmute.src = link + `unmute.png`;
+
+            //const imgGameOver = new window.Image();
+            //imgGameOver.src = link + `game_over.png`;
+            //const imgScore = new window.Image();
+            //imgScore.src = link + 'bee_score.png';
+            //const ImgSalmon = new window.Image();
+            //ImgSalmon.src = link + 'salmon.png';
+
+            
 
             /*
             const mySound = document.getElementById('sound');
@@ -232,59 +238,39 @@ const Escape = ({database, contractInfo,}) => {
             */
             const musicSound = document.createElement('audio');
             //musicSound.src = link + 'music.mp3';
-            musicSound.src = link + 'music-game.mp3';
-            const enemyTouchSound = document.createElement('audio');
-            enemyTouchSound.src = link + 'music-enemy-touch.mp3';
+            musicSound.src = assetPath + 'music-game.mp3';
+            //const enemyTouchSound = document.createElement('audio');
+            //enemyTouchSound.src = link + 'music-enemy-touch.mp3';
 
             const beeTouchSound = document.createElement('audio');
             //beeTouchSound.src = 'flyswatter.wav';
-            beeTouchSound.src = link + 'music-bee-touch.mp3';
-            const beeTouchSound1 = document.createElement('audio');
+            beeTouchSound.src = assetPath + 'music-bee-touch.mp3';
+            //const beeTouchSound1 = document.createElement('audio');
             //beeTouchSound1.src = 'flyswatter4.wav';
-            beeTouchSound1.src = link + 'music-bee-touch.mp3';
+            //beeTouchSound1.src = link + 'music-bee-touch.mp3';
+
+            const winnerSound = document.createElement('audio');
+            //beeTouchSound1.src = 'flyswatter4.wav';
+            winnerSound.src = assetPath + 'music-winner.mp3';
 
             //const playerImage = useImage(link);
             //console.log('image', playerImage);
-            const escapeGame = new EscapeGame(canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, background, backgroundStorm, background2, ImgSalmon,
-            level, imgScore, imgMute, imgUnmute, imgGameOver, musicSound, animate);
+            const escapeGame = new EscapeGame(window, canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, assetPath, animate);
 
-            const winno = new Winno(escapeGame, playerImage, playerTouchImage);
-            const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed, imgEnemy, enemyTouchSound);
-            const belzeBear1 = new BelzeBearz(escapeGame, winno, gameSpeed + 1,  imgEnemy1, enemyTouchSound);
-            const belzeBear2 = new BelzeBearz(escapeGame, winno, gameSpeed + 2, imgEnemy2, enemyTouchSound);
+            const winno = new Winno(escapeGame);
+            const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed);
+            const belzeBear1 = new BelzeBearz(escapeGame, winno, gameSpeed + 1,  1);
+            const belzeBear2 = new BelzeBearz(escapeGame, winno, gameSpeed + 2, 2);
 
 
-            const player = new Player(canvas, ctx, mouse, nbLife, gameFrame, ratioDevice, playerImage, level, imgGameOver, imgScore);
-            const enemy = new Enemy(canvas, ctx, mouse, player, gameFrame, ratioDevice, imgEnemy);
+            //const player = new Player(canvas, ctx, mouse, nbLife, gameFrame, ratioDevice, playerImage, level, imgGameOver, imgScore);
+            //const enemy = new Enemy(canvas, ctx, mouse, player, gameFrame, ratioDevice, imgEnemy);
             //console.log('refCanvas YES', canvas, 'document YES', document.getElementById('oook'))
             //console.log('screen width', screen.width, 'screen height', screen.height);
             //console.log('canvas', canvas.width, 'canvas width', canvas.height,);
-            //console.log('device', device);
-            
-            const SALMON = {
-                //x:0,
-                x1: 0,
-                x2: canvas.width,
-                y: 0,
-                //y1:0,
-                //y2:canvas.height,
-                width: canvas.width,
-                height: canvas.height,
-            
-                frame: 0,
-                frameX: 0,
-                frameY: 0,
-                spriteWidth: 700,
-                spriteHeight: 700,
-            }
-            
-            
-
-            
-            const ennemiesArray = [];
-            
+            //console.log('device', device);            
             const beesArray = [];
-            const game = new Game(canvas, ctx, mouse, player, enemy, [], gameFrame, ratioDevice /* for desktop */, score, gameSpeed, background, background1, background2, level, imgGameOver, imgScore);
+            //const game = new Game(canvas, ctx, mouse, player, enemy, [], gameFrame, ratioDevice /* for desktop */, score, gameSpeed, background, background1, background2, level, imgGameOver, imgScore);
             /*
             function handleLife(){
                 //console.log('nb life', player.life);
@@ -336,7 +322,7 @@ const Escape = ({database, contractInfo,}) => {
 
             function handleBees(){
                 if( !escapeGame.gameOver && escapeGame.gameFrame % 50 === 0 ){
-                    beesArray.push(new Bee(escapeGame, winno, beeImage));
+                    beesArray.push(new Bee(escapeGame, winno));
                 }
                 
                 for (let i = 0; i < beesArray.length; i++) {                        
@@ -346,28 +332,31 @@ const Escape = ({database, contractInfo,}) => {
                         }
             
                         if( beesArray[i] ){
-                            if( beesArray[i].distance < beesArray[i].radius + player.radius){
+                            if( beesArray[i].distance < beesArray[i].radius + winno.radius){
                                 //console.log('collision')
                                 if( !beesArray[i].counted ){
-                                    
+                                    beeTouchSound.play();
+                                    /*
                                     if( beesArray[i].sound == 'sound1' ){
                                         beeTouchSound.play();
                                     }else {
                                         beeTouchSound1.play();
                                     }
+                                    */
                                     
-                                    
-                                    //beeHitImage.src = 'bee_hit.png';
-                                    //ctx.drawImage(beeHitImage, this.x - 75, this.y - 90, this.radius * 2.8, this.radius * 2.8);
-                                    
-                                    //score++;
-                                    player.score++;
-                                    game.score++;
+                                    //player.score++;
+                                    //game.score++;
                                     escapeGame.score++;
                                     beesArray[i].counted = true;
                                     beesArray[i].update();
                                     beesArray[i].draw();
                                     beesArray.splice(i, 1);
+
+                                    if( escapeGame.score === 5 ){
+                                        escapeGame.started = false;
+                                        escapeGame.stopped = true;
+                                        escapeGame.winner = true;
+                                    }
                                 }
                             }
                         }
@@ -440,10 +429,10 @@ const Escape = ({database, contractInfo,}) => {
                 handleBees();
                 
                 console.log('gameOver', escapeGame.life)
-                if( !escapeGame.gameOver && !escapeGame.paused ){
+                if( !escapeGame.stopped && !escapeGame.paused ){
                     //level.src = `sprite/life${nbLife}.png`;
                     requestAnimationFrame(animate);  
-                }else if(escapeGame.gameOver){
+                }else if(escapeGame.gameOver || escapeGame.winner){
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     escapeGame.handleBackground();
                     escapeGame.handleLife();
@@ -455,6 +444,36 @@ const Escape = ({database, contractInfo,}) => {
                     handleBees();
                     musicSound.pause();
                     refButtonStart.current.style.display = 'block';
+
+                    if( escapeGame.winner ){
+                        winnerSound.play();
+
+                        const interval = setInterval(() => {
+                        console.log("WINNER", 'interval');
+                        //escapeGame.gameFrame++;
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        escapeGame.handleBackground();
+                        escapeGame.handleLife();
+                        //escapeGame.handleGame();
+                        belzeBear.draw();
+                        belzeBear1.draw();
+                        belzeBear2.draw();
+                        winno.draw();
+                        handleBees();
+                        //level.src = link + "life.png";
+                        //ctx.clearRect(HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
+                        //ctx.globalCompositeOperation ="xor"
+                        //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
+        
+                        
+                        //ctx.drawImage(img2, 100, 100);
+                        if( escapeGame.winnerBackground.frame > 4 ){
+                            clearInterval(interval);
+                            console.log("WINNER", 'clear');
+                        }
+        
+                        }, 1000)
+                    }
                 } 
             }
             animate();

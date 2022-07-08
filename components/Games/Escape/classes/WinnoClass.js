@@ -1,6 +1,6 @@
 
 class Winno {
-    constructor(game, playerImage, playerTouchImage = null){
+    constructor(game){
         this.game = game;
         this.canvas = game.canvas;
         this.ctx = game.ctx;
@@ -11,8 +11,12 @@ class Winno {
         this.y = game.canvas.height/2;
         this.radius = 40 / game.ratioDevice;
 
-        this.playerImage = playerImage;
-        this.playerTouchImage = playerTouchImage;
+        this.playerImage = new game.window.Image();
+        this.playerTouchImage = new game.window.Image();
+        this.playerImage.src = game.assetPath + 'player-sprite.png';
+        this.playerTouchImage.src = game.assetPath + 'player-reverse-sprite.png';
+        
+
         this.touched = false;
 
         this.angle = 0;
@@ -60,7 +64,7 @@ class Winno {
             //this.ctx.stroke();
         }
 
-        
+        /*
         this.ctx.fillStyle = 'cyan';
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -68,7 +72,9 @@ class Winno {
         this.ctx.closePath();
         this.ctx.fillRect(this.x, this.y, this.radius, 10);
         
+        
         this.ctx.save();
+        */
 
         //this.handleLife();
         //this.game.handleLife();

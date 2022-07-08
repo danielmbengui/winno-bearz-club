@@ -1,5 +1,5 @@
 class Bee {
-    constructor(game, player = null, beeImage){
+    constructor(game, player = null){
         this.game = game;
         this.canvas = game.canvas;
         this.ctx = game.ctx;
@@ -7,7 +7,9 @@ class Bee {
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
         this.player = player;
-        this.beeImage = beeImage;
+
+        this.beeImage = new game.window.Image();
+        this.beeImage.src = game.assetPath + "bee-sprite.png";
 
 
         this.x = Math.random() * game.canvas.width;
@@ -35,7 +37,7 @@ class Bee {
         //ctx.moveTo(this.x, this.y);
         //console.log(beesArray.length)
 
-        if( this.game.gameFrame % 15 === 0 ){
+        if( !this.game.stopped && this.game.gameFrame % 15 === 0 ){
             this.frame++;
             if( this.frame >= 3 ){
                 this.frame = 0;

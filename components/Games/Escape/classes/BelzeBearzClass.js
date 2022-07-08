@@ -1,13 +1,17 @@
 class BelzeBearz {
-    constructor(game, player = null, enemySpeed = 0, imgEnemy, enemyTouchSound){
+    constructor(game, player = null, enemySpeed = 0, idEnemy = ''){
         this.game = game;
         this.canvas = game.canvas;
         this.ctx = game.ctx;
         this.mouse = game.mouse;
         this.player = player;
         this.enemySpeed = enemySpeed > 0 ? enemySpeed : game.gameSpeed;
-        this.imgEnemy = imgEnemy;
-        this.enemyTouchSound = enemyTouchSound;
+        this.imgEnemy = new game.window.Image();
+        this.imgEnemy.src = game.assetPath + 'enemy' + idEnemy + '-sprite.png';
+
+        this.enemyTouchSound = window.document.createElement('audio');
+        this.enemyTouchSound.src = game.assetPath + 'music-enemy-touch.mp3';
+
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
 
@@ -76,7 +80,9 @@ class BelzeBearz {
                 //this.player.draw();
 
             if( this.game.life === 0 ){
+                this.started = false;
                 this.game.gameOver = true;
+                this.game.stopped = true;
                 this.game.handleLife();
                 /*
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
