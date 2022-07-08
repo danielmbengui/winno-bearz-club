@@ -26,7 +26,8 @@ const Escape = ({database, contractInfo,}) => {
     const refDiv = useRef();
     const refButtonStart = useRef();
     const refSound = useRef();
-    //const [canvas, setCanvas] = useState();
+
+    const [canvas, setCanvas] = useState();
     const [canvasPosition, setCanvasPosition] = useState();
     const [ctx, setCtx] = useState();
     const [mouse, setMouse] = useState();
@@ -47,7 +48,7 @@ const Escape = ({database, contractInfo,}) => {
     }
 
     const openFullscreen = () => {
-        refButtonStart.current.style.display = 'none';
+        
         
         if (refDiv.current.requestFullscreen) {
             refDiv.current.requestFullscreen();
@@ -72,7 +73,7 @@ const Escape = ({database, contractInfo,}) => {
         if( refCanvas.current ){
             //refCanvas.current.width = 800;
             //refCanvas.current.height = 500;
-            
+            refButtonStart.current.style.display = 'none';
             refCanvas.current.style.display = 'block';
             const canvas = refCanvas.current;
             const ctx = canvas.getContext('2d');
@@ -212,6 +213,12 @@ const Escape = ({database, contractInfo,}) => {
 
             const level = new window.Image();
             level.src = link + `life${nbLife}.png`;
+
+            const imgMute = new window.Image();
+            imgMute.src = link + `mute.png`;
+            const imgUnmute = new window.Image();
+            imgUnmute.src = link + `unmute.png`;
+
             const imgGameOver = new window.Image();
             imgGameOver.src = link + `game_over.png`;
             const imgScore = new window.Image();
@@ -224,19 +231,22 @@ const Escape = ({database, contractInfo,}) => {
             mySound.voulme = 40;
             */
             const musicSound = document.createElement('audio');
-            musicSound.src = link + 'music.mp3';
+            //musicSound.src = link + 'music.mp3';
+            musicSound.src = link + 'music-game.mp3';
             const enemyTouchSound = document.createElement('audio');
-            enemyTouchSound.src = link + 'touch.mp3';
+            enemyTouchSound.src = link + 'music-enemy-touch.mp3';
 
             const beeTouchSound = document.createElement('audio');
-            beeTouchSound.src = 'flyswatter.wav';
+            //beeTouchSound.src = 'flyswatter.wav';
+            beeTouchSound.src = link + 'music-bee-touch.mp3';
             const beeTouchSound1 = document.createElement('audio');
-            beeTouchSound1.src = 'flyswatter4.wav';
+            //beeTouchSound1.src = 'flyswatter4.wav';
+            beeTouchSound1.src = link + 'music-bee-touch.mp3';
 
             //const playerImage = useImage(link);
             //console.log('image', playerImage);
             const escapeGame = new EscapeGame(canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, background, backgroundStorm, background2, ImgSalmon,
-            level, imgScore, imgGameOver, musicSound, animate);
+            level, imgScore, imgMute, imgUnmute, imgGameOver, musicSound, animate);
 
             const winno = new Winno(escapeGame, playerImage, playerTouchImage);
             const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed, imgEnemy, enemyTouchSound);
@@ -437,13 +447,14 @@ const Escape = ({database, contractInfo,}) => {
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     escapeGame.handleBackground();
                     escapeGame.handleLife();
+                    //escapeGame.handleGame();
                     belzeBear.draw();
                     belzeBear1.draw();
                     belzeBear2.draw();
                     winno.draw();
                     handleBees();
                     musicSound.pause();
-                    
+                    refButtonStart.current.style.display = 'block';
                 } 
             }
             animate();
@@ -498,8 +509,13 @@ const Escape = ({database, contractInfo,}) => {
 
 
         <div className={`${styleEscape['div-escape']}`}>
+            <p className={`${styleEscape['story-game']}`}>
+            Help Winno to collect the bees and avoid the BelzeBearzs.
+            </p>
+
             <Button 
             ref={refButtonStart}
+            className={`${styleEscape['button-start']}`}
                 variant='contained'
                 onClick={()=>{
                     

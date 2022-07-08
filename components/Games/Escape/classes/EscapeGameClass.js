@@ -2,7 +2,7 @@ import Bee from './BeeClass';
 import { handleBees } from '../js/functionBees';
 class EscapeGame {
     constructor(canvas, ctx, mouse, ratioDevice = 1 /* for desktop */, gameSpeed = 5, life = 3, imgBackground, imgBackground1, imgBackground2, ImgSalmon,
-    imgLevel, imgScore, imgGameOver, musicSound, funcAnimate){
+    imgLevel, imgScore, imgMute, imgUnmute, imgGameOver, musicSound, funcAnimate){
         this.canvas = canvas;
         this.ctx = ctx;
         this.mouse = mouse;
@@ -16,6 +16,8 @@ class EscapeGame {
         this.ImgSalmon = ImgSalmon;
         this.imgLevel = imgLevel;
         this.imgScore = imgScore;
+        this.imgMute = imgMute;
+        this.imgUnmute = imgUnmute;
         this.imgGameOver = imgGameOver;
         this.musicSound = musicSound;
 
@@ -172,6 +174,7 @@ class EscapeGame {
         const level = this.imgLevel;
         const imgGameOver = this.imgGameOver;
         const imgScore = this.imgScore;
+        const imgMute = this.imgMute;
         const link = "/assets/games/escape/";
         //level.src = link + "life" + (this.life) + ".png";
         /*
@@ -184,10 +187,13 @@ class EscapeGame {
         */
         level.alt = 'Life image png';
         level.src = link + "life" + this.life + ".png";
+        ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
         if( this.gameOver ){
-            //level.src = link + "life0.png";
+            level.src = link + "life0.png";
+            
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
             ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
+            
             setTimeout(() => {
                 console.log("Delayed for 1 second.", level);
                 //level.src = link + "life.png";
@@ -199,8 +205,9 @@ class EscapeGame {
                 //ctx.drawImage(img2, 100, 100);
 
               }, 150)
+              
         }
-        ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
+        console.log('image level', level)
         /*
         //level.src = link + `/life${this.life}.png`;
         ctx.fillStyle = 'red';
@@ -211,13 +218,16 @@ class EscapeGame {
         */
         ctx.drawImage(imgScore, HEART.x1 + 20 + HEART.spriteWidth/3/ratioDevice, HEART.y + 10, HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);  
 
+
         
         //level.src = link + `/life${this.life}.png`;
         ctx.fillStyle = 'red';
         //ctx.font();
         ctx.font = ratioDevice===2 ? 'bold 40px VT323' : 'bold 60px VT323';
         //ctx.font = ratioDevice===2 ? 'bold 30px Arial' : 'bold 60px Arial';
-        ctx.fillText(score, HEART.x1 + 30 + HEART.spriteWidth/3/ratioDevice + HEART.spriteHeight/3/ratioDevice, ratioDevice > 1 ? HEART.spriteHeight/3/ratioDevice + 7 : (HEART.spriteHeight/3/ratioDevice));   
+        ctx.fillText(score, HEART.x1 + 30 + HEART.spriteWidth/3/ratioDevice + HEART.spriteHeight/3/ratioDevice, ratioDevice > 1 ? HEART.spriteHeight/3/ratioDevice + 7 : (HEART.spriteHeight/3/ratioDevice));
+        ctx.drawImage(imgMute, canvas.width - 100, HEART.y + 10, HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);  
+
     }
 
     handleGame(){

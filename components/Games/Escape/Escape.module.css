@@ -9,6 +9,17 @@
     /* background-color: red; */
 }
 
+.story-game {
+    text-align: center;
+    font-family: 'VT323', monospace;
+    font-size: xx-large;
+}
+
+.button-start {
+    font-family: 'Press Start 2P', sans-serif;
+    margin-bottom: 40px;
+}
+
 .canvas {
     border: 4px solid black;
     display: none;
