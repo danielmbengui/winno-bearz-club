@@ -84,6 +84,9 @@ const Escape = ({database, contractInfo,}) => {
             canvas.height = 512;
             //var heightRatio = 3;
             //canvas.height = canvas.width / heightRatio;
+            const scoreSecondEnemy = 20;
+            const scoreThirdEnemy = 30;
+            const scoreWinner = 50;
 
             let score = 0;
             let gameFrame = 0;
@@ -302,12 +305,12 @@ const Escape = ({database, contractInfo,}) => {
                 belzeBear.update();
                 belzeBear.draw();
 
-                if( escapeGame.score >= 5 ){
+                if( escapeGame.score >= scoreSecondEnemy ){
                     belzeBear1.update();
                     belzeBear1.draw();
                 }
 
-                if( escapeGame.score >= 10 ){
+                if( escapeGame.score >= scoreThirdEnemy ){
                     belzeBear2.update();
                     belzeBear2.draw();
                 }
@@ -352,7 +355,7 @@ const Escape = ({database, contractInfo,}) => {
                                     beesArray[i].draw();
                                     beesArray.splice(i, 1);
 
-                                    if( escapeGame.score === 5 ){
+                                    if( escapeGame.score === scoreWinner ){
                                         escapeGame.started = false;
                                         escapeGame.stopped = true;
                                         escapeGame.winner = true;
