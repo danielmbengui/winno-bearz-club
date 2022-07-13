@@ -15,7 +15,8 @@
 	/*padding: 25px 20px 10px;*/
 	margin: 0 20px 40px;
 	border-radius: 10px;
-	text-align: center
+	text-align: center;
+	padding: 1vw;
 }
 
 .team-02__person_img_box {

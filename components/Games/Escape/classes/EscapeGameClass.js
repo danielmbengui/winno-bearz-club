@@ -111,12 +111,9 @@ class EscapeGame {
         }
 
         this.winnerBackground = {
-            //x:0,
             x1: 0,
             x2: canvas.width,
             y: 0,
-            //y1:0,
-            //y2:canvas.height,
             width: canvas.width,
             height: canvas.height,
 

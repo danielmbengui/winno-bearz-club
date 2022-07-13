@@ -638,10 +638,10 @@ const Escape = ({database, contractInfo,}) => {
             }}>Start a game</Button>
         
     <canvas id="oook" ref={refCanvas} className={`${styleEscape['canvas']}`}>
-            <img id="imgBackground" src={"/assets/games/escape/background-sprite.png"} alt="background" />
-            <img id="imgBackground1" src={"/assets/games/escape/background-sprite1.png"} alt="background" />
-            <img id="imgBackground2" src={"/assets/games/escape/background-sprite2.png"} alt="background" />
-            <img id="imgBackground3" src={"/assets/games/escape/background-sprite3.png"} alt="background" />
+            <img id="imgBackground" src={"/assets/games/escape/background-start.png"} alt="background" />
+            <img id="imgBackground1" src={"/assets/games/escape/background-middle1.png"} alt="background" />
+            <img id="imgBackground2" src={"/assets/games/escape/background-middle2.png"} alt="background" />
+            <img id="imgBackground3" src={"/assets/games/escape/background-end.png"} alt="background" />
 
             <img id="imgLife0" src={"/assets/games/escape/life0.png"} alt="life0" />
             <img id="imgLife1" src={"/assets/games/escape/life1.png"} alt="life1" />

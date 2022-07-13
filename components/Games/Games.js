@@ -59,6 +59,7 @@ const Games = () => {
             team.map( (member, index) => {
               return(
                 <Link href={member.href}>
+                <a target={'_blank'}>
                 <li key={index} className={`${styleTeam['team-02__person']}`} style={styleBoxPerson}>
                   <div className="">
                     <div className={`${styleTeam['team-02__person_img_box']}`} style={styleBoxImgPerson}>
@@ -69,65 +70,10 @@ const Games = () => {
                         <span className="">{member.role}</span>
                       </span>
                     </div>
-                    <div className={`${styleTeam['team-02__person_name']}`}>{member.name}</div>
-                    
-                    <div className={`${styleTeam['team-02__person_about']} content_box`}>
-                      <p><strong>&nbsp;{member.club}&nbsp;</strong></p>
-                    </div>
-                    <div className={`${styleTeam['team-02__person_social']}`}>
-                      <div className="social-buttons">
-                        <ul className="social-buttons__list" style={{textAlign: 'center'}}>
-
-                          {
-                            !member.socials.linkedin && !member.socials.discord && !member.socials.twitter && !member.socials.instagram && !member.socials.telegram && <li style={{visibility:'hidden'}}>No socials</li>
-                          }
-
-                          {
-                            member.socials.linkedin && <li className="social-buttons__item">
-                            <a className="social-buttons__link social-buttons__link--t" href={member.socials.linkedin} target="_blank">
-                              <img loading="lazy" className="social-buttons__icon" alt="t icon" src={linkedinImg} />
-                            </a>
-                          </li>
-                          }
-
-                          {
-                            member.socials.discord && <li className="social-buttons__item">
-                            <a className="social-buttons__link social-buttons__link--t" href={member.socials.discord} target="_blank">
-                              <img loading="lazy" className="social-buttons__icon" alt="t icon" src={discordImg} />
-                            </a>
-                          </li>
-                          }
-
-                          {
-                            member.socials.twitter && <li className="social-buttons__item">
-                            <a className="social-buttons__link social-buttons__link--twitter" href={member.socials.twitter} target="_blank">
-                              <img loading="lazy" className="social-buttons__icon" alt="twitter icon" src={twitterImg} />
-                            </a>
-                          </li>
-                          }
-
-                          {
-                            member.socials.instagram && <li className="social-buttons__item">
-                            <a className="social-buttons__link social-buttons__link--instagram" href={member.socials.instagram} target="_blank">
-                              <img loading="lazy" className="social-buttons__icon" alt="instagram icon" src={instagramImg} />
-                            </a>
-                          </li>
-                          }
-
-                          {
-                            member.socials.telegram && <li className="social-buttons__item">
-                            <a className="social-buttons__link social-buttons__link--instagram" href={member.socials.telegram} target="_blank">
-                              <img loading="lazy" className="social-buttons__icon" alt="instagram icon" src={telegramImg} />
-                            </a>
-                          </li>
-                          }
-
-                          
-                        </ul>
-                      </div>
-                    </div>
+                   
                   </div>
                 </li>
+                </a>
                 </Link>
               )
             })
