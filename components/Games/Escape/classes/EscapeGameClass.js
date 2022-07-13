@@ -1,5 +1,6 @@
 import Bee from './BeeClass';
 import { handleBees } from '../js/functionBees';
+import { sizeWidth } from '@mui/system';
 class EscapeGame {
     constructor(window, canvas, ctx, mouse, ratioDevice = 1 /* for desktop */, gameSpeed = 5, life = 3, 
     assetPath = "/assets/games/escape/", funcAnimate){
@@ -23,6 +24,8 @@ class EscapeGame {
         this.imgMute = new window.Image();
         this.imgUnmute = new window.Image();
         this.imgWinner = new window.Image();
+        this.imgYes = document.getElementById('imgLife');
+        this.imgNo = new window.Image();
         this.imgGameOver = new window.Image();
 
 
@@ -37,9 +40,10 @@ class EscapeGame {
         this.ImgSalmon.src = assetPath + 'salmon.png';
         this.imgMute.src = assetPath + 'mute.png';
         this.imgUnmute.src = assetPath + 'unmute.png';
-        this.imgWinner.src = assetPath + 'winner-sprite.png';
+        this.imgWinner.src = assetPath + 'winner.png';
+        //this.imgYes.src = assetPath + 'yes.png';
+        this.imgNo.src = assetPath + 'no.png';
 
-    
         this.gameFrame = 0;
         this.score = 0;
         this.started = true;
@@ -47,9 +51,7 @@ class EscapeGame {
         this.stopped = false;
         this.gameOver = false;
         this.winner = false;
-
         this.enemyCame = false;
-
 
         this.background = {
             //x:0,
@@ -222,6 +224,8 @@ class EscapeGame {
         const score = this.score;
         const WINNER = this.winnerBackground;
         const imgWinner = this.imgWinner;
+        const imgYes = this.imgYes;
+        const imgNo = this.imgNo;
         const imgGameOver = this.imgGameOver;
         const imgScore = this.imgScore;
         const imgMute = this.imgMute;
@@ -232,6 +236,8 @@ class EscapeGame {
         const ImgSalmon = new window.Image();
         ImgSalmon.src = assetPath + 'salmon.png';
         //level.src = link + "life" + (this.life) + ".png";
+
+
         /*
         if( this.gameOver && this.life === 0 ){
             //this.life = 0;
@@ -244,7 +250,7 @@ class EscapeGame {
         //imgLife.src = link + "life" + this.life + ".png";
         //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
         ctx.drawImage(imgLife, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
-        console.log("Image life.", imgLife);
+        //console.log("Image life.", imgLife);
         ctx.drawImage(imgScore, HEART.x1 + 20 + HEART.spriteWidth/3/ratioDevice, HEART.y + 10, HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);  
 
 
@@ -280,6 +286,8 @@ class EscapeGame {
               }, 150)
               
         }else if( this.winner ){
+            
+
             setTimeout(() => {
                 console.log("Delayed for 1 second WINNER.", imgLife);
                 //level.src = link + "life.png";
@@ -288,6 +296,7 @@ class EscapeGame {
                 //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
                 //ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
                 //ctx.drawImage(imgLife, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
+                /*
                 if( WINNER.frame == 1 || WINNER.frame == 3 ){
                     WINNER.frameX = 0;
                     WINNER.frameY++;
@@ -305,10 +314,39 @@ class EscapeGame {
                     WINNER.spriteWidth, WINNER.spriteHeight, 0, 50, canvas.width, canvas.height);
                     console.log('image WINNER', WINNER.frame, imgWinner)
                     WINNER.frame++;
+
+                */
                 
                 //ctx.drawImage(img2, 100, 100);
+                const widthWinner = imgWinner.width/1.5/ratioDevice;
+                const heightWinner = imgWinner.height/1.5/ratioDevice;
+
+                const diffWidth = canvas.width - widthWinner;
+                const startWin = diffWidth/2;
+                const endWin = canvas.width - diffWidth/2;
+
+                const startHeightWin = heightWinner/2/ratioDevice;
+
+                const widthYesNo = imgYes.width/3.3/ratioDevice;
+                const heightYesNo = imgYes.height/4/ratioDevice;
+
+                console.log('win', diffWidth, startWin, endWin, 'width', canvas.width);
+                
+
+                ctx.drawImage(imgWinner, 0, 0, canvas.width, canvas.height);
+
+                //ctx.drawImage(imgWinner, startWin, startHeightWin, widthWinner, heightWinner);
+                //ctx.drawImage(imgYes, startWin, startHeightWin + heightWinner + 10, widthYesNo, heightYesNo);
+                //ctx.drawImage(imgNo, endWin - widthYesNo, startHeightWin + heightWinner + 10, widthYesNo, heightYesNo);
+
+                
+
+                imgNo.addEventListener('click', (event) => {
+                    console.log('click', 'no')
+                });
 
               }, 150)
+              
             //ctx.drawImage(imgWinner, 0, 0, canvas.width, canvas.height);
             
         }

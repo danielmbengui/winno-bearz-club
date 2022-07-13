@@ -15,7 +15,6 @@ class BelzeBearz {
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
 
-
         this.x = game.canvas.width + 200;
         this.y = Math.random() * (game.canvas.height - 150) + 90;
         this.radius = 40/game.ratioDevice;
@@ -71,7 +70,7 @@ class BelzeBearz {
             //console.log('collision', 'player collision enemy');
             this.game.life--;
             this.game.handleLife();
-            this.enemyTouchSound.play();
+            
             //handleGameOver();
             console.log('touch ENEMY', this.game.life) 
                 this.game.paused = true;
@@ -112,6 +111,10 @@ class BelzeBearz {
                     this.speed = Math.random() * 2 + 2;
                     this.game.handleGame();
                 }, 1000);
+            }
+
+            if( !this.game.gameOver ){
+                this.enemyTouchSound.play();
             }
             
         }

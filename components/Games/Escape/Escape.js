@@ -58,6 +58,16 @@ const Escape = ({database, contractInfo,}) => {
         } else if (refCanvas.current.msRequestFullscreen) { /* IE11 */
             refCanvas.current.msRequestFullscreen();
         }
+/*
+        screen.orientation.lock("landscape-primary").then(function() {
+            // _LOCK_BUTTON.style.display = 'none';
+            // _UNLOCK_BUTTON.style.display = 'block';
+            
+        })
+        .catch(function(error) {
+            alert(error);
+        });
+        */
 
         
 
@@ -67,6 +77,16 @@ const Escape = ({database, contractInfo,}) => {
         //mouse.y = canvas.height/2;
         //mouse.click= false;
     
+      }
+
+      const closeFullscreen = () => {
+        if (refCanvas.current.exitFullscreen) {
+            refCanvas.current.exitFullscreen();
+        } else if (refCanvas.current.webkitExitFullscreen) { /* Safari */
+            refCanvas.current.webkitExitFullscreen();
+        } else if (refCanvas.current.msExitFullscreen) { /* IE11 */
+            refCanvas.current.msExitFullscreen();
+        }
       }
 
     const initGame = () => {
@@ -87,7 +107,7 @@ const Escape = ({database, contractInfo,}) => {
             //canvas.height = canvas.width / heightRatio;
             const scoreSecondEnemy = 20;
             const scoreThirdEnemy = 30;
-            const scoreWinner = 50;
+            const scoreWinner = 3;
 
             let score = 0;
             let gameFrame = 0;
@@ -257,6 +277,10 @@ const Escape = ({database, contractInfo,}) => {
             //beeTouchSound1.src = 'flyswatter4.wav';
             winnerSound.src = assetPath + 'music-winner.mp3';
 
+            const gameOverSound = document.createElement('audio');
+            //beeTouchSound1.src = 'flyswatter4.wav';
+            gameOverSound.src = assetPath + 'music-game-over.mp3';
+
             //const playerImage = useImage(link);
             //console.log('image', playerImage);
             const escapeGame = new EscapeGame(window, canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, assetPath, animate);
@@ -298,6 +322,9 @@ const Escape = ({database, contractInfo,}) => {
                 ctx.fillText("Score : " + game.score, HEART.x1 + 30 + HEART.spriteWidth/3/ratioDevice + HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
                 
             }*/
+            document.getElementById('imgLife').addEventListener('click', (event) => {
+                console.log('click', 'yes', event.target.value)
+            });
 
             function handleEnemies(){
                 //enemy.update();   
@@ -406,7 +433,7 @@ const Escape = ({database, contractInfo,}) => {
             function animate(){
                 
                 if( musicSound.played ){
-                    musicSound.volume = 0.5;
+                    musicSound.volume = 0.9;
                     musicSound.play();
                 }
 
@@ -432,7 +459,7 @@ const Escape = ({database, contractInfo,}) => {
                 winno.draw();
                 handleBees();
                 
-                console.log('gameOver', escapeGame.life)
+                //console.log('gameOver', escapeGame.life)
                 if( !escapeGame.stopped && !escapeGame.paused ){
                     //level.src = `sprite/life${nbLife}.png`;
                     requestAnimationFrame(animate);  
@@ -448,10 +475,19 @@ const Escape = ({database, contractInfo,}) => {
                     handleBees();
                     musicSound.pause();
                     refButtonStart.current.style.display = 'block';
+                    
+                    if( isMobile() ){
+                        closeFullscreen();
+                    }
+
+                    if( escapeGame.gameOver ){
+                        gameOverSound.play();
+                    }
 
                     if( escapeGame.winner ){
                         winnerSound.play();
-
+                        refCanvas.current.style.cursor = 'pointer';
+/*
                         const interval = setInterval(() => {
                         console.log("WINNER", 'interval');
                         //escapeGame.gameFrame++;
@@ -477,6 +513,7 @@ const Escape = ({database, contractInfo,}) => {
                         }
         
                         }, 1000)
+                        */
                     }
                 } 
             }
@@ -487,7 +524,21 @@ const Escape = ({database, contractInfo,}) => {
                 canvasPosition = canvas.getBoundingClientRect();
             });
             
-            refDiv.current.addEventListener('fullscreenchange', () => {
+            refCanvas.current.addEventListener('fullscreenchange', () => {
+
+                if (canvas.exitFullscreen) {
+                    //document.exitFullscreen();
+                    console.log('exit screen');
+                  } else if (canvas.webkitExitFullscreen) { /* Safari */
+                    //document.webkitExitFullscreen();
+                    console.log('exit screen');
+                  } else if (canvas.msExitFullscreen) { /* IE11 */
+                    //document.msExitFullscreen();
+                    console.log('exit screen');
+                  }
+
+                //escapeGame.paused
+
                 console.log('full screen', screen.width, screen.height);
                 //canvas.width = screen.width;
                 //canvas.height = screen.height;
@@ -529,11 +580,9 @@ const Escape = ({database, contractInfo,}) => {
       }}>
         <div ref={refDiv} className="container">
         
-
-
         <div className={`${styleEscape['div-escape']}`}>
             <p className={`${styleEscape['story-game']}`}>
-            Help Winno to collect the bees and avoid the BelzeBearzs.
+                Help Winno to collect the bees and avoid the BelzeBearzs.
             </p>
 
             <Button 
@@ -541,34 +590,18 @@ const Escape = ({database, contractInfo,}) => {
             className={`${styleEscape['button-start']}`}
                 variant='contained'
                 onClick={()=>{
-                    
+                initGame(); 
                 
                 if( isMobile() ){
-                    initGame();
                     openFullscreen();
-                    if( isMobile() ){
-                        screen.orientation.lock("landscape-primary")
-                        .then(function() {
-                           // _LOCK_BUTTON.style.display = 'none';
-                           // _UNLOCK_BUTTON.style.display = 'block';
-                           
-                        })
-                        .catch(function(error) {
-                            alert(error);
-                        });
-                    }
-                }else{
-                    initGame();
                 }
             }}>Start a game</Button>
         
     <canvas id="oook" ref={refCanvas} className={`${styleEscape['canvas']}`}>
-
+            <img id="imgLife" src={"/assets/games/escape/yes.png"} alt="yes png" />
+            <img id="imgYes" src={"/assets/games/escape/life3.png"} alt="yes png" />
     </canvas>
         </div>
-
-
-
 
         <div className="title-box title-box--center">
           {/* <h2 className="heading ">GALLERY</h2> */}
@@ -585,10 +618,6 @@ const Escape = ({database, contractInfo,}) => {
         <span id="score">Score : {score}</span>
         </div>
       </div>
-
-  
-  
-
 </div>
 </div>
     )
