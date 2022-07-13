@@ -59,6 +59,7 @@ const Escape = ({database, contractInfo,}) => {
             refCanvas.current.msRequestFullscreen();
         }
 
+        
         screen.orientation.lock("landscape-primary").then(function() {
             // _LOCK_BUTTON.style.display = 'none';
             // _UNLOCK_BUTTON.style.display = 'block';
@@ -67,6 +68,7 @@ const Escape = ({database, contractInfo,}) => {
         .catch(function(error) {
             alert(error);
         });
+        
         
 
         
@@ -80,12 +82,14 @@ const Escape = ({database, contractInfo,}) => {
       }
 
       const closeFullscreen = () => {
-        if (refCanvas.current.exitFullscreen) {
-            refCanvas.current.exitFullscreen();
-        } else if (refCanvas.current.webkitExitFullscreen) { /* Safari */
-            refCanvas.current.webkitExitFullscreen();
-        } else if (refCanvas.current.msExitFullscreen) { /* IE11 */
-            refCanvas.current.msExitFullscreen();
+        screen.orientation.unlock();
+
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
         }
       }
 
@@ -322,9 +326,11 @@ const Escape = ({database, contractInfo,}) => {
                 ctx.fillText("Score : " + game.score, HEART.x1 + 30 + HEART.spriteWidth/3/ratioDevice + HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
                 
             }*/
+            /*
             document.getElementById('imgLife').addEventListener('click', (event) => {
                 console.log('click', 'yes', event.target.value)
             });
+            */
 
             function handleEnemies(){
                 //enemy.update();   
@@ -462,62 +468,64 @@ const Escape = ({database, contractInfo,}) => {
                 //console.log('gameOver', escapeGame.life)
                 if( !escapeGame.stopped && !escapeGame.paused ){
                     //level.src = `sprite/life${nbLife}.png`;
+                    
                     requestAnimationFrame(animate);  
-                }else if(escapeGame.gameOver || escapeGame.winner){
-                    if( isMobile() ){
-                        closeFullscreen();
-                        screen.orientation.unlock()
-                    }
-
+                }
+                
+                if(escapeGame.gameOver || escapeGame.winner){
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    escapeGame.handleBackground();
-                    escapeGame.handleLife();
-                    //escapeGame.handleGame();
-                    belzeBear.draw();
-                    belzeBear1.draw();
-                    belzeBear2.draw();
-                    winno.draw();
-                    handleBees();
-                    musicSound.pause();
-                    refButtonStart.current.style.display = 'block';
-                    
-                    
-
-                    if( escapeGame.gameOver ){
-                        gameOverSound.play();
-                    }
-
-                    if( escapeGame.winner ){
-                        winnerSound.play();
-                        refCanvas.current.style.cursor = 'pointer';
-/*
-                        const interval = setInterval(() => {
-                        console.log("WINNER", 'interval');
-                        //escapeGame.gameFrame++;
-                        ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        escapeGame.handleBackground();
-                        escapeGame.handleLife();
-                        //escapeGame.handleGame();
-                        belzeBear.draw();
-                        belzeBear1.draw();
-                        belzeBear2.draw();
-                        winno.draw();
-                        handleBees();
-                        //level.src = link + "life.png";
-                        //ctx.clearRect(HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
-                        //ctx.globalCompositeOperation ="xor"
-                        //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
+                            escapeGame.handleBackground();
+                            
+                            //escapeGame.handleGame();
+                            belzeBear.draw();
+                            belzeBear1.draw();
+                            belzeBear2.draw();
+                            winno.draw();
+                            handleBees();
+                            musicSound.pause();
+                            refButtonStart.current.style.display = 'block';
+                            
+                            if( escapeGame.gameOver ){
+                                gameOverSound.play();
+                            }
         
+                            if( escapeGame.winner ){
+                                winnerSound.play();
+                                refCanvas.current.style.cursor = 'pointer';
+                            }
+                            escapeGame.handleLife(); 
+                            if( isMobile() ){
+                                closeFullscreen();
+                                setTimeout(() => {
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    escapeGame.handleBackground();
+                                    
+                                    //escapeGame.handleGame();
+                                    belzeBear.draw();
+                                    belzeBear1.draw();
+                                    belzeBear2.draw();
+                                    winno.draw();
+                                    handleBees();
+                                    musicSound.pause();
+                                    refButtonStart.current.style.display = 'block';
+                                    
+                                    if( escapeGame.gameOver ){
+                                        gameOverSound.play();
+                                    }
+                
+                                    if( escapeGame.winner ){
+                                        winnerSound.play();
+                                        refCanvas.current.style.cursor = 'pointer';
+                                    }
+                                    escapeGame.handleLife();   
                         
-                        //ctx.drawImage(img2, 100, 100);
-                        if( escapeGame.winnerBackground.frame > 4 ){
-                            clearInterval(interval);
-                            console.log("WINNER", 'clear');
-                        }
-        
-                        }, 1000)
-                        */
-                    }
+                                }, 500);
+                            }
+                    
+
+                    
+                    
+                    
                 } 
             }
             animate();
@@ -528,29 +536,55 @@ const Escape = ({database, contractInfo,}) => {
             });
             
             refCanvas.current.addEventListener('fullscreenchange', () => {
-
-                if (canvas.exitFullscreen) {
-                    //document.exitFullscreen();
-                    console.log('exit screen');
-                  } else if (canvas.webkitExitFullscreen) { /* Safari */
-                    //document.webkitExitFullscreen();
-                    console.log('exit screen');
-                  } else if (canvas.msExitFullscreen) { /* IE11 */
-                    //document.msExitFullscreen();
-                    console.log('exit screen');
-                  }
+/*
+                if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen ) {
+                    //refCanvas.current.exitFullscreen();
+                    escapeGame.paused = true;
+                    console.log('EXIT full screen', screen.width, screen.height);
+                }else{
+                    escapeGame.paused = false;
+                    console.log('full screen', screen.width, screen.height);
+                    console.log('canvasPoistion FULL SCREEN', canvasPosition);
+                }
+                */
 
                 //escapeGame.paused
-
-                console.log('full screen', screen.width, screen.height);
+                console.log('canvasPoistion FULL SCREEN', canvasPosition);
+                
                 //canvas.width = screen.width;
                 //canvas.height = screen.height;
                 canvas.width = 700;
                 canvas.height = 250;
                 //ratioDevice = 2;
                 canvasPosition = canvas.getBoundingClientRect();
-                console.log('canvasPoistion FULL SCREEN', canvasPosition);
+                
             });
+        
+            refCanvas.current.addEventListener("webkitfullscreenchange", function() {
+                //_LOCK_BUTTON.style.display = 'block';
+                //_UNLOCK_BUTTON.style.display = 'none';
+                console.log('webkit FULL SCREEN', canvasPosition);
+                canvas.width = 700;
+                canvas.height = 250;
+                //ratioDevice = 2;
+                canvasPosition = canvas.getBoundingClientRect();
+            });
+
+            
+            screen.orientation.addEventListener('change', function() {
+                console.log('Current orientation is ' + screen.orientation.type);
+                //document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
+                
+                if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
+                    escapeGame.paused = true;
+                }else{
+                    
+                    //alert('IS OKAY !');
+                    //openFullscreen();
+                }
+                
+            });
+            
 
             window.addEventListener('scroll', () => {
                 console.log('scroll screen');
@@ -584,8 +618,10 @@ const Escape = ({database, contractInfo,}) => {
         <div ref={refDiv} className="container">
         
         <div className={`${styleEscape['div-escape']}`}>
+        <img id="logo" src={"/assets/img/logo.png"} alt="logo" width={'10%'} />
             <p className={`${styleEscape['story-game']}`}>
-                Help Winno to collect the bees and avoid the BelzeBearzs.
+                Collect the bees and avoid the BelzeBearzs. <br/>
+                WIN AN AIRDROP OR FREE MINT !!!
             </p>
 
             <Button 
@@ -598,12 +634,33 @@ const Escape = ({database, contractInfo,}) => {
                 if( isMobile() ){
                     openFullscreen();
                 }
+                console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
             }}>Start a game</Button>
         
     <canvas id="oook" ref={refCanvas} className={`${styleEscape['canvas']}`}>
-            <img id="imgLife" src={"/assets/games/escape/yes.png"} alt="yes png" />
-            <img id="imgYes" src={"/assets/games/escape/life3.png"} alt="yes png" />
+            <img id="imgBackground" src={"/assets/games/escape/background-sprite.png"} alt="background" />
+            <img id="imgBackground1" src={"/assets/games/escape/background-sprite1.png"} alt="background" />
+            <img id="imgBackground2" src={"/assets/games/escape/background-sprite2.png"} alt="background" />
+            <img id="imgBackground3" src={"/assets/games/escape/background-sprite3.png"} alt="background" />
+
+            <img id="imgLife0" src={"/assets/games/escape/life0.png"} alt="life0" />
+            <img id="imgLife1" src={"/assets/games/escape/life1.png"} alt="life1" />
+            <img id="imgLife2" src={"/assets/games/escape/life2.png"} alt="life2" />
+            <img id="imgLife3" src={"/assets/games/escape/life3.png"} alt="life3" />
+
+
+            <img id="imgWinner" src={"/assets/games/escape/winner.png"} alt="winner" />
+            <img id="imgGameOver" src={"/assets/games/escape/game-over.png"} alt="game over" />
+
+
+
+            <img id="imgYes" src={"/assets/games/escape/yes.png"} alt="yes png" />
+            <img id="imgNo" src={"/assets/games/escape/life3.png"} alt="yes png" />
     </canvas>
+
+
+
+
         </div>
 
         <div className="title-box title-box--center">

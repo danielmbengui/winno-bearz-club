@@ -19,12 +19,7 @@ export default function EscapePage({database, contractInfo, promoUrls, links, ra
     
     return(
         <>
-        <ContainerComponent airdrop={true} links={links}>
-            {/* <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} /> */}
-            <HeaderPage title={"Escape Game"} />
-            <Escape database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} />
-           
-        </ContainerComponent>
+        <Escape database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} />
         </>
     )
 }

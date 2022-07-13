@@ -14,33 +14,38 @@ class EscapeGame {
         this.assetPath = assetPath;
         this.funcAnimate = funcAnimate;
 
-        this.imgBackground = new window.Image();
-        this.imgBackground1 = new window.Image();
-        this.imgBackground2 = new window.Image();
-        this.imgBackground3 = new window.Image();
-        this.imgLife = new window.Image();
+        this.imgBackground = document.getElementById('imgBackground');
+        this.imgBackground1 = document.getElementById('imgBackground1');
+        this.imgBackground2 = document.getElementById('imgBackground2');
+        this.imgBackground3 = document.getElementById('imgBackground3');
+        this.imgLife = document.getElementById('imgLife0');
+        this.imgLife1 = document.getElementById('imgLife1');
+        this.imgLife2 = document.getElementById('imgLife2');
+        this.imgLife3 = document.getElementById('imgLife3');
+        this.imgWinner = document.getElementById('imgWinner');
+
         this.ImgSalmon = new window.Image();
         this.imgScore = new window.Image();
         this.imgMute = new window.Image();
         this.imgUnmute = new window.Image();
-        this.imgWinner = new window.Image();
-        this.imgYes = document.getElementById('imgLife');
+        
+        this.imgYes = document.getElementById('imgYes');
         this.imgNo = new window.Image();
-        this.imgGameOver = new window.Image();
+        this.imgGameOver = document.getElementById('imgGameOver');
 
 
-        this.imgBackground.src = assetPath + 'background-sprite.png';
-        this.imgBackground1.src = assetPath + 'background-sprite1.png';
-        this.imgBackground2.src = assetPath + 'background-sprite2.png';
-        this.imgBackground3.src = assetPath + 'background-sprite3.png';
-        this.imgLife.src = assetPath + 'life' +life + '.png';
+        //this.imgBackground.src = assetPath + 'background-sprite.png';
+        //this.imgBackground1.src = assetPath + 'background-sprite1.png';
+        //this.imgBackground2.src = assetPath + 'background-sprite2.png';
+        //this.imgBackground3.src = assetPath + 'background-sprite3.png';
+        //this.imgLife.src = assetPath + 'life' +life + '.png';
         this.imgScore.src = assetPath + 'bee-score.png';
-        this.imgGameOver.src = assetPath + 'game-over.png';
+        //this.imgGameOver.src = assetPath + 'game-over.png';
 
         this.ImgSalmon.src = assetPath + 'salmon.png';
         this.imgMute.src = assetPath + 'mute.png';
         this.imgUnmute.src = assetPath + 'unmute.png';
-        this.imgWinner.src = assetPath + 'winner.png';
+        //this.imgWinner.src = assetPath + 'winner.png';
         //this.imgYes.src = assetPath + 'yes.png';
         this.imgNo.src = assetPath + 'no.png';
 
@@ -230,8 +235,17 @@ class EscapeGame {
         const imgScore = this.imgScore;
         const imgMute = this.imgMute;
         const assetPath = this.assetPath;
-        const imgLife = new window.Image();
-        imgLife.src = assetPath + "life" + this.life + ".png";
+        let imgLife;
+
+        switch(this.life){
+            case 3: imgLife = this.imgLife3; break;
+            case 2: imgLife = this.imgLife2; break;
+            case 1: imgLife = this.imgLife1; break;
+            case 0: imgLife = this.imgLife; break;
+            default : imgLife = this.imgLife;
+        }
+        
+        //imgLife.src = assetPath + "life" + this.life + ".png";
 
         const ImgSalmon = new window.Image();
         ImgSalmon.src = assetPath + 'salmon.png';
@@ -270,7 +284,7 @@ class EscapeGame {
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
             //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
             //ctx.drawImage(imgLife, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
-            
+            /*
             setTimeout(() => {
                 console.log("Delayed for 1 second.", imgLife);
                 //level.src = link + "life.png";
@@ -284,9 +298,10 @@ class EscapeGame {
                 //ctx.drawImage(img2, 100, 100);
 
               }, 150)
+              */
               
         }else if( this.winner ){
-            
+            ctx.drawImage(imgWinner, 0, 0, canvas.width, canvas.height);
 
             setTimeout(() => {
                 console.log("Delayed for 1 second WINNER.", imgLife);
@@ -333,7 +348,7 @@ class EscapeGame {
                 console.log('win', diffWidth, startWin, endWin, 'width', canvas.width);
                 
 
-                ctx.drawImage(imgWinner, 0, 0, canvas.width, canvas.height);
+                
 
                 //ctx.drawImage(imgWinner, startWin, startHeightWin, widthWinner, heightWinner);
                 //ctx.drawImage(imgYes, startWin, startHeightWin + heightWinner + 10, widthYesNo, heightYesNo);

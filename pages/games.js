@@ -9,6 +9,7 @@ import {connectUser} from "../redux/user/userActions";
 
 import DialogAdvertise from "../components/Dialogs/DialogAdvertise";
 import Gallery from "../components/Gallery/Gallery";
+import Games from "../components/Games/Games";
 
 //const needle = require('needle');
 //const Twitter = require('twitter-v2');
@@ -19,16 +20,15 @@ import Gallery from "../components/Gallery/Gallery";
 //const url = `https://api.twitter.com/2/users/${userId}/followers`;
 //const bearerToken = process.env.BEARER_TOKEN;
 
-export default function MintPage({contractInfo, promoUrls, links, rarities}) {
+export default function GamesPage({contractInfo, promoUrls, links, rarities}) {
     
     
     return(
         <>
-        <ContainerComponent mint={true} links={links}>
+        <ContainerComponent games={true} links={links}>
             {/* <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} /> */}
-            <HeaderPage title={"Mint"} />
-            <Mint connect={connectUser} contractInfo={contractInfo} promoUrls={promoUrls} rarities={rarities} />
-            
+            <HeaderPage title={"Games"} />
+            <Games />
         </ContainerComponent>
         </>
     )
