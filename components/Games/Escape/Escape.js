@@ -58,7 +58,7 @@ const Escape = ({database, contractInfo,}) => {
         } else if (refCanvas.current.msRequestFullscreen) { /* IE11 */
             refCanvas.current.msRequestFullscreen();
         }
-/*
+
         screen.orientation.lock("landscape-primary").then(function() {
             // _LOCK_BUTTON.style.display = 'none';
             // _UNLOCK_BUTTON.style.display = 'block';
@@ -67,7 +67,7 @@ const Escape = ({database, contractInfo,}) => {
         .catch(function(error) {
             alert(error);
         });
-        */
+        
 
         
 
@@ -464,6 +464,11 @@ const Escape = ({database, contractInfo,}) => {
                     //level.src = `sprite/life${nbLife}.png`;
                     requestAnimationFrame(animate);  
                 }else if(escapeGame.gameOver || escapeGame.winner){
+                    if( isMobile() ){
+                        closeFullscreen();
+                        screen.orientation.unlock()
+                    }
+
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     escapeGame.handleBackground();
                     escapeGame.handleLife();
@@ -476,9 +481,7 @@ const Escape = ({database, contractInfo,}) => {
                     musicSound.pause();
                     refButtonStart.current.style.display = 'block';
                     
-                    if( isMobile() ){
-                        closeFullscreen();
-                    }
+                    
 
                     if( escapeGame.gameOver ){
                         gameOverSound.play();
