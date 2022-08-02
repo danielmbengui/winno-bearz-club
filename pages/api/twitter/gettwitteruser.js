@@ -40,9 +40,9 @@ export default async function handler(req, res) {
    targetIdTweet = req.body.targetIdTweet;
     }else  if( req.method === 'GET' ){
        token = req.query.token;
-   secret = req.query.secret;
-   connectedUserId = req.query.connectedUserId;
-   targetIdTweet = req.query.targetIdTweet;
+      secret = req.query.secret;
+      connectedUserId = req.query.connectedUserId;
+      targetIdTweet = req.query.targetIdTweet;
   }
   console.log('User matching search:', {token:token, secret:secret, connectedUserId:connectedUserId, targetIdTweet:targetIdTweet});
 

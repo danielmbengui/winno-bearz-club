@@ -2,6 +2,19 @@ import Bee from './BeeClass';
 import { handleBees } from '../js/functionBees';
 import { sizeWidth } from '@mui/system';
 class EscapeGame {
+    static idealWidth = 1024;
+    static idealHeight = 512;
+    static mobileWidth = 700;
+    static mobileHeight = 250;
+
+    static scoreWinner = 70;
+    static scoreSecondEnemy = 30;
+    static scoreThirdEnemy = 50;
+
+    static scoreBackground1 = 3;
+    static scoreBackground2 = 5;
+    static scoreBackground3 = 7;
+
     constructor(window, canvas, ctx, mouse, ratioDevice = 1 /* for desktop */, gameSpeed = 5, life = 3, 
     assetPath = "/assets/games/escape/", funcAnimate){
         this.window = window;
@@ -22,24 +35,21 @@ class EscapeGame {
         this.imgLife1 = document.getElementById('imgLife1');
         this.imgLife2 = document.getElementById('imgLife2');
         this.imgLife3 = document.getElementById('imgLife3');
+        this.imgScore = document.getElementById('imgScore');
         this.imgWinner = document.getElementById('imgWinner');
-
-        this.ImgSalmon = new window.Image();
-        this.imgScore = new window.Image();
-        this.imgMute = new window.Image();
-        this.imgUnmute = new window.Image();
-        
-        this.imgYes = document.getElementById('imgYes');
-        this.imgNo = new window.Image();
         this.imgGameOver = document.getElementById('imgGameOver');
 
-
+        this.ImgSalmon = new window.Image();
+        this.imgMute = new window.Image();
+        this.imgUnmute = new window.Image();
+        this.imgYes = document.getElementById('imgYes');
+        this.imgNo = new window.Image();
         //this.imgBackground.src = assetPath + 'background-sprite.png';
         //this.imgBackground1.src = assetPath + 'background-sprite1.png';
         //this.imgBackground2.src = assetPath + 'background-sprite2.png';
         //this.imgBackground3.src = assetPath + 'background-sprite3.png';
         //this.imgLife.src = assetPath + 'life' +life + '.png';
-        this.imgScore.src = assetPath + 'bee-score.png';
+        //this.imgScore.src = assetPath + 'bee-score.png';
         //this.imgGameOver.src = assetPath + 'game-over.png';
 
         this.ImgSalmon.src = assetPath + 'salmon.png';
@@ -54,8 +64,10 @@ class EscapeGame {
         this.started = true;
         this.paused = false;
         this.stopped = false;
+        this.finished = false;
         this.gameOver = false;
         this.winner = false;
+        
         this.enemyCame = false;
 
         this.background = {
@@ -134,7 +146,7 @@ class EscapeGame {
         const ctx = this.ctx;
         const ratioDevice = this.ratioDevice;
 
-        const background = this.score >= 15 ? this.imgBackground3 : this.score >= 10 ? this.imgBackground2 : this.score >= 5 ? this.imgBackground1 : this.imgBackground;
+        const background = this.score >= EscapeGame.scoreBackground3 ? this.imgBackground3 : this.score >= EscapeGame.scoreBackground2 ? this.imgBackground2 : this.score >= EscapeGame.scoreBackground1 ? this.imgBackground1 : this.imgBackground;
         const background1 = this.imgBackground1;
         const background2 = this.imgBackground2;
         const salmon = this.ImgSalmon;
@@ -298,10 +310,10 @@ class EscapeGame {
               */
               
         }else if( this.winner ){
-            ctx.drawImage(imgWinner, 0, 0, canvas.width, canvas.height);
+            ctx.drawImage(imgWinner, (canvas.width - imgWinner.width/ratioDevice) / 2, (canvas.height - imgWinner.height/ratioDevice) / 2, imgWinner.width/ratioDevice, imgWinner.height/ratioDevice);
 
             setTimeout(() => {
-                console.log("Delayed for 1 second WINNER.", imgLife);
+                //console.log("Delayed for 1 second WINNER.", imgLife);
                 //level.src = link + "life.png";
                 //ctx.clearRect(HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
                 //ctx.globalCompositeOperation ="xor"
@@ -352,10 +364,11 @@ class EscapeGame {
                 //ctx.drawImage(imgNo, endWin - widthYesNo, startHeightWin + heightWinner + 10, widthYesNo, heightYesNo);
 
                 
-
+/*
                 imgNo.addEventListener('click', (event) => {
                     console.log('click', 'no')
                 });
+                */
 
               }, 150)
               

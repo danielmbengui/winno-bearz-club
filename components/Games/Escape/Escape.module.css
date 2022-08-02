@@ -15,9 +15,8 @@
     font-size: xx-large;
 }
 
-.button-start {
+.button-action {
     font-family: 'Press Start 2P', sans-serif;
-    margin-bottom: 40px;
     font-size: medium;
 }
 
@@ -28,6 +27,10 @@
     font-family: 'Press Start 2P', sans-serif;
     cursor: none;
     /*background: linear-gradient(to bottom, lightblue, blue, darkblue);*/
+}
+
+.inputFill {
+    color: black;
 }
 
 #score {

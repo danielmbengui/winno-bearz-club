@@ -4,7 +4,7 @@ import styleTeam from "./Team.module.css";
 import Link from 'next/link';
 
 const winno_s_path = "/assets/img/team/winno_s.png";
-const winno_e_path = "/assets/games/escape/preview-game.gif";
+const winno_e_path = "/assets/games/escape/game-preview.gif";
 const winno_d_path = "/assets/img/team/winno_d.png";
 const winno_mod_path = "/assets/img/team/winno_mod.png";
 
@@ -18,10 +18,11 @@ const Games = () => {
   const linkedinImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/linkedin.svg" : "/assets/img/icons/social/white/linkedin.svg";
   const team = [
     { name: "Collect the bees and help Winno to avoid the BelzeBearz !", image_path: winno_e_path, sex:"Man", role: "Winno&Bees", club:"WinnoBearz Club", socials:{discord:"", twitter:"",}, href: '/games/escape'},
-    { name: "Winno D", image_path: winno_d_path, sex:"Man", role: "Developer", club:"WinnoBearz Club", socials:{linkedin:""}, href: '/games/escape' },
-    { name: "Winno O", image_path: winno_mod_path, sex:"Man", role: "Discord Admin", club:"WinnoBearz Partner", socials:{discord:"https://discord.gg/AQMYhXPebC", twitter:"https://twitter.com/__Cryptodragon", instagram: "https://www.instagram.com/otori_isaac/"}, href: '/games/escape'},
-    { name: "Winno S", image_path: winno_mod_path, sex:"Man", role: "Discord Moderator", club:"WinnoBearz Partner", socials:{telegram:"https://t.me/sparrow178"}, href: '/games/escape' },
-    { name: "Winno K", image_path: winno_mod_path, sex:"Man", role: "Discord Moderator", club:"WinnoBearz Partner", socials:{discord:"", twitter:"",}, href: '/games/escape' },
+    //{ name: "Collect the bees and help Winno to avoid the BelzeBearz !", image_path: '', sex:"Man", role: "???", club:"WinnoBearz Club", socials:{discord:"", twitter:"",}, href: ''},
+    //{ name: "Winno D", image_path: winno_d_path, sex:"Man", role: "Developer", club:"WinnoBearz Club", socials:{linkedin:""}, href: '/games/escape' },
+    //{ name: "Winno O", image_path: winno_mod_path, sex:"Man", role: "Discord Admin", club:"WinnoBearz Partner", socials:{discord:"https://discord.gg/AQMYhXPebC", twitter:"https://twitter.com/__Cryptodragon", instagram: "https://www.instagram.com/otori_isaac/"}, href: '/games/escape'},
+    //{ name: "Winno S", image_path: winno_mod_path, sex:"Man", role: "Discord Moderator", club:"WinnoBearz Partner", socials:{telegram:"https://t.me/sparrow178"}, href: '/games/escape' },
+    //{ name: "Winno K", image_path: winno_mod_path, sex:"Man", role: "Discord Moderator", club:"WinnoBearz Partner", socials:{discord:"", twitter:"",}, href: '/games/escape' },
   ]
   const styleBoxPerson = {
     backgroundColor: theme.palette.background.card,
@@ -48,11 +49,7 @@ const Games = () => {
             color:theme.palette.text.primary
         }}>
     <div className="team-02">
-      <div className="container container--small">
-        <div className="title-box title-box--center">
-          <h2 className="heading" style={{color:theme.palette.text.primary}}>TEAM</h2>
-        </div>
-      </div>
+
       <div className="container container--xlarge">
         <ul className={`${styleTeam['team-02__list']}`}>
           {
@@ -63,7 +60,7 @@ const Games = () => {
                 <li key={index} className={`${styleTeam['team-02__person']}`} style={styleBoxPerson}>
                   <div className="">
                     <div className={`${styleTeam['team-02__person_img_box']}`} style={styleBoxImgPerson}>
-                      <img loading="lazy" className={`${styleTeam['team-02__person_img']}`} src={member.image_path} alt="Pic team" />
+                      <img loading="lazy" className={`${styleTeam['team-02__person_img']}`} src={member.image_path} alt="Unavailable" />
                     </div>
                     <div className={`${styleTeam['team-02__person_tag']}`}>
                       <span className={`tag color-main bg-light ${styleTeam['team-role']}`} style={roleTeam}>

@@ -99,6 +99,12 @@ const Menu = ({ pages }) => {
         styleBackground: pages.roadmap!==undefined && pages.roadmap ? styleItemActive : styleItem, 
         styleText: pages.roadmap!==undefined && pages.roadmap ? styleTextActive : styleItem, 
       },
+      /*
+      {name: "Games",link: "/games", 
+        styleBackground: pages.games!==undefined && pages.games ? styleItemActive : styleItem, 
+        styleText: pages.games!==undefined && pages.games ? styleTextActive : styleItem, 
+      },
+      */
       {name: "Mint",link: "/mint", 
         styleBackground: pages.mint!==undefined && pages.mint ? styleItemActive : styleItem, 
         styleText: pages.mint!==undefined && pages.mint ? styleTextActive : styleItem, 

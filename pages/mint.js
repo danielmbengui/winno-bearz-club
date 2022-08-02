@@ -21,14 +21,12 @@ import Gallery from "../components/Gallery/Gallery";
 
 export default function MintPage({contractInfo, promoUrls, links, rarities}) {
     
-    
     return(
         <>
         <ContainerComponent mint={true} links={links}>
             {/* <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} /> */}
             <HeaderPage title={"Mint"} />
-            <Mint connect={connectUser} contractInfo={contractInfo} promoUrls={promoUrls} rarities={rarities} />
-            
+            <Mint connect={connectUser} contractInfo={contractInfo} promoUrls={promoUrls} rarities={rarities} /> 
         </ContainerComponent>
         </>
     )

@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     // Run cors
     await cors(req, res);
     //const CONFIG = require('../../../redux/config/twitter/followers.json');
-    let CONFIG = require('../../../redux/config/twitter/followers.json');;
+    let CONFIG = require('../../../redux/config/twitter/followers.json');
     readFile(configDir, (err, data) => {
         if (err) return {followers:[], count:0};
         CONFIG = JSON.parse(data.toString());

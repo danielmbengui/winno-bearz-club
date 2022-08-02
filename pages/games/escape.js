@@ -4,6 +4,7 @@ import {updateAdvertise} from "../../redux/user/userActions";
 import HeaderPage from '../../components/HeaderPage/HeaderPage';
 import ContainerComponent from '../../components/Container';
 import Escape from "../../components/Games/Escape/Escape";
+import Promo from "../../components/Promo/Promo";
 
 //const needle = require('needle');
 //const Twitter = require('twitter-v2');
@@ -20,6 +21,8 @@ export default function EscapePage({database, contractInfo, promoUrls, links, ra
     return(
         <>
         <Escape database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} />
+        <Promo links={links} />
+        
         </>
     )
 }

@@ -9,8 +9,8 @@ class BelzeBearz {
         this.imgEnemy = new game.window.Image();
         this.imgEnemy.src = game.assetPath + 'enemy' + idEnemy + '-sprite.png';
 
-        this.enemyTouchSound = window.document.createElement('audio');
-        this.enemyTouchSound.src = game.assetPath + 'music-enemy-touch.mp3';
+        this.enemyTouchSound = document.getElementById('musicTouchEnemy');
+        //this.enemyTouchSound.src = game.assetPath + 'music-enemy-touch.mp3';
 
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
@@ -27,11 +27,12 @@ class BelzeBearz {
     }
 
     draw(){
-        
+        /*
         this.ctx.fillStyle = 'red';
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
         this.ctx.fill();
+        */
         
         //this.game.handleLife();
         

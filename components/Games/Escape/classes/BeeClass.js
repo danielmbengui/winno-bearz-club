@@ -18,7 +18,7 @@ class Bee {
         this.speed = Math.random() * (game.gameSpeed) + 1;
         this.distance;
         this.counted = false;
-        this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
+        //this.sound = Math.random() <= 0.5 ? 'sound1' : 'sound2';
 
         this.frame = 0;
         this.frameX = 0;

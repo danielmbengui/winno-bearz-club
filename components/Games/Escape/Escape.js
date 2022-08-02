@@ -1,18 +1,30 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styleEscape from "./Escape.module.css";
-import { useTheme, } from '@mui/material/styles';
+import { useTheme, styled } from '@mui/material/styles';
+import * as fs from 'fs';
+
 import { Button } from '@mui/material';
 import Image from 'next/image';
 import useImage from 'use-image';
 //const playerLeft = new Image();
 
+import TextField from '@mui/material/TextField';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InputAdornment from '@mui/material/InputAdornment';
 
-
-
+import FilledInput from '@mui/material/FilledInput';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Stack from '@mui/material/Stack';
 
 import Player from './classes/PlayerClass';
 import Enemy from './classes/EnemyClass';
 import Bee from './classes/BeeClass';
+import Salmon from './classes/SalmonClass';
 import Game from './classes/GameClass';
 
 
@@ -20,24 +32,171 @@ import EscapeGame from './classes/EscapeGameClass';
 import Winno from './classes/WinnoClass';
 import BelzeBearz from './classes/BelzeBearzClass';
 
-const Escape = ({database, contractInfo,}) => {
+import { useDispatch, useSelector } from "react-redux";
+//import { updateBlockchain, connect, connectAccount } from "../../redux/blockchain/blockchainActions";
+import { fetchContract  } from "../../../redux/contract/contractActions";
+import { fetchData } from "../../../redux/data/dataActions";
+import {InstallMetamaskButton, ConnectToWebsiteButton, SwitchNetworkButton, MintButton} from "../../Buttons/Buttons";
+
+import { METHOD_GET, METHOD_POST, DIGIT_WALLET_ADDRESS, LENGTH_WALLET_ADDRESS, ACTION_ADD_USER, ACTION_SET_USER, 
+    ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, GET_LOCAL_SESSION_USER } from '../../../lib/constants';
+
+//const fs = require('fs');
+
+
+const Escape = ({database, contractInfo}) => {
     const theme = useTheme();
     const refCanvas = useRef();
     const refDiv = useRef();
     const refButtonStart = useRef();
     const refSound = useRef();
 
+    const assetPath = "/assets/games/escape/";
+
+//  const dispatch = useDispatch();
+ // const smartContract = useSelector((state) => state.smartContract);
+  const user = useSelector((state) => state.user);
+  
+  const web3 = user.web3;
+  const [game, setGame] = useState(null);
+  const [player, setPlayer] = useState({walletAddress:'', twitterName: '', maxScore:0, airdropped:false});
+  const [isUserSessionStorage, setIsUserSessionStorage] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+  const [errorWallet, setErrorWallet] = useState(false);
+  const [messageWallet, setMessageWallet] = useState('')
+  const [twitterName, setTwitterName] = useState('');
+  const [errorTwitter, setErrorTwitter] = useState(false);
+  const [messageTwitter, setMessageTwitter] = useState('')
+  const [score, setScore] = useState(0);
+
+  const onChangeWalletAddress = (e) => {
+    let _player = {...player, walletAddress:e.target.value, };
+    setPlayer(_player);
+    console.log('player', _player);
+    setWalletAddress(e.target.value);
+    console.log('wallet address', e.target.value);
+  }
+
+  const onChangeTwitterName = (e) => {
+    let _player = {...player, twitterName:e.target.value, };
+    setPlayer(_player);
+    console.log('player', _player);
+    setTwitterName(e.target.value);
+    console.log('twitter name', twitterName);
+  }
+/*
+  const isUserSessionStorage = () => {
+    if( window.sessionStorage.getItem(GET_LOCAL_SESSION_USER) ){
+        return true;
+    }
+    return false;
+  }
+  */
+
+  const getUserSessionStorage = () => {
+    if( window.sessionStorage.getItem(GET_LOCAL_SESSION_USER) ){
+        const userStorage = JSON.parse(window.sessionStorage.getItem(GET_LOCAL_SESSION_USER));
+        return userStorage;
+    }
+    return null;
+  }
+
+  const setUserSessionStorage = () => {
+    window.sessionStorage.setItem(GET_LOCAL_SESSION_USER, JSON.stringify(player));
+    return true;
+  }
+
+  
+
+  //const dispatch = useDispatch();
+  //const now = Date.now();
+  const [mintAmount, setMintAmount] = useState(1);
+  const [totalCost, setTotalCost] = useState(contractInfo.displayCost);
+  const [claimingNft, setClaimingNft] = useState(false);
+  const [feedback, setFeedback] = useState(<div></div>);
+  const [buttonError, setButtonError] = useState(<div></div>);
+
     const [canvas, setCanvas] = useState();
     const [canvasPosition, setCanvasPosition] = useState();
     const [ctx, setCtx] = useState();
     const [mouse, setMouse] = useState();
-    const [score, setScore] = useState(0);
+    
     const [gameFrame, setGameFrame] = useState(0);
     const [gameSpeed, setGameSpeed] = useState(0);
     const [gameOver, setGameOver] = useState(false);
-    const [player, setPlayer] = useState();
+
+    useEffect( () => {
+        let userStorage = getUserSessionStorage();
+        if( userStorage ){
+            setIsUserSessionStorage(true);
+            setPlayer(userStorage);
+        }else{
+            setIsUserSessionStorage(false);
+        }
+        
+        //let _player = {walletAddress:'', twitterName: '', maxScore:0, airdropped:false};
+        
+        console.log('player', userStorage);
+
+        /*
+        if( window.sessionStorage.getItem(GET_LOCAL_SESSION_USER) ){
+            //window.sessionStorage.setItem(STORAGE_ADVERTISE_SESSION, _showAdvertiseSession);
+            const userStorage = JSON.parse(window.sessionStorage.getItem(GET_LOCAL_SESSION_USER));
+            setPlayer(userStorage);
+            //setWalletAddress(user.walletAddress);
+            //console.log('storage', JSON.stringify(userStorage))
+            console.log('storage', userStorage)
+            
+        }else{
+            console.log('no object')
+        }
+        */
+        
+        
+    }, [game])
+
+    useEffect(() => {
+        /*
+        if( user.isMetaMaskInstalled === null ){
+          setFeedback(<div></div>);
+        }else if( !user.isMetaMaskInstalled ){
+          setButtonError(<InstallMetamaskButton />);
+          setFeedback("Please Install Metamask before.");
+          setFeedback(<Alert severity="error">
+                      <AlertTitle>Provider not found</AlertTitle>
+                      Metamask is not available — <strong>click on Install Metamask !</strong>
+                    </Alert>);
+        }else if( !user.isConnected ){
+          setButtonError(<ConnectToWebsiteButton  />);
+          setFeedback("Click connect to mint your NFT.");
+          setFeedback(<Alert severity="warning">
+          <AlertTitle>You are not connected</AlertTitle>
+          You must be connected to mint — <strong>click on Connect !</strong>
+        </Alert>);
+        }else if( user.networkId !== smartContract.network.networkId ){
+          setButtonError(<SwitchNetworkButton />);
+          setFeedback("Switch to the " + smartContract.network.name + " Network.");
+          setFeedback(<Alert severity="info">
+          <AlertTitle>You are on the <strong>wrong network</strong> !</AlertTitle>
+          You must be connected to {smartContract.network.name} Network — <strong>click on Switch/Add !</strong>
+        </Alert>);
+        }else{
+          setButtonError(<></>);
+          setFeedback("Click mint to buy your NFT.");
+          setFeedback(<Alert severity="success" style={{border:`1px ${theme.palette.background.border} solid`}}>
+          <AlertTitle>You are ready to mint !</AlertTitle>
+          <strong>click on Mint !</strong>
+        </Alert>);
+        }
+        */
+       console.log('user', user)
+      }, [user]);
+
+      useEffect( () => {
+        
+      })
     
-    console.log('refCanvas BEFORE', refCanvas.current,);
+    //console.log('refCanvas BEFORE', refCanvas.current,);
 
     const isMobile = () => {
         if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
@@ -105,13 +264,10 @@ const Escape = ({database, contractInfo,}) => {
             //canvas.width = screen.width * (53.5/100);
             //canvas.height = screen.height * (47.5/100);
 
-            canvas.width = 1024;
-            canvas.height = 512;
+            canvas.width = EscapeGame.idealWidth;
+            canvas.height = EscapeGame.idealHeight;
             //var heightRatio = 3;
             //canvas.height = canvas.width / heightRatio;
-            const scoreSecondEnemy = 20;
-            const scoreThirdEnemy = 30;
-            const scoreWinner = 3;
 
             let score = 0;
             let gameFrame = 0;
@@ -126,11 +282,9 @@ const Escape = ({database, contractInfo,}) => {
             if( isMobile() ) { 
                 //isMobile = true;
                 device = 'mobile';
-                canvas.width = 700;
-                canvas.height = 250;
+                canvas.width = EscapeGame.mobileWidth;
+                canvas.height = EscapeGame.mobileHeight;
                 ratioDevice = 2;
-            }else{
-
             }
             
             let canvasPosition = canvas.getBoundingClientRect();
@@ -142,22 +296,8 @@ const Escape = ({database, contractInfo,}) => {
             }
             
             if( isMobile() ){
-                let startx = 0;
-                let starty = 0;
-
-                /*
-                canvas.addEventListener('touchstart', (event) => {
-                    let touchObj = event.changedTouches[0]; // erster Finger
-                    startx = parseInt(touchObj.clientX); // X/Y-Koordinaten relativ zum Viewport
-                    starty = parseInt(touchObj.clientY);
-                    //let touchObj = event.changedTouches[0];
-                   // mouse.click = true;
-                    mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
-                    mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
-                    console.log(mouse.x, mouse.y);
-                    event.preventDefault();
-                });
-                */
+                //let startx = 0;
+                //let starty = 0;
                 
                 canvas.addEventListener('touchmove', (event) => {
                     let touchObj = event.changedTouches[0];
@@ -176,18 +316,6 @@ const Escape = ({database, contractInfo,}) => {
                     //console.log('touch cancel', mouse.x, mouse.y);
                     event.preventDefault();
                 });
-                
-/*
-                canvas.addEventListener('touchend', (event) => {
-                    let touchObj = event.changedTouches[0];
-                    mouse.click = true;
-                    mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
-                    mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
-                    console.log(mouse.x, mouse.y);
-                    event.preventDefault();
-                });
-                */
-                
             }else{
                 canvas.addEventListener('mousemove', (event) => {
                     mouse.click = true;
@@ -196,141 +324,23 @@ const Escape = ({database, contractInfo,}) => {
                     //console.log(mouse.x, mouse.y)
                 });
             }
-/*
-            canvas.addEventListener('mousedown', (event) => {
-                mouse.click = true;
-                mouse.x = event.x - canvasPosition.left;
-                mouse.y = event.y - canvasPosition.top;
-                console.log(mouse.x, mouse.y)
-            });
             
-            canvas.addEventListener('mouseup', (event) => {
-                mouse.click = false;
-                mouse.x = event.x - canvasPosition.left;
-                mouse.y = event.y - canvasPosition.top;
-                console.log(mouse.x, mouse.y)
-            });
-            */
+            const musicSound = document.getElementById('musicGame');
+            const beeTouchSound = document.getElementById('musicTouchBee');
+            const winnerSound = document.getElementById('musicWinner');
+            const gameOverSound = document.getElementById('musicGameOver');
 
-
-           // const image = require("../../../public/assets/games/escape/player-sprite.png")
-            const assetPath = "/assets/games/escape/";
-            //const playerImage = new window.Image() // can't use new Image()
-            //playerImage.src = link + 'player-sprite.png';
-            //const playerTouchImage = new window.Image() // can't use new Image()
-            //playerTouchImage.src = link + 'player-reverse-sprite.png';
-
-            //const imgEnemy = new window.Image();
-            //imgEnemy.src = link + 'enemy-sprite.png';
-            //const imgEnemy1 = new window.Image();
-            //imgEnemy1.src = link + 'enemy1-sprite.png';
-            //const imgEnemy2 = new window.Image();
-            //imgEnemy2.src = link + 'enemy2-sprite.png';
-
-            //const beeImage = new window.Image();
-            //beeImage.src = link + "bee-sprite.png";
-
-            //const imgWinner = new window.Image();
-            //imgWinner.src = link + 'winner-sprite.png';
-            
-
-            //const background = new window.Image();
-            //background.src = link + 'background.png';
-            //const background1 = new window.Image();
-            //background1.src = link + 'background1.png';
-            //const background2 = new window.Image();
-            //background2.src = link + 'background2.png';
-            //const backgroundStorm = new window.Image();
-            //background2.src = link + 'background-storm.png';
-
-            //const level = new window.Image();
-            //level.src = link + `life${nbLife}.png`;
-
-            //const imgMute = new window.Image();
-            //imgMute.src = link + `mute.png`;
-            //const imgUnmute = new window.Image();
-            //imgUnmute.src = link + `unmute.png`;
-
-            //const imgGameOver = new window.Image();
-            //imgGameOver.src = link + `game_over.png`;
-            //const imgScore = new window.Image();
-            //imgScore.src = link + 'bee_score.png';
-            //const ImgSalmon = new window.Image();
-            //ImgSalmon.src = link + 'salmon.png';
-
-            
-
-            /*
-            const mySound = document.getElementById('sound');
-            mySound.voulme = 40;
-            */
-            const musicSound = document.createElement('audio');
-            //musicSound.src = link + 'music.mp3';
-            musicSound.src = assetPath + 'music-game.mp3';
-            //const enemyTouchSound = document.createElement('audio');
-            //enemyTouchSound.src = link + 'music-enemy-touch.mp3';
-
-            const beeTouchSound = document.createElement('audio');
-            //beeTouchSound.src = 'flyswatter.wav';
-            beeTouchSound.src = assetPath + 'music-bee-touch.mp3';
-            //const beeTouchSound1 = document.createElement('audio');
-            //beeTouchSound1.src = 'flyswatter4.wav';
-            //beeTouchSound1.src = link + 'music-bee-touch.mp3';
-
-            const winnerSound = document.createElement('audio');
-            //beeTouchSound1.src = 'flyswatter4.wav';
-            winnerSound.src = assetPath + 'music-winner.mp3';
-
-            const gameOverSound = document.createElement('audio');
-            //beeTouchSound1.src = 'flyswatter4.wav';
-            gameOverSound.src = assetPath + 'music-game-over.mp3';
-
-            //const playerImage = useImage(link);
-            //console.log('image', playerImage);
             const escapeGame = new EscapeGame(window, canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, assetPath, animate);
+            setGame(escapeGame);
 
             const winno = new Winno(escapeGame);
             const belzeBear = new BelzeBearz(escapeGame, winno, gameSpeed);
             const belzeBear1 = new BelzeBearz(escapeGame, winno, gameSpeed + 1,  1);
             const belzeBear2 = new BelzeBearz(escapeGame, winno, gameSpeed + 2, 2);
 
-
-            //const player = new Player(canvas, ctx, mouse, nbLife, gameFrame, ratioDevice, playerImage, level, imgGameOver, imgScore);
-            //const enemy = new Enemy(canvas, ctx, mouse, player, gameFrame, ratioDevice, imgEnemy);
-            //console.log('refCanvas YES', canvas, 'document YES', document.getElementById('oook'))
-            //console.log('screen width', screen.width, 'screen height', screen.height);
-            //console.log('canvas', canvas.width, 'canvas width', canvas.height,);
-            //console.log('device', device);            
+            //const salmon = new Salmon(escapeGame, winno);           
             const beesArray = [];
-            //const game = new Game(canvas, ctx, mouse, player, enemy, [], gameFrame, ratioDevice /* for desktop */, score, gameSpeed, background, background1, background2, level, imgGameOver, imgScore);
-            /*
-            function handleLife(){
-                //console.log('nb life', player.life);
-                if( player.life >= 0 ){
-                    level.src = link + `/life${player.life}.png`;
-                        //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3, HEART.spriteHeight/3);
-                    ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
-                         
-                }else{
-                    //player.life = 0;
-                    level.src = link + `life0.png`;
-                    ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);               
-                } 
-               
-                
-                ctx.drawImage(imgScore, HEART.x1 + 20 + HEART.spriteWidth/3/ratioDevice, HEART.y + 10, HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);  
-                ctx.fillStyle = 'red';
-                //ctx.font();
-                ctx.font = isMobile ? '30px VT323 bold' : '60px VT323 bold';
-                ctx.fillText("Score : " + game.score, HEART.x1 + 30 + HEART.spriteWidth/3/ratioDevice + HEART.spriteHeight/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
-                
-            }*/
-            /*
-            document.getElementById('imgLife').addEventListener('click', (event) => {
-                console.log('click', 'yes', event.target.value)
-            });
-            */
+
 
             function handleEnemies(){
                 //enemy.update();   
@@ -339,29 +349,22 @@ const Escape = ({database, contractInfo,}) => {
                 belzeBear.update();
                 belzeBear.draw();
 
-                if( escapeGame.score >= scoreSecondEnemy ){
+                if( escapeGame.score >= EscapeGame.scoreSecondEnemy ){
                     belzeBear1.update();
                     belzeBear1.draw();
                 }
 
-                if( escapeGame.score >= scoreThirdEnemy ){
+                if( escapeGame.score >= EscapeGame.scoreThirdEnemy ){
                     belzeBear2.update();
                     belzeBear2.draw();
                 }
-                /*
-                if( player.score === 5 ){
-                    const enemy1 = new Enemy(canvas, ctx, mouse, player, gameFrame, ratioDevice, imgEnemy);
-                    enemy1.update();   
-                enemy1.draw(); 
-                }
-                */
             }
 
             function handleBees(){
                 if( !escapeGame.gameOver && escapeGame.gameFrame % 50 === 0 ){
                     beesArray.push(new Bee(escapeGame, winno));
                 }
-                
+
                 for (let i = 0; i < beesArray.length; i++) {                        
                         if( beesArray[i].y < 0 - beesArray[i].radius * 2 ){
                             beesArray.splice(i, 1);
@@ -389,7 +392,7 @@ const Escape = ({database, contractInfo,}) => {
                                     beesArray[i].draw();
                                     beesArray.splice(i, 1);
 
-                                    if( escapeGame.score === scoreWinner ){
+                                    if( escapeGame.score === EscapeGame.scoreWinner ){
                                         escapeGame.started = false;
                                         escapeGame.stopped = true;
                                         escapeGame.winner = true;
@@ -405,37 +408,8 @@ const Escape = ({database, contractInfo,}) => {
                 }
             }
             
-            /*
-            function animate(){
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                //handleBackground();
-                //handleLife();
-                //handleLife();
-                //handleEnemies();
-                enemy.handleEnemies();
-                handleBees();
-                player.update();
-                player.draw();
-                //ctx.fillStyle = 'black';
-                //ctx.fillText('Score : ' + score, 10, 50);
-                //document.getElementById('score').innerHTML = 'Score : ' + score;
-                //document.getElementById('life').innerHTML = 'Life : ' + player.life;
-                //imgLife.src = `sprite/life${nbLife}.png`;
-                //level.src = `sprite/life${nbLife}.png`;
-                gameFrame++;
-                player.gameFrame++;
-                enemy.gameFrame++;
-                for (let i = 0; i < beesArray.length; i++) {
-                    beesArray[i].gameFrame++;
-                }
-                //console.log(gameFrame);
-                if( player.life >= 0 ){
-                    //level.src = `sprite/life${nbLife}.png`;
-                    requestAnimationFrame(animate);  
-                }
-                
-            }
-            */
+            
+           
             function animate(){
                 
                 if( musicSound.played ){
@@ -447,31 +421,25 @@ const Escape = ({database, contractInfo,}) => {
                 escapeGame.handleBackground();
                 escapeGame.gameFrame++;
                 //console.log('gameFrame', escapeGame.gameFrame)
-                /*
-                if( escapeGame.gameFrame === 100 || escapeGame.gameFrame === 400 ){
-                    escapeGame.paused = true;
-
-                    setTimeout(() => {
-                        requestAnimationFrame(animate); 
-                      }, 3000)
-                }else{
-                    escapeGame.paused = false;
-                }
-                */
                 
                 escapeGame.handleLife();
                 winno.update();
                 handleEnemies();
                 winno.draw();
                 handleBees();
+
+                if( !escapeGame.gameOver && escapeGame.score >= 1 ){
+                    //beesArray.push();
+                    //salmon.update();
+                    //salmon.draw();
+                }
                 
                 //console.log('gameOver', escapeGame.life)
                 if( !escapeGame.stopped && !escapeGame.paused ){
-                    //level.src = `sprite/life${nbLife}.png`;
-                    
                     requestAnimationFrame(animate);  
                 }
-                
+
+                //document.getElementById('score').innerHTML = 'Score : ' + escapeGame.score;
                 if(escapeGame.gameOver || escapeGame.winner){
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                             escapeGame.handleBackground();
@@ -491,13 +459,16 @@ const Escape = ({database, contractInfo,}) => {
         
                             if( escapeGame.winner ){
                                 winnerSound.play();
-                                refCanvas.current.style.cursor = 'pointer';
+                                refCanvas.current.style.cursor = 'pointer';  
                             }
                             escapeGame.handleLife(); 
                             if( isMobile() ){
                                 closeFullscreen();
                                 setTimeout(() => {
                                     ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
+                                    canvas.width = screen.width - 10;
+                                    canvas.height = screen.height - 10;
                                     escapeGame.handleBackground();
                                     
                                     //escapeGame.handleGame();
@@ -520,12 +491,7 @@ const Escape = ({database, contractInfo,}) => {
                                     escapeGame.handleLife();   
                         
                                 }, 500);
-                            }
-                    
-
-                    
-                    
-                    
+                            }    
                 } 
             }
             animate();
@@ -536,25 +502,27 @@ const Escape = ({database, contractInfo,}) => {
             });
             
             refCanvas.current.addEventListener('fullscreenchange', () => {
-/*
+
                 if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen ) {
                     //refCanvas.current.exitFullscreen();
+                    escapeGame.stopped = true;
                     escapeGame.paused = true;
                     console.log('EXIT full screen', screen.width, screen.height);
                 }else{
+                    escapeGame.stopped = false;
                     escapeGame.paused = false;
                     console.log('full screen', screen.width, screen.height);
                     console.log('canvasPoistion FULL SCREEN', canvasPosition);
                 }
-                */
+                
 
                 //escapeGame.paused
                 console.log('canvasPoistion FULL SCREEN', canvasPosition);
                 
                 //canvas.width = screen.width;
                 //canvas.height = screen.height;
-                canvas.width = 700;
-                canvas.height = 250;
+                canvas.width = EscapeGame.mobileWidth;
+                canvas.height = EscapeGame.mobileHeight;
                 //ratioDevice = 2;
                 canvasPosition = canvas.getBoundingClientRect();
                 
@@ -564,8 +532,8 @@ const Escape = ({database, contractInfo,}) => {
                 //_LOCK_BUTTON.style.display = 'block';
                 //_UNLOCK_BUTTON.style.display = 'none';
                 console.log('webkit FULL SCREEN', canvasPosition);
-                canvas.width = 700;
-                canvas.height = 250;
+                canvas.width = EscapeGame.mobileWidth;
+                canvas.height = EscapeGame.mobileHeight;
                 //ratioDevice = 2;
                 canvasPosition = canvas.getBoundingClientRect();
             });
@@ -577,15 +545,16 @@ const Escape = ({database, contractInfo,}) => {
                 
                 if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
                     escapeGame.paused = true;
+                    escapeGame.stopped = true;
                 }else{
-                    
+                    escapeGame.paused = false;
+                    escapeGame.stopped = false;
                     //alert('IS OKAY !');
                     //openFullscreen();
                 }
                 
             });
             
-
             window.addEventListener('scroll', () => {
                 console.log('scroll screen');
                 canvasPosition = canvas.getBoundingClientRect();
@@ -593,15 +562,223 @@ const Escape = ({database, contractInfo,}) => {
         }
     }
 
+    const CssTextField = styled(TextField)({
+        '& label': {
+          color: theme.palette.text.primary,
+        },
+        '& label.Mui-focused': {
+            color: theme.palette.primary.main,
+          },
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': {
+            borderColor: theme.palette.text.primary,
+          },
+          '&:hover fieldset': {
+            borderColor: theme.palette.primary.main,
+          },
+          '&.Mui-focused fieldset': {
+            borderColor: theme.palette.primary.main,
+          },
+        },
+      });
 
-    
-    useEffect(()=>{
+      const configDir = `${process.cwd()}/redux/config/twitter/followers.json`;
+    const buildDir = `${process.cwd()}/redux/lists/airdrop`;
+    const metadataDir = `${buildDir}/winnobearznft.json`;
+
+    const isErrorWalletAddress = (walletAddress) => {
+        if( !walletAddress.length ){
+            setErrorWallet(true);
+            setMessageWallet("Wallet address can't be empty !!!");
+            return true;
+        }
         
-    }, []);
+        if( walletAddress.search(DIGIT_WALLET_ADDRESS) === -1 ){
+            setErrorWallet(true);
+            setMessageWallet("Wallet address must start with " + DIGIT_WALLET_ADDRESS + "!!!");
+            return true;
+        }
+        
+        if( walletAddress.length !== 42 ){
+            setErrorWallet(true);
+            setMessageWallet("Wallet address must have 40 hexadecimal digits!!!");
+            return true;
+        }
 
+        /*
+        if( walletExist(walletAddress) ){
+            setErrorWallet(true);
+            setMessageWallet("Wallet address already exist on the data!!!");
+            return true;
+        }
+        */
 
+        setErrorWallet(false);
+        setMessageWallet("");
+        return false;
+    }
 
- 
+    const isErrorTwitterName = (twitterName) => {
+        if( !twitterName.length ){
+            setErrorTwitter(true)
+            setMessageTwitter("The twitter username can't be empty !!!");
+            return true;
+        }
+
+        setErrorTwitter(false)
+        setMessageTwitter("");
+        return false;
+    }
+
+    const walletExist = async (walletAddress) => {
+        const user = await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_WALLET}&walletAddress=${walletAddress}`, {
+            method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit            
+            headers: {
+                'Content-Type': 'application/json',
+            },  
+            }).then( (response) => {   
+                //console.log({ok: await response.json()})
+                return response;
+            }).then( async (data) => {   
+                //console.log({ok: await response.json()})
+                return await data.json();
+            }).catch( (error) => {
+                console.log({SOURCE_ID: error})
+                return null;
+        });
+        console.log('result wallet', user ? true : false)
+        return user ? true : false;
+    }
+
+    const twitterExist = async (twitterName) => {
+        const user = await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_TWITTER}&twitterName=${twitterName}`, {
+            method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit            
+            headers: {
+                'Content-Type': 'application/json',
+            },  
+            }).then( (response) => {   
+                //console.log({ok: await response.json()})
+                return response;
+            }).then( async (data) => {   
+                //console.log({ok: await response.json()})
+                return await data.json();
+            }).catch( (error) => {
+                console.log({SOURCE_ID: error})
+                return null;
+        });
+        console.log('result twitter', user ? true : false)
+        return user ? true : false;
+    }
+
+      const setUserByWallet = async (data) => { 
+        //await fetch(`/api/airdrop/winnobearznft?action=get_list`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=get_count`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER}&walletAddress=${data.walletAddress}&twitterName=${data.twitterName}&score=${data.score}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_WALLET}&walletAddress=${data.walletAddress}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_TWITTER}&twitterName=${data.twitterName}`, {
+        await fetch(`/api/airdrop/winnobearznft`, {
+            //walletAddress:{walletAddress:data.walletAddress},
+            //method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            method: METHOD_POST, // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            body: JSON.stringify({action:ACTION_SET_USER, walletAddress:data.walletAddress, twitterName:data.twitterName, maxScore: data.score, airdropped: data.airdropped }),
+            
+            headers: {
+            'Content-Type': 'application/json',
+            },  
+          })
+          .then( async (response) => {   
+                console.log({ok: await response.json()})
+              //return response.json();
+          }).catch( (error) => {
+            console.log({SOURCE_ID: error})
+            return null;
+          });
+          
+        
+    };
+
+    const getUser = async (data) => { 
+        /*
+if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
+            window.sessionStorage.setItem(STORAGE_ADVERTISE_SESSION, _showAdvertiseSession);
+          }
+        */
+        //await fetch(`/api/airdrop/winnobearznft?action=get_list`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=get_count`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER}&walletAddress=${data.walletAddress}&twitterName=${data.twitterName}&score=${data.score}`, {
+        const user = await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_WALLET}&walletAddress=${data.walletAddress}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_TWITTER}&twitterName=${data.twitterName}`, {
+        //await fetch(`/api/airdrop/winnobearznft`, {
+            //walletAddress:{walletAddress:data.walletAddress},
+            //method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            //body: JSON.stringify({action:ACTION_ADD_USER, walletAddress:data.walletAddress, twitterName:data.twitterName, }),
+            
+            headers: {
+            'Content-Type': 'application/json',
+            //'walletAddress': data.walletAddress,
+            //ids: ['1528427591333462016','1529570709386809345', '1528500148111826947'],
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            },  
+          })
+          .then( async (response) => {   
+                //console.log({ok: await response.json()})
+              return response.json();
+          }).catch( (error) => {
+            console.log({SOURCE_ID: error})
+            return null;
+          });  
+          
+          return user;
+    };
+
+    const addUser = async (data) => { 
+        /*
+if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
+            window.sessionStorage.setItem(STORAGE_ADVERTISE_SESSION, _showAdvertiseSession);
+          }
+        */
+        //await fetch(`/api/airdrop/winnobearznft?action=get_list`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=get_count`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER}&walletAddress=${data.walletAddress}&twitterName=${data.twitterName}&score=${data.score}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_WALLET}&walletAddress=${data.walletAddress}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_TWITTER}&twitterName=${data.twitterName}`, {
+        await fetch(`/api/airdrop/winnobearznft`, {
+            //walletAddress:{walletAddress:data.walletAddress},
+            //method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            method: METHOD_POST, // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            body: JSON.stringify({action:ACTION_ADD_USER, walletAddress:data.walletAddress, twitterName:data.twitterName, }),
+            
+            headers: {
+            'Content-Type': 'application/json',
+            //'walletAddress': data.walletAddress,
+            //ids: ['1528427591333462016','1529570709386809345', '1528500148111826947'],
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            },  
+          })
+          .then( async (response) => {   
+                console.log({ok: await response.json()})
+              //return response.json();
+          }).catch( (error) => {
+            console.log({SOURCE_ID: error})
+            return null;
+          });   
+    };
 
     return(
         
@@ -613,69 +790,197 @@ const Escape = ({database, contractInfo,}) => {
           paddingTop:'50px',
           paddingBottom:'50px',
           color:theme.palette.text.primary,
-          //background:'blue'
+          background:theme.palette.background.default,
       }}>
         <div ref={refDiv} className="container">
         
         <div className={`${styleEscape['div-escape']}`}>
         <img id="logo" src={"/assets/img/logo.png"} alt="logo" width={'10%'} />
             <p className={`${styleEscape['story-game']}`}>
-                Collect the bees and avoid the BelzeBearzs. <br/>
-                WIN AN AIRDROP OR FREE MINT !!!
+                Help Winno to avoid the BelzeBearzs. <br/>
+                EAT {EscapeGame.scoreWinner} BEES TO WIN AN AIRDROP !!!
             </p>
 
+            <Stack
+        direction={'column' }
+        spacing={1}
+        justifyContent="center"
+  alignItems="center"
+  marginBottom={3}
+      >
+        <TextField
+            //color='success'
+            onChange={onChangeWalletAddress}
+            //disabled={player.maxScore > 0 ? true : false}
+            disabled={isUserSessionStorage}
+
+            
+            value={player.walletAddress}
+            error={errorWallet}
+            helperText={messageWallet}
+            //margin="normal"
+            //className={styleEscape['inputFill']}
+        //id="input-with-icon-textfield"
+        //label="Wallet"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <AccountBalanceWalletIcon color='primary' />
+            </InputAdornment>
+          ),
+        }}
+        placeholder="wallet address (ETH)"
+        variant="outlined"
+      />
+
+<TextField
+            //margin="normal"
+            color='blue'
+            onChange={onChangeTwitterName}
+            //disabled={player ? true : false}
+            //disabled={player.maxScore > 0 ? true : false}
+            disabled={isUserSessionStorage}
+            value={player.twitterName}
+            error={errorTwitter}
+            helperText={messageTwitter}
+            //className={styleEscape['inputFill']}
+        //id="input-with-icon-textfield"
+        //label="Twitter"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <TwitterIcon color='blue' />
+            </InputAdornment>
+          ),
+        }}
+        placeholder="twitter username"
+        variant="outlined"
+      />
+      </Stack>
+
+      <Stack
+        direction={'column' }
+        spacing={2}
+        justifyContent="center"
+        alignItems="stretch"
+        marginBottom={3}
+      >
             <Button 
-            ref={refButtonStart}
-            className={`${styleEscape['button-start']}`}
+                //ref={refButtonStart}
+                disabled={isUserSessionStorage}
+                className={`${styleEscape['button-action']}`}
                 variant='contained'
+                color='primary'
+                onClick={ async ()=>{
+                    //addUser({walletAddress: walletAddress, twitterName: twitterName});
+                    //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
+                    let _errorWallet = isErrorWalletAddress(player.walletAddress);
+                    let _errorTwitter = isErrorTwitterName(player.twitterName);
+                    //let user = await getUser({walletAddress : player ? player.walletAddress : walletAddress});
+                    //await setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
+                    if( !_errorWallet && !_errorTwitter ){
+                        let isWallet = await walletExist(player.walletAddress);
+                        if( !isWallet ){
+                            await addUser({walletAddress: player.walletAddress, twitterName: player.twitterName});
+                            
+                        }
+                        setUserSessionStorage();
+                        setIsUserSessionStorage(true);
+                    }
+                    //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
+                    
+            }}>Save data</Button>
+
+            <Button 
+                ref={refButtonStart}
+                disabled={!isUserSessionStorage}
+                className={`${styleEscape['button-action']}`}
+                variant='contained'
+                color='blue'
                 onClick={()=>{
-                initGame(); 
+                    //addUser({walletAddress: walletAddress, twitterName: twitterName});
+                    //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
+                    console.log('length wallet', walletAddress.length)
+                    
+                    if( !isErrorWalletAddress(player ? player.walletAddress : walletAddress) && !isErrorTwitterName(player ? player.twitterName : twitterName) ){
+                        if( !window.sessionStorage.getItem(GET_LOCAL_SESSION_USER) ){
+                            //const myJSON = JSON.stringify(myObj);
+                            window.sessionStorage.setItem(GET_LOCAL_SESSION_USER, JSON.stringify({walletAddress: walletAddress, twitterName: twitterName}));
+                            //setPlayer(window.sessionStorage.getItem(GET_LOCAL_SESSION_USER));
+                        }
+                            initGame(); 
                 
-                if( isMobile() ){
-                    openFullscreen();
-                }
-                console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
+                        if( isMobile() ){
+                            openFullscreen();
+                        }
+                    }
+                    //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
+                    
+                    //twitterExist(twitterName);
+                    //walletExist(walletAddress);
+
+                    //setErrorWallet(true);
+                    //setMessageWallet('error wallet');
+                    /*
+                
+                */
+                //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
             }}>Start a game</Button>
-        
+        </Stack>
     <canvas id="oook" ref={refCanvas} className={`${styleEscape['canvas']}`}>
-            <img id="imgBackground" src={"/assets/games/escape/background-start.png"} alt="background" />
-            <img id="imgBackground1" src={"/assets/games/escape/background-middle1.png"} alt="background" />
-            <img id="imgBackground2" src={"/assets/games/escape/background-middle2.png"} alt="background" />
-            <img id="imgBackground3" src={"/assets/games/escape/background-end.png"} alt="background" />
+            <img id="imgBackground" src={assetPath + "background-start.png"} alt="background 1" />
+            <img id="imgBackground1" src={assetPath + "background-middle1.png"} alt="background 2" />
+            <img id="imgBackground2" src={assetPath + "background-middle2.png"} alt="background 3" />
+            <img id="imgBackground3" src={assetPath + "background-end.png"} alt="background 4" />
 
-            <img id="imgLife0" src={"/assets/games/escape/life0.png"} alt="life0" />
-            <img id="imgLife1" src={"/assets/games/escape/life1.png"} alt="life1" />
-            <img id="imgLife2" src={"/assets/games/escape/life2.png"} alt="life2" />
-            <img id="imgLife3" src={"/assets/games/escape/life3.png"} alt="life3" />
+            <img id="imgLife0" src={assetPath + "life0.png"} alt="life 0" />
+            <img id="imgLife1" src={assetPath + "life1.png"} alt="life 1" />
+            <img id="imgLife2" src={assetPath + "life2.png"} alt="life 2" />
+            <img id="imgLife3" src={assetPath + "life3.png"} alt="life 3" />
+            <img id="imgScore" src={assetPath + "bee-score.png"} alt="bee score" />
+            <img id="imgSalmon" src={assetPath + "salmon-sprite.png"} alt="salmon sprite" />
+
+            
 
 
-            <img id="imgWinner" src={"/assets/games/escape/winner.png"} alt="winner" />
-            <img id="imgGameOver" src={"/assets/games/escape/game-over.png"} alt="game over" />
+            <img id="imgWinner" src={assetPath + "winner.png"} alt="winner" />
+            <img id="imgGameOver" src={assetPath + "game-over.png"} alt="game over" />
 
 
 
             <img id="imgYes" src={"/assets/games/escape/yes.png"} alt="yes png" />
             <img id="imgNo" src={"/assets/games/escape/life3.png"} alt="yes png" />
+
+            <audio id="musicGame">
+            <source src={assetPath + 'music-game.mp3'} type="audio/mp3" />
+            <source src={assetPath + 'music-game.mp3'} type="audio/mp3" />
+            <source src={assetPath + 'music-game.mp3'} type="audio/mp3" />
+            </audio>
+
+            <audio id="musicTouchBee">
+            <source src={assetPath + 'music-bee-touch.mp3'} type="audio/mp3" />
+            </audio>
+
+            <audio id="musicTouchEnemy">
+            <source src={assetPath + 'music-belzebear-touch.mp3'} type="audio/mp3" />
+            </audio>
+
+            <audio id="musicWinner">
+            <source src={assetPath + 'music-winner.mp3'} type="audio/mp3" />
+            </audio>
+
+            <audio id="musicGameOver">
+            <source src={assetPath + 'music-game-over.mp3'} type="audio/mp3" />
+            </audio>
     </canvas>
-
-
-
 
         </div>
 
         <div className="title-box title-box--center">
+        <span id="score" style={{display:'none'}}>Score : </span>
           {/* <h2 className="heading ">GALLERY</h2> */}
-          <audio ref={refSound} id="sound" autoPlay controls >
-        <source src="/assets/music/fishin.mp3" type="audio/mpeg" />
-        Your browser does not support the audio element.
-        </audio>
-        <Button onClick={()=> {
-            if( refSound.current ){
-                refSound.current.play();
-            }
-            console.log('click button')
-        }}>Play</Button>
-        <span id="score">Score : {score}</span>
+          
+        
         </div>
       </div>
 </div>

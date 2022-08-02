@@ -16,73 +16,10 @@ import Gallery from "../Gallery/Gallery";
 import {InstallMetamaskButton, ConnectToWebsiteButton, SwitchNetworkButton, MintButton} from "../Buttons/Buttons";
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
-import Script from 'next/script';
 
 import Parchment from "../Surfaces/Parchment";
 
 const advertise = "/assets/advertise.gif";
-
-
-
-
-const MintCard = ({contractInfo, smartContract, user, connect, dispatch}) => {
-  
-
-  return(
-    <div className="container container--mid" style={{textAlign: "center",marginTop:"10vh"}}>
-        
-      <div className="text--02__box" >
-        <div className="text--02__content_box text--02__content_box--bottom" ></div>
-        <div className="text--02__content_box text--02__content_box--top">
-          <div className="text--02__img">
-             <img loading="lazy" src={"/assets/logo.png"} alt={"logo"} className="" style={{height: "300vh"}}  />
-          </div>
-
-          <div style={{marginBottom:"7vh"}}>
-              {/* <h1 className={`heading heading--accent header-29__heading text-white ${styleMint["divTitle"]}`}>{data.name}</h1> */}
-              <p>You can mint <strong>only {maxPerTransaction}</strong> {name} ({symbol}) on one time.</p>
-              <p>You can hold <strong>only {maxPerWallet}</strong> {name} ({symbol}) on your wallet.</p>
-          </div>
-
-          
-          
-          <div id="saleOpen">
-            <h2><u>Already minted</u></h2>
-            <h2>{currentSupply} / {totalSupply}</h2><br/>
-            <Stack direction="row"alignItems="center" justifyContent="center" mb={2} spacing={10} >
-            {/* <img src="/assets/img/others/bees.gif" sx={{display: {xs:'none'}}} width="100vh" /> */}
-                  <div style={{opacity:100}}>
-                  <button className={`${styleMint['button-decrement-increment']}`} onClick={decrementMintAmount}>-</button>
-                    <input  className={`${styleMint['input-mint']}`}  type="number" value={mintAmount} readOnly placeholder="Mint between 1 and x NFT CONTRACT" />
-                  <button className={`${styleMint['button-decrement-increment']}`} onClick={incrementMintAmount}>+</button>
-                  </div>
-              </Stack>
-              <p style={{marginBottom: "5vh"}}>Total cost : {smartContract.web3 ? smartContract.web3.utils.fromWei(BigInt(totalCost).toString(), "ether") : 0} {contractInfo.network.symbol}
-              <br/>
-              (Excluding gas fees)
-              </p>
-
-              
-              { buttonError}
-              <MintButton className={`${styleMint["loading-button-mint"]}`} claimingNft={claimingNft} onClickAction={claimNFTs} />
-              <div className={`${styleMint["style-alert"]}`}>
-              {feedback}
-              </div>
-
-              
-              <div>
-                <p style={{textAlign: "justify"}}>We have set the gas limit to meet the <Link href="https://www.azuki.com/erc721a"><a target="_blank"><strong>Azuki efficiency smart contract gas limit</strong></a></Link> (ERC721A)  for the contract to successfully mint your NFT, with the best price.</p>
-
-                <p style={{textAlign: "justify"}}><strong>PLEASE NOTE : once you make the purchase, you cannot undo this action.</strong></p>
-                
-                
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 const Mint = ({contractInfo, promoUrls, rarities, connect}) => {
   const theme = useTheme();
@@ -93,7 +30,7 @@ const Mint = ({contractInfo, promoUrls, rarities, connect}) => {
   const web3 = user.web3;
 
   //const dispatch = useDispatch();
-  const now = Date.now();
+  //const now = Date.now();
   const [mintAmount, setMintAmount] = useState(1);
   const [totalCost, setTotalCost] = useState(contractInfo.displayCost);
   const [claimingNft, setClaimingNft] = useState(false);
