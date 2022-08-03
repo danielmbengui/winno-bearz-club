@@ -2,6 +2,8 @@ import Bee from './BeeClass';
 import { handleBees } from '../js/functionBees';
 import { sizeWidth } from '@mui/system';
 class EscapeGame {
+    //static assetPath = "/assets/games/escape/";
+
     static idealWidth = 1024;
     static idealHeight = 512;
     static mobileWidth = 700;
@@ -15,17 +17,22 @@ class EscapeGame {
     static scoreBackground2 = 5;
     static scoreBackground3 = 7;
 
-    constructor(window, canvas, ctx, mouse, ratioDevice = 1 /* for desktop */, gameSpeed = 5, life = 3, 
+    static SPEED = 5;
+    static defaultLife = 3;
+
+    constructor(window, canvas, ctx, mouse, ratioDevice = 1 /* for desktop */, life = 3, 
     assetPath = "/assets/games/escape/", funcAnimate){
         this.window = window;
         this.canvas = canvas;
         this.ctx = ctx;
         this.mouse = mouse;
         this.ratioDevice = ratioDevice;
-        this.gameSpeed = gameSpeed;
+        //this.gameSpeed = gameSpeed;
         this.life = life;
         this.assetPath = assetPath;
         this.funcAnimate = funcAnimate;
+
+        this.beesArray = [];
 
         this.imgBackground = document.getElementById('imgBackground');
         this.imgBackground1 = document.getElementById('imgBackground1');
@@ -142,7 +149,7 @@ class EscapeGame {
         
         const BG = this.background;
         const SALMON = this.salmonBackground;
-        const gameSpeed = this.gameSpeed;
+        const speed = EscapeGame.SPEED;
         const ctx = this.ctx;
         const ratioDevice = this.ratioDevice;
 
@@ -153,10 +160,10 @@ class EscapeGame {
 
         
         if( !this.stopped ){
-            BG.x1 -= gameSpeed;
+            BG.x1 -= speed;
             if( BG.x1 < -BG.width){ BG.x1 = BG.width - 3 * ratioDevice ; }
         
-            BG.x2 -= gameSpeed;
+            BG.x2 -= speed;
             if( BG.x2 < -BG.width){ BG.x1 = 0;BG.x2 = BG.width; }
             //ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
             //ctx.drawImage(background, BG.x2, BG.y, BG.width + 10, BG.height);
@@ -375,26 +382,61 @@ class EscapeGame {
             //ctx.drawImage(imgWinner, 0, 0, canvas.width, canvas.height);
             
         }
+    }
 
+    handleBees(){
+        if( !this.gameOver && this.gameFrame % 50 === 0 ){
+            beesArray.push(new Bee(escapeGame, winno));
+        }
 
-        
-        /*
-        //level.src = link + `/life${this.life}.png`;
-        ctx.fillStyle = 'red';
-        //ctx.font();
-        ctx.font = ratioDevice===2 ? 'bold 30px VT323' : 'bold 60px VT323';
-        //ctx.font = ratioDevice===2 ? 'bold 30px Arial' : 'bold 60px Arial';
-        ctx.fillText("Score : " + score, HEART.x1 + 20 + HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice);
-        */
-        //ctx.drawImage(imgLife, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
-         
+        for (let i = 0; i < beesArray.length; i++) {                        
+                if( beesArray[i].y < 0 - beesArray[i].radius * 2 ){
+                    beesArray.splice(i, 1);
+                    //console.log('finito : ' + i);
+                }
+    
+                if( beesArray[i] ){
+                    if( beesArray[i].distance < beesArray[i].radius + winno.radius){
+                        //console.log('collision')
+                        if( !beesArray[i].counted ){
+                            beeTouchSound.play();
+                            /*
+                            if( beesArray[i].sound == 'sound1' ){
+                                beeTouchSound.play();
+                            }else {
+                                beeTouchSound1.play();
+                            }
+                            */
+                            
+                            //player.score++;
+                            //game.score++;
+                            escapeGame.score++;
+                            beesArray[i].counted = true;
+                            beesArray[i].update();
+                            beesArray[i].draw();
+                            beesArray.splice(i, 1);
 
+                            if( escapeGame.score === EscapeGame.scoreWinner ){
+                                escapeGame.started = false;
+                                escapeGame.stopped = true;
+                                escapeGame.winner = true;
+                            }
+                        }
+                    }
+                }
+            
+                if( beesArray[i] ){
+                    beesArray[i].update();
+                    beesArray[i].draw();
+                }
+        }
     }
 
     handleGame(){
         this.funcAnimate();
     }
 
+    
     
 }
 

@@ -8,8 +8,9 @@ class Bee {
         this.ratioDevice = game.ratioDevice;
         this.player = player;
 
-        this.beeImage = new game.window.Image();
-        this.beeImage.src = game.assetPath + "bee-sprite.png";
+        //this.beeImage = new game.window.Image();
+        //this.beeImage.src = game.assetPath + "bee-sprite.png";
+        this.beeImage = document.getElementById('imgBee');
 
 
         this.x = Math.random() * game.canvas.width;

@@ -11,10 +11,9 @@ class Winno {
         this.y = game.canvas.height/2;
         this.radius = 40 / game.ratioDevice;
 
-        this.playerImage = new game.window.Image();
-        this.playerTouchImage = new game.window.Image();
-        this.playerImage.src = game.assetPath + 'player-sprite.png';
-        this.playerTouchImage.src = game.assetPath + 'player-reverse-sprite.png';
+
+        this.playerImage = document.getElementById('imgPlayer');
+        this.playerTouchImage = document.getElementById('imgPlayerReverse');
         
 
         this.touched = false;

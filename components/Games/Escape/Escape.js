@@ -52,6 +52,7 @@ const Escape = ({database, contractInfo}) => {
     const refSound = useRef();
 
     const assetPath = "/assets/games/escape/";
+    const musicPath = assetPath + "music/";
 
 //  const dispatch = useDispatch();
  // const smartContract = useSelector((state) => state.smartContract);
@@ -228,15 +229,6 @@ const Escape = ({database, contractInfo}) => {
             alert(error);
         });
         
-        
-
-        
-
-        
-        //canvasPosition = canvas.getBoundingClientRect();
-        //mouse.x = canvas.width/2;
-        //mouse.y = canvas.height/2;
-        //mouse.click= false;
     
       }
 
@@ -330,7 +322,7 @@ const Escape = ({database, contractInfo}) => {
             const winnerSound = document.getElementById('musicWinner');
             const gameOverSound = document.getElementById('musicGameOver');
 
-            const escapeGame = new EscapeGame(window, canvas, ctx, mouse, ratioDevice, gameSpeed, nbLife, assetPath, animate);
+            const escapeGame = new EscapeGame(window, canvas, ctx, mouse, ratioDevice, nbLife, assetPath, animate);
             setGame(escapeGame);
 
             const winno = new Winno(escapeGame);
@@ -426,7 +418,7 @@ const Escape = ({database, contractInfo}) => {
                 winno.update();
                 handleEnemies();
                 winno.draw();
-                handleBees();
+                //handleBees();
 
                 if( !escapeGame.gameOver && escapeGame.score >= 1 ){
                     //beesArray.push();
@@ -867,7 +859,8 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
       >
             <Button 
                 //ref={refButtonStart}
-                disabled={isUserSessionStorage}
+                //disabled={isUserSessionStorage}
+                disabled={true}
                 className={`${styleEscape['button-action']}`}
                 variant='contained'
                 color='primary'
@@ -893,37 +886,20 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
 
             <Button 
                 ref={refButtonStart}
-                disabled={!isUserSessionStorage}
+                //disabled={!isUserSessionStorage}
                 className={`${styleEscape['button-action']}`}
                 variant='contained'
                 color='blue'
                 onClick={()=>{
                     //addUser({walletAddress: walletAddress, twitterName: twitterName});
                     //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
-                    console.log('length wallet', walletAddress.length)
+                    //console.log('length wallet', walletAddress.length)
                     
-                    if( !isErrorWalletAddress(player ? player.walletAddress : walletAddress) && !isErrorTwitterName(player ? player.twitterName : twitterName) ){
-                        if( !window.sessionStorage.getItem(GET_LOCAL_SESSION_USER) ){
-                            //const myJSON = JSON.stringify(myObj);
-                            window.sessionStorage.setItem(GET_LOCAL_SESSION_USER, JSON.stringify({walletAddress: walletAddress, twitterName: twitterName}));
-                            //setPlayer(window.sessionStorage.getItem(GET_LOCAL_SESSION_USER));
-                        }
-                            initGame(); 
+                    initGame(); 
                 
-                        if( isMobile() ){
-                            openFullscreen();
-                        }
+                    if( isMobile() ){
+                        openFullscreen();
                     }
-                    //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
-                    
-                    //twitterExist(twitterName);
-                    //walletExist(walletAddress);
-
-                    //setErrorWallet(true);
-                    //setMessageWallet('error wallet');
-                    /*
-                
-                */
                 //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
             }}>Start a game</Button>
         </Stack>
@@ -938,39 +914,42 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
             <img id="imgLife2" src={assetPath + "life2.png"} alt="life 2" />
             <img id="imgLife3" src={assetPath + "life3.png"} alt="life 3" />
             <img id="imgScore" src={assetPath + "bee-score.png"} alt="bee score" />
+
+   
+
+            <img id="imgPlayer" src={assetPath + "player-sprite.png"} alt="player sprite" />
+            <img id="imgPlayerReverse" src={assetPath + "player-reverse-sprite.png"} alt="player reverse sprite" />
+
+            <img id="imgEnemy" src={assetPath + "enemy-sprite.png"} alt="enemy sprite" />
+            <img id="imgEnemy1" src={assetPath + "enemy1-sprite.png"} alt="enemy 1 sprite" />
+            <img id="imgEnemy2" src={assetPath + "enemy2-sprite.png"} alt="enemy 2 sprite" />
+
+
+            <img id="imgBee" src={assetPath + "bee-sprite.png"} alt="bee sprite" />
             <img id="imgSalmon" src={assetPath + "salmon-sprite.png"} alt="salmon sprite" />
 
             
-
-
             <img id="imgWinner" src={assetPath + "winner.png"} alt="winner" />
             <img id="imgGameOver" src={assetPath + "game-over.png"} alt="game over" />
 
-
-
-            <img id="imgYes" src={"/assets/games/escape/yes.png"} alt="yes png" />
-            <img id="imgNo" src={"/assets/games/escape/life3.png"} alt="yes png" />
-
             <audio id="musicGame">
-            <source src={assetPath + 'music-game.mp3'} type="audio/mp3" />
-            <source src={assetPath + 'music-game.mp3'} type="audio/mp3" />
-            <source src={assetPath + 'music-game.mp3'} type="audio/mp3" />
+            <source src={musicPath + 'music-game.mp3'} type="audio/mp3" />
             </audio>
 
             <audio id="musicTouchBee">
-            <source src={assetPath + 'music-bee-touch.mp3'} type="audio/mp3" />
+            <source src={musicPath + 'music-bee-touch.mp3'} type="audio/mp3" />
             </audio>
 
             <audio id="musicTouchEnemy">
-            <source src={assetPath + 'music-belzebear-touch.mp3'} type="audio/mp3" />
+            <source src={musicPath + 'music-belzebear-touch.mp3'} type="audio/mp3" />
             </audio>
 
             <audio id="musicWinner">
-            <source src={assetPath + 'music-winner.mp3'} type="audio/mp3" />
+            <source src={musicPath + 'music-winner.mp3'} type="audio/mp3" />
             </audio>
 
             <audio id="musicGameOver">
-            <source src={assetPath + 'music-game-over.mp3'} type="audio/mp3" />
+            <source src={musicPath + 'music-game-over.mp3'} type="audio/mp3" />
             </audio>
     </canvas>
 

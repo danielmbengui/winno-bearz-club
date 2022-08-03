@@ -6,11 +6,10 @@ class BelzeBearz {
         this.mouse = game.mouse;
         this.player = player;
         this.enemySpeed = enemySpeed > 0 ? enemySpeed : game.gameSpeed;
-        this.imgEnemy = new game.window.Image();
-        this.imgEnemy.src = game.assetPath + 'enemy' + idEnemy + '-sprite.png';
+        this.imgEnemy = document.getElementById('imgEnemy' + idEnemy);
+
 
         this.enemyTouchSound = document.getElementById('musicTouchEnemy');
-        //this.enemyTouchSound.src = game.assetPath + 'music-enemy-touch.mp3';
 
         this.gameFrame = game.gameFrame;
         this.ratioDevice = game.ratioDevice;
