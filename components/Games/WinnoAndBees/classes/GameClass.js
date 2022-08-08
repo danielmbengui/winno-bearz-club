@@ -134,7 +134,7 @@ class Game {
         musicSound.currentTime = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.handleBackground();
-        this.handleLife();
+        //this.handleLife();
         //game.gameFrame++;
         //game.playerUpdate();
         //this.enemy1.draw();
@@ -157,7 +157,7 @@ class Game {
             winnerSound.play();
             //refCanvas.current.style.cursor = 'pointer';  
         }
-
+        this.handleLife();
         
 
 
