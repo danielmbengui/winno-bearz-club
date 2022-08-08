@@ -50,8 +50,7 @@ class Winno {
             }else{
                 this.frameX++;
             }   
-        }
-        
+        } 
     }
 
     draw(){

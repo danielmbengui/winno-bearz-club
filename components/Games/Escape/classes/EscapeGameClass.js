@@ -27,12 +27,12 @@ class EscapeGame {
         this.ctx = ctx;
         this.mouse = mouse;
         this.ratioDevice = ratioDevice;
-        //this.gameSpeed = gameSpeed;
+        this.gameSpeed = EscapeGame.SPEED;
         this.life = life;
         this.assetPath = assetPath;
         this.funcAnimate = funcAnimate;
 
-        this.beesArray = [];
+        //this.beesArray = [];
 
         this.imgBackground = document.getElementById('imgBackground');
         this.imgBackground1 = document.getElementById('imgBackground1');
@@ -153,7 +153,17 @@ class EscapeGame {
         const ctx = this.ctx;
         const ratioDevice = this.ratioDevice;
 
-        const background = this.score >= EscapeGame.scoreBackground3 ? this.imgBackground3 : this.score >= EscapeGame.scoreBackground2 ? this.imgBackground2 : this.score >= EscapeGame.scoreBackground1 ? this.imgBackground1 : this.imgBackground;
+        let backgroundSelected = this.imgBackground;
+        if( this.score >= EscapeGame.scoreBackground1 ){
+            backgroundSelected = this.imgBackground1;
+        }else if( this.score >= EscapeGame.scoreBackground2 ){
+            backgroundSelected = this.imgBackground2;
+        }
+        if( this.score >= EscapeGame.scoreBackground3 ){
+            backgroundSelected = this.imgBackground3;
+        }
+        //const background = this.score >= EscapeGame.scoreBackground3 ? this.imgBackground3 : this.score >= EscapeGame.scoreBackground2 ? this.imgBackground2 : this.score >= EscapeGame.scoreBackground1 ? this.imgBackground1 : this.imgBackground;
+        const background = backgroundSelected;
         const background1 = this.imgBackground1;
         const background2 = this.imgBackground2;
         const salmon = this.ImgSalmon;
@@ -251,7 +261,7 @@ class EscapeGame {
         const imgScore = this.imgScore;
         const imgMute = this.imgMute;
         const assetPath = this.assetPath;
-        let imgLife;
+        let imgLife = this.imgLife;
 
         switch(this.life){
             case 3: imgLife = this.imgLife3; break;
@@ -356,10 +366,10 @@ class EscapeGame {
                 const startWin = diffWidth/2;
                 const endWin = canvas.width - diffWidth/2;
 
-                const startHeightWin = heightWinner/2/ratioDevice;
+               // const startHeightWin = heightWinner/2/ratioDevice;
 
-                const widthYesNo = imgYes.width/3.3/ratioDevice;
-                const heightYesNo = imgYes.height/4/ratioDevice;
+               // const widthYesNo = imgYes.width/3.3/ratioDevice;
+               // const heightYesNo = imgYes.height/4/ratioDevice;
 
                 console.log('win', diffWidth, startWin, endWin, 'width', canvas.width);
                 
@@ -384,29 +394,23 @@ class EscapeGame {
         }
     }
 
+    /*
     handleBees(){
         if( !this.gameOver && this.gameFrame % 50 === 0 ){
-            beesArray.push(new Bee(escapeGame, winno));
+            //this.beesArray.push(new Bee(escapeGame, winno));
         }
 
-        for (let i = 0; i < beesArray.length; i++) {                        
-                if( beesArray[i].y < 0 - beesArray[i].radius * 2 ){
-                    beesArray.splice(i, 1);
+        for (let i = 0; i < this.beesArray.length; i++) {                        
+                if( this.beesArray[i].y < 0 - this.beesArray[i].radius * 2 ){
+                    this.beesArray.splice(i, 1);
                     //console.log('finito : ' + i);
                 }
     
-                if( beesArray[i] ){
-                    if( beesArray[i].distance < beesArray[i].radius + winno.radius){
+                if( this.beesArray[i] ){
+                    if( this.beesArray[i].distance < this.beesArray[i].radius + winno.radius){
                         //console.log('collision')
                         if( !beesArray[i].counted ){
                             beeTouchSound.play();
-                            /*
-                            if( beesArray[i].sound == 'sound1' ){
-                                beeTouchSound.play();
-                            }else {
-                                beeTouchSound1.play();
-                            }
-                            */
                             
                             //player.score++;
                             //game.score++;
@@ -431,6 +435,7 @@ class EscapeGame {
                 }
         }
     }
+    */
 
     handleGame(){
         this.funcAnimate();

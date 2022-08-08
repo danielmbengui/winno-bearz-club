@@ -1,9 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {updateAdvertise} from "../../redux/user/userActions";
-import HeaderPage from '../../components/HeaderPage/HeaderPage';
-import ContainerComponent from '../../components/Container';
+import React from "react";
 import Escape from "../../components/Games/Escape/Escape";
+import WinnoAndBees from "../../components/Games/WinnoAndBees/WinnoAndBees";
 import Promo from "../../components/Promo/Promo";
 
 //const needle = require('needle');
@@ -16,11 +13,12 @@ import Promo from "../../components/Promo/Promo";
 //const url = `https://api.twitter.com/2/users/${userId}/followers`;
 //const bearerToken = process.env.BEARER_TOKEN;
 
-export default function EscapePage({database, contractInfo, promoUrls, links, rarities, app, appCheck,}) {
+export default function WinnoAndBeesPage({database, contractInfo, promoUrls, links, rarities, app, appCheck,}) {
     
     return(
         <>
-        <Escape database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} />
+        <WinnoAndBees />
+        { /* <Escape database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} /> */}
         <Promo links={links} />
         </>
     )

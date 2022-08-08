@@ -64,7 +64,7 @@ const Escape = ({database, contractInfo}) => {
   const [isUserSessionStorage, setIsUserSessionStorage] = useState(false);
   const [walletAddress, setWalletAddress] = useState('');
   const [errorWallet, setErrorWallet] = useState(false);
-  const [messageWallet, setMessageWallet] = useState('')
+  const [messageWallet, setMessageWallet] = useState('');
   const [twitterName, setTwitterName] = useState('');
   const [errorTwitter, setErrorTwitter] = useState(false);
   const [messageTwitter, setMessageTwitter] = useState('')
@@ -228,8 +228,6 @@ const Escape = ({database, contractInfo}) => {
         .catch(function(error) {
             alert(error);
         });
-        
-    
       }
 
       const closeFullscreen = () => {
@@ -418,7 +416,8 @@ const Escape = ({database, contractInfo}) => {
                 winno.update();
                 handleEnemies();
                 winno.draw();
-                //handleBees();
+                handleBees();
+                console.log('nb bees', beesArray.length);
 
                 if( !escapeGame.gameOver && escapeGame.score >= 1 ){
                     //beesArray.push();
@@ -427,7 +426,7 @@ const Escape = ({database, contractInfo}) => {
                 }
                 
                 //console.log('gameOver', escapeGame.life)
-                if( !escapeGame.stopped && !escapeGame.paused ){
+                if( !escapeGame.paused ){
                     requestAnimationFrame(animate);  
                 }
 
@@ -787,7 +786,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
         <div ref={refDiv} className="container">
         
         <div className={`${styleEscape['div-escape']}`}>
-        <img id="logo" src={"/assets/img/logo.png"} alt="logo" width={'10%'} />
+            <img id="logo" src={"/assets/img/logo.png"} alt="logo" width={'10%'} />
             <p className={`${styleEscape['story-game']}`}>
                 Help Winno to avoid the BelzeBearzs. <br/>
                 EAT {EscapeGame.scoreWinner} BEES TO WIN AN AIRDROP !!!
@@ -823,7 +822,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
         }}
         placeholder="wallet address (ETH)"
         variant="outlined"
-      />
+        />
 
 <TextField
             //margin="normal"

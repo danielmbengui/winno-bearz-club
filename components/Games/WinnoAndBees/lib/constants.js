@@ -1,3 +1,7 @@
+export const GET_LOCAL_USER = 'local_user';
+export const DEFAULT_PLAYER = {walletAddress: '', twitterName: '', bestScore: 0, airdropped: false};
+
+
 export const METHOD_GET = 'GET';
 export const METHOD_POST = 'POST';
 
@@ -12,6 +16,6 @@ export const ACTION_GET_USER_BY_WALLET = 'get_user_wallet';
 export const ACTION_GET_USER_BY_TWITTER = 'get_user_twitter';
 
 
-export const GET_LOCAL_USER = 'local_user';
+
 export const GET_LOCAL_SESSION_USER = 'user';
 

@@ -477,7 +477,7 @@ export default function TwitterStepper({signInTwitter, signOutTwitter, userTwitt
     '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
         fill: theme.palette.black.main, // circle's number (ACTIVE)
     },
-};
+  };
   const [activeStep, setActiveStep] = useState(0);
   //userTwitter={userTwitter} isFollowerTwitter={isFollowerTwitter}
     console.log({FOLLLLLOW: isFollowerTwitter})
