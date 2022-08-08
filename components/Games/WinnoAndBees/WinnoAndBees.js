@@ -199,12 +199,35 @@ const WinnoAndBees = () => {
             click: false,
         }
 
-        canvas.addEventListener('mousemove', (event) => {
-            mouse.click = true;
-            mouse.x = event.x - canvasPosition.left;
-            mouse.y = event.y - canvasPosition.top;
-            //console.log(mouse.x, mouse.y)
-        });
+        if( isMobile() ){
+            //let startx = 0;
+            //let starty = 0;
+            
+            canvas.addEventListener('touchmove', (event) => {
+                let touchObj = event.changedTouches[0];
+                mouse.click = true;
+                mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
+                mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
+                //console.log(mouse.x, mouse.y);
+                event.preventDefault();
+            });
+
+            canvas.addEventListener('touchcancel', (event) => {
+                //let touchObj = event.changedTouches[0];
+                mouse.click = true;
+                mouse.x = canvasPosition.left;
+                mouse.y = canvasPosition.top;
+                //console.log('touch cancel', mouse.x, mouse.y);
+                event.preventDefault();
+            });
+        }else{
+            canvas.addEventListener('mousemove', (event) => {
+                mouse.click = true;
+                mouse.x = event.x - canvasPosition.left;
+                mouse.y = event.y - canvasPosition.top;
+                //console.log(mouse.x, mouse.y)
+            });
+        }
         //const player = new Player(canvas, mouse);
         
         const game = new Game(canvas, mouse, 1, PATH_IMG, PATH_MUSIC, animate);
