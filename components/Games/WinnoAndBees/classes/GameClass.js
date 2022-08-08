@@ -9,8 +9,8 @@ class Game {
     static MAX_LIFE = 3;
 
     static SCORE_WINNER = 10;
-    static scoreSecondEnemy = 30;
-    static scoreThirdEnemy = 50;
+    static scoreSecondEnemy = 3;
+    static scoreThirdEnemy = 7;
 
     static SCORE_BACKGROUND_1 = 3;
     static SCORE_BACKGROUND_2 = 5;
@@ -41,9 +41,10 @@ class Game {
         this.enemyCame = false;
 
         this.player = new Player(canvas, mouse, this.gameFrame, ratioDevice);
-        this.enemy1 = new Enemy(canvas, mouse, this.gameFrame, ratioDevice, this.player, Game.SPEED, '1');
-        this.enemy2 = new Enemy(canvas, mouse, this.gameFrame, ratioDevice, this.player, Game.SPEED + 1, '2');
-        this.enemy3 = new Enemy(canvas, mouse, this.gameFrame, ratioDevice, this.player, Game.SPEED + 2, '3');
+        //this.enemy1 = new Enemy(canvas, mouse, this.gameFrame, ratioDevice, this.player, Game.SPEED, '1');
+        //this.enemy2 = new Enemy(canvas, mouse, this.gameFrame, ratioDevice, this.player, Game.SPEED + 1, '2');
+        //this.enemy3 = new Enemy(canvas, mouse, this.gameFrame, ratioDevice, this.player, Game.SPEED + 2, '3');
+        this.ennemiesArray = [];
         this.beesArray = [];
 
         this.imgBackground = document.getElementById('imgBackground');
@@ -97,13 +98,28 @@ class Game {
     }
 
     startGame() {
+        const player = this.player;
+        const canvas = this.canvas;
+        const mouse = this.mouse;
+        const gameFrame = this.gameFrame;
+        const ratioDevice = this.ratioDevice;
+        const ennemiesArray = this.ennemiesArray;
+
+        const enemy1 = new Enemy(canvas, mouse, gameFrame, ratioDevice, this.player, Game.SPEED, '1');
+        const enemy2 = new Enemy(canvas, mouse, gameFrame, ratioDevice, this.player, Game.SPEED + 1, '2');
+        const enemy3 = new Enemy(canvas, mouse, gameFrame, ratioDevice, this.player, Game.SPEED + 2, '3');
+        ennemiesArray.push(enemy1);
+        ennemiesArray.push(enemy2);
+        ennemiesArray.push(enemy3);
+
+
         const musicSound = this.musicSound;
         if (musicSound.played) {
             musicSound.volume = 0.9;
             musicSound.play();
         }
 
-        this.enemy1.handleLife = this.handleLife;
+        //this.enemy1.handleLife = this.handleLife;
     }
 
     finishGame() {
@@ -112,18 +128,27 @@ class Game {
         const winnerSound = this.winnerSound;
         const canvas = this.canvas;
         const ctx = this.ctx;
+        const ennemiesArray = this.ennemiesArray;
 
         musicSound.pause();
         musicSound.currentTime = 0;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.handleBackground();
+        this.handleLife();
         //game.gameFrame++;
         //game.playerUpdate();
-        this.enemy1.draw();
-        this.enemy2.draw();
-        this.enemy3.draw();
+        //this.enemy1.draw();
+        //this.enemy2.draw();
+        //this.enemy3.draw();
         this.playerDraw();
+        for (let i = 0; i < ennemiesArray.length; i++) {
+            const enemy = ennemiesArray[i];
+            //this.ennemyUpdate(enemy);
+            this.ennemyDraw(enemy);
+        }
         this.handleBees();
+
+        
         if (this.gameOver) {
             gameOverSound.play();
         }
@@ -133,7 +158,7 @@ class Game {
             //refCanvas.current.style.cursor = 'pointer';  
         }
 
-        this.handleLife();
+        
 
 
     }
@@ -222,53 +247,105 @@ class Game {
         this.player.draw();
     }
 
+    ennemyUpdate(enemy) {
+        if( enemy.idEnemy === '1' ){
+            enemy.update();
+            //enemy.draw();
+        }
+
+        if( enemy.idEnemy === '2' && this.score >= Game.scoreSecondEnemy ){
+            enemy.update();
+            //enemy.draw();
+        }
+
+        if( enemy.idEnemy === '3' && this.score >= Game.scoreThirdEnemy ){
+            enemy.update();
+            //enemy.draw();
+        }
+    }
+
+    ennemyDraw(enemy) {
+        if( enemy.idEnemy === '1' ){
+            //enemy.update();
+            enemy.draw();
+        }
+
+        if( enemy.idEnemy === '2' && this.score >= Game.scoreSecondEnemy ){
+            //enemy.update();
+            enemy.draw();
+        }
+
+        if( enemy.idEnemy === '3' && this.score >= Game.scoreThirdEnemy ){
+            //enemy.update();
+            enemy.draw();
+        }
+    }
+
     handleEnnemies() {
         //collision with player
         const player = this.player;
-        const enemy1 = this.enemy1;
+        const canvas = this.canvas;
+        const mouse = this.mouse;
+        const gameFrame = this.gameFrame;
+        const ratioDevice = this.ratioDevice;
+        //const enemy1 = this.enemy1;
+        //const enemy2 = this.enemy2;
+        //const enemy3 = this.enemy3;
         const enemyTouchSound = this.enemyTouchSound;
 
-        enemy1.update();
-        enemy1.draw();
+        const ennemiesArray = this.ennemiesArray;
+        //const bee = new Bee(canvas, mouse, gameFrame, ratioDevice, this.stopped, player);
 
-        const dx = enemy1.x - player.x;
-        const dy = enemy1.y - player.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        for (let i = 0; i < ennemiesArray.length; i++) {
+            const enemy = ennemiesArray[i];
+            enemy.gameFrame = gameFrame;
 
-        if( distance < enemy1.radius + player.radius ){
-            this.life--;
-            this.handleLife();
-            //console.log('touch ENEMY', this.life) 
-            this.paused = true;
-            player.touched = true;
+            this.ennemyUpdate(enemy);
+            this.ennemyDraw(enemy);
+
             
-            if( this.life === 0 ){
-                //this.started = false;
-                this.gameOver = true;
-                this.finished = true;
-                //this.game.stopped = true;
-                this.handleLife();
-                console.log('game over ENEMY', this.life);
-            }  else{
-                //this.game.handleLife();
-                setTimeout(() => {
-                    //console.log("Delayed for 1 second.");
-                    //level.src = link + "life.png";
-                    //ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
-                    //ctx.drawImage(level, HEART.x1 + 10, HEART.y + 10, HEART.spriteWidth/3/ratioDevice, HEART.spriteHeight/3/ratioDevice); 
-                    this.paused = false;
-                    player.touched = false;
-                    enemy1.x = this.canvas.width + 200;
-                    enemy1.y = Math.random() * (this.canvas.height - 150) + 90;
-                    enemy1.speed = Math.random() * 2 + 2;
-                    this.handleGame();
-                }, 1000);
-            }
 
-            if( !this.gameOver ){
-                this.enemyTouchSound.play();
+            const dx = enemy.x - player.x;
+            const dy = enemy.y - player.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if( distance < enemy.radius + player.radius ){
+                this.life--;
+                this.handleLife();
+                //console.log('touch ENEMY', this.life) 
+                this.paused = true;
+                player.touched = true;
+                
+                if( this.life === 0 ){
+                    //this.started = false;
+                    this.gameOver = true;
+                    this.finished = true;
+                    //this.game.stopped = true;
+                    this.handleLife();
+                    console.log('game over ENEMY', this.life);
+                }  else{
+                    //this.game.handleLife();
+                    setTimeout(() => {
+                        this.paused = false;
+                        player.touched = false;
+                        enemy.x = canvas.width + 200;
+                        enemy.y = Math.random() * (canvas.height - 150) + 90;
+                        enemy.speed = Math.random() * 2 + 2;
+                        this.handleGame();
+                    }, 1000);
+                }
+    
+                if( !this.gameOver ){
+                    enemyTouchSound.play();
+                }
             }
+            
+            //console.log('OOOOOOOOOK', enemy);
         }
+
+        
+
+        
     }
 
     handleBees() {
@@ -285,7 +362,7 @@ class Game {
             //beesArray.push(new Bee(escapeGame, winno));
             const bee = new Bee(canvas, mouse, gameFrame, ratioDevice, this.stopped, player);
             beesArray.push(bee);
-            bee.gameFrame = this.gameFrame;
+            bee.gameFrame = gameFrame;
             //console.log('BEEEEES', beesArray.length);
         }
 

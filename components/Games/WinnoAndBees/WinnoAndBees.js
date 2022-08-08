@@ -229,6 +229,14 @@ const WinnoAndBees = () => {
                 game.enemy1.gameFrame = game.gameFrame;
             }
 
+            if( game.enemy2 ){
+                game.enemy2.gameFrame = game.gameFrame;
+            }
+
+            if( game.enemy3 ){
+                game.enemy3.gameFrame = game.gameFrame;
+            }
+
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             game.handleBackground();
             
@@ -237,7 +245,7 @@ const WinnoAndBees = () => {
             game.playerUpdate();
             //game.enemy1.update();
             game.handleEnnemies();
-            game.enemy1.draw();
+            //game.enemy1.draw();
             game.playerDraw();
             game.handleBees();
             //game.winner = true;
@@ -288,7 +296,7 @@ const WinnoAndBees = () => {
             }}>
                 <div className="container">
                     <div className={`${styleWinnoAndBees['div-main']}`}>
-                        <DescriptionGame show={true} scoreToWin={70} />
+                        <DescriptionGame show={true} scoreToWin={Game.SCORE_WINNER} />
 
                         <Button
                             //ref={refButtonStart}

@@ -1,6 +1,7 @@
 import Game from "./GameClass";
 
 class Enemy {
+    static imgEnemyStr = 'imgEnemy';
     constructor(canvas, mouse, gameFrame, ratioDevice, player = null, enemySpeed = 0, idEnemy = ''){
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
@@ -9,7 +10,8 @@ class Enemy {
         this.ratioDevice = ratioDevice;
         this.player = player;
         this.enemySpeed = enemySpeed > 0 ? enemySpeed : Game.SPEED;
-        this.imgEnemy = document.getElementById('imgEnemy' + idEnemy);
+        this.idEnemy = idEnemy;
+        this.imgEnemy = document.getElementById(Enemy.imgEnemyStr + idEnemy);
 
         this.handleLife = null;
         
