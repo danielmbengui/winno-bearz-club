@@ -4,7 +4,7 @@ import fs, { readFile } from 'fs';
 import {database} from "../../../firebase/firebase.config";
 import { doc, setDoc } from "firebase/firestore"; 
 
-import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER } from '../../../lib/constants';
+import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, ACTION_SAVE_IMAGE, METHOD_POST, METHOD_GET } from '../../../lib/constants';
 
 const needle = require("needle");
 //const fetch = require("node-fetch");
@@ -31,6 +31,9 @@ const client = new Twitter({
 const configDir = `${process.cwd()}/redux/config/twitter/followers.json`;
 const buildDir = `${process.cwd()}/public/lists/airdrop`;
 const metadataDir = `${buildDir}/winnobearznft.json`;
+
+const imgDir = `${process.cwd()}/public/games/winno_and_bees/img/airdrop`;
+const imgAirdropDir = `${imgDir}/winnobearznft.json`;
 //const metadataDirAbsolute = `/lists/airdrop/winnobearznft.json`;
 const metadataDirAbsolute = '../../../redux/config/twitter/followers.json';
 
@@ -77,9 +80,50 @@ export default async function handler(req, res) {
             console.log('data POST', req.body.walletAddress)
             setUserByWallet(req.body.walletAddress, {twitterName: req.body.twitterName, maxScore:req.body.maxScore, airdropped:req.body.airdropped});
             return res.status(200).json('Added');
+        }else if( req.body.action === ACTION_SAVE_IMAGE ){
+            //const ok = new Image();
+            const link = 'http://localhost:3000/ok.php';
+            
+            //ok.src = game.assetPath + "bee-sprite.png";
+            //console.log('data POST', req.body.canvas, )
+            const ya = await fetch(link, {
+                //walletAddress:{walletAddress:data.walletAddress},
+                //method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                method: METHOD_POST, // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                //body: JSON.stringify({action:ACTION_SAVE_IMAGE, image_data:req.body.canvas, }),
+                body: JSON.stringify({walletAddress:'aieDaan', canvas: req.body.canvas, }),
+                //body: formData,
+                headers: {
+                'Content-Type': 'application/json',
+                //'walletAddress': data.walletAddress,
+                //ids: ['1528427591333462016','1529570709386809345', '1528500148111826947'],
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+                },  
+              })
+              .then( async (response) => {   
+                    //return await response.json();
+                  //return response.json();
+                  console.log('response OOOOK.php', await response.text())
+                  return response;
+              }).then( (resp2) => {
+                //console.log('response OOOOK.php', resp2);
+                return resp2;
+              });
+
+            fs.writeFileSync(`${imgDir}/${'ooooook'}.png`, req.body.canvas);
+            //saveImageByWallet = async(walletAddress, canvas)
+            //saveImageByWallet(req.body.walletAddress, req.body.canvas);
+            return res.status(200).json({link: req.body.canvas, ya: ya});
         }
 
         
+
+        
+
+        //fs.writeFileSync(`${buildDir}/${_edition}.png`, _canvas.toBuffer("image/png"));
     }else if( req.method === 'GET' ){
         //console.log('maqaaaart', req.query.walletAddress)
         fs.readFile(metadataDir, (err, data) => {
@@ -154,6 +198,15 @@ export default async function handler(req, res) {
       //console.log({YES: followers.length})
     //await database.collection('followers').doc('count').set({count: 14,})
     //return res.status(200).json({ listAirdrop: _followers, count: _count /* includes: includes, meta: meta */ });
+}
+
+const saveImageByWallet = async(walletAddress, canvas) => {
+    //let userList = [];
+
+    if ( !fs.existsSync(imgDir) ) {
+        fs.mkdirSync(imgDir, { recursive: true });
+    }
+    fs.writeFileSync(`${imgDir}/${walletAddress}.png`, canvas);
 }
 
 const setUserByWallet = async(walletAddress, data) => {

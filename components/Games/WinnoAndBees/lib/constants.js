@@ -11,6 +11,7 @@ export const LENGTH_WALLET_ADDRESS = 40;
 
 export const ACTION_ADD_USER = 'add_user';
 export const ACTION_SET_USER = 'set_user';
+export const ACTION_SAVE_IMAGE = 'save_image';
 export const ACTION_GET_USER = 'get_user';
 export const ACTION_GET_USER_BY_WALLET = 'get_user_wallet';
 export const ACTION_GET_USER_BY_TWITTER = 'get_user_twitter';

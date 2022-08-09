@@ -3,18 +3,22 @@ import Enemy from "./EnemyClass";
 import Player from "./PlayerClass";
 
 class Game {
-
+    static IDEAL_CANVAS_WIDTH = 1024;
+    static IDEAL_CANVAS_HEIGHT = 512;
 
     static SPEED = 5;
     static MAX_LIFE = 3;
 
-    static SCORE_WINNER = 10;
+    static SCORE_WINNER = 1;
     static scoreSecondEnemy = 3;
     static scoreThirdEnemy = 7;
 
     static SCORE_BACKGROUND_1 = 3;
     static SCORE_BACKGROUND_2 = 5;
     static SCORE_BACKGROUND_3 = 7;
+
+    
+    //static IDEAL_MOBILE_WIDTH = 
 
     constructor(canvas, mouse, ratioDevice = 1 /* for desktop */, pathImg = '', pathMusic = '', funcAnimate) {
         this.canvas = canvas;
@@ -57,6 +61,7 @@ class Game {
         this.imgLife3 = document.getElementById('imgLife3');
         this.imgScore = document.getElementById('imgScore');
         this.imgWinner = document.getElementById('imgWinner');
+        //this.imgWinner = document.getElementById('imgGameOver');
         this.imgGameOver = document.getElementById('imgGameOver');
 
         this.musicSound = document.getElementById('musicGame');
@@ -126,12 +131,25 @@ class Game {
         const musicSound = this.musicSound;
         const gameOverSound = this.gameOverSound;
         const winnerSound = this.winnerSound;
-        const canvas = this.canvas;
+        
         const ctx = this.ctx;
         const ennemiesArray = this.ennemiesArray;
 
         musicSound.pause();
         musicSound.currentTime = 0;
+    //    const canvas = this.canvas;
+    
+        this.canvas.width = this.canvas.width/2;
+        this.canvas.height = this.canvas.height/2;
+        const canvas = this.canvas;
+
+        this.background.x1 = 0;
+        this.background.x2 = canvas.width;
+        this.background.width = canvas.width;
+        this.background.height = canvas.height;
+        
+        
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.handleBackground();
         //this.handleLife();
@@ -140,6 +158,8 @@ class Game {
         //this.enemy1.draw();
         //this.enemy2.draw();
         //this.enemy3.draw();
+
+        /*
         this.playerDraw();
         for (let i = 0; i < ennemiesArray.length; i++) {
             const enemy = ennemiesArray[i];
@@ -147,7 +167,7 @@ class Game {
             this.ennemyDraw(enemy);
         }
         this.handleBees();
-
+*/
         
         if (this.gameOver) {
             gameOverSound.play();
@@ -164,6 +184,13 @@ class Game {
     }
 
     handleBackground() {
+        //this.canvas.width = this.canvas.width/2;
+        //this.canvas.height = this.canvas.height/2;
+        const canvas = this.canvas;
+
+        //this.background.x2 = canvas.width;
+        //this.background.width = canvas.width;
+        //this.background.height = canvas.height;
         const BG = this.background;
         //const SALMON = this.salmonBackground;
         const speed = Game.SPEED;
@@ -201,16 +228,20 @@ class Game {
         }
 
         ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
-            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y, BG.width, BG.height);
+            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y,  BG.width, BG.height);
+            ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
+                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y,  BG.width, BG.height);
+                /*
         ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
             BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);
+            */
     }
 
     handleLife() {
         const LEVEL = this.level;
         const canvas = this.canvas;
         const ctx = this.ctx;
-        const ratioDevice = this.ratioDevice;
+        let ratioDevice = this.ratioDevice;
 
         const score = this.score;
         const imgWinner = this.imgWinner;
@@ -226,20 +257,33 @@ class Game {
             default: imgLife = this.imgLife;
         }
 
+        let dividedBy = 1;
+        ctx.font = ratioDevice === 2 ? 'bold 40px VT323' : 'bold 60px VT323';
+        if( this.finished && canvas.width <= Game.IDEAL_CANVAS_WIDTH/2){
+            //dividedBy = 2;
+            ratioDevice = this.ratioDevice * 2;
+            ctx.font = 'bold 30px VT323';
+        }
+        console.log('game finished HANDLE LIFE', this.finished)
+
         ctx.drawImage(imgLife, LEVEL.x1 + 10, LEVEL.y + 10, LEVEL.spriteWidth / 3 / ratioDevice, LEVEL.spriteHeight / 3 / ratioDevice);
         ctx.drawImage(imgScore, LEVEL.x1 + 20 + LEVEL.spriteWidth / 3 / ratioDevice, LEVEL.y + 10, LEVEL.spriteHeight / 3 / ratioDevice, LEVEL.spriteHeight / 3 / ratioDevice);
         ctx.fillStyle = 'red';
-        ctx.font = ratioDevice === 2 ? 'bold 40px VT323' : 'bold 60px VT323';
+        
         ctx.fillText(score, LEVEL.x1 + 30 + LEVEL.spriteWidth / 3 / ratioDevice + LEVEL.spriteHeight / 3 / ratioDevice, ratioDevice > 1 ? LEVEL.spriteHeight / 3 / ratioDevice + 7 : (LEVEL.spriteHeight / 3 / ratioDevice));
 
         if (this.gameOver) {
             ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
         } else if (this.winner) {
-            ctx.drawImage(imgWinner, (canvas.width - imgWinner.width / ratioDevice) / 2, (canvas.height - imgWinner.height / ratioDevice) / 2, imgWinner.width / ratioDevice, imgWinner.height / ratioDevice);
+            let imgWidth = imgWinner.width / ratioDevice;
+            let imgHeight = imgWinner.height / ratioDevice;
+            ctx.drawImage(imgWinner, (canvas.width - imgWidth) / 2, (canvas.height - imgHeight) / 2, imgWidth, imgHeight);
+            //ctx.drawImage(imgWinner, (canvas.width - imgWinner.width / ratioDevice) / 2, (canvas.height - imgWinner.height / ratioDevice) / 2, imgWinner.width / ratioDevice, imgWinner.height / ratioDevice);
         }
     }
 
     playerUpdate() {
+        
         this.player.update();
     }
 
@@ -303,8 +347,6 @@ class Game {
             this.ennemyUpdate(enemy);
             this.ennemyDraw(enemy);
 
-            
-
             const dx = enemy.x - player.x;
             const dy = enemy.y - player.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -319,6 +361,7 @@ class Game {
                 if( this.life === 0 ){
                     //this.started = false;
                     this.gameOver = true;
+                    this.started = false;
                     this.finished = true;
                     //this.game.stopped = true;
                     this.handleLife();

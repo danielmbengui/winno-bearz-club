@@ -17,7 +17,7 @@ import StepIcon from '@mui/material/StepIcon';
 import StepContent from '@mui/material/StepContent';
 
 
-import { GET_LOCAL_USER, DEFAULT_PLAYER, DIGIT_WALLET_ADDRESS } from './lib/constants';
+import { GET_LOCAL_USER, DEFAULT_PLAYER, DIGIT_WALLET_ADDRESS, METHOD_POST, METHOD_GET } from './lib/constants';
 import StepSaveData from './Stepper/StepSaveData';
 import StepStartGame from './Stepper/StepStartGame';
 import DescriptionGame from './components/DescriptionGame';
@@ -25,6 +25,7 @@ import Game from './classes/GameClass';
 import TextFieldWalletAddress from './components/TextFieldWalletAddress';
 import TextFieldTwitterName from './components/TextFieldTwitterName';
 import Player from './classes/PlayerClass';
+import { ACTION_SAVE_IMAGE } from '../../../lib/constants';
 
 
 const PATH_ASSET = `/assets/games/winno_and_bees/`;
@@ -60,8 +61,8 @@ const styleStepIcon = {
 };
 
 const isMobile = () => {
-    if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
-        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0,4))) { 
+    if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent)
+        || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(navigator.userAgent.substr(0, 4))) {
         return true;
     }
     return false;
@@ -70,7 +71,7 @@ const isMobile = () => {
 const openFullscreen = (refCanvas) => {
     //refButtonStart.current.style.display = 'none';
     //refButtonStart.current.style.display = 'none';
-    
+
     if (refCanvas.current.requestFullscreen) {
         refCanvas.current.requestFullscreen();
     } else if (refCanvas.current.webkitRequestFullscreen) { /* Safari */
@@ -79,20 +80,35 @@ const openFullscreen = (refCanvas) => {
         refCanvas.current.msRequestFullscreen();
     }
 
-    
-    screen.orientation.lock("landscape-primary").then(function() {
+    screen.orientation.lock("landscape-primary").then(function () {
         // _LOCK_BUTTON.style.display = 'none';
         // _UNLOCK_BUTTON.style.display = 'block';
-        
+
     })
-    .catch(function(error) {
-        alert(error);
-    });
-  }
+        .catch(function (error) {
+            alert(error);
+        });
+}
+
+const closeFullscreen = () => {
+    screen.orientation.unlock();
+
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
 
 
 const WinnoAndBees = () => {
     const theme = useTheme();
+
+
+    const refDivDescription = useRef();
+    const refDivStartGame = useRef();
     const refCanvas = useRef();
 
     const [game, setGame] = useState(null);
@@ -188,21 +204,35 @@ const WinnoAndBees = () => {
     }, [player])
 
     const initGame = () => {
+        refDivDescription.current.style.display = 'none';
+        refDivStartGame.current.style.display = 'none';
+
+        
         const canvas = refCanvas.current;
-        canvas.width = 1024;
-        canvas.height = 512;
+        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : window.width;
+        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : window.height;
+        //canvas.height = Game.IDEAL_CANVAS_HEIGHT;
         let canvasPosition = canvas.getBoundingClientRect();
         const ctx = canvas.getContext('2d');
+
         const mouse = {
             x: canvas.width / 2,
             y: canvas.height / 2,
             click: false,
         }
 
-        if( isMobile() ){
+        let ratioDevice = 1;
+
+        if (isMobile()) {
+            //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
+
+            device = 'mobile';
+            //canvas.width = EscapeGame.mobileWidth;
+            //canvas.height = EscapeGame.mobileHeight;
+            ratioDevice = 2;
             //let startx = 0;
             //let starty = 0;
-            
+
             canvas.addEventListener('touchmove', (event) => {
                 let touchObj = event.changedTouches[0];
                 mouse.click = true;
@@ -220,7 +250,7 @@ const WinnoAndBees = () => {
                 //console.log('touch cancel', mouse.x, mouse.y);
                 event.preventDefault();
             });
-        }else{
+        } else {
             canvas.addEventListener('mousemove', (event) => {
                 mouse.click = true;
                 mouse.x = event.x - canvasPosition.left;
@@ -229,40 +259,39 @@ const WinnoAndBees = () => {
             });
         }
         //const player = new Player(canvas, mouse);
-        
-        const game = new Game(canvas, mouse, 1, PATH_IMG, PATH_MUSIC, animate);
 
-        
-        
+        const game = new Game(canvas, mouse, ratioDevice, PATH_IMG, PATH_MUSIC, animate);
+
+
+
         setGame(game);
         setGameStarted(true);
         game.startGame();
-        console.log('canvas', canvas);
-        console.log('ctx', ctx);
-        console.log('mouse', mouse);
-        console.log('game', game.imgBackground);
+        //console.log('canvas', canvas);
+        //console.log('ctx', ctx);
+        //console.log('mouse', mouse);
+        //console.log('game', game.imgBackground);
 
-        function animate(){
+        function animate() {
             game.gameFrame++;
-            if( game.player ){
+            if (game.player) {
                 game.player.gameFrame = game.gameFrame;
             }
 
-            if( game.enemy1 ){
+            if (game.enemy1) {
                 game.enemy1.gameFrame = game.gameFrame;
             }
 
-            if( game.enemy2 ){
+            if (game.enemy2) {
                 game.enemy2.gameFrame = game.gameFrame;
             }
 
-            if( game.enemy3 ){
+            if (game.enemy3) {
                 game.enemy3.gameFrame = game.gameFrame;
             }
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             game.handleBackground();
-            
             //game.player.gameFrame = game.gameFrame;
             game.handleLife();
             game.playerUpdate();
@@ -273,12 +302,12 @@ const WinnoAndBees = () => {
             game.handleBees();
             //game.winner = true;
 
-            if( !game.paused && !game.stopped && !game.finished ){
-                requestAnimationFrame(animate);  
+            if (!game.paused && !game.stopped && !game.finished) {
+                requestAnimationFrame(animate);
                 //console.log('BEES', game.beesArray.length ? game.beesArray[0].gameFrame : 'null')
             }
 
-            if( game.finished ){
+            if (game.finished) {
                 /*
                 //game.finished = true;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -289,22 +318,138 @@ const WinnoAndBees = () => {
                 game.handleBees();
                 game.handleLife();
                 */
-               game.finishGame();
+                game.finishGame();
+                saveImage(canvas);
+                game.started = false;
+                setGame(game);
+                //console.log('canvas buffer', canvas.toBuffer("image/png"))
             }
         }
 
         animate();
 
+
+        screen.orientation.addEventListener('change', function() {
+            console.log('Current orientation is ' + screen.orientation.type);
+            //document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
+            
+            if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
+                escapeGame.paused = true;
+                escapeGame.stopped = true;
+            }else{
+                escapeGame.paused = false;
+                escapeGame.stopped = false;
+                //alert('IS OKAY !');
+                //openFullscreen();
+            }
+            
+        });
+
         window.addEventListener('resize', () => {
-            console.log('resize screen');
+           // console.log('resize screen');
             canvasPosition = canvas.getBoundingClientRect();
         });
 
         window.addEventListener('scroll', () => {
-            console.log('scroll screen');
+           // console.log('scroll screen');
             canvasPosition = canvas.getBoundingClientRect();
         });
     }
+
+    const saveImage = async (canvas) => { 
+        /*
+if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
+            window.sessionStorage.setItem(STORAGE_ADVERTISE_SESSION, _showAdvertiseSession);
+          }
+        */
+        //await fetch(`/api/airdrop/winnobearznft?action=get_list`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=get_count`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER}&walletAddress=${data.walletAddress}&twitterName=${data.twitterName}&score=${data.score}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_WALLET}&walletAddress=${data.walletAddress}`, {
+        //await fetch(`/api/airdrop/winnobearznft?action=${ACTION_GET_USER_BY_TWITTER}&twitterName=${data.twitterName}`, {
+            var formData = new FormData();
+            formData.append('action', ACTION_SAVE_IMAGE);
+            formData.append('walletAddress', 'aieDaan');
+            formData.append('canvas', canvas.toDataURL("image/png"));
+
+            await fetch(`/api/airdrop/winnobearznft`, {
+                //walletAddress:{walletAddress:data.walletAddress},
+                //method: 'GET', // *GET, POST, PUT, DELETE, etc.
+                method: METHOD_POST, // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                body: JSON.stringify({action:ACTION_SAVE_IMAGE, walletAddress:'aieDaan', canvas: canvas.toDataURL("image/png"), }),
+                //body: JSON.stringify(formData),
+                
+                headers: {
+                'Content-Type': 'application/json',
+                //'walletAddress': data.walletAddress,
+                //ids: ['1528427591333462016','1529570709386809345', '1528500148111826947'],
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+                },  
+              })
+              .then( async (response) => {  
+                console.log('AAAAAOOOOOK', response)
+ 
+                   // return await response.json();
+                  //return response.json();
+              });
+/*
+
+        await fetch(`/api/airdrop/winnobearznft`, {
+            //walletAddress:{walletAddress:data.walletAddress},
+            //method: 'GET', // *GET, POST, PUT, DELETE, etc.
+            method: METHOD_POST, // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            body: JSON.stringify({action:ACTION_SAVE_IMAGE, walletAddress:'aieDaan', canvas: canvas.toDataURL("image/png").replace(/^data:image\/(png|jpg);base64,/, ""), }),
+            
+            headers: {
+            'Content-Type': 'application/json',
+            //'walletAddress': data.walletAddress,
+            //ids: ['1528427591333462016','1529570709386809345', '1528500148111826947'],
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            },  
+          })
+          .then( async (response) => {   
+                return await response.json();
+              //return response.json();
+          }).then( async (response2) => {   
+            const imagePath = response2;
+            
+            console.log({okSave: imagePath.ya});
+            /*const link = document.createElement('a');
+            link.style.display = 'none';
+            document.body.appendChild(link)
+            link.setAttribute('download',  '/games/winno_and_bees/img/airdrop/aieDaan' + '.png');
+            link.setAttribute('href', imagePath.replace("image/png", "image/octet-stream"));
+            link.click();
+            */
+           /*
+            const link = `http://localhost:3000/ok.php`;
+            var xmlhttp = new XMLHttpRequest(); 
+            xmlhttp.onreadystatechange = function(){ 
+                if ( xmlhttp.readyState === 4 && xmlhttp.status === 200 ) { 
+                    var response = xmlhttp.responseText; 
+                    
+                    var obj = JSON.parse( response ); 
+                    console.log('response PHP', response)
+                    // process your object here 
+                } 
+            } 
+            xmlhttp.open( METHOD_GET, link, true ); 
+            xmlhttp.send();
+            
+          //return response.json();
+      }).catch( (error) => {
+            console.log({SOURCE_ID: error})
+            return null;
+          });   
+    */      
+    };
+    
 
 
     return (
@@ -318,12 +463,19 @@ const WinnoAndBees = () => {
                 background: theme.palette.background.default,
             }}>
                 <div className="container">
-                    <div className={`${styleWinnoAndBees['div-main']}`}>
-                        <DescriptionGame show={true} scoreToWin={Game.SCORE_WINNER} />
 
+                
+
+                    <div ref={refDivDescription} className={`${styleWinnoAndBees['div-main']}`} >
+                        <DescriptionGame show={true} scoreToWin={Game.SCORE_WINNER} />
+                    </div>
+
+
+                    <div ref={refDivStartGame} className={`${styleWinnoAndBees['div-main']}`} >
                         <Button
                             //ref={refButtonStart}
                             //disabled={!isUserSessionStorage}
+                            
                             className={`${styleWinnoAndBees['button-action']}`}
                             variant='contained'
                             color='primary'
@@ -333,16 +485,16 @@ const WinnoAndBees = () => {
                                 //console.log('length wallet', walletAddress.length)
 
                                 initGame();
-                                
-                                if( isMobile() ){
+
+                                if (isMobile()) {
                                     openFullscreen(refCanvas);
                                 }
-                            
+
                                 //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
                             }}>Start a game</Button>
                     </div>
 
-                    <div className={`${styleWinnoAndBees['div-main']}`} style={{display:'none'}}>
+                    <div className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
                         <Button
                             //disabled={true}
                             className={`${styleWinnoAndBees['button-action']}`}
@@ -352,7 +504,7 @@ const WinnoAndBees = () => {
                         >Continue</Button>
                     </div>
 
-                    <div className={`${styleWinnoAndBees['div-main']}`} style={{display:'none'}}>
+                    <div className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
 
                         <Stack
                             direction={'column'}
@@ -382,24 +534,24 @@ const WinnoAndBees = () => {
                                 //let user = await getUser({walletAddress : player ? player.walletAddress : walletAddress});
                                 //await setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
                                 /*
+
                                 if (!_errorWallet && !_errorTwitter) {
                                     let isWallet = await walletExist(player.walletAddress);
                                     if (!isWallet) {
                                         await addUser({ walletAddress: player.walletAddress, twitterName: player.twitterName });
-
                                     }
                                     setUserSessionStorage();
                                     setIsUserSessionStorage(true);
                                 }
                                 */
+
                                 //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
                                 //setErrorWallet(true);
                                 //setMessageWallet('AAAARG');
                             }}>Save data</Button>
                     </div>
 
-
-                    <div className={`${styleWinnoAndBees['div-main']}`}>
+                    <div className={`${styleWinnoAndBees['div-main']}`} style={{visibility: game && game.started ? 'visible' : 'hidden'}}>
                         <canvas ref={refCanvas} className={`${styleWinnoAndBees['canvas']}`}>
                             <img id="imgBackground" src={PATH_IMG + "background-start.png"} alt="background 1" />
                             <img id="imgBackground1" src={PATH_IMG + "background-middle1.png"} alt="background 2" />
@@ -422,28 +574,26 @@ const WinnoAndBees = () => {
                             <img id="imgEnemy2" src={PATH_IMG + "enemy2-sprite.png"} alt="enemy 2 sprite" />
                             <img id="imgEnemy3" src={PATH_IMG + "enemy3-sprite.png"} alt="enemy 3 sprite" />
 
-
                             <img id="imgBee" src={PATH_IMG + "bee-sprite.png"} alt="bee sprite" />
 
-
                             <audio id="musicGame" loop="loop">
-                            <source src={PATH_MUSIC + 'music-game.mp3'} type="audio/mp3" />
+                                <source src={PATH_MUSIC + 'music-game.mp3'} type="audio/mp3" />
                             </audio>
 
                             <audio id="musicTouchBee">
-                            <source src={PATH_MUSIC + 'music-bee-touch.mp3'} type="audio/mp3" />
+                                <source src={PATH_MUSIC + 'music-bee-touch.mp3'} type="audio/mp3" />
                             </audio>
 
                             <audio id="musicTouchEnemy">
-                            <source src={PATH_MUSIC + 'music-belzebear-touch.mp3'} type="audio/mp3" />
+                                <source src={PATH_MUSIC + 'music-belzebear-touch.mp3'} type="audio/mp3" />
                             </audio>
 
                             <audio id="musicWinner">
-                            <source src={PATH_MUSIC + 'music-winner.mp3'} type="audio/mp3" />
+                                <source src={PATH_MUSIC + 'music-winner.mp3'} type="audio/mp3" />
                             </audio>
 
                             <audio id="musicGameOver">
-                            <source src={PATH_MUSIC + 'music-game-over.mp3'} type="audio/mp3" />
+                                <source src={PATH_MUSIC + 'music-game-over.mp3'} type="audio/mp3" />
                             </audio>
                         </canvas>
                     </div>

@@ -23,9 +23,9 @@
 
 .canvas {
     border: 4px solid black;
-    /* display: none; */
+    /* display: none; 
     font-size: xx-large; 
     font-family: 'Press Start 2P', sans-serif;
-    cursor: none;
+    /*cursor: none;
     /*background: linear-gradient(to bottom, lightblue, blue, darkblue);*/
 }
