@@ -345,9 +345,13 @@ const WinnoAndBees = () => {
             }
 
             if( game.stopped ){
+                refCanvas.current.style.display = 'none';
                 refDivSContinueGame.current.style.display = 'flex';
+                game.musicSound.pause();
             }else{
+                refCanvas.current.style.display = 'flex';
                 refDivSContinueGame.current.style.display = 'none';
+                game.musicSound.play();
             }
 
             if (game.finished) {
