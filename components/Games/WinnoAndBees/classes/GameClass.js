@@ -230,9 +230,9 @@ class Game {
         }
 
         ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
-            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y,  BG.width, BG.height);
+            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y,  canvas.width, canvas.height);
             ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
-                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y,  BG.width, BG.height);
+                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y,  canvas.width, canvas.height);
                 /*
         ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
             BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);

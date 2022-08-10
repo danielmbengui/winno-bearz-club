@@ -233,6 +233,89 @@ const WinnoAndBees = () => {
         initComponentState();
     }, [player])
 
+    function animate(game) {
+        game.gameFrame++;
+        if (game.player) {
+            game.player.gameFrame = game.gameFrame;
+        }
+
+        if (game.enemy1) {
+            game.enemy1.gameFrame = game.gameFrame;
+        }
+
+        if (game.enemy2) {
+            game.enemy2.gameFrame = game.gameFrame;
+        }
+
+        if (game.enemy3) {
+            game.enemy3.gameFrame = game.gameFrame;
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        game.handleBackground();
+        //game.player.gameFrame = game.gameFrame;
+        game.handleLife();
+        game.playerUpdate();
+        //game.enemy1.update();
+        game.handleEnnemies();
+        //game.enemy1.draw();
+        game.playerDraw();
+        game.handleBees();
+        //game.winner = true;
+
+        if (!game.paused && !game.stopped && !game.finished) {
+            requestAnimationFrame(animate);
+            //console.log('BEES', game.beesArray.length ? game.beesArray[0].gameFrame : 'null')
+        }
+
+        if( game.stopped ){
+            refCanvas.current.style.display = 'none';
+            refDivSContinueGame.current.style.display = 'flex';
+            game.musicSound.pause();
+        }else{
+            refCanvas.current.style.display = 'flex';
+            refDivSContinueGame.current.style.display = 'none';
+            game.musicSound.play();
+        }
+
+        if (game.finished) {
+            if( isMobile() ){
+                closeFullscreen();
+            }
+            /*
+            //game.finished = true;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            game.handleBackground();
+            //game.gameFrame++;
+            //game.playerUpdate();
+            game.playerDraw();
+            game.handleBees();
+            game.handleLife();
+            */
+            game.finishGame();
+            //saveImage(canvas);
+            //game.started = false;
+            
+
+            
+
+            //refDivDescription.current.style.display = 'none';
+            //refDivStartGame.current.style.display = 'none';
+            //refDivSContinueGame.current.style.display = 'none';
+            //refCanvas.current.style.display = 'flex';
+
+            if( game.winner ){
+                refDivSaveGame.current.style.display = 'flex';
+            }
+
+            refDivRestartGame.current.style.display = 'flex';
+            
+            //console.log('canvas buffer', canvas.toBuffer("image/png"))
+        }
+        setGame(game);
+    }
+
+
     const initGame = () => {
         refDivDescription.current.style.display = 'none';
         refDivStartGame.current.style.display = 'none';
@@ -308,88 +391,7 @@ const WinnoAndBees = () => {
         //console.log('ctx', ctx);
         //console.log('mouse', mouse);
         //console.log('game', game.imgBackground);
-
-        function animate() {
-            game.gameFrame++;
-            if (game.player) {
-                game.player.gameFrame = game.gameFrame;
-            }
-
-            if (game.enemy1) {
-                game.enemy1.gameFrame = game.gameFrame;
-            }
-
-            if (game.enemy2) {
-                game.enemy2.gameFrame = game.gameFrame;
-            }
-
-            if (game.enemy3) {
-                game.enemy3.gameFrame = game.gameFrame;
-            }
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            game.handleBackground();
-            //game.player.gameFrame = game.gameFrame;
-            game.handleLife();
-            game.playerUpdate();
-            //game.enemy1.update();
-            game.handleEnnemies();
-            //game.enemy1.draw();
-            game.playerDraw();
-            game.handleBees();
-            //game.winner = true;
-
-            if (!game.paused && !game.stopped && !game.finished) {
-                requestAnimationFrame(animate);
-                //console.log('BEES', game.beesArray.length ? game.beesArray[0].gameFrame : 'null')
-            }
-
-            if( game.stopped ){
-                refCanvas.current.style.display = 'none';
-                refDivSContinueGame.current.style.display = 'flex';
-                game.musicSound.pause();
-            }else{
-                refCanvas.current.style.display = 'flex';
-                refDivSContinueGame.current.style.display = 'none';
-                game.musicSound.play();
-            }
-
-            if (game.finished) {
-                /*
-                //game.finished = true;
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                game.handleBackground();
-                //game.gameFrame++;
-                //game.playerUpdate();
-                game.playerDraw();
-                game.handleBees();
-                game.handleLife();
-                */
-                game.finishGame();
-                //saveImage(canvas);
-                //game.started = false;
-                setGame(game);
-
-                if( isMobile() ){
-                    closeFullscreen();
-                }
-
-                //refDivDescription.current.style.display = 'none';
-                //refDivStartGame.current.style.display = 'none';
-                //refDivSContinueGame.current.style.display = 'none';
-                //refCanvas.current.style.display = 'flex';
-
-                if( game.winner ){
-                    refDivSaveGame.current.style.display = 'flex';
-                }
-
-                refDivRestartGame.current.style.display = 'flex';
-                
-                //console.log('canvas buffer', canvas.toBuffer("image/png"))
-            }
-        }
-
-        animate();
+        animate(game);
 
         refCanvas.current.addEventListener('fullscreenchange', () => {
             if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
@@ -647,6 +649,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                             onClick={async () => {
                                 if (isMobile()) {
                                     openFullscreen(refCanvas);
+                                    animate(game);
                                     //game.handleGame();
                                 }
                             }}
