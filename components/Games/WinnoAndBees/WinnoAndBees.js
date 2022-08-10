@@ -386,7 +386,7 @@ const WinnoAndBees = () => {
         }
 
         animate();
-/*
+
         refCanvas.current.addEventListener('fullscreenchange', () => {
             if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
                 //refCanvas.current.exitFullscreen();
@@ -394,8 +394,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                canvas.width = screen.width;
+                canvas.height = screen.height;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -413,8 +413,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                canvas.width = screen.width;
+                canvas.height = screen.height;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -432,8 +432,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                canvas.width = screen.width;
+                canvas.height = screen.height;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -451,8 +451,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+                canvas.width = screen.width;
+                canvas.height = screen.height;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -462,7 +462,7 @@ const WinnoAndBees = () => {
             
             console.log('canvasPoistion MOZ FULL SCREEN', canvasPosition);
         });
-*/
+
         
 
         screen.orientation.addEventListener('change', function() {
