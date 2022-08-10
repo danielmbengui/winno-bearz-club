@@ -190,9 +190,9 @@ class Game {
         //this.canvas.height = this.canvas.height/2;
         const canvas = this.canvas;
 
-        //this.background.x2 = canvas.width;
-        //this.background.width = canvas.width;
-        //this.background.height = canvas.height;
+        this.background.x2 = canvas.width;
+        this.background.width = canvas.width;
+        this.background.height = canvas.height;
         const BG = this.background;
         //const SALMON = this.salmonBackground;
         const speed = Game.SPEED;
@@ -230,9 +230,9 @@ class Game {
         }
 
         ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
-            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y,  canvas.width, canvas.height);
+            BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y,  BG.width, BG.height);
             ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
-                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y,  canvas.width, canvas.height);
+                BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y,  BG.width, BG.height);
                 /*
         ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
             BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);
