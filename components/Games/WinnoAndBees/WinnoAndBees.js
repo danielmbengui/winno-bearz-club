@@ -243,8 +243,8 @@ const WinnoAndBees = () => {
 
         
         const canvas = refCanvas.current;
-        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : window.innerWidth;
-        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : window.innerHeight;
+        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : screen.width;
+        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : screen.height;
         //canvas.height = Game.IDEAL_CANVAS_HEIGHT;
         let canvasPosition = canvas.getBoundingClientRect();
         const ctx = canvas.getContext('2d');
