@@ -5,6 +5,8 @@ import Player from "./PlayerClass";
 class Game {
     static IDEAL_CANVAS_WIDTH = 1024;
     static IDEAL_CANVAS_HEIGHT = 512;
+    static IDEAL_MOBILE_WIDTH = 700;
+    static IDEAL_MOBILE_HEIGHT = 250;
 
     static SPEED = 5;
     static MAX_LIFE = 3;

@@ -243,8 +243,8 @@ const WinnoAndBees = () => {
 
         
         const canvas = refCanvas.current;
-        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : screen.width;
-        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : screen.height;
+        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : Game.IDEAL_MOBILE_WIDTH;
+        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : Game.IDEAL_MOBILE_HEIGHT;
         //canvas.height = Game.IDEAL_CANVAS_HEIGHT;
         let canvasPosition = canvas.getBoundingClientRect();
         const ctx = canvas.getContext('2d');
@@ -398,8 +398,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = screen.width;
-                canvas.height = screen.height;
+                canvas.width = Game.IDEAL_MOBILE_WIDTH;
+                canvas.height = Game.IDEAL_MOBILE_HEIGHT;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -417,8 +417,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = screen.width;
-                canvas.height = screen.height;
+                canvas.width = Game.IDEAL_MOBILE_WIDTH;
+                canvas.height = Game.IDEAL_MOBILE_HEIGHT;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -436,8 +436,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = screen.width;
-                canvas.height = screen.height;
+                canvas.width = Game.IDEAL_MOBILE_WIDTH;
+                canvas.height = Game.IDEAL_MOBILE_HEIGHT;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -455,8 +455,8 @@ const WinnoAndBees = () => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }else{
-                canvas.width = screen.width;
-                canvas.height = screen.height;
+                canvas.width = Game.IDEAL_MOBILE_WIDTH;
+                canvas.height = Game.IDEAL_MOBILE_HEIGHT;
                 canvasPosition = canvas.getBoundingClientRect();
                 game.stopped = false;
                 
@@ -476,6 +476,8 @@ const WinnoAndBees = () => {
             if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
                 game.stopped = true;
             }else{
+                canvas.width = Game.IDEAL_MOBILE_WIDTH;
+                canvas.height = Game.IDEAL_MOBILE_HEIGHT;
                 game.stopped = false;
                 /*
                 if (refCanvas.current.fullscreenElement) {
@@ -645,6 +647,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                             onClick={async () => {
                                 if (isMobile()) {
                                     openFullscreen(refCanvas);
+                                    //game.handleGame();
                                 }
                             }}
                         //variant='outlined'
