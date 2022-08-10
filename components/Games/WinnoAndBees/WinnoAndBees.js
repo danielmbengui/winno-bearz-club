@@ -243,8 +243,8 @@ const WinnoAndBees = () => {
 
         
         const canvas = refCanvas.current;
-        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : window.width;
-        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : window.height;
+        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : window.innerWidth;
+        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : window.innerHeight;
         //canvas.height = Game.IDEAL_CANVAS_HEIGHT;
         let canvasPosition = canvas.getBoundingClientRect();
         const ctx = canvas.getContext('2d');
@@ -263,6 +263,9 @@ const WinnoAndBees = () => {
             //device = 'mobile';
             //canvas.width = EscapeGame.mobileWidth;
             //canvas.height = EscapeGame.mobileHeight;
+            //canvas.width = window.innerWidth;
+            //canvas.height = window.innerHeight;
+            //canvasPosition = canvas.getBoundingClientRect();
             ratioDevice = 2;
             //let startx = 0;
             //let starty = 0;
@@ -469,11 +472,14 @@ const WinnoAndBees = () => {
             if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
                 game.stopped = true;
             }else{
+                game.stopped = false;
+                /*
                 if (refCanvas.current.fullscreenElement) {
                     game.stopped = false;
                 }else{
                     game.stopped = true;
                 }
+                */
             }
             canvasPosition = canvas.getBoundingClientRect();
         });
@@ -616,12 +622,11 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                                 //addUser({walletAddress: walletAddress, twitterName: twitterName});
                                 //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
                                 //console.log('length wallet', walletAddress.length)
-
-                                initGame();
-
                                 if (isMobile()) {
                                     openFullscreen(refCanvas);
                                 }
+
+                                initGame();
 
                                 //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
                             }}>Start a game</Button>
