@@ -361,7 +361,7 @@ class Game {
                 if( this.life === 0 ){
                     //this.started = false;
                     this.gameOver = true;
-                    this.started = false;
+                    //this.started = false;
                     this.finished = true;
                     //this.game.stopped = true;
                     this.handleLife();
@@ -439,7 +439,7 @@ class Game {
                         beesArray.splice(i, 1);
 
                         if (this.score === Game.SCORE_WINNER) {
-                            this.started = false;
+                            //this.started = false;
                             //this.stopped = true;
                             this.finished = true;
                             this.winner = true;

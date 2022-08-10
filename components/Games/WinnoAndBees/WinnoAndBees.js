@@ -68,7 +68,7 @@ const isMobile = () => {
     return false;
 }
 
-const openFullscreen = (refCanvas) => {
+const openFullscreen = (refCanvas, game) => {
     //refButtonStart.current.style.display = 'none';
     //refButtonStart.current.style.display = 'none';
 
@@ -83,9 +83,10 @@ const openFullscreen = (refCanvas) => {
     screen.orientation.lock("landscape-primary").then(function () {
         // _LOCK_BUTTON.style.display = 'none';
         // _UNLOCK_BUTTON.style.display = 'block';
-
+        game.stopped = false;
     })
         .catch(function (error) {
+            game.stopped = true;
             alert(error);
         });
 }
@@ -109,7 +110,10 @@ const WinnoAndBees = () => {
 
     const refDivDescription = useRef();
     const refDivStartGame = useRef();
+    const refDivSContinueGame = useRef();
     const refCanvas = useRef();
+    const refDivSaveGame = useRef();
+    const refDivRestartGame = useRef();
 
     const [game, setGame] = useState(null);
     const [gameStarted, setGameStarted] = useState(false);
@@ -125,6 +129,31 @@ const WinnoAndBees = () => {
     const [messageWallet, setMessageWallet] = useState('');
     const [errorTwitter, setErrorTwitter] = useState(false);
     const [messageTwitter, setMessageTwitter] = useState('');
+
+    const initComponentState = () => {
+        refDivDescription.current.style.display = 'flex';
+        refDivStartGame.current.style.display = 'flex';
+        refDivSContinueGame.current.style.display = 'none';
+        refCanvas.current.style.display = 'none';
+        refDivSaveGame.current.style.display = 'none';
+        refDivRestartGame.current.style.display = 'none';
+
+        
+    }
+
+    const updateComponentState = () => {
+        if( game && game.started ){
+
+        }else{
+
+        }
+        refDivDescription.current.style.display = 'flex';
+        refDivStartGame.current.style.display = 'flex';
+        refDivSContinueGame.current.style.display = 'none';
+        refCanvas.current.style.display = 'none';
+        refDivSaveGame.current.style.display = 'none';
+        refDivRestartGame.current.style.display = 'none';
+    }
 
     const handlePlayer = (player) => {
         setPlayer(player);
@@ -201,11 +230,16 @@ const WinnoAndBees = () => {
             console.log('my user storage', _player);
 
         }
+        initComponentState();
     }, [player])
 
     const initGame = () => {
         refDivDescription.current.style.display = 'none';
         refDivStartGame.current.style.display = 'none';
+        refDivSContinueGame.current.style.display = 'none';
+        refCanvas.current.style.display = 'flex';
+        refDivSaveGame.current.style.display = 'none';
+        refDivRestartGame.current.style.display = 'none';
 
         
         const canvas = refCanvas.current;
@@ -307,6 +341,12 @@ const WinnoAndBees = () => {
                 //console.log('BEES', game.beesArray.length ? game.beesArray[0].gameFrame : 'null')
             }
 
+            if( game.stopped ){
+                refDivSContinueGame.current.style.display = 'flex';
+            }else{
+                refDivSContinueGame.current.style.display = 'none';
+            }
+
             if (game.finished) {
                 /*
                 //game.finished = true;
@@ -319,30 +359,123 @@ const WinnoAndBees = () => {
                 game.handleLife();
                 */
                 game.finishGame();
-                saveImage(canvas);
-                game.started = false;
+                //saveImage(canvas);
+                //game.started = false;
                 setGame(game);
+
+                if( isMobile() ){
+                    closeFullscreen();
+                }
+
+                //refDivDescription.current.style.display = 'none';
+                //refDivStartGame.current.style.display = 'none';
+                //refDivSContinueGame.current.style.display = 'none';
+                //refCanvas.current.style.display = 'flex';
+
+                if( game.winner ){
+                    refDivSaveGame.current.style.display = 'flex';
+                }
+
+                refDivRestartGame.current.style.display = 'flex';
+                
                 //console.log('canvas buffer', canvas.toBuffer("image/png"))
             }
         }
 
         animate();
 
+        refCanvas.current.addEventListener('fullscreenchange', () => {
+            if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
+                //refCanvas.current.exitFullscreen();
+                game.stopped = true;
+                //escapeGame.paused = true;
+                console.log('EXIT full screen', screen.width, screen.height);
+            }else{
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                canvasPosition = canvas.getBoundingClientRect();
+                game.stopped = false;
+                
+                console.log('full screen', screen.width, screen.height);
+                console.log('canvasPoistion FULL SCREEN', canvasPosition);
+            }
+            
+            console.log('canvasPoistion FULL SCREEN', canvasPosition);
+        });
+
+        refCanvas.current.addEventListener("webkitfullscreenchange", function() {
+            if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
+                //refCanvas.current.exitFullscreen();
+                game.stopped = true;
+                //escapeGame.paused = true;
+                console.log('EXIT full screen', screen.width, screen.height);
+            }else{
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                canvasPosition = canvas.getBoundingClientRect();
+                game.stopped = false;
+                
+                console.log('full screen', screen.width, screen.height);
+                console.log('canvasPoistion WEBKIT FULL SCREEN', canvasPosition);
+            }
+            
+            console.log('canvasPoistion WEBKIT FULL SCREEN', canvasPosition);
+        });
+
+        refCanvas.current.addEventListener("msfullscreenchange", function() {
+            if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
+                //refCanvas.current.exitFullscreen();
+                game.stopped = true;
+                //escapeGame.paused = true;
+                console.log('EXIT full screen', screen.width, screen.height);
+            }else{
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                canvasPosition = canvas.getBoundingClientRect();
+                game.stopped = false;
+                
+                console.log('full screen', screen.width, screen.height);
+                console.log('canvasPoistion MS FULL SCREEN', canvasPosition);
+            }
+            
+            console.log('canvasPoistion MS FULL SCREEN', canvasPosition);
+        });
+
+        refCanvas.current.addEventListener("mozfullscreenchange", function() {
+            if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
+                //refCanvas.current.exitFullscreen();
+                game.stopped = true;
+                //escapeGame.paused = true;
+                console.log('EXIT full screen', screen.width, screen.height);
+            }else{
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                canvasPosition = canvas.getBoundingClientRect();
+                game.stopped = false;
+                
+                console.log('full screen', screen.width, screen.height);
+                console.log('canvasPoistion MOZ FULL SCREEN', canvasPosition);
+            }
+            
+            console.log('canvasPoistion MOZ FULL SCREEN', canvasPosition);
+        });
+
+        
 
         screen.orientation.addEventListener('change', function() {
             console.log('Current orientation is ' + screen.orientation.type);
             //document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
             
             if( screen.orientation.type === 'portrait-primary' || screen.orientation.type === 'portrait-secondary' ){
-                escapeGame.paused = true;
-                escapeGame.stopped = true;
+                game.stopped = true;
             }else{
-                escapeGame.paused = false;
-                escapeGame.stopped = false;
-                //alert('IS OKAY !');
-                //openFullscreen();
+                if (refCanvas.current.fullscreenElement) {
+                    game.stopped = false;
+                }else{
+                    game.stopped = true;
+                }
             }
-            
+            canvasPosition = canvas.getBoundingClientRect();
         });
 
         window.addEventListener('resize', () => {
@@ -487,68 +620,26 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                                 initGame();
 
                                 if (isMobile()) {
-                                    openFullscreen(refCanvas);
+                                    openFullscreen(refCanvas, game);
                                 }
 
                                 //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
                             }}>Start a game</Button>
                     </div>
 
-                    <div className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
+                    <div ref={refDivSContinueGame} className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
                         <Button
-                            //disabled={true}
-                            className={`${styleWinnoAndBees['button-action']}`}
-                            variant='contained'
-                            color='primary'
-                        //variant='outlined'
-                        >Continue</Button>
-                    </div>
-
-                    <div className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
-
-                        <Stack
-                            direction={'column'}
-                            spacing={1}
-                            justifyContent="center"
-                            alignItems="center"
-                            //mb={3}
-                            p={2}
-                        >
-                            <TextFieldWalletAddress player={player} handlePlayer={handlePlayer} error={{ errorWallet: errorWallet, messageWallet: messageWallet }} />
-
-
-                            <TextFieldTwitterName player={player} handlePlayer={handlePlayer} error={{ errorTwitter: errorTwitter, messageTwitter: messageTwitter }} />
-                        </Stack>
-                        <Button
-                            //ref={refButtonStart}
-                            //disabled={isUserSessionStorage}
                             //disabled={true}
                             className={`${styleWinnoAndBees['button-action']}`}
                             variant='contained'
                             color='primary'
                             onClick={async () => {
-                                //addUser({walletAddress: walletAddress, twitterName: twitterName});
-                                //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
-                                //let _errorWallet = isErrorWalletAddress(player.walletAddress);
-                                //let _errorTwitter = isErrorTwitterName(player.twitterName);
-                                //let user = await getUser({walletAddress : player ? player.walletAddress : walletAddress});
-                                //await setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
-                                /*
-
-                                if (!_errorWallet && !_errorTwitter) {
-                                    let isWallet = await walletExist(player.walletAddress);
-                                    if (!isWallet) {
-                                        await addUser({ walletAddress: player.walletAddress, twitterName: player.twitterName });
-                                    }
-                                    setUserSessionStorage();
-                                    setIsUserSessionStorage(true);
+                                if (isMobile()) {
+                                    openFullscreen(refCanvas, game);
                                 }
-                                */
-
-                                //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
-                                //setErrorWallet(true);
-                                //setMessageWallet('AAAARG');
-                            }}>Save data</Button>
+                            }}
+                        //variant='outlined'
+                        >Continue</Button>
                     </div>
 
                     <div className={`${styleWinnoAndBees['div-main']}`} style={{visibility: game && game.started ? 'visible' : 'hidden'}}>
@@ -596,6 +687,70 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                                 <source src={PATH_MUSIC + 'music-game-over.mp3'} type="audio/mp3" />
                             </audio>
                         </canvas>
+                    </div>
+
+
+                    <div ref={refDivSaveGame} className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
+
+                        <Stack
+                            direction={'column'}
+                            spacing={1}
+                            justifyContent="center"
+                            alignItems="center"
+                            //mb={3}
+                            p={2}
+                        >
+                            <TextFieldWalletAddress player={player} handlePlayer={handlePlayer} error={{ errorWallet: errorWallet, messageWallet: messageWallet }} />
+
+
+                            <TextFieldTwitterName player={player} handlePlayer={handlePlayer} error={{ errorTwitter: errorTwitter, messageTwitter: messageTwitter }} />
+                        </Stack>
+                        <Button
+                            //ref={refButtonStart}
+                            //disabled={isUserSessionStorage}
+                            //disabled={true}
+                            className={`${styleWinnoAndBees['button-action']}`}
+                            variant='contained'
+                            color='primary'
+                            onClick={async () => {
+                                //addUser({walletAddress: walletAddress, twitterName: twitterName});
+                                //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
+                                //let _errorWallet = isErrorWalletAddress(player.walletAddress);
+                                //let _errorTwitter = isErrorTwitterName(player.twitterName);
+                                //let user = await getUser({walletAddress : player ? player.walletAddress : walletAddress});
+                                //await setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
+                                /*
+
+                                if (!_errorWallet && !_errorTwitter) {
+                                    let isWallet = await walletExist(player.walletAddress);
+                                    if (!isWallet) {
+                                        await addUser({ walletAddress: player.walletAddress, twitterName: player.twitterName });
+                                    }
+                                    setUserSessionStorage();
+                                    setIsUserSessionStorage(true);
+                                }
+                                */
+
+                                //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
+                                //setErrorWallet(true);
+                                //setMessageWallet('AAAARG');
+                            }}>Save data</Button>
+
+
+                    </div>
+
+                    <div ref={refDivRestartGame} className={`${styleWinnoAndBees['div-main']}`} style={{ display: 'none' }}>
+                            <Button
+                            //ref={refButtonStart}
+                            //disabled={isUserSessionStorage}
+                            //disabled={true}
+                            className={`${styleWinnoAndBees['button-action']}`}
+                            variant='contained'
+                            color='primary'
+                            onClick={async () => {
+                                setGame(null);
+                                initComponentState();
+                            }}>Restart Game</Button>
                     </div>
 
 
