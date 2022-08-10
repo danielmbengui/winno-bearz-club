@@ -68,7 +68,7 @@ const isMobile = () => {
     return false;
 }
 
-const openFullscreen = (refCanvas, game) => {
+const openFullscreen = (refCanvas) => {
     //refButtonStart.current.style.display = 'none';
     //refButtonStart.current.style.display = 'none';
 
@@ -83,10 +83,10 @@ const openFullscreen = (refCanvas, game) => {
     screen.orientation.lock("landscape-primary").then(function () {
         // _LOCK_BUTTON.style.display = 'none';
         // _UNLOCK_BUTTON.style.display = 'block';
-        game.stopped = false;
+        //game.stopped = false;
     })
         .catch(function (error) {
-            game.stopped = true;
+            //game.stopped = true;
             alert(error);
         });
 }
@@ -260,7 +260,7 @@ const WinnoAndBees = () => {
         if (isMobile()) {
             //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
 
-            device = 'mobile';
+            //device = 'mobile';
             //canvas.width = EscapeGame.mobileWidth;
             //canvas.height = EscapeGame.mobileHeight;
             ratioDevice = 2;
@@ -383,7 +383,7 @@ const WinnoAndBees = () => {
         }
 
         animate();
-
+/*
         refCanvas.current.addEventListener('fullscreenchange', () => {
             if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
                 //refCanvas.current.exitFullscreen();
@@ -459,7 +459,7 @@ const WinnoAndBees = () => {
             
             console.log('canvasPoistion MOZ FULL SCREEN', canvasPosition);
         });
-
+*/
         
 
         screen.orientation.addEventListener('change', function() {
@@ -620,7 +620,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                                 initGame();
 
                                 if (isMobile()) {
-                                    openFullscreen(refCanvas, game);
+                                    openFullscreen(refCanvas);
                                 }
 
                                 //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
@@ -635,7 +635,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                             color='primary'
                             onClick={async () => {
                                 if (isMobile()) {
-                                    openFullscreen(refCanvas, game);
+                                    openFullscreen(refCanvas);
                                 }
                             }}
                         //variant='outlined'
