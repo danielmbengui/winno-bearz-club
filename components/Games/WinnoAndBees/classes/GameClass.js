@@ -112,9 +112,9 @@ class Game {
         const ratioDevice = this.ratioDevice;
         const ennemiesArray = this.ennemiesArray;
 
-        const enemy1 = new Enemy(canvas, mouse, gameFrame, ratioDevice, this.player, Game.SPEED, '1');
-        const enemy2 = new Enemy(canvas, mouse, gameFrame, ratioDevice, this.player, Game.SPEED + 1, '2');
-        const enemy3 = new Enemy(canvas, mouse, gameFrame, ratioDevice, this.player, Game.SPEED + 2, '3');
+        const enemy1 = new Enemy(canvas, mouse, gameFrame, ratioDevice, player, Game.SPEED, '1');
+        const enemy2 = new Enemy(canvas, mouse, gameFrame, ratioDevice, player, Game.SPEED + 1, '2');
+        const enemy3 = new Enemy(canvas, mouse, gameFrame, ratioDevice, player, Game.SPEED + 2, '3');
         ennemiesArray.push(enemy1);
         ennemiesArray.push(enemy2);
         ennemiesArray.push(enemy3);
@@ -125,6 +125,11 @@ class Game {
             musicSound.volume = 0.9;
             musicSound.play();
         }
+
+        this.background.x1 = 0;
+        this.background.x2 = canvas.width;
+        this.background.width = canvas.width;
+        this.background.height = canvas.height;
 
         //this.enemy1.handleLife = this.handleLife;
     }
@@ -190,9 +195,9 @@ class Game {
         //this.canvas.height = this.canvas.height/2;
         const canvas = this.canvas;
 
-        this.background.x2 = canvas.width;
-        this.background.width = canvas.width;
-        this.background.height = canvas.height;
+        //this.background.x2 = canvas.width;
+        //this.background.width = canvas.width;
+        //this.background.height = canvas.height;
         const BG = this.background;
         //const SALMON = this.salmonBackground;
         const speed = Game.SPEED;
@@ -394,7 +399,6 @@ class Game {
     }
 
     handleBees() {
-        this.updateGameFrame();
         const canvas = this.canvas;
         const mouse = this.mouse;
         const gameFrame = this.gameFrame;
@@ -402,6 +406,7 @@ class Game {
         const player = this.player;
         const beesArray = this.beesArray;
         const beeTouchSound = this.beeTouchSound;
+        this.updateGameFrame();
 
         if (!this.finished && this.gameFrame % 50 === 0) {
             //beesArray.push(new Bee(escapeGame, winno));
@@ -468,7 +473,11 @@ class Game {
     }
 
     handleGame() {
+        console.log('handle game', this.paused)
         this.funcAnimate();
+        //this.paused = false;
+        //this.stopped = false;
+        //requestAnimationFrame(this.funcAnimate);
     }
 }
 

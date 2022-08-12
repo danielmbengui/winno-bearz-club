@@ -1,4 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic'
+//import parse from 'html-react-parser';
+import axios from 'axios';
 import styleWinnoAndBees from "./WinnoAndBees.module.css";
 import { useTheme } from '@mui/material/styles';
 
@@ -109,13 +112,18 @@ const WinnoAndBees = () => {
 
 
     const refDivDescription = useRef();
+    const refDivError = useRef();
     const refDivStartGame = useRef();
     const refDivSContinueGame = useRef();
     const refCanvas = useRef();
     const refDivSaveGame = useRef();
     const refDivRestartGame = useRef();
 
+    
+
     const [game, setGame] = useState(null);
+    const [errorGame, setErrorGame] = useState('OOOOOOK');
+    const [canvas, setCanvas] = useState(refCanvas.current ? refCanvas.current : null);
     const [gameStarted, setGameStarted] = useState(false);
     const [gamePaused, setGamePaused] = useState(false);
     const [gameStopped, setGameStopped] = useState(false);
@@ -233,93 +241,162 @@ const WinnoAndBees = () => {
         initComponentState();
     }, [player])
 
-    function animate(game) {
-        game.gameFrame++;
-        if (game.player) {
-            game.player.gameFrame = game.gameFrame;
-        }
-
-        if (game.enemy1) {
-            game.enemy1.gameFrame = game.gameFrame;
-        }
-
-        if (game.enemy2) {
-            game.enemy2.gameFrame = game.gameFrame;
-        }
-
-        if (game.enemy3) {
-            game.enemy3.gameFrame = game.gameFrame;
-        }
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        game.handleBackground();
-        //game.player.gameFrame = game.gameFrame;
-        game.handleLife();
-        game.playerUpdate();
-        //game.enemy1.update();
-        game.handleEnnemies();
-        //game.enemy1.draw();
-        game.playerDraw();
-        game.handleBees();
-        //game.winner = true;
-
-        if (!game.paused && !game.stopped && !game.finished) {
-            requestAnimationFrame(animate);
-            //console.log('BEES', game.beesArray.length ? game.beesArray[0].gameFrame : 'null')
-        }
-
-        if( game.stopped ){
-            refCanvas.current.style.display = 'none';
-            refDivSContinueGame.current.style.display = 'flex';
-            game.musicSound.pause();
-        }else{
-            refCanvas.current.style.display = 'flex';
-            refDivSContinueGame.current.style.display = 'none';
-            game.musicSound.play();
-        }
-
-        if (game.finished) {
-            if( isMobile() ){
-                closeFullscreen();
+    const animate = () => {
+        if( canvas && game ){
+            console.log('animate', 'animate OK')
+            const ctx = canvas.getContext('2d');
+            game.gameFrame++;
+            if (game.player) {
+                game.player.gameFrame = game.gameFrame;
             }
-            /*
-            //game.finished = true;
+    
+            if (game.enemy1) {
+                game.enemy1.gameFrame = game.gameFrame;
+            }
+    
+            if (game.enemy2) {
+                game.enemy2.gameFrame = game.gameFrame;
+            }
+    
+            if (game.enemy3) {
+                game.enemy3.gameFrame = game.gameFrame;
+            }
+    
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             game.handleBackground();
-            //game.gameFrame++;
-            //game.playerUpdate();
+            //game.player.gameFrame = game.gameFrame;
+            game.handleLife();
+            game.playerUpdate();
+            //game.enemy1.update();
+            game.handleEnnemies();
+            //game.enemy1.draw();
             game.playerDraw();
             game.handleBees();
-            game.handleLife();
-            */
-            game.finishGame();
-            //saveImage(canvas);
-            //game.started = false;
-            
-
-            
-
-            //refDivDescription.current.style.display = 'none';
-            //refDivStartGame.current.style.display = 'none';
-            //refDivSContinueGame.current.style.display = 'none';
-            //refCanvas.current.style.display = 'flex';
-
-            if( game.winner ){
-                refDivSaveGame.current.style.display = 'flex';
+            //game.winner = true;
+    
+            if (!game.paused && !game.stopped && !game.finished) {
+                requestAnimationFrame(animate);
+                //console.log('BEES', game.beesArray.length ? game.beesArray[0].gameFrame : 'null')
             }
-
-            refDivRestartGame.current.style.display = 'flex';
-            
-            //console.log('canvas buffer', canvas.toBuffer("image/png"))
+    
+            if( game.stopped ){
+                refCanvas.current.style.display = 'none';
+                refDivSContinueGame.current.style.display = 'flex';
+                game.musicSound.pause();
+            }else{
+                refCanvas.current.style.display = 'flex';
+                refDivSContinueGame.current.style.display = 'none';
+                game.musicSound.play();
+            }
+    
+            if (game.finished) {
+                if( isMobile() ){
+                    closeFullscreen();
+                }
+                /*
+                //game.finished = true;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                game.handleBackground();
+                //game.gameFrame++;
+                //game.playerUpdate();
+                game.playerDraw();
+                game.handleBees();
+                game.handleLife();
+                */
+                game.finishGame();
+                //saveImage(canvas);
+                //game.started = false;
+    
+                if( game.winner ){
+                    refDivSaveGame.current.style.display = 'flex';
+                }
+    
+                refDivRestartGame.current.style.display = 'flex';
+                
+                //console.log('canvas buffer', canvas.toBuffer("image/png"))
+            }
+            //setGame(game);
+        }else{
+            console.log('animate', 'animate NOT OK', canvas, game);
+            //requestAnimationFrame(animate);
         }
-        setGame(game);
+        
     }
+
+    useEffect( () => {
+        //requestAnimationFrame(animate);
+        const canvas = refCanvas.current;
+        canvas.width = screen.width >= Game.IDEAL_CANVAS_WIDTH ? Game.IDEAL_CANVAS_WIDTH : Game.IDEAL_MOBILE_WIDTH;
+        canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : Game.IDEAL_MOBILE_HEIGHT;
+        //canvas.height = Game.IDEAL_CANVAS_HEIGHT;
+        let canvasPosition = canvas.getBoundingClientRect();
+        setCanvas(canvas);
+
+        const mouse = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+
+
+
+            click: false,
+        }
+
+        let ratioDevice = 1;
+
+        if (isMobile()) {
+            //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
+            ratioDevice = 2;
+            //let startx = 0;
+            //let starty = 0;
+
+            canvas.addEventListener('touchmove', (event) => {
+                let touchObj = event.changedTouches[0];
+                mouse.click = true;
+                mouse.x = parseInt(touchObj.clientX) - canvasPosition.left;
+                mouse.y = parseInt(touchObj.clientY) - canvasPosition.top;
+                //console.log(mouse.x, mouse.y);
+                event.preventDefault();
+            });
+
+            canvas.addEventListener('touchcancel', (event) => {
+                //let touchObj = event.changedTouches[0];
+                mouse.click = true;
+                mouse.x = canvasPosition.left;
+                mouse.y = canvasPosition.top;
+                //console.log('touch cancel', mouse.x, mouse.y);
+                event.preventDefault();
+            });
+        } else {
+            canvas.addEventListener('mousemove', (event) => {
+                mouse.click = true;
+                mouse.x = event.x - canvasPosition.left;
+                mouse.y = event.y - canvasPosition.top;
+                //console.log(mouse.x, mouse.y)
+            });
+        }
+
+        //const game = new Game(canvas, mouse, ratioDevice, PATH_IMG, PATH_MUSIC, animate);
+        //setGame(game);
+        setGameStarted(true);
+
+        window.addEventListener('resize', () => {
+            // console.log('resize screen');
+             canvasPosition = canvas.getBoundingClientRect();
+         });
+ 
+         window.addEventListener('scroll', () => {
+            // console.log('scroll screen');
+             canvasPosition = canvas.getBoundingClientRect();
+         });
+        console.log('init game')
+        //animate();
+    }, [])
 
 
     const initGame = () => {
         refDivDescription.current.style.display = 'none';
         refDivStartGame.current.style.display = 'none';
-        refDivSContinueGame.current.style.display = 'none';
+        //refDivSContinueGame.current.style.display = 'none';
         refCanvas.current.style.display = 'flex';
         refDivSaveGame.current.style.display = 'none';
         refDivRestartGame.current.style.display = 'none';
@@ -330,7 +407,8 @@ const WinnoAndBees = () => {
         canvas.height = screen.height >= Game.IDEAL_CANVAS_HEIGHT ? Game.IDEAL_CANVAS_HEIGHT : Game.IDEAL_MOBILE_HEIGHT;
         //canvas.height = Game.IDEAL_CANVAS_HEIGHT;
         let canvasPosition = canvas.getBoundingClientRect();
-        const ctx = canvas.getContext('2d');
+        setCanvas(canvas);
+        
 
         const mouse = {
             x: canvas.width / 2,
@@ -342,13 +420,6 @@ const WinnoAndBees = () => {
 
         if (isMobile()) {
             //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
-
-            //device = 'mobile';
-            //canvas.width = EscapeGame.mobileWidth;
-            //canvas.height = EscapeGame.mobileHeight;
-            //canvas.width = window.innerWidth;
-            //canvas.height = window.innerHeight;
-            //canvasPosition = canvas.getBoundingClientRect();
             ratioDevice = 2;
             //let startx = 0;
             //let starty = 0;
@@ -380,18 +451,20 @@ const WinnoAndBees = () => {
         }
         //const player = new Player(canvas, mouse);
 
+        //const game = new Game(canvas, mouse, ratioDevice, PATH_IMG, PATH_MUSIC, animate);
+
+
+
+        //setGame(game);
+        //setGameStarted(true);
         const game = new Game(canvas, mouse, ratioDevice, PATH_IMG, PATH_MUSIC, animate);
-
-
-
         setGame(game);
-        setGameStarted(true);
         game.startGame();
         //console.log('canvas', canvas);
         //console.log('ctx', ctx);
         //console.log('mouse', mouse);
         //console.log('game', game.imgBackground);
-        animate(game);
+        animate();
 
         refCanvas.current.addEventListener('fullscreenchange', () => {
             if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
@@ -492,15 +565,7 @@ const WinnoAndBees = () => {
             canvasPosition = canvas.getBoundingClientRect();
         });
 
-        window.addEventListener('resize', () => {
-           // console.log('resize screen');
-            canvasPosition = canvas.getBoundingClientRect();
-        });
-
-        window.addEventListener('scroll', () => {
-           // console.log('scroll screen');
-            canvasPosition = canvas.getBoundingClientRect();
-        });
+        
     }
 
     const saveImage = async (canvas) => { 
@@ -596,8 +661,6 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
           });   
     */      
     };
-    
-
 
     return (
 
@@ -610,11 +673,12 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                 background: theme.palette.background.default,
             }}>
                 <div className="container">
-
-                
-
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['div-main']}`} >
-                        <DescriptionGame show={true} scoreToWin={Game.SCORE_WINNER} />
+                        <DescriptionGame rshow={true} scoreToWin={Game.SCORE_WINNER} />
+                    </div>
+
+                    <div ref={refDivError} className={`${styleWinnoAndBees['div-error']}`} >
+                        {errorGame}
                     </div>
 
 
@@ -629,12 +693,31 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                             onClick={() => {
                                 //addUser({walletAddress: walletAddress, twitterName: twitterName});
                                 //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
-                                //console.log('length wallet', walletAddress.length)
+                                
+                                /*
                                 if (isMobile()) {
                                     openFullscreen(refCanvas);
                                 }
 
                                 initGame();
+                                */
+                                function onSubmit (value) {
+                                    //console.log(value, process.env.NEXT_PUBLIC_MYSQL_HOST)
+                                      let data={content : value}
+                                        axios.post('/api/database/add', data)
+                                        .then((response) => {
+                                          //console.log('response', response);
+                                          setErrorGame(response);
+                                    })
+                                    .catch((e) => { 
+                                        console.log('error', e);
+                                        setErrorGame(e.response.data);
+                                    }
+                                    )}
+
+                                    onSubmit('aaaaie');
+                                
+                               //test().test2();
 
                                 //console.log('yaaaaaaaaaaaaaa', window.innerHeight, screen.height, window.innerHeight == screen.height)
                             }}>Start a game</Button>
@@ -648,8 +731,10 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                             color='primary'
                             onClick={async () => {
                                 if (isMobile()) {
-                                    openFullscreen(refCanvas);
-                                    animate(game);
+                                    //openFullscreen(refCanvas);
+                                    //animate();
+                                    console.log('lMY GAME', game);
+                                    console.log('lMY CANVAS', canvas);
                                     //game.handleGame();
                                 }
                             }}
