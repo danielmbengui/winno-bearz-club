@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       let userList = JSON.parse(data.toString());
 
       if (req.query.action === ACTION_GET_USER_LIST) {
-        return res.status(200).json(userList);
+        return res.status(200).json({userList});
       }
       
       if (req.query.action === ACTION_GET_USER_LIST_COUNT) {
@@ -48,28 +48,33 @@ export default async function handler(req, res) {
       }
 
       if (req.query.action === ACTION_GET_USER) {
-        const player = JSON.parse(req.query.player);
-        let user = null;
-        if (readPlayerByWallet(player.walletAddress, userList)) {
-          user = readPlayerByWallet(player.walletAddress, userList);
-          return res.status(200).json(user);
-        }
-        if (readPlayerByTwitter(player.twitterName, userList)) {
-          user = readPlayerByTwitter(player.twitterName, userList);
-          return res.status(200).json(user);
-        }
+        userList.find(_user => {
+          if (_user.walletAddress === walletAddress) {
+            return res.status(200).json(_user);
+          }
+        });
+        userList.find(_user => {
+          if (_user.twitterName === twitterName) {
+            return res.status(200).json(_user);
+          }
+        });
       }
 
       if (req.query.action === ACTION_GET_USER_BY_WALLET) {
-        const player = JSON.parse(req.query.player);
-        const user = readPlayerByWallet(player.walletAddress, userList);
-        //console.log('data GET one user WALLET', user)
+        userList.find(_user => {
+          if (_user.walletAddress === walletAddress) {
+            return res.status(200).json(_user);
+          }
+        });
         return res.status(200).json(user);
       }
 
       if (req.query.action === ACTION_GET_USER_BY_TWITTER) {
-        const player = JSON.parse(req.query.player);
-        const user = readPlayerByTwitter(player.twitterName, userList);
+        userList.find(_user => {
+          if (_user.twitterName === twitterName) {
+            return res.status(200).json(_user);
+          }
+        });
         //console.log('data GET one user WALLET', user)
         return res.status(200).json(user);
       }

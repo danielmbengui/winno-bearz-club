@@ -22,8 +22,8 @@ const WinnoAndBees = ({database, app}) => {
 
     const provider = new TwitterAuthProvider();
     console.log('provider', provider)
-    const auth = getAuth();
-    console.log('auth', auth)
+    //const auth = getAuth();
+    console.log('auth', process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
     const refDivDescription = useRef();
     const refDivInfoPlayer = useRef();
     const refDivStartGame = useRef();

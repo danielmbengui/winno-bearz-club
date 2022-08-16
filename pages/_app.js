@@ -33,6 +33,8 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
+
+console.log('neeext env', process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
 /*
 const firebaseConfig = {
   apiKey: "AIzaSyD52vVRfDYZgLdp0x9ykT5RbAS55dC2j10",
