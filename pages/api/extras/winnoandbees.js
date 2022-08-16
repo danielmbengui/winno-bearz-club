@@ -104,24 +104,6 @@ const createPlayerDataJson = (dataPlayer) => {
   }
 }
 
-const readPlayerByWallet = (walletAddress, userList) => {
-  const user = userList.find(_user => {
-    if (_user.walletAddress === walletAddress) {
-      return _user;
-    }
-  });
-  return user ? user : null;
-}
-
-const readPlayerByTwitter = (twitterName, userList) => {
-  const user = userList.find(_user => {
-    if (_user.twitterName === twitterName) {
-      return _user;
-    }
-  });
-  return user ? user : null;
-}
-
 const updatePlayerByWallet = async (data) => {
   if (fs.existsSync(metadataDir)) {
     fs.readFile(metadataDir, (err, list) => {
