@@ -391,7 +391,7 @@ const WinnoAndBees = ({database, app}) => {
                             //let playerJson = await readPlayerJsonByTwitter(pl);
                             //const playerList = await readPLayerJsonList();
                             //const playerListCount = await readPLayerJsonListCount();
-                            console.log('Player METHOD OKay', playerList, 'count', playerListCount)
+                            console.log('Player METHOD OKay', playerJson,)
                         }} />
                     </div>
 

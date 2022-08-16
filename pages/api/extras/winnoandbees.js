@@ -19,6 +19,57 @@ export default async function handler(req, res) {
   // Run cors
   await cors(req, res);
 
+  if (req.method === METHOD_GET) {
+    fs.readFile(metadataDir, (err, data) => {
+      let userList = JSON.parse(data.toString());
+/*
+      if (req.query.action === ACTION_GET_USER_LIST) {
+        return res.status(200).json({userList});
+      }
+      
+      if (req.query.action === ACTION_GET_USER_LIST_COUNT) {
+        return res.status(200).json(userList.length);
+      }
+      */
+
+      if (req.query.action === ACTION_GET_USER) {
+        userList.find(_user => {
+          if (_user.walletAddress === walletAddress) {
+            return res.status(200).json(_user);
+          }
+        });
+        userList.find(_user => {
+          if (_user.twitterName === twitterName) {
+            return res.status(200).json(_user);
+          }
+        });
+      }
+/*
+      if (req.query.action === ACTION_GET_USER_BY_WALLET) {
+        userList.find(_user => {
+          if (_user.walletAddress === walletAddress) {
+            return res.status(200).json(_user);
+          }
+        });
+        return res.status(200).json(user);
+      }
+
+      if (req.query.action === ACTION_GET_USER_BY_TWITTER) {
+        userList.find(_user => {
+          if (_user.twitterName === twitterName) {
+            return res.status(200).json(_user);
+          }
+        });
+        //console.log('data GET one user WALLET', user)
+        return res.status(200).json(user);
+      }
+      */
+
+      return res.status(405).json('METHOD DONT EXIST');
+    });
+  }
+
+  /*
   if (req.method === METHOD_POST) {
     let result = '';
     
@@ -84,6 +135,7 @@ export default async function handler(req, res) {
   } else {
     return res.status(405).json('METHOD NOT ALLOWED');
   }
+  */
 }
 
 const createPlayerDataJson = (dataPlayer) => {
