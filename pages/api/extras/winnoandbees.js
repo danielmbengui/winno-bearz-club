@@ -1,15 +1,10 @@
 import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
-import fs, { readFile } from 'fs';
+import fs from 'fs';
 
 import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, ACTION_SAVE_IMAGE, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../lib/constants';
 import { PATH_AIRDROP_LISTS } from '../../../components/Extras/WinnoAndBees/lib/constants';
 
-const needle = require("needle");
-//const fetch = require("node-fetch");
-//import { readFile } from 'fs';
-//import CONFIG_FOLLOWERS from '../../../redux/config/twitter/followers.json';
-// Initialize the cors middleware
 const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
   Cors({
@@ -25,39 +20,21 @@ export default async function handler(req, res) {
   // Run cors
   await cors(req, res);
 
-  let status = 404;
-  let json = 'merde';
-
   if (req.method === METHOD_POST) {
     let result = '';
     let data = '';
     if (req.body.action === ACTION_ADD_USER && req.body.player) {
       const player = req.body.player;
       console.log('playerRAD', req.body.player)
-      try {
-        result = 'Created';
+      result = 'Created';
         createPlayerDataJson(player);
         return res.status(200).json({ result: result, data: player });
-      } catch (error) {
-        result = 'Error on creation of the user';
-        data = error.message;
-        return res.status(400).json({ result: result, data: data });
-      }
     } else if (req.body.action === ACTION_SET_USER && req.body.player) {
       const player = req.body.player;
-      //console.log('data POST', req.body.walletAddress)
-      //setUserByWallet(req.body.walletAddress, {twitterName: req.body.twitterName, maxScore:req.body.maxScore, airdropped:req.body.airdropped});
-      //updatePlayerByWallet();
-      try {
-        result = 'Edited';
+      result = 'Edited';
         updatePlayerByWallet(player);
         //return res.status(200).json('Edited');
         return res.status(200).json(player);
-      } catch (error) {
-        result = 'Error on edition of the user';
-        data = error.message;
-        return res.status(400).json(error.message);
-      }
 
     }
     //console.log('method', req.method);
