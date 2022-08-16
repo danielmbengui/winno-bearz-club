@@ -1,0 +1,80 @@
+.flex-vertical {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'VT323', monospace;
+    font-size: xx-large;
+    /* background-color: red; */
+}
+
+.description-to-win  {
+    /*padding: 10px;*/
+    text-align: justify;
+    list-style: none;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 3vh;
+    /*background-color: blue;*/
+    font-weight: bold;
+    /*color: black;*/
+}
+
+.description-to-win li {
+    background-color: var(--primary);
+    text-align: center;
+    padding: 3vh;
+    color: black;
+}
+
+.description-to-win li:last-child { 
+    background-color: var(--secondary); 
+    color:var(--text-secondary);
+ }
+
+ .button-action {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: x-large;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    background-color: var(--primary);
+}
+
+.button-start-game {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: x-large;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    background-color: var(--third);
+}
+
+.canvas {
+    border: 4px solid black;
+    /* display: none; 
+    font-size: xx-large; 
+    font-family: 'Press Start 2P', sans-serif;*/
+    cursor: move;
+    /*background: linear-gradient(to bottom, lightblue, blue, darkblue);*/
+}
+
+.div-error-game  {
+    /*padding: 10px;*/
+    text-align: center;
+    /*
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*background-color: blue;*/
+    font-weight: bold;
+    color: red;
+}

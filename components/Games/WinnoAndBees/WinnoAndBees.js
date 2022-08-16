@@ -144,9 +144,7 @@ const WinnoAndBees = () => {
         refDivSContinueGame.current.style.display = 'none';
         refCanvas.current.style.display = 'none';
         refDivSaveGame.current.style.display = 'none';
-        refDivRestartGame.current.style.display = 'none';
-
-        
+        refDivRestartGame.current.style.display = 'none'; 
     }
 
     const updateComponentState = () => {
@@ -335,9 +333,6 @@ const WinnoAndBees = () => {
         const mouse = {
             x: canvas.width / 2,
             y: canvas.height / 2,
-
-
-
             click: false,
         }
 
@@ -466,6 +461,7 @@ const WinnoAndBees = () => {
         //console.log('game', game.imgBackground);
         animate();
 
+        /*
         refCanvas.current.addEventListener('fullscreenchange', () => {
             if ( refCanvas.current.exitFullscreen || refCanvas.current.webkitExitFullscreen || refCanvas.current.msExitFullscreen || refCanvas.current.mozfullscreenchange ) {
                 //refCanvas.current.exitFullscreen();
@@ -554,16 +550,17 @@ const WinnoAndBees = () => {
                 canvas.width = Game.IDEAL_MOBILE_WIDTH;
                 canvas.height = Game.IDEAL_MOBILE_HEIGHT;
                 game.stopped = false;
-                /*
+                
                 if (refCanvas.current.fullscreenElement) {
                     game.stopped = false;
                 }else{
                     game.stopped = true;
                 }
-                */
+                
             }
             canvasPosition = canvas.getBoundingClientRect();
         });
+        */
 
         
     }
@@ -674,7 +671,7 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
             }}>
                 <div className="container">
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['div-main']}`} >
-                        <DescriptionGame rshow={true} scoreToWin={Game.SCORE_WINNER} />
+                        <DescriptionGame show={true} scoreToWin={Game.SCORE_WINNER} />
                     </div>
 
                     <div ref={refDivError} className={`${styleWinnoAndBees['div-error']}`} >
@@ -801,8 +798,6 @@ if( window.sessionStorage.getItem(STORAGE_ADVERTISE_SESSION) === null ){
                             p={2}
                         >
                             <TextFieldWalletAddress player={player} handlePlayer={handlePlayer} error={{ errorWallet: errorWallet, messageWallet: messageWallet }} />
-
-
                             <TextFieldTwitterName player={player} handlePlayer={handlePlayer} error={{ errorTwitter: errorTwitter, messageTwitter: messageTwitter }} />
                         </Stack>
                         <Button

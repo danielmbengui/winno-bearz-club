@@ -27,8 +27,8 @@ class Game {
         this.ctx = canvas.getContext('2d');
         this.mouse = mouse;
         this.ratioDevice = ratioDevice;
-        this.pathImg = pathImg;
-        this.pathMusic = pathMusic;
+        //this.pathImg = pathImg;
+        //this.pathMusic = pathMusic;
         this.funcAnimate = funcAnimate;
         this.gameFrame = 0;
         this.score = 0;
@@ -185,9 +185,6 @@ class Game {
             //refCanvas.current.style.cursor = 'pointer';  
         }
         this.handleLife();
-        
-
-
     }
 
     handleBackground() {
@@ -238,10 +235,6 @@ class Game {
             BG.spriteWidth, BG.spriteHeight, BG.x1, BG.y,  BG.width, BG.height);
             ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
                 BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y,  BG.width, BG.height);
-                /*
-        ctx.drawImage(background, BG.frameX * BG.spriteWidth, BG.frameY * BG.spriteHeight,
-            BG.spriteWidth, BG.spriteHeight, BG.x2, BG.y, BG.width, BG.height);
-            */
     }
 
     handleLife() {
@@ -290,7 +283,6 @@ class Game {
     }
 
     playerUpdate() {
-        
         this.player.update();
     }
 
@@ -339,13 +331,9 @@ class Game {
         const mouse = this.mouse;
         const gameFrame = this.gameFrame;
         const ratioDevice = this.ratioDevice;
-        //const enemy1 = this.enemy1;
-        //const enemy2 = this.enemy2;
-        //const enemy3 = this.enemy3;
         const enemyTouchSound = this.enemyTouchSound;
 
         const ennemiesArray = this.ennemiesArray;
-        //const bee = new Bee(canvas, mouse, gameFrame, ratioDevice, this.stopped, player);
 
         for (let i = 0; i < ennemiesArray.length; i++) {
             const enemy = ennemiesArray[i];
@@ -389,13 +377,7 @@ class Game {
                     enemyTouchSound.play();
                 }
             }
-            
-            //console.log('OOOOOOOOOK', enemy);
-        }
-
-        
-
-        
+        }   
     }
 
     handleBees() {

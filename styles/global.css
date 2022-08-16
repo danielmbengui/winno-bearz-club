@@ -1,7 +1,23 @@
 :root {
+  /*-----   WINNO BEARZ COLORS   -----*/
+  /* standards */
+  --yellow-winno: #ebc908;
+  --brown-winno: #733E39;
+  --brown-dark-winno: #571616;
+  --blue-winno:#0099DB;
+  --blue-dark-winno:#2769CA;
+  
+  /* decimals */
+  --yellow-winno-decimal: 235, 201, 8;
+  --brown-winno-decimal:115, 62, 57;
+  --brown-dark-winno-decimal: 87, 22, 22;
+  --blue-winno-decimal:0, 153, 219;
+  --blue-dark-winno-decimal:39, 105, 202;
+
+
   /* #f0f0f0 in decimal RGB */
-  --primary: #ebc908;
-  --primary-decimal:246,224,94;
+  --primary: var(--yellow-winno);
+  --primary-decimal: var(--yellow-winno-decimal);
   --secondary: #733E39;
   --secondary-decimal:115, 62, 57;
 
@@ -9,13 +25,7 @@
   --yellow-team:#F4F122;
   --yellow-team-decimal:244, 241, 34;
 
-  --brown-winno: #733E39;
-  --brown-winno-decimal:115, 62, 57;
 
-  --blue-winno:#0099DB;
-  --blue-winno-decimal:0, 153, 219;
-  --blue-dark-winno:#2769CA;
-  --blue-dark-winno-decimal:39, 105, 202;
 
 
   --brown-bear: #872222;
@@ -69,3 +79,35 @@
   --red-decimal: 255,0,0;
   --orange-decimal: 255,165,0;
 }
+
+
+[data-theme="light"] {
+  --background-color: white;
+  --primary: var(--yellow-winno);
+  --secondary: var(--brown-dark-winno);
+  --third: var(--blue-dark-winno);
+  --text-primary: black;
+  --text-secondary: white;
+}
+
+[data-theme="dark"] {
+  --background-color: black;
+  --primary: var(--yellow-winno);
+  --secondary: var(--brown-winno);
+  --third: var(--blue-winno);
+  --text-primary: white;
+  --text-secondary: black;
+}
+
+
+
+
+body {
+  background-color: var(--background-color);
+  /*color: var(--font-color);*/
+}
+/*
+a {
+  color: var(--link-color);
+}
+*/

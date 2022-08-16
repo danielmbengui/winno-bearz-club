@@ -14,7 +14,7 @@ import { useTheme, } from '@mui/material/styles';
 import { Container } from "@mui/material";
 //const CONFIG = require('../pages/config/config.json');
 
-export default function ContainerComponent({ children, about, rarity, collections, roadmap, games, faq, mint, airdrop, config, links, }) {
+export default function ContainerComponent({ children, about, rarity, collections, roadmap, games, faq, mint, airdrop, config, links, isItemsLess}) {
   const theme = useTheme();
     //const colorMode = useContext(ColorModeContext);
     const dispatch = useDispatch();
@@ -54,7 +54,7 @@ export default function ContainerComponent({ children, about, rarity, collection
         <>
           <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} showAdvertiseSession={showAdvertiseSession} updateStorageAdvertiseSession={updateStorageAdvertiseSession} />
           <Menu pages={{about: about, rarity: rarity, collections: collections, roadmap: roadmap, faq:faq, mint: mint, airdrop:airdrop, games: games}}
-            dispatch={dispatch} user={user} connect={connectUser} />      
+            isItemsLess={isItemsLess} dispatch={dispatch} user={user} connect={connectUser} />      
           <main style={{background:theme.palette.background.default,}}>{children}</main>
           <Promo links={links} />
           <Footer config={config} links={links} />  

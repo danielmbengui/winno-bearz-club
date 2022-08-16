@@ -9,11 +9,25 @@ export default function ToggleColorMode({_child}) {
     let _screenMode = 'light';
 
     const [mode, setMode] = useState(_screenMode);
+    const [primaryColor, setPrimaryColor] = useState('rgb(var(--primary-decimal))');
+    const [secondaryColor, setSecondaryColor] = useState('rgb(var(--secondary-decimal))');
 
     useEffect( () => {
-      setMode(typeof(Storage) !== "undefined" ? (window.localStorage.getItem('screenMode') !== null ? window.localStorage.getItem('screenMode') : 'light') : 'light');
+      //document.documentElement.setAttribute("data-theme", "dark");
+      let screenMode = 'light';
+      if( typeof(Storage) !== "undefined" && window.localStorage.getItem('screenMode') !== null ){
+        screenMode = window.localStorage.getItem('screenMode');
+      }
+      //setMode(typeof(Storage) !== "undefined" ? (window.localStorage.getItem('screenMode') !== null ? window.localStorage.getItem('screenMode') : 'light') : 'light');
+      document.documentElement.setAttribute("data-theme", screenMode);
+      setMode(screenMode);
+      setPrimaryColor('rgb(var(--primary-decimal))');
+      setSecondaryColor('rgb(var(--secondary-decimal))');
+      
+      //console.log(screenMode, {MOOOODE: window.localStorage.getItem('screenMode')})
       //console.log({UPDa_MODE:window.localStorage.getItem('screenMode')})
-    }, [mode])
+    }, [mode]);
+
     const black = "rgb(" + 0 + "," + 0 + "," + 0 + ")"; // black
     const blackDecimal = "var(--black-decimal)"; // black
     const white = "rgb(" + 255 + "," + 255 + "," + 255 + ")"; // white
@@ -35,8 +49,24 @@ export default function ToggleColorMode({_child}) {
     const greyDark = 'var(--grey-dark)';
     const blueTwitter = 'rgb(29, 155, 240)';
 
-    const primaryColor = 'rgb(var(--primary-decimal))';
+    
+    //const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
+    //const primaryColor = "rgb(" + 246 + "," + 224 + "," + 94 + ")";// blue babytoshi
+    //const primaryColor = "rgb(" + 20 + "," + 147 + "," + 239 + ")";// blue babytoshi
+
+    //const primaryColor = 'rgb(var(--primary-decimal))';
+
+    //246,224,94;
+    //const primaryColor = 'rgb(var(--primary-decimal))';
     const primaryDecimal = 'var(--primary-decimal)';
+
+    //const secondaryColor = 'rgb(var(--secondary-decimal))';
+    const secondaryDecimal = 'var(--secondary-decimal)';
+
+    const thirdColor = 'rgb(var(--third-decimal))';
+    const thirdDecimal = 'var(--third-decimal)';
+
+
 
     const brownWinno = 'var(--brown-winno)';
     const brownWinnoDecimal = 'var(--brown-winno-decimal)';
@@ -54,10 +84,13 @@ export default function ToggleColorMode({_child}) {
     const colorMode = useMemo(
       () => ({
         toggleColorMode: () => {
+          let newScreenMode = mode === 'light' ? 'dark' : 'light';
           setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-          //window.localStorage.setItem('screenMode', mode);
+          document.documentElement.setAttribute("data-theme", newScreenMode);
+          //window.localStorage.setItem('screenMode', screenMode);
           //console.log({MOOOODE_NOW: mode === 'light' ? 'dark' : 'light'})
-          //console.log({MOOOODE: window.localStorage.getItem('screenMode')})
+          //document.documentElement.setAttribute("data-theme", window.localStorage.getItem('screenMode') === 'light' ? 'dark' : 'light');
+          //console.log({UPDa_MODE:window.localStorage.getItem('screenMode')})
         },
       }),
       [],
@@ -201,6 +234,10 @@ export default function ToggleColorMode({_child}) {
                     main: primaryColor,
                     contrastText: black,
                   }, 
+                  secondary: {
+                    main: secondaryColor,
+                    contrastText: white,
+                  }, 
                   primarydecimal: {
                     main: primaryDecimal,
                     contrastText: black,
@@ -238,6 +275,10 @@ export default function ToggleColorMode({_child}) {
                     main: primaryColor,
                     contrastText: black,
                   },
+                  secondary: {
+                    main: secondaryColor,
+                    contrastText: white,
+                  }, 
                   primarydecimal: {
                     main: primaryDecimal,
                     contrastText: black,

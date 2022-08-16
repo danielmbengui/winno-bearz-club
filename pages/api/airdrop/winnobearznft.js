@@ -17,7 +17,7 @@ const cors = initMiddleware(
       // Only allow requests with GET, POST and OPTIONS
       methods: ['GET', 'POST', 'OPTIONS'],
     })
-  )
+)
 //require('dotenv').config({path: "./vars/.env.local"});
 const Twitter = require('twitter-v2');
 
@@ -33,6 +33,8 @@ const buildDir = `${process.cwd()}/public/lists/airdrop`;
 const metadataDir = `${buildDir}/winnobearznft.json`;
 
 const imgDir = `${process.cwd()}/public/games/winno_and_bees/img/airdrop`;
+
+
 const imgAirdropDir = `${imgDir}/winnobearznft.json`;
 //const metadataDirAbsolute = `/lists/airdrop/winnobearznft.json`;
 const metadataDirAbsolute = '../../../redux/config/twitter/followers.json';

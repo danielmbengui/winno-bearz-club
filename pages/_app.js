@@ -31,9 +31,20 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
+*/
+
+/*const firebaseConfig = {
+  apiKey: "AIzaSyD52vVRfDYZgLdp0x9ykT5RbAS55dC2j10",
+  authDomain: "winnobearznft.firebaseapp.com",
+  projectId: "winnobearznft",
+  storageBucket: "winnobearznft.appspot.com",
+  messagingSenderId: "462203420048",
+  appId: "1:462203420048:web:2421178264238d2e018715",
+  measurementId: "G-R0FZ8NJJ41"
+};
 
 const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
+const database = getFirestore(app);
 */
 /*
 const firebaseConfig = {
@@ -173,6 +184,7 @@ export default function App({ Component, pageProps }) {
         <script src="/static/js/main.js" defer></script>
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
         <script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
+
 
         
         <meta property="og:type" content="website" />

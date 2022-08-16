@@ -33,7 +33,7 @@ const logoPath = "/assets/logo.png";
 background-color: rgba(var(--primary-decimal), 0.95) !important;
 	color: var(--primary-text);
   */
-const Menu = ({ pages }) => {
+const Menu = ({ pages, isItemsLess }) => {
     const theme = useTheme();
     const dispatch = useDispatch();
     const colorMode = useContext(ColorModeContext);
@@ -144,7 +144,7 @@ const Menu = ({ pages }) => {
         <div className="nav-02__list_wrapper" style={{background:theme.palette.background.menu}}>
           <ul className="nav-02__list nav-02__list--desktop">
 
-            {
+            { !isItemsLess ? 
               menuItems.map( (element, index) => {
                 return (
                   <li key={index} className={`nav-02__item`} style={element.styleBackground} 
@@ -156,7 +156,7 @@ const Menu = ({ pages }) => {
                   </Link>
                 </li>
                 )
-              })
+              }) : <></>
             }
 
               <li className="nav-02__item">
@@ -172,10 +172,11 @@ const Menu = ({ pages }) => {
                 </li>
                 
                   <li className="buttons-set__item">
-                  {
-                    /*
-                    <InstallMetamaskButton />
+                  {/*
+                    <>
+                  <InstallMetamaskButton />
                   <ConnectToWebsiteButton />
+                  </>
                   */
                   }
                   <ShowUserAddressButton />
@@ -209,7 +210,7 @@ const Menu = ({ pages }) => {
   
           </ul>
           <ul className="nav-02__list nav-02__list--mobile" style={{backgroundColor:theme.palette.background.menu,}}>
-          {
+          { !isItemsLess ?
               menuItems.map( (element, index) => {
                 return (
                   <li key={index} className="nav-02__item" style={element.styleBackground}>
@@ -220,7 +221,7 @@ const Menu = ({ pages }) => {
                   </Link>
                 </li>
                 )
-              })
+              }) : <></>
             }
           
             <li className="nav-02__item">
@@ -236,8 +237,10 @@ const Menu = ({ pages }) => {
                   <li className="buttons-set__item">
                   {
                     /*
+                  <>
                   <InstallMetamaskButton />
                   <ConnectToWebsiteButton />
+                  </>
                     */
                   }
                   <ShowUserAddressButton />
