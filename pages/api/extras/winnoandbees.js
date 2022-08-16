@@ -2,8 +2,14 @@ import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import fs from 'fs';
 
-import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../lib/constants';
-import { PATH_AIRDROP_LISTS } from '../../../components/Extras/WinnoAndBees/lib/constants';
+//import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../lib/constants';
+//import { PATH_AIRDROP_LISTS } from '../../../components/Extras/WinnoAndBees/lib/constants';
+
+const METHOD_GET = 'GET';
+const METHOD_POST = 'POST';
+const ACTION_GET_USER = 'get_user';
+const PATH_ASSET = `/extras/winnoandbees/`;
+const PATH_AIRDROP_LISTS = `${PATH_ASSET}airdrop`;
 
 const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -15,7 +21,7 @@ const cors = initMiddleware(
 const buildDir = `${process.cwd()}/public/${PATH_AIRDROP_LISTS}`;
 const metadataDir = `${buildDir}/winnobearznft.json`;
 
-export default async function handler(req, res) {
+export  default async function handler(req, res) {
   // Run cors
   await cors(req, res);
 
