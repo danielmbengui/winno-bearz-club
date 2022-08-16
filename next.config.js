@@ -1,4 +1,5 @@
-/** @type {import('next').NextPageContext} */
+///** @type {import('next').NextPageContext} */
+/** @type {import('next').NextConfig} */
 
 module.exports = {
     reactStrictMode: false,
