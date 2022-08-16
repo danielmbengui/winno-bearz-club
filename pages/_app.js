@@ -21,7 +21,7 @@ import { useTheme, } from '@mui/material/styles';
 //import {app, database} from "../firebase/firebase.config";
 require('dotenv').config({path: "./vars/.env"});
 
-/*
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -33,7 +33,7 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
-*/
+/*
 const firebaseConfig = {
   apiKey: "AIzaSyD52vVRfDYZgLdp0x9ykT5RbAS55dC2j10",
   authDomain: "winnobearznft.firebaseapp.com",
@@ -46,7 +46,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
-
+*/
 /*
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,

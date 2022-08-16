@@ -2,7 +2,7 @@ import Cors from 'cors';
 import initMiddleware from '../../../lib/init-middleware';
 import fs from 'fs';
 
-import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, ACTION_SAVE_IMAGE, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../lib/constants';
+import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../lib/constants';
 import { PATH_AIRDROP_LISTS } from '../../../components/Extras/WinnoAndBees/lib/constants';
 
 const cors = initMiddleware(
@@ -12,7 +12,6 @@ const cors = initMiddleware(
     methods: [METHOD_GET, METHOD_POST, 'OPTIONS'],
   })
 )
-
 const buildDir = `${process.cwd()}/public/${PATH_AIRDROP_LISTS}`;
 const metadataDir = `${buildDir}/winnobearznft.json`;
 
@@ -22,27 +21,21 @@ export default async function handler(req, res) {
 
   if (req.method === METHOD_POST) {
     let result = '';
-    let data = '';
+    
     if (req.body.action === ACTION_ADD_USER && req.body.player) {
       const player = req.body.player;
       console.log('playerRAD', req.body.player)
       result = 'Created';
         createPlayerDataJson(player);
         return res.status(200).json({ result: result, data: player });
-    } else if (req.body.action === ACTION_SET_USER && req.body.player) {
+    }
+    if (req.body.action === ACTION_SET_USER && req.body.player) {
       const player = req.body.player;
       result = 'Edited';
         updatePlayerByWallet(player);
-        //return res.status(200).json('Edited');
         return res.status(200).json(player);
-
     }
-    //console.log('method', req.method);
-    //status = 'method post';
-    //return res.status(200).json(status);
   } else if (req.method === METHOD_GET) {
-
-    //console.log('player', JSON.parse(player))
     fs.readFile(metadataDir, (err, data) => {
       let userList = JSON.parse(data.toString());
 
@@ -83,15 +76,7 @@ export default async function handler(req, res) {
 
       return res.status(405).json('METHOD DONT EXIST');
     });
-
-    //console.log('method', req.method);
-    //status = 200;
-    //json = 'method get';
-    //return res.status(200).json(json);
   } else {
-    //console.log('method', 'NON PERMITTED');
-    //status = 405;
-    //json = 'merde';
     return res.status(405).json('METHOD NOT ALLOWED');
   }
 }
@@ -103,15 +88,12 @@ const createPlayerDataJson = (dataPlayer) => {
 
   let userList = [];
   if (fs.existsSync(metadataDir)) {
-    //console.log('exist');
     fs.readFile(metadataDir, (err, list) => {
       userList = JSON.parse(list.toString());
       userList.push(dataPlayer);
       fs.writeFileSync(metadataDir, JSON.stringify(userList, null, 2));
     })
-    //console.log('exist', ok);
   } else {
-    console.log(' dont exist');
     userList.push(dataPlayer);
     fs.writeFileSync(metadataDir, JSON.stringify(userList, null, 2));
   }
@@ -137,7 +119,6 @@ const readPlayerByTwitter = (twitterName, userList) => {
 
 const updatePlayerByWallet = async (data) => {
   if (fs.existsSync(metadataDir)) {
-
     fs.readFile(metadataDir, (err, list) => {
       let userList = JSON.parse(list.toString());
       userList.find((_user, index) => {
@@ -146,7 +127,6 @@ const updatePlayerByWallet = async (data) => {
           return;
         }
       });
-      //console.log('founded', userList[indexPlayer], indexPlayer)
       fs.writeFileSync(metadataDir, JSON.stringify(userList, null, 2));
     })
   } else {
