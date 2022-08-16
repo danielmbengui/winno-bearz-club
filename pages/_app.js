@@ -18,10 +18,10 @@ import ToggleColorMode from '../components/ToggleColorMode';
 
 import { useTheme, } from '@mui/material/styles';
 //import {app, firestore} from "../lib/fireBaseConfig";
-import {app, database} from "../firebase/firebase.config";
+//import {app, database} from "../firebase/firebase.config";
 require('dotenv').config({path: "./vars/.env"});
 
-/*
+
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -31,7 +31,8 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
-*/
+const app = initializeApp(firebaseConfig);
+const database = getFirestore(app);
 
 /*const firebaseConfig = {
   apiKey: "AIzaSyD52vVRfDYZgLdp0x9ykT5RbAS55dC2j10",
