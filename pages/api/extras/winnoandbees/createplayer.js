@@ -3,21 +3,26 @@ import initMiddleware from '../../../../lib/init-middleware';
 import fs from 'fs';
 
 
-import { ACTION_ADD_USER, METHOD_POST } from '../../../../lib/constants';
-import { PATH_AIRDROP_LISTS } from '../../../../components/Extras/WinnoAndBees/lib/constants';
+//import { ACTION_ADD_USER, METHOD_POST } from '../../../../lib/constants';
+//import * as constants from '../../../../lib/constants';
+import { getPlayerByTwitter, getPlayerByWallet, getPlayerList } from '../winnoandbees';
+//import * as constants from './constants';
+//import { PATH_AIRDROP_LISTS } from '../../../../components/Extras/WinnoAndBees/lib/constants';
 
-/*
-const METHOD_GET = 'GET';
+
 const METHOD_POST = 'POST';
-const ACTION_ADD_USER = 'add_user';
+const ACTION_CREATE_PLAYER = 'create_player';
+//const ACTION_ADD_USER = 'add_user';
+const PATH_ASSET = `/extras/winnoandbees/`;
+const PATH_AIRDROP_LISTS = `/extras/winnoandbees/airdrop`;
+/*
 const ACTION_SET_USER = 'set_user';
 const ACTION_GET_USER = 'get_user';
 const ACTION_GET_USER_BY_WALLET = 'get_user_wallet';
 const ACTION_GET_USER_BY_TWITTER = 'get_user_twitter';
 const ACTION_GET_USER_LIST = 'get_list_player';
 const ACTION_GET_USER_LIST_COUNT = 'get_list_player_count';
-const PATH_ASSET = `/extras/winnoandbees/`;
-const PATH_AIRDROP_LISTS = `${PATH_ASSET}airdrop`;
+
 */
 
 const buildDir = `${process.cwd()}/public/${PATH_AIRDROP_LISTS}`;

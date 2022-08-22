@@ -84,11 +84,15 @@ export default async function handler(req, res) {
   return res.status(405).json('METHOD NOT ALLOWED');
 }
 
-function getPlayerList() {
+export function getPlayerList() {
+  if (!fs.existsSync(buildDir)) {
+    fs.mkdirSync(buildDir, { recursive: true });
+    fs.writeFileSync(metadataDir, JSON.stringify([], null, 2));
+  }
   return JSON.parse(fs.readFileSync(metadataDir));
 }
 
-function getPlayerByWallet(walletAddress) {
+export function getPlayerByWallet(walletAddress) {
   let player = null;
   getPlayerList().find(_user => {
     if (_user.walletAddress === walletAddress) {
@@ -98,7 +102,7 @@ function getPlayerByWallet(walletAddress) {
   return player;
 }
 
-function getPlayerByTwitter(twitterName) {
+export function getPlayerByTwitter(twitterName) {
   let player = null;
   getPlayerList().find(_user => {
     if (_user.twitter.displayName) {
