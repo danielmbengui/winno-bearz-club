@@ -5,6 +5,7 @@ export const METHOD_PUT = 'PUT';
 
 //-------------------     ACTIONS     --------------------//
 export const ACTION_CREATE_PLAYER = 'create_player';
+export const ACTION_UPDATE_PLAYER = 'update_player';
 
 //-------------------     PATHS     --------------------//
 export const PATH_PUBLIC_DIR = `${process.cwd()}/public/extras/winnoandbees/airdrop`;
