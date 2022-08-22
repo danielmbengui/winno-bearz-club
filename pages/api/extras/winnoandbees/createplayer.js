@@ -1,10 +1,10 @@
 import Cors from 'cors';
-import initMiddleware from '../../../lib/init-middleware';
+import initMiddleware from '../../../../lib/init-middleware';
 import fs from 'fs';
 
 
-import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../lib/constants';
-import { PATH_AIRDROP_LISTS } from '../../../components/Extras/WinnoAndBees/lib/constants';
+import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../../lib/constants';
+import { PATH_AIRDROP_LISTS } from '../../../../components/Extras/WinnoAndBees/lib/constants';
 
 /*
 const METHOD_GET = 'GET';
