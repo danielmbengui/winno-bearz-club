@@ -3,8 +3,8 @@ import { DIGIT_WALLET_ADDRESS, ERROR_TWITTER_NAME_EMPTY, ERROR_WALLET_EMPTY, ERR
 import axios from 'axios';
 
 export async function createPlayerJson(player) {
-    const playerJson = axios.post(LINK_API, {
-        action: ACTION_ADD_USER,
+    const playerJson = axios.post('/api/extras/winnoandbees/createplayer', {
+        action: 'create_player',
         player: player,
     }).then(response => {
         return response.data;
