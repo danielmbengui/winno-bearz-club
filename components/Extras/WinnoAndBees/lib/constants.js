@@ -1,11 +1,20 @@
 //-------------------     ACTIONS     --------------------//
 export const ACTION_CREATE_PLAYER = 'create_player';
+export const ACTION_READ_PLAYER = 'read_player';
+export const ACTION_READ_PLAYER_WALLET = 'read_player_wallet';
+export const ACTION_READ_PLAYER_TWITTER = 'read_player_twitter';
+export const ACTION_READ_PLAYER_LIST = 'read_player_list';
+export const ACTION_READ_PLAYER_LIST_COUNT = 'read_player_list_count';
+export const ACTION_UPDATE_PLAYER = 'update_player';
 
 
 //-------------------     LINKS     --------------------//
 export const LINK_API = `/api/extras/api_winnoandbees`;
 //export const LINK_API = `/api/extras/winnoandbees`;
 export const LINK_API_CREATE_PLAYER = `/api/extras/winnoandbees/createplayer`;
+export const LINK_API_UPDATE_PLAYER = `/api/extras/winnoandbees/updateplayer`;
+export const LINK_API_READ_PLAYER = `/api/extras/winnoandbees/readplayer`;
+export const LINK_API_READ_PLAYER_LIST = `/api/extras/winnoandbees/readplayerlist`;
 
 
 export const LINK_API_ADD_PLAYER = `/api/extras/winnoandbees`;

@@ -23,6 +23,7 @@ export default async function handler(req, res) {
         //const created = createPlayerDataJson(player);
         return res.status(200).json({ player: player, created: created }); //201: created
       }
+      return res.status(400).json("THE ACTION DON'T EXIST");
     }
     return res.status(405).json(`METHOD ${req.method} NOT ALLOWED`);
 }

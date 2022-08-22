@@ -156,6 +156,7 @@ const WinnoAndBees = ({ database, app }) => {
             console.log('exist _player', _player);
 
             let playerJson = await readPlayerJsonByTwitter(_player);
+            console.log('exist JSON', playerJson);
             if( !playerJson ){
                 let playerWithoutSecret = JSON.parse(JSON.stringify(_player));
                 delete playerWithoutSecret.twitter['token'];
@@ -164,10 +165,15 @@ const WinnoAndBees = ({ database, app }) => {
                 //playerJson = playerWithoutSecret;
                 //playerJson.player = playerWithoutSecret;
                 //console.log('exist json', playerJson);
-                console.log('exist JSON', playerJson);
-            }
-            
+                console.log('dont exist JSON', playerJson);
+            }   
         }
+        //playerJson = await createPlayerJson(playerWithoutSecret);
+                //playerJson = playerWithoutSecret;
+                //playerJson.player = playerWithoutSecret;
+                //console.log('exist json', playerJson);
+        console.log('list JSON', await readPLayerJsonList());
+        console.log('list JSON count', await readPLayerJsonListCount());
     }, [twitterName]);
 
     const createPlayerInfo = async (_player) => {
@@ -198,11 +204,12 @@ const WinnoAndBees = ({ database, app }) => {
             //if( _player.twitterName);
             let playerStorage = readPlayerStorage();
             //let _player = 
-
+            setTwitterUid(user.uid);
+            setTwitterName(user.displayName);
+            setTwitterPhotoURL(user.photoURL);
+            
             if (playerStorage) {
-                setTwitterUid(playerStorage.twitter.uid);
-                setTwitterPhotoURL(playerStorage.twitter.photoURL);
-                setTwitterName(playerStorage.twitter.displayName);
+                
                 setTwitterToken(playerStorage.twitter.token);
                 setTwitterSecret(playerStorage.twitter.secret);
                 //setPlayer(playerStorage);

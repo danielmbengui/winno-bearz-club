@@ -1,2 +1,16 @@
 [
+  {
+    "walletAddress": "0x1989",
+    "twitter": {
+      "uid": "D02JdDfI12Wwayp88jUCuUkUTJp2",
+      "displayName": "Fullines",
+      "photoURL": "https://pbs.twimg.com/profile_images/1260458883300167680/oOBiXfjb_normal.png"
+    },
+    "whitelisted": false,
+    "airdropped": false,
+    "bestScore": 20,
+    "nGames": 21,
+    "nWins": 7,
+    "nLooses": 14
+  }
 ]
