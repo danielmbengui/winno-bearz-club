@@ -172,8 +172,8 @@ const WinnoAndBees = ({ database, app }) => {
                 //playerJson = playerWithoutSecret;
                 //playerJson.player = playerWithoutSecret;
                 //console.log('exist json', playerJson);
-        console.log('list JSON', await readPLayerJsonList());
-        console.log('list JSON count', await readPLayerJsonListCount());
+        //console.log('list JSON', await readPLayerJsonList());
+        //console.log('list JSON count', await readPLayerJsonListCount());
     }, [twitterName]);
 
     const createPlayerInfo = async (_player) => {
