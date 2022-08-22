@@ -10,7 +10,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
@@ -57,5 +56,8 @@
     "use-image": "^1.0.12",
     "web3": "^1.7.3",
     "web3-eth-contract": "^1.7.3"
+  },
+  "devDependencies": {
+    "eslint-config-next": "12.2.5"
   }
 }
