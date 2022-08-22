@@ -1,17 +1,31 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, InputAdornment, Stack, TextField } from "@mui/material";
+import { Avatar, Badge, Button, InputAdornment, Stack, TextField } from "@mui/material";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { deletePlayerStorage, isErrorTwitterName, isErrorWalletAddress, updatePlayerStorage } from "../lib/functions";
-
+import { useTheme } from '@mui/material/styles';
 import styleWinnoAndBees from "../WinnoAndBees.module.css";
+import { PATH_IMG } from '../lib/img';
 
 
 //player={player} handlePlayer={handlePlayer} error={{ errorWallet: errorWallet, messageWallet: messageWallet }}
 const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, errorTwitter, handleErrorTwitter }) => {
-
+    const theme = useTheme();
+    const noProfilePic = theme.palette.mode === 'light' ? `${PATH_IMG}no-profile-black.png` : `${PATH_IMG}no-profile-white.png`;
     return (
         <>
+        <Badge
+                            overlap="circular"
+                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                            badgeContent={
+                                /*  <Avatar sx={{ width: 24, height: 24, background: theme.palette.bluetwitter.main, display: player.twitterName ? 'block' : 'none' }}><TwitterIcon fontSize='normal' /></Avatar>*/
+                                <TwitterIcon color='bluetwitter' fontSize='large' />
+                            }
+                        >
+                            <Avatar src={player.twitter.photoURL ? player.twitter.photoURL : noProfilePic} alt="pic profile user" sx={{ width: 56, height: 56, padding: '0.4vw', background: player.twitter.displayName ? theme.palette.white.main : 'transparent', border: `1px solid ${theme.palette.bluetwitter.main}` }} />
+
+                        </Badge>
+                        {player.twitter.displayName ? `@${player.twitter.displayName}` : 'Not connected'}
             <Stack
                 direction={'column'}
                 spacing={1}
@@ -66,8 +80,6 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
     )
 }
 
-
-
 const TextFieldWalletAddress = ({ player, handlePlayer, errorWallet }) => {
     //const error = errorWallet.error;
     //const messageWallet = errorWallet.message;
@@ -79,7 +91,7 @@ const TextFieldWalletAddress = ({ player, handlePlayer, errorWallet }) => {
         const walletAddress = e.target.value;
         let _player = { ...player, walletAddress: walletAddress, };
         handlePlayer({ ...player, walletAddress: walletAddress, });
-        console.log('player', errorWallet.message);
+        //console.log('player', errorWallet.message);
     }
 
     return (
@@ -115,7 +127,7 @@ const TextFieldTwitterName = ({ player, handlePlayer, errorTwitter }) => {
         const twitterName = e.target.value;
         let _player = { ...player, twitterName: twitterName, };
         handlePlayer({ ...player, twitterName: twitterName, });
-        console.log('player', _player);
+        //console.log('player', _player);
         //setTwitterName(e.target.value);
         //console.log('twitter name', twitterName);
     }
@@ -125,7 +137,7 @@ const TextFieldTwitterName = ({ player, handlePlayer, errorTwitter }) => {
             color='blue'
             onChange={onChangeTwitterName}
             //disabled={player ? true : false}
-            value={player.twitterName}
+            value={player.twitter.displayName}
             error={errorTwitter.error}
             helperText={errorTwitter.message}
             InputProps={{

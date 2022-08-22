@@ -1,138 +1,81 @@
-import { ACTION_ADD_USER, ACTION_GET_USER, ACTION_GET_USER_BY_TWITTER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT, ACTION_SET_USER, METHOD_GET } from "../../../../lib/constants";
+import { ACTION_ADD_USER, ACTION_GET_USER, ACTION_GET_USER_BY_TWITTER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT, ACTION_SET_USER, METHOD_GET, METHOD_POST } from "../../../../lib/constants";
 import { DIGIT_WALLET_ADDRESS, ERROR_TWITTER_NAME_EMPTY, ERROR_WALLET_EMPTY, ERROR_WALLET_FORMAT, ERROR_WALLET_LENGTH, GET_PLAYER_STORAGE, LENGTH_WALLET_ADDRESS, LINK_API, LINK_API_ADD_PLAYER } from "./constants";
+import axios from 'axios';
 
 export async function createPlayerJson(player) {
-    await fetch(LINK_API, {
-        method: 'post', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        body: JSON.stringify({ action: ACTION_ADD_USER, player: player }),
-
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ response: await response.json() })
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
+    const playerJson = axios.post(LINK_API, {
+        action: ACTION_ADD_USER,
+        player: player,
+    }).then(response => {
+        return response.data;
+    }).catch( error => {
         return null;
     });
+    return playerJson;
+}
+
+export async function updatePlayerJson(player) {
+    const playerJson = axios.post(LINK_API, {
+        action: ACTION_SET_USER,
+        player: player,
+    }).then(response => {
+        return response.data;
+    }).catch( error => {
+        return null;
+    });
+    return playerJson;
 }
 
 export async function readPLayerJsonList() {
-    const list = await fetch(`${LINK_API}?action=${ACTION_GET_USER_LIST}`, {
-        method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ok: await response.json()})
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
+    const list = axios.get(`${LINK_API}?action=${ACTION_GET_USER_LIST}`).then(response => {
+        //console.log(response.data);
+        return response.data;
+    }).catch( error => {
         return null;
     });
     return list;
 }
 export async function readPLayerJsonListCount() {
-    const count = await fetch(`${LINK_API}?action=${ACTION_GET_USER_LIST_COUNT}`, {
-        method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ok: await response.json()})
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
+    const count = axios.get(`${LINK_API}?action=${ACTION_GET_USER_LIST_COUNT}`).then(response => {
+        //console.log(response.data);
+        return response.data;
+    }).catch( error => {
         return null;
     });
     return count;
 }
 
 export async function readPlayerJson(player) {
-    const user = await fetch(`${LINK_API}?action=${ACTION_GET_USER}&player=${JSON.stringify(player)}`, {
-        method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ok: await response.json()})
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
+    const user = axios.get(`${LINK_API}?action=${ACTION_GET_USER}&player=${JSON.stringify(player)}`).then(response => {
+        //console.log('readplayer method', response.data);
+        return response.data;
+    }).catch( error => {
         return null;
     });
     return user;
 }
 
 export async function readPlayerJsonByWallet(player) {
-    const user = await fetch(`${LINK_API}?action=${ACTION_GET_USER_BY_WALLET}&player=${JSON.stringify(player)}`, {
-        method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ok: await response.json()})
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
+    const user = axios.get(`${LINK_API}?action=${ACTION_GET_USER_BY_WALLET}&player=${JSON.stringify(player)}`).then(response => {
+        console.log(response.data);
+        return response.data;
+    }).catch( error => {
         return null;
     });
     return user;
 }
 
 export async function readPlayerJsonByTwitter(player) {
-    const user = await fetch(`${LINK_API}?action=${ACTION_GET_USER_BY_TWITTER}&player=${JSON.stringify(player)}`, {
-        method: METHOD_GET, // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ok: await response.json()})
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
+    const user = axios.get(`${LINK_API}?action=${ACTION_GET_USER_BY_TWITTER}&player=${JSON.stringify(player)}`).then(response => {
+        //console.log(response.data);
+        return response.data;
+    }).catch( error => {
         return null;
     });
     return user;
 }
 
-export async function updatePlayerJson(player) {
-    await fetch(LINK_API, {
-        method: 'post', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, *cors, same-origin
-        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        credentials: 'same-origin', // include, *same-origin, omit
-        body: JSON.stringify({ action: ACTION_SET_USER, player: player }),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(async (response) => {
-        //console.log({ response: await response.json() })
-        return response.json();
-    }).catch((error) => {
-        console.log({ SOURCE_ID: error })
-        return null;
-    });
-}
+
 
 export const readPlayerStorage = () => {
     if (window.localStorage.getItem(GET_PLAYER_STORAGE)) {

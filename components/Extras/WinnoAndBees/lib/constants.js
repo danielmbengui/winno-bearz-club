@@ -1,6 +1,7 @@
 
 //-------------------     LINKS     --------------------//
-export const LINK_API = `/api/extras/winnoandbees`;
+export const LINK_API = `/api/extras/api_winnoandbees`;
+//export const LINK_API = `/api/extras/winnoandbees`;
 export const LINK_API_ADD_PLAYER = `/api/extras/winnoandbees`;
 
 //-------------------     PATHS     --------------------//
@@ -25,7 +26,21 @@ export const ERROR_GAME_STOPPED = "Game stopped because you leave 'fullscreen' o
 
 //-------------------     STORAGE     --------------------//
 export const GET_PLAYER_STORAGE = "player";
-export const DEFAULT_PLAYER = {walletAddress: '', twitterName: '', bestScore: 0, whitelisted: false, airdropped: false, nGame: 0};
+export const DEFAULT_PLAYER = {
+    walletAddress: '', 
+    twitter : {
+        uid: '',
+        displayName: '',
+        photoURL: '',
+    },
+    //twitterName: '',
+    whitelisted: false, 
+    airdropped: false, 
+    bestScore: 0, 
+    nGames: 0,
+    nWins: 0,
+    nLooses: 0,
+};
 /*
 export const GET_LOCAL_USER = 'local_user';
 export const DEFAULT_PLAYER = {walletAddress: '', twitterName: '', bestScore: 0, airdropped: false};

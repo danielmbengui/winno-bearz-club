@@ -292,7 +292,7 @@ const Airdrop = ({database, contractInfo,}) => {
       <Avatar sx={{ width: 24, height: 24, background:theme.palette.bluetwitter.main, display:userTwitter ? 'block' : 'none' }}><TwitterIcon fontSize='small' /></Avatar>
     }
     >
-    <Avatar src={userTwitter ? userTwitter.photoUrl : noProfilePic} alt="pic profile user" sx={{ width: 56, height: 56, padding:'0.4vw',background:userTwitter ? theme.palette.white.main : 'transparent', border:`1px solid ${theme.palette.bluetwitter.main}` }} />
+      <Avatar src={userTwitter ? userTwitter.photoUrl : noProfilePic} alt="pic profile user" sx={{ width: 56, height: 56, padding:'0.4vw',background:userTwitter ? theme.palette.white.main : 'transparent', border:`1px solid ${theme.palette.bluetwitter.main}` }} />
     </Badge>
 
     <p>{userTwitter ? `@${userTwitter.username}` : 'Not connected'}</p>
