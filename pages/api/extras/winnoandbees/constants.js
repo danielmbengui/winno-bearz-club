@@ -1,19 +1,19 @@
+//-------------------     METHODS     --------------------//
 export const METHOD_GET = 'GET';
 export const METHOD_POST = 'POST';
+export const METHOD_PUT = 'PUT';
 
 //-------------------     ACTIONS     --------------------//
 export const ACTION_CREATE_PLAYER = 'create_player';
 
 //-------------------     PATHS     --------------------//
-export const PATH_PUBLIC_DIR = `${process.cwd()}/public/${PATH_AIRDROP_LISTS}`;
+export const PATH_PUBLIC_DIR = `${process.cwd()}/public/extras/winnoandbees/airdrop`;
 export const PATH_FILE_PLAYERS = `${PATH_PUBLIC_DIR}/winnoandbees.json`;
 
 
 
 //-------------------     PATHS     --------------------//
-export const PATH_ASSET = `/extras/winnoandbees/`;
-export const PATH_AIRDROP_LISTS = `${PATH_ASSET}airdrop`;
-export const PATH_MUSIC = `${PATH_ASSET}music/`;
+
 
 
 

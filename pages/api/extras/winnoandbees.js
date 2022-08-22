@@ -153,21 +153,4 @@ const updatePlayerByWallet = (data) => {
     fs.writeFileSync(metadataDir, JSON.stringify(userList, null, 2));
   }
   return edited;
-
-  /*
-  if (fs.existsSync(metadataDir)) {
-    fs.readFile(metadataDir, (err, list) => {
-      let userList = JSON.parse(list.toString());
-      userList.find((_user, index) => {
-        if (_user.walletAddress === data.walletAddress) {
-          userList[index] = data;
-          return;
-        }
-      });
-      fs.writeFileSync(metadataDir, JSON.stringify(userList, null, 2));
-    })
-  } else {
-    return false;
-  }
-  */
 }

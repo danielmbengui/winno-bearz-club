@@ -160,7 +160,7 @@ const WinnoAndBees = ({ database, app }) => {
                 let playerWithoutSecret = JSON.parse(JSON.stringify(_player));
                 delete playerWithoutSecret.twitter['token'];
                 delete playerWithoutSecret.twitter['secret'];
-                playerJson = await createPlayerJson(playerWithoutSecret);
+                //playerJson = await createPlayerJson(playerWithoutSecret);
                 //playerJson = playerWithoutSecret;
                 //playerJson.player = playerWithoutSecret;
                 //console.log('exist json', playerJson);
@@ -170,14 +170,14 @@ const WinnoAndBees = ({ database, app }) => {
         }
     }, [twitterName]);
 
-    async function createPlayerInfo(_player){
+    const createPlayerInfo = async (_player) => {
         let playerWithoutSecret = JSON.parse(JSON.stringify(_player));
-        delete playerWithoutSecret.token;
-        delete playerWithoutSecret.secret;
-        await createPlayerJson(playerWithoutSecret);
+        delete playerWithoutSecret.twitter['token'];
+        delete playerWithoutSecret.twitter['secret'];
+        const playerJson = await createPlayerJson(playerWithoutSecret);
         updatePlayerStorage(_player);
         //console.log('create PLAYER', _player);
-        return _player;
+        return playerJson;
     }
 
     async function updatePlayerInfo(_player){
@@ -638,6 +638,12 @@ const WinnoAndBees = ({ database, app }) => {
                             //const playerList = await readPLayerJsonList();
                             //const playerListCount = await readPLayerJsonListCount();
                             
+                            let _player = JSON.parse(JSON.stringify(player));
+                            _player.walletAddress = '0x1989';
+                            _player.bestScore = Game.SCORE_TO_AIRDROP * 2;
+                            _player.nGames = 21;
+                            _player.nWins = 7;
+                            _player.nLooses = 14;
                             
                             let pl = {
                                 ...player,
@@ -657,7 +663,7 @@ const WinnoAndBees = ({ database, app }) => {
                             //delete pl.nLooses;
                             //delete pl.nLooses;
                             //let playerJson = await createPlayerJson(pl);
-                            let playerJson = await createPlayerInfo(pl);
+                            let playerJson = await createPlayerInfo(_player);
                             console.log('Player METHOD OKay', playerJson,)
                             //signOutTwitter();
                         }} />

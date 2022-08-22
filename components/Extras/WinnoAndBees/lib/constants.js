@@ -1,7 +1,13 @@
+//-------------------     ACTIONS     --------------------//
+export const ACTION_CREATE_PLAYER = 'create_player';
+
 
 //-------------------     LINKS     --------------------//
 export const LINK_API = `/api/extras/api_winnoandbees`;
 //export const LINK_API = `/api/extras/winnoandbees`;
+export const LINK_API_CREATE_PLAYER = `/api/extras/winnoandbees/createplayer`;
+
+
 export const LINK_API_ADD_PLAYER = `/api/extras/winnoandbees`;
 
 //-------------------     PATHS     --------------------//

@@ -1,15 +1,15 @@
 import { ACTION_ADD_USER, ACTION_GET_USER, ACTION_GET_USER_BY_TWITTER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT, ACTION_SET_USER, METHOD_GET, METHOD_POST } from "../../../../lib/constants";
-import { DIGIT_WALLET_ADDRESS, ERROR_TWITTER_NAME_EMPTY, ERROR_WALLET_EMPTY, ERROR_WALLET_FORMAT, ERROR_WALLET_LENGTH, GET_PLAYER_STORAGE, LENGTH_WALLET_ADDRESS, LINK_API, LINK_API_ADD_PLAYER } from "./constants";
+import { ACTION_CREATE_PLAYER, DIGIT_WALLET_ADDRESS, ERROR_TWITTER_NAME_EMPTY, ERROR_WALLET_EMPTY, ERROR_WALLET_FORMAT, ERROR_WALLET_LENGTH, GET_PLAYER_STORAGE, LENGTH_WALLET_ADDRESS, LINK_API, LINK_API_ADD_PLAYER, LINK_API_CREATE_PLAYER } from "./constants";
 import axios from 'axios';
 
 export async function createPlayerJson(player) {
-    const playerJson = axios.post('/api/extras/winnoandbees/createplayer', {
-        action: 'create_player',
+    const playerJson = axios.put(LINK_API_CREATE_PLAYER, {
+        action: ACTION_CREATE_PLAYER,
         player: player,
     }).then(response => {
         return response.data;
     }).catch( error => {
-        return null;
+        return error;
     });
     return playerJson;
 }

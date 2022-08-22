@@ -37,19 +37,5 @@
     "whitelisted": false,
     "airdropped": false,
     "nGame": 21
-  },
-  {
-    "walletAddress": "",
-    "twitter": {
-      "uid": "D02JdDfI12Wwayp88jUCuUkUTJp2",
-      "displayName": "Fullines",
-      "photoURL": "https://pbs.twimg.com/profile_images/1260458883300167680/oOBiXfjb_normal.png"
-    },
-    "whitelisted": false,
-    "airdropped": false,
-    "bestScore": 0,
-    "nGames": 0,
-    "nWins": 0,
-    "nLooses": 0
   }
 ]
