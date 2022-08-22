@@ -3,7 +3,7 @@ import initMiddleware from '../../../../lib/init-middleware';
 import fs from 'fs';
 
 
-import { ACTION_GET_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_BY_TWITTER, ACTION_ADD_USER, ACTION_SET_USER, METHOD_POST, METHOD_GET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT } from '../../../../lib/constants';
+import { ACTION_ADD_USER, METHOD_POST } from '../../../../lib/constants';
 import { PATH_AIRDROP_LISTS } from '../../../../components/Extras/WinnoAndBees/lib/constants';
 
 /*
@@ -27,7 +27,7 @@ const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
   Cors({
     // Only allow requests with GET and POST
-    methods: [METHOD_GET, METHOD_POST],
+    methods: [METHOD_POST],
   })
 )
 
