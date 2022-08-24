@@ -63,17 +63,17 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
     };
     const noProfilePic = theme.palette.mode === 'light' ? `${PATH_IMG}no-profile-black.png` : `${PATH_IMG}no-profile-white.png`;
 
-    useEffect( () => {
+    useEffect(() => {
         console.log('player change saveplayer', player.twitter.isFollower)
-        if( player.twitter.displayName.length ){
+        if (player.twitter.displayName.length) {
             setActiveStep(1);
         }
-        
-        if( player.twitter.isFollower ){
+
+        if (player.twitter.isFollower) {
             setActiveStep(3);
         }
-        
-        if( player.walletAddress != '' ){
+
+        if (player.walletAddress != '') {
 
         }
     }, [player]);
@@ -98,13 +98,13 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
 
                     <Step key={'follow-twitter'} sx={styleStepIcon}>
                         <StepLabel>
-                        <span className={`${styleWinnoAndBees['step-label']}`}>Follow us</span>
+                            <span className={`${styleWinnoAndBees['step-label']}`}>Follow us</span>
                         </StepLabel>
                         <StepContent color='brownbear' p={2} style={{ color: theme.palette.text.primary }}>
                             <div style={{ display: 'flex', direction: 'row', justifyContent: 'start', alignContent: 'center', alignItems: 'center', justifyItems: 'start' }}>
                                 <p style={{ textAlign: 'left', verticalAlign: 'middle' }}>Click on the Follow button to join the <a href="https://twitter.com/WinnoBearz" target="_blank">@WinnoBearz Club</a> twitter account.
                                     <CancelIcon style={{ verticalAlign: 'text-bottom', }} color="error" /></p>
-                                    
+
                             </div>
                             {/*<ButtonFollow /> */}
                             <TwitterFollowButton screenName={'WinnoBearz'} options={{ size: 'large', showCount: false, }} />
@@ -114,7 +114,7 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
 
                     <Step key={'put-wallet'} sx={styleStepIcon}>
                         <StepLabel optional={<Typography variant="caption" style={{ color: theme.palette.text.primary }}>Follow</Typography>}>
-                        <span className={`${styleWinnoAndBees['step-label']}`}>Put your wallet</span>
+                            <span className={`${styleWinnoAndBees['step-label']}`}>Put your wallet</span>
                         </StepLabel>
                         <StepContent color='brownbear' p={2} style={{ color: theme.palette.text.primary }}>
                             <div style={{ display: 'flex', direction: 'row', justifyContent: 'start', alignContent: 'center', alignItems: 'center', justifyItems: 'start' }}>
@@ -161,8 +161,9 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
                 //disabled={isUserSessionStorage}
                 //disabled={true}
                 className={`${styleWinnoAndBees['button-save-player']}`}
-                //variant='contained'
-                color='primary'
+                variant='contained'
+                //color='primary'
+                //fontFamily="Press Start 2P, sans-serif"
                 onClick={async () => {
                     //addUser({walletAddress: walletAddress, twitterName: twitterName});
                     //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)

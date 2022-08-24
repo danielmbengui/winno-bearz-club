@@ -1,12 +1,13 @@
 import { Button } from "@mui/material";
 import styleWinnoAndBees from "../WinnoAndBees.module.css";
 
-const StartGame = ({onClickEvent}) => {
-    return(
+const StartGame = ({ onClickEvent }) => {
+    return (
         <Button
             className={`${styleWinnoAndBees['button-start-game']}`}
-                //variant='contained'
-                onClick={onClickEvent}
+            variant='contained'
+            //color='bluetwitter'
+            onClick={onClickEvent}
         >
             Start game
         </Button>

@@ -134,9 +134,10 @@ const WinnoAndBees = ({ database, app }) => {
         if (twitterName) {
             let _player = JSON.parse(JSON.stringify(player));
             _player.twitter.displayName = twitterName;
+            updatePlayerStorage(_player);
             /*_player.twitter.token = twitterToken;
             _player.twitter.secret = twitterSecret;
-            //updatePlayerStorage(_player);
+            
             setPlayer(_player);
             console.log('create player twittername', _player);
             */
@@ -145,7 +146,7 @@ const WinnoAndBees = ({ database, app }) => {
 
 
             if (playerStorage) {
-                deletePlayerStorage();
+                //deletePlayerStorage();
                 //updatePlayerStorage(playerJson);
                 setPlayer(playerStorage);
             } else {
@@ -213,7 +214,6 @@ const WinnoAndBees = ({ database, app }) => {
             setTwitterPhotoURL(user.photoURL);
 
             if (playerStorage) {
-                
                 setTwitterToken(playerStorage.twitter.token);
                 setTwitterSecret(playerStorage.twitter.secret);
                 //setPlayer(playerStorage);
