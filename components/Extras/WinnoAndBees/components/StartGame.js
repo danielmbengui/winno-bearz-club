@@ -5,7 +5,7 @@ const StartGame = ({onClickEvent}) => {
     return(
         <Button
             className={`${styleWinnoAndBees['button-start-game']}`}
-                variant='contained'
+                //variant='contained'
                 onClick={onClickEvent}
         >
             Start game

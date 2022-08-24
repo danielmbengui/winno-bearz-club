@@ -4,11 +4,12 @@ import { useTheme } from '@mui/material/styles';
 import Description from './components/Description';
 import Game from './classes/GameClass';
 import InfoPlayer from './components/InfoPlayer';
-import { DEFAULT_PLAYER, LINK_API, PATH_MUSIC } from './lib/constants';
+import { DEFAULT_PLAYER, LINK_API, LINK_API_READ_PLAYER_LIST, PATH_MUSIC } from './lib/constants';
 import { PATH_IMG, ALT_IMG_BEE_SPRITE, ID_IMG_BEE, PATH_IMG_BEE_SPRITE, } from './lib/img';
 import { closeFullscreen, createPlayerJson, deletePlayerStorage, isMobile, openFullscreen, readPlayerJson, readPlayerJsonByTwitter, readPlayerJsonByWallet, readPLayerJsonList, readPLayerJsonListCount, readPlayerStorage, updatePlayerJson, updatePlayerStorage } from './lib/functions';
 import { Avatar, Badge, Button } from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
 
 import StartGame from './components/StartGame';
 import SavePlayer from './components/SavePlayer';
@@ -17,6 +18,7 @@ import RestartGame from './components/RestartGame';
 //import { ACTION_ADD_USER, ACTION_GET_USER_BY_WALLET, ACTION_GET_USER_LIST, ACTION_GET_USER_LIST_COUNT, METHOD_GET, METHOD_POST } from '../../../lib/constants';
 
 import { getAuth, onAuthStateChanged, signOut, signInWithPopup, TwitterAuthProvider, unlink, linkWithRedirect, reauthenticateWithRedirect, linkWithPopup, reauthenticateWithPopup, getRedirectResult, signInWithRedirect } from "firebase/auth";
+import axios from 'axios';
 
 
 const WinnoAndBees = ({ database, app }) => {
@@ -138,11 +140,12 @@ const WinnoAndBees = ({ database, app }) => {
             setPlayer(_player);
             console.log('create player twittername', _player);
             */
+           
             let playerStorage = readPlayerStorage();
-            
+
 
             if (playerStorage) {
-                //deletePlayerStorage();
+                deletePlayerStorage();
                 //updatePlayerStorage(playerJson);
                 setPlayer(playerStorage);
             } else {
@@ -152,12 +155,13 @@ const WinnoAndBees = ({ database, app }) => {
                 //console.log('exist PLAYER', _player);
             }
             
+
             console.log('exist storage', playerStorage);
             console.log('exist _player', _player);
 
             let playerJson = await readPlayerJsonByTwitter(_player);
             console.log('exist JSON', playerJson);
-            if( !playerJson ){
+            if (!playerJson) {
                 let playerWithoutSecret = JSON.parse(JSON.stringify(_player));
                 delete playerWithoutSecret.twitter['token'];
                 delete playerWithoutSecret.twitter['secret'];
@@ -166,12 +170,12 @@ const WinnoAndBees = ({ database, app }) => {
                 //playerJson.player = playerWithoutSecret;
                 //console.log('exist json', playerJson);
                 console.log('dont exist JSON', playerJson);
-            }   
+            }
         }
         //playerJson = await createPlayerJson(playerWithoutSecret);
-                //playerJson = playerWithoutSecret;
-                //playerJson.player = playerWithoutSecret;
-                //console.log('exist json', playerJson);
+        //playerJson = playerWithoutSecret;
+        //playerJson.player = playerWithoutSecret;
+        //console.log('exist json', playerJson);
         //console.log('list JSON', await readPLayerJsonList());
         //console.log('list JSON count', await readPLayerJsonListCount());
     }, [twitterName]);
@@ -186,7 +190,7 @@ const WinnoAndBees = ({ database, app }) => {
         return playerJson;
     }
 
-    async function updatePlayerInfo(_player){
+    async function updatePlayerInfo(_player) {
         let playerWithoutSecret = JSON.parse(JSON.stringify(_player));
         delete playerWithoutSecret.token;
         delete playerWithoutSecret.secret;
@@ -207,14 +211,14 @@ const WinnoAndBees = ({ database, app }) => {
             setTwitterUid(user.uid);
             setTwitterName(user.displayName);
             setTwitterPhotoURL(user.photoURL);
-            
+
             if (playerStorage) {
                 
                 setTwitterToken(playerStorage.twitter.token);
                 setTwitterSecret(playerStorage.twitter.secret);
                 //setPlayer(playerStorage);
             }
-            
+
             // User is signed in.
             /*
             let _player = { ...player, twitterName: user.displayName };
@@ -261,7 +265,7 @@ const WinnoAndBees = ({ database, app }) => {
                 //setTwitterSecret(secret);
                 updatePlayerStorage(_player);
                 //setTwitterName(twitterName);
-                
+
                 {
                     /*
           <a href="https://twitter.com/intent/tweet?in_reply_to=463440424141459456">Reply</a>
@@ -308,9 +312,19 @@ const WinnoAndBees = ({ database, app }) => {
         });
     }
 
-    
 
-    
+    const handlePlayer = (_player) => {
+        setPlayer(_player);
+    }
+
+    const handleErrorWallet = (_errorWallet) => {
+        setErrorWallet(_errorWallet);
+    }
+
+    const handleErrorTwitter = (_errorTwitter) => {
+        setErrorTwitter(_errorTwitter);
+    }
+
 
     function updateComponentState(game) {
         if (game && game.started) {
@@ -589,17 +603,7 @@ const WinnoAndBees = ({ database, app }) => {
         initComponentState();
     }
 
-    const handlePlayer = (_player) => {
-        setPlayer(_player);
-    }
-
-    const handleErrorWallet = (_errorWallet) => {
-        setErrorWallet(_errorWallet);
-    }
-
-    const handleErrorTwitter = (_errorTwitter) => {
-        setErrorTwitter(_errorTwitter);
-    }
+    
 
 
 
@@ -626,7 +630,7 @@ const WinnoAndBees = ({ database, app }) => {
                         <SavePlayer player={player} handlePlayer={handlePlayer} errorWallet={errorWallet} errorTwitter={errorTwitter} handleErrorWallet={handleErrorWallet} handleErrorTwitter={handleErrorTwitter} />
                     </div>
 
-                   
+
 
                     <div ref={refDivStartGame} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <StartGame onClickEvent={async () => {
@@ -637,24 +641,24 @@ const WinnoAndBees = ({ database, app }) => {
                             //setPlayer(_player);
                             //updatePlayerStorage(_player);
                             //startGame();
-                            
+
                             //let playerJson = await updatePlayerJson(pl);
                             //let playerJson = await readPlayerJson(pl);
                             //let playerJson = await readPlayerJsonByWallet(pl);
                             //let playerJson = await readPlayerJsonByTwitter(pl);
                             //const playerList = await readPLayerJsonList();
                             //const playerListCount = await readPLayerJsonListCount();
-                            
+
                             let _player = JSON.parse(JSON.stringify(player));
                             _player.walletAddress = '0x1989';
                             _player.bestScore = Game.SCORE_TO_AIRDROP * 2;
                             _player.nGames = 21;
                             _player.nWins = 7;
                             _player.nLooses = 14;
-                            
+
                             let pl = {
                                 ...player,
-                                
+
                                 walletAddress: '0x1989',
                                 /*twitter: {
                                     displayName: 'Fullines',
@@ -677,49 +681,77 @@ const WinnoAndBees = ({ database, app }) => {
                     </div>
 
                     <div className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <Button onClick={async () => {
-                            //console.log('CCCLIIICK')
-                            //isMobile();
-                            //setGame(null);
-                            //let _player = { ...player, whitelisted: false, airdropped: true };
-                            //setPlayer(_player);
-                            //updatePlayerStorage(_player);
-                            //startGame();
-                            //let pl = { ...player, walletAddress: '0x2024', twitterName: 'fulline', bestScore: Game.SCORE_TO_AIRDROP * 2, nGame: 21 }
-                            //await createPlayerJson(pl);
-                            //await updatePlayerJson(pl);
-                            //let playerJson = await readPlayerJson(pl);
-                            //let playerJson = await readPlayerJsonByWallet(pl);
-                            //let playerJson = await readPlayerJsonByTwitter(pl);
-                            const playerList = await readPLayerJsonList();
-                            const playerListCount = await readPLayerJsonListCount();
-                            //console.log('Player list OKay', playerList, playerListCount)
-                            signInTwitter();
-                        }}>Sign IN</Button>
+                        <Button
+                            startIcon={<TwitterIcon />}
+                            variant="outlined"
+                            color="bluetwitter"
+                            sx={{ borderRadius: "2vw", margin: '0.3vw', fontWeight: 'bold' }}
+                            onClick={async () => {
+                                //console.log('CCCLIIICK')
+                                //isMobile();
+                                //setGame(null);
+                                //let _player = { ...player, whitelisted: false, airdropped: true };
+                                //setPlayer(_player);
+                                //updatePlayerStorage(_player);
+                                //startGame();
+                                //let pl = { ...player, walletAddress: '0x2024', twitterName: 'fulline', bestScore: Game.SCORE_TO_AIRDROP * 2, nGame: 21 }
+                                //await createPlayerJson(pl);
+                                //await updatePlayerJson(pl);
+                                //let playerJson = await readPlayerJson(pl);
+                                //let playerJson = await readPlayerJsonByWallet(pl);
+                                //let playerJson = await readPlayerJsonByTwitter(pl);
+                                const playerList = await readPLayerJsonList();
+                                const playerListCount = await readPLayerJsonListCount();
+                                //console.log('Player list OKay', playerList, playerListCount)
+                                signInTwitter();
+                            }}>Sign IN</Button>
                     </div>
 
                     <div className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <Button onClick={async () => {
-                            //console.log('CCCLIIICK')
-                            //isMobile();
-                            //setGame(null);
-                            //let _player = { ...player, whitelisted: false, airdropped: true };
-                            //setPlayer(_player);
-                            //updatePlayerStorage(_player);
-                            //startGame();
-                            //let pl = { ...player, walletAddress: '0x2024', twitterName: 'fulline', bestScore: Game.SCORE_TO_AIRDROP * 2, nGame: 21 }
-                            //await createPlayerJson(pl);
-                            //await updatePlayerJson(pl);
-                            //let playerJson = await readPlayerJson(pl);
-                            //let playerJson = await readPlayerJsonByWallet(pl);
-                            //let playerJson = await readPlayerJsonByTwitter(pl);
-                            const playerList = await readPLayerJsonList();
-                            const playerListCount = await readPLayerJsonListCount();
-                            //console.log('Player list OKay', playerList, playerListCount)
-                            //signInTwitter();
-                            signOutTwitter();
-                        }}>Sign OUT</Button>
+                        <Button
+                            color="bluetwitter"
+                            sx={{ fontWeight: 'bold' }}
+                            onClick={async () => {
+                                //console.log('CCCLIIICK')
+                                //isMobile();
+                                //setGame(null);
+                                //let _player = { ...player, whitelisted: false, airdropped: true };
+                                //setPlayer(_player);
+                                //updatePlayerStorage(_player);
+                                //startGame();
+                                //let pl = { ...player, walletAddress: '0x2024', twitterName: 'fulline', bestScore: Game.SCORE_TO_AIRDROP * 2, nGame: 21 }
+                                //await createPlayerJson(pl);
+                                //await updatePlayerJson(pl);
+                                //let playerJson = await readPlayerJson(pl);
+                                //let playerJson = await readPlayerJsonByWallet(pl);
+                                //let playerJson = await readPlayerJsonByTwitter(pl);
+                                const playerList = await readPLayerJsonList();
+                                const playerListCount = await readPLayerJsonListCount();
+                                //console.log('Player list OKay', playerList, playerListCount)
+                                //signInTwitter();
+                                //signOutTwitter();
+                                
+                                const isFollower = await axios.get(`/api/extras/winnoandbees/gettwitterinfo?player=${JSON.stringify(player)}&uid=${player.twitter.uid}`).then(response => {
+                                    console.log('response', response.data);
+                                    return response.data;
+                                }).catch( error => {
+                                    console.log('error', error.message)
+                                    return null;
+                                });
+
+                                let _player = JSON.parse(JSON.stringify(player));
+                                _player.twitter.isFollower = true;
+                                setPlayer(_player);
+                                console.log('IS FOLLOWER', isFollower, _player,);
+                                
+                            }}>Sign OUT</Button>
                     </div>
+
+                    <div className={`${styleWinnoAndBees['flex-vertical']}`} >
+                        <TwitterFollowButton screenName={'WinnoBearz'} options={{ size: 'large', showCount: false, }} />
+                    </div>
+
+
 
                     <div className={`${styleWinnoAndBees['flex-vertical']}`}>
                         <canvas ref={refCanvas} className={`${styleWinnoAndBees['canvas']}`}>
@@ -771,7 +803,7 @@ const WinnoAndBees = ({ database, app }) => {
                         </canvas>
                     </div>
 
-                    
+
 
                     <div ref={refDivErrorGame} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <ErrorGame restartGameComponent={<RestartGame game={game} restartGame={restartGame} />} />

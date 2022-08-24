@@ -19,7 +19,7 @@ const cors = initMiddleware(
     })
   )
 
-  const userId = process.env.NEXT_PUBLIC_TWITTER_USER_ID;
+const userId = process.env.NEXT_PUBLIC_TWITTER_USER_ID;
 
 //const configDir = `${process.cwd()}/redux/config/twitter/followers.json`;
 //const buildDir = `${process.cwd()}/redux/config/twitter`;

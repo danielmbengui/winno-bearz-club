@@ -1,6 +1,6 @@
 import Cors from 'cors';
 import initMiddleware from '../../../../lib/init-middleware';
-import { ACTION_UPDATE_PLAYER, METHOD_POST } from './constants';
+import { ACTION_UPDATE_PLAYER, METHOD_POST, TEXT_ACTION_DONT_EXIST } from './constants';
 import { updatePlayerByWallet } from './functions';
 
 const cors = initMiddleware(
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
             const edited = updatePlayerByWallet(player);
             return res.status(200).json({ player: player, edited: edited });
         }
-        return res.status(400).json("THE ACTION DON'T EXIST");
+        return res.status(400).json(TEXT_ACTION_DONT_EXIST);
     }
     return res.status(405).json(`METHOD ${req.method} NOT ALLOWED`);
 }

@@ -13,18 +13,13 @@ import HeaderPage from "../../components/HeaderPage/HeaderPage";
 //const url = `https://api.twitter.com/2/users/${userId}/followers`;
 //const bearerToken = process.env.BEARER_TOKEN;
 
-export default function WinnoAndBeesPage({contractInfo, links, config, rarity, images, rarities, database, app}) {
-    
-    return(
-        <>
-        <ContainerComponent about={true} config={config} links={links} isItemsLess={true}>
-        <HeaderPage title={"Winno&Bees"} />
-        <WinnoAndBees database={database} app={app} />
+export default function WinnoAndBeesPage({ contractInfo, links, config, rarity, images, rarities, database, app }) {
+
+    return (
+        <ContainerComponent winnoandbees={true} isItemsLess={true} isMenuGame={true} links={links}   >
+            <HeaderPage title={"Winno&Bees"} />
+            <WinnoAndBees database={database} app={app} />
         </ContainerComponent>
-
-
-        { /* <Escape database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} /> */}
-        </>
     )
 }
 

@@ -47,6 +47,7 @@ export const DEFAULT_PLAYER = {
         uid: '',
         displayName: '',
         photoURL: '',
+        isFollower: false,
     },
     //twitterName: '',
     whitelisted: false, 

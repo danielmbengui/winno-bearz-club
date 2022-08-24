@@ -1,6 +1,6 @@
 import Cors from 'cors';
 import initMiddleware from '../../../../lib/init-middleware';
-import { ACTION_READ_PLAYER, ACTION_READ_PLAYER_TWITTER, ACTION_READ_PLAYER_WALLET, METHOD_GET } from './constants';
+import { ACTION_READ_PLAYER, ACTION_READ_PLAYER_TWITTER, ACTION_READ_PLAYER_WALLET, METHOD_GET, TEXT_ACTION_DONT_EXIST } from './constants';
 import { getPlayerByTwitter, getPlayerByWallet } from './functions';
 
 const cors = initMiddleware(
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   // Run cors
   await cors(req, res);
 
-  if (req.method === METHOD_GET) {
+  if (req.method === METHOD_GET && req.query.player) {
     if (req.query.action === ACTION_READ_PLAYER) {
       const player = JSON.parse(req.query.player);
       let playerJson = getPlayerByWallet(player.walletAddress);
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       const playerJson = getPlayerByTwitter(player.twitter.displayName);
       return res.status(200).json(playerJson);
     }
-    return res.status(400).json("THE ACTION DON'T EXIST");
+    return res.status(400).json(TEXT_ACTION_DONT_EXIST);
 
   }
   return res.status(405).json(`METHOD ${req.method} NOT ALLOWED`);

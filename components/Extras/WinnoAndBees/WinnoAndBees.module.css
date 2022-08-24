@@ -47,12 +47,22 @@
     background-color: var(--primary);
 }
 
+.button-save-player {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: x-large;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    background-color: var(--primary);
+    color: black;
+}
+
 .button-start-game {
     font-family: 'Press Start 2P', sans-serif;
     font-size: x-large;
     margin-top: 1vh;
     margin-bottom: 1vh;
     background-color: var(--third);
+    color: black;
 }
 
 .canvas {
@@ -78,4 +88,10 @@
     /*background-color: blue;*/
     font-weight: bold;
     color: red;
+}
+
+.step-label {
+    color: var(--text-primary);
+    font-family: 'VT323', monospace;
+    font-size: x-large;
 }

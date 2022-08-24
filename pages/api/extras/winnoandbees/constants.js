@@ -18,4 +18,4 @@ export const PATH_FILE_PLAYERS = `${PATH_PUBLIC_DIR}/winnoandbees.json`;
 
 
 //-------------------     TEXTS     --------------------//
-export const ACTION_DONT_EXIST = `THE ACTION DON'T EXIST`;
+export const TEXT_ACTION_DONT_EXIST = `THE ACTION DON'T EXIST`;

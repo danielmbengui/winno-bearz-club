@@ -3,7 +3,7 @@
 
 const nextConfig = {
     reactStrictMode: false,
-    webpack5: true,
+    //webpack5: true,
     webpack: (config) => {
         config.resolve.fallback = { fs: false };
         return config;
@@ -12,7 +12,8 @@ const nextConfig = {
         // Warning: This allows production builds to successfully complete even if
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
-    },
+        dirs: ['pages'],
+    }
 }
 
 module.exports = nextConfig;
