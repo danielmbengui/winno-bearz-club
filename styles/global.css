@@ -2,10 +2,16 @@
   /*-----   WINNO BEARZ COLORS   -----*/
   /* standards */
   --yellow-winno: #ebc908;
+  --yellow-dark-winno: #c4a708;
+  /*--yellow-dark-winno: #dbbc0b;*/
   --brown-winno: #733E39;
   --brown-dark-winno: #571616;
   --blue-winno:#0099DB;
   --blue-dark-winno:#2769CA;
+
+  --primary-dark: var(--yellow-dark-winno);
+  --secondary-dark: var(--brown-dark-winno);
+  --third-dark: var(--blue-dark-winno);
   
   /* decimals */
   --yellow-winno-decimal: 235, 201, 8;

@@ -627,7 +627,7 @@ const WinnoAndBees = ({ database, app }) => {
                     </div>
 
                     <div ref={refDivSavePlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <SavePlayer player={player} handlePlayer={handlePlayer} errorWallet={errorWallet} errorTwitter={errorTwitter} handleErrorWallet={handleErrorWallet} handleErrorTwitter={handleErrorTwitter} />
+                        <SavePlayer signInTwitter={signInTwitter} signOutTwitter={signOutTwitter} player={player} handlePlayer={handlePlayer} errorWallet={errorWallet} errorTwitter={errorTwitter} handleErrorWallet={handleErrorWallet} handleErrorTwitter={handleErrorTwitter} />
                     </div>
 
 
