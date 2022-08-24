@@ -47,6 +47,10 @@
     background-color: var(--primary);
 }
 
+.Button {
+    color: white;
+  }
+
 .button-save-player {
     font-family: 'Press Start 2P', sans-serif;
     font-size: x-large;
@@ -63,6 +67,24 @@
     margin-bottom: 1vh;
     background-color: var(--third);
     color: black;
+}
+
+.button-handle-next-stepper {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: x-small;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    background-color: var(--primary);
+    color: black;
+}
+
+.button-handle-back-stepper {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: small;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    /*background-color: var(--primary);*/
+    color: var(--primary);
 }
 
 .canvas {

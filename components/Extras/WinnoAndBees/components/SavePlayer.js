@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Avatar, Badge, Box, Button, InputAdornment, Stack, Step, StepContent, StepIcon, StepLabel, Stepper, TextField, Typography } from "@mui/material";
+import { Avatar, Badge, Box, InputAdornment, Step, StepContent, StepIcon, StepLabel, Stepper, TextField, Typography } from "@mui/material";
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { deletePlayerStorage, isErrorTwitterName, isErrorWalletAddress, updatePlayerStorage } from "../lib/functions";
@@ -9,6 +9,11 @@ import { PATH_IMG } from '../lib/img';
 import { Check } from '@mui/icons-material';
 import { TwitterFollowButton } from 'react-twitter-embed';
 import CancelIcon from '@mui/icons-material/Cancel';
+
+import { styled } from '@mui/material/styles';
+import Button, { ButtonProps } from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { purple } from '@mui/material/colors';
 
 //player={player} handlePlayer={handlePlayer} error={{ errorWallet: errorWallet, messageWallet: messageWallet }}
 const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, errorTwitter, handleErrorTwitter }) => {
@@ -77,6 +82,47 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
 
         }
     }, [player]);
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    
+    const HandleBackButton = styled(Button)(({ }) => ({
+        //color: theme.palette.getContrastText(purple[500]),
+        color: 'var(--third)',
+        fontFamily: "'Press Start 2P', sans serif",
+        fontSize: 'x-small',
+        backgroundColor: 'transparent',
+        '&:hover': {
+            backgroundColor: 'blue',
+        },
+    }));
+    const HandleNextButton = styled(Button)(({ }) => ({
+        //color: theme.palette.getContrastText(purple[500]),
+        color: 'black',
+        fontFamily: "'Press Start 2P', sans serif",
+        fontSize: 'x-small',
+        backgroundColor: 'var(--secondary)',
+        '&:hover': {
+            backgroundColor: 'blue',
+        },
+    }));
+
+    
+
+    const SaveButton = styled(Button)(({ backColor, textColor }) => ({
+        //color: theme.palette.getContrastText(purple[500]),
+        color: textColor,
+        fontFamily: "'Press Start 2P', sans serif",
+        fontSize: 'x-small',
+        backgroundColor: backColor,
+        '&:hover': {
+            backgroundColor: 'blue',
+        },
+    }));
 
 
     return (
@@ -93,6 +139,26 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
                                     <Check style={{ verticalAlign: 'text-bottom', }} color="success" />
                                 </p>
                             </div>
+                            <Box sx={{ mb: 2, mt: 3, }} >
+                                <div>
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleNext}
+                                        sx={{ mt: 1, mr: 1 }}
+                                        color='primary'
+                                    >
+                                        Continue
+                                    </Button>
+                                    <Button
+                                        //disabled={true}
+                                        onClick={handleBack}
+                                        sx={{ mt: 1, mr: 1 }}
+                                        color='primary'
+                                    >
+                                        Back
+                                    </Button>
+                                </div>
+                            </Box>
                         </StepContent>
                     </Step>
 
@@ -109,6 +175,32 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
                             {/*<ButtonFollow /> */}
                             <TwitterFollowButton screenName={'WinnoBearz'} options={{ size: 'large', showCount: false, }} />
 
+                            <Box sx={{ mb: 2, mt: 3, }} >
+                                <div>
+                                    <HandleNextButton
+                                        //backColor={'var(--secondary)'}
+                                        //textColor={'black'}
+                                        variant="contained"
+                                        onClick={handleNext}
+                                        sx={{ mt: 1, mr: 1 }}
+                                    //color='primary'
+                                    >
+                                        Continue
+                                    </HandleNextButton>
+                                    <HandleBackButton
+                                        //backColor={'var(--secondary)'}
+                                        //textColor={'black'}
+                                        variant='text'
+                                        //disabled={true}
+                                        onClick={handleBack}
+                                        sx={{ mt: 1, mr: 1 }}
+                                    //color='primary'
+                                    >
+                                        Back
+                                    </HandleBackButton>
+                                </div>
+                            </Box>
+
                         </StepContent>
                     </Step>
 
@@ -123,6 +215,31 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
                             </div>
                             {/*<ButtonFollow /> */}
                             <TwitterFollowButton screenName={'WinnoBearz'} options={{ size: 'large', showCount: false, }} />
+
+                            <Box sx={{ mb: 2, mt: 3, }} >
+                                <div>
+                                    <Button
+                                        //className={`${styleWinnoAndBees['button-handle-next-stepper']}`}
+                                        variant="contained"
+                                        onClick={handleNext}
+                                        sx={{ mt: 1, mr: 1 }}
+                                    //color='primary'
+                                    >
+                                        Save
+                                    </Button>
+                                    <Button
+                                        //className={`${styleWinnoAndBees['button-handle-back-stepper']}`}
+                                        variant="text"
+                                        //disabled={true}
+                                        onClick={handleBack}
+                                        sx={{ mt: 1, mr: 1 }}
+                                        // sx={styleWinnoAndBees['button-handle-back-stepper']}
+                                        color='primary'
+                                    >
+                                        Back
+                                    </Button>
+                                </div>
+                            </Box>
 
                         </StepContent>
                     </Step>
@@ -160,7 +277,7 @@ const SavePlayer = ({ player, handlePlayer, errorWallet, handleErrorWallet, erro
                 //ref={refButtonStart}
                 //disabled={isUserSessionStorage}
                 //disabled={true}
-                className={`${styleWinnoAndBees['button-save-player']}`}
+                //className={`${styleWinnoAndBees['button-save-player']}`}
                 variant='contained'
                 //color='primary'
                 //fontFamily="Press Start 2P, sans-serif"

@@ -685,7 +685,7 @@ const WinnoAndBees = ({ database, app }) => {
                             startIcon={<TwitterIcon />}
                             variant="outlined"
                             color="bluetwitter"
-                            sx={{ borderRadius: "2vw", margin: '0.3vw', fontWeight: 'bold' }}
+                            sx={{ borderRadius: "2vw", margin: '0.3vw', fontWeight: 'bold', fontStyle: 'Press Start 2P, sans serif',  }}
                             onClick={async () => {
                                 //console.log('CCCLIIICK')
                                 //isMobile();
