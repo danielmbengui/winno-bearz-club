@@ -75,6 +75,14 @@
     background-color: var(--primary);
 }
 
+.button-save {
+    font-family: 'Press Start 2P', sans-serif;
+    font-size: x-large;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    background-color: var(--blue-winno);
+}
+
 .Button {
     color: white;
   }

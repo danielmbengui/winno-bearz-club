@@ -36,21 +36,6 @@ const database = getFirestore(app);
 */
 
 //console.log('neeext env', process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD52vVRfDYZgLdp0x9ykT5RbAS55dC2j10",
-  authDomain: "winnobearznft.firebaseapp.com",
-  projectId: "winnobearznft",
-  storageBucket: "winnobearznft.appspot.com",
-  messagingSenderId: "462203420048",
-  appId: "1:462203420048:web:2421178264238d2e018715",
-  measurementId: "G-R0FZ8NJJ41"
-};
-
-const app = initializeApp(firebaseConfig);
-const database = getFirestore(app);
-
-/*
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -60,7 +45,8 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
-*/
+const app = initializeApp(firebaseConfig);
+const database = getFirestore(app);
 //const app = initializeApp(firebaseConfig);
 
 

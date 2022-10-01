@@ -13,10 +13,10 @@ class Game {
 
     static MAX_LIFE = 3;
     static SPEED = 5;
-    static SCORE_TO_WHITELIST = 7;
-    static SCORE_TO_AIRDROP = 10;
-    static SCORE_SECOND_ENEMY = 5; // 30% of the game
-    //static SCORE_SECOND_ENEMY = Game.SCORE_TO_AIRDROP * 30 / 100; // 30% of the game
+    static SCORE_TO_WHITELIST = 50;
+    static SCORE_TO_AIRDROP = 70;
+    //static SCORE_SECOND_ENEMY = 5; // 30% of the game
+    static SCORE_SECOND_ENEMY = Game.SCORE_TO_AIRDROP * 30 / 100; // 30% of the game
     static SCORE_THIRD_ENEMY = Game.SCORE_TO_AIRDROP * 70 / 100; // 70% of the game
 
     static SCORE_FIRST_SALMON = Math.ceil(Game.SCORE_TO_AIRDROP * 25 / 100); // 25% of the game
@@ -36,7 +36,7 @@ class Game {
 
     */
 
-    constructor(canvas, mouse, ratioDevice = 1 /* for desktop */, animate, unlimitedGame=false) {
+    constructor(canvas, mouse, ratioDevice = 1 /* for desktop */, animate, unlimitedGame = false) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.mouse = mouse;
@@ -212,9 +212,9 @@ class Game {
         const ratioDevice = this.ratioDevice;
 
         let background = this.imgBackground;
-        if( this.enemyCame ){
+        if (this.enemyCame) {
             background = this.imgBackground3;
-        }else if (this.score >= Game.SCORE_BACKGROUND_1) {
+        } else if (this.score >= Game.SCORE_BACKGROUND_1) {
             background = this.imgBackground1;
         } else if (this.score >= Game.SCORE_BACKGROUND_2) {
             background = this.imgBackground2;
@@ -423,7 +423,7 @@ class Game {
                         bee.draw();
                         beesArray.splice(i, 1);
 
-                        if( this.score === Game.SCORE_SECOND_ENEMY || this.score === Game.SCORE_THIRD_ENEMY ){
+                        if (this.score === Game.SCORE_SECOND_ENEMY || this.score === Game.SCORE_THIRD_ENEMY) {
                             this.enemyCame = true;
                             setTimeout(() => {
                                 this.enemyCame = false;
@@ -435,7 +435,7 @@ class Game {
                             }, 500);
                         }
 
-                        if( !this.unlimitedGame ){
+                        if (!this.unlimitedGame) {
                             if (this.score >= Game.SCORE_TO_WHITELIST) {
                                 //this.started = false;
                                 //this.stopped = true;
@@ -445,7 +445,7 @@ class Game {
                                 this.winnerSound.play();
                                 this.winnerSound.isPlaying = false;
                             }
-    
+
                             if (this.score >= Game.SCORE_TO_AIRDROP) {
                                 //this.started = false;
                                 //this.stopped = true;
@@ -455,7 +455,7 @@ class Game {
                             }
                         }
 
-                        
+
 
                     }
                 }
@@ -473,48 +473,92 @@ class Game {
         const mouse = this.mouse;
         const gameFrame = this.gameFrame;
         const ratioDevice = this.ratioDevice;
-        
+        const salmonsArray = this.salmonsArray;
+
         //const salmonsArray = this.salmonsArray;
         //const beeTouchSound = this.beeTouchSound;
         //this.updateGameFrameBees(beesArray);
-
-        //if ( !this.finished && (this.score === Game.SCORE_FIRST_SALMON || this.score === Game.SCORE_SECOND_SALMON || this.score === Game.SCORE_THIRD_SALMON) ) {
-        if( !this.finished && this.gameFrame / 50 === 100) {
-            //beesArray.push(new Bee(escapeGame, winno));
-            if( this.salmon === null ){
-                this.salmon = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
-            }
-            //this.salmon.update();
-            //this.salmon.draw();
-            //const salmon = new Salmon(canvas, mouse, gameFrame, ratioDevice);
-            //salmonsArray.push(salmon);
-            //bee.gameFrame = gameFrame;
-            //console.log('BEEEEES', beesArray.length);
-        }
-        console.log("GAMME GRAME", this.gameFrame);
-
         
+                if ( !this.finished && this.score >= Game.SCORE_FIRST_SALMON && this.score < Game.SCORE_FIRST_SALMON + 5 ) {
+                    if( this.salmon === null ){
+                        this.salmon = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
+                    }
+                }
+        
+                if ( !this.finished && this.score >= Game.SCORE_SECOND_SALMON && this.score < Game.SCORE_SECOND_SALMON + 5 ) {
+                    if( this.salmon1 === null ){
+                        this.salmon1 = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
+                    }
+                }
+        
+                if ( !this.finished && this.score >= Game.SCORE_THIRD_SALMON && this.score < Game.SCORE_THIRD_SALMON + 5 ) {
+                    if( this.salmon2 === null ){
+                        this.salmon2 = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
+                    }
+                }
+                
+         if( this.salmon ){
+             const player = this.player;
+             const salmon = this.salmon;
+             const dx = salmon.x - player.x;
+             const dy = salmon.y - player.y;
+             salmon.distance = Math.sqrt(dx*dx + dy*dy);
+ 
+             if( salmon.nTurn >= 2 ){
+                 this.salmon = null;
+             }else {
+                 salmon.update();
+                 salmon.draw();
+     
+                 if( salmon.distance < salmon.radius + player.radius ){
+                     console.log('collision slalmon');
+                     this.score = this.score + 2;
+                     salmon.counted = true;
+                     this.salmon = null;
+                 } 
+             }  
+         }
 
-        if( this.salmon ){
+         if( this.salmon1){
             const player = this.player;
-            const salmon = this.salmon;
+            const salmon = this.salmon1;
             const dx = salmon.x - player.x;
             const dy = salmon.y - player.y;
             salmon.distance = Math.sqrt(dx*dx + dy*dy);
-            //ctx.moveTo(this.x, this.y);
-            //console.log(beesArray.length)
 
-            if( this.salmon.nTurn >= 2 ){
-                this.salmon = null;
+            if( salmon.nTurn >= 2 ){
+                this.salmon1 = null;
             }else {
-                this.salmon.update();
-                this.salmon.draw();
+                salmon.update();
+                salmon.draw();
     
                 if( salmon.distance < salmon.radius + player.radius ){
                     console.log('collision slalmon');
                     this.score = this.score + 2;
-                    this.salmon.counted = true;
-                    this.salmon = null;
+                    salmon.counted = true;
+                    this.salmon1 = null;
+                } 
+            }  
+        }
+
+        if( this.salmon2 ){
+            const player = this.player;
+            const salmon = this.salmon2;
+            const dx = salmon.x - player.x;
+            const dy = salmon.y - player.y;
+            salmon.distance = Math.sqrt(dx*dx + dy*dy);
+
+            if( salmon.nTurn >= 2 ){
+                this.salmon2 = null;
+            }else {
+                salmon.update();
+                salmon.draw();
+    
+                if( salmon.distance < salmon.radius + player.radius ){
+                    console.log('collision slalmon');
+                    this.score = this.score + 2;
+                    salmon.counted = true;
+                    this.salmon2 = null;
                 } 
             }  
         }
@@ -537,28 +581,6 @@ class Game {
             this.winner = true;
         }
 
-        /*
-        for (let i = 0; i < salmonsArray.length; i++) {
-            const salmon = salmonsArray[i];
-            const dx = salmon.x - player.x;
-            const dy = salmon.y - player.y;
-            salmon.distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (salmon.x > canvas.width + salmon.radius * 2) {
-                //salmonsArray.splice(i, 1);
-                //this.x = -100;
-                //this.speed = Math.random() * Game.SPEED/2 + 1;
-            }
-
-            if (salmon) {
-                salmon.update();
-                salmon.draw();
-            }
-        }
-        */
-
-        //this.salmon.update();
-        //this.salmon.draw();
     }
 
     updateGameFrameElements() {
@@ -576,10 +598,14 @@ class Game {
             const bee = beesArray[i];
             bee.gameFrame = this.gameFrame;
         }
-
-        if( this.salmon ){
-            const salmon = this.salmon;
-            salmon.gameFrame = this.gameFrame;
+        if (this.salmon) {
+            this.salmon.gameFrame = this.gameFrame;
+        }
+        if (this.salmon1) {
+            this.salmon1.gameFrame = this.gameFrame;
+        }
+        if (this.salmon2) {
+            this.salmon2.gameFrame = this.gameFrame;
         }
     }
 

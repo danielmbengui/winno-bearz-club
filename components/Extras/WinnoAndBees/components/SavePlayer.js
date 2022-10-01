@@ -552,7 +552,8 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
                 //width: '100%', 
                 //maxWidth: 350, 
                 width: { xs: '100%', sm: 550 }, maxWidth: { xs: 350, sm: 700 },
-                flexGrow: 1, display: { xs: 'block', sm: 'block' },
+                flexGrow: 1, display: { xs: 'block', md: 'none' },
+                marginTop: '1vw'
             }} >
                 <Paper
                     square
@@ -640,7 +641,8 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
                     padding: 3,
                     width: { sm: 550 }, maxWidth: { xs: 400, sm: 700 },
                     border: `3px solid ${'var(--primary)'}`,
-                    display: { xs: 'none', sm: 'block' }
+                    display: { xs: 'none', md: 'block' },
+                    marginTop: '1vw',
                     //borderWidth:3, borderColor:'var(--third)', borderStyle:'solid',
                 }}
             >
@@ -997,57 +999,6 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
 
                 </Stepper>
             </Box>
-
-            <Stack
-                direction={'column'}
-                spacing={1}
-                justifyContent="center"
-                alignItems="center"
-                //mb={3}
-                p={2}
-            >
-                <TextFieldWalletAddress player={player} handlePlayer={handlePlayer} errorWallet={errorWallet} handleErrorWallet={handleErrorWallet} />
-                <TextFieldTwitterName player={player} handlePlayer={handlePlayer} errorTwitter={errorTwitter} handleErrorTwitter={handleErrorTwitter} />
-            </Stack>
-
-            <SaveButton
-                //ref={refButtonStart}
-                //disabled={isUserSessionStorage}
-                //disabled={true}
-                //className={`${styleWinnoAndBees['button-save-player']}`}
-                variant='contained'
-                //color='primary'
-                //fontFamily="Press Start 2P, sans-serif"
-                onClick={async () => {
-                    //addUser({walletAddress: walletAddress, twitterName: twitterName});
-                    //window.sessionStorage.removeItem(GET_LOCAL_SESSION_USER)
-                    const errorWallet = isErrorWalletAddress(player.walletAddress);
-                    console.log('ERROR', errorWallet)
-                    //let _errorWallet = errorWallet.error;
-                    const errorTwitter = isErrorTwitterName(player.twitter.displayName);
-                    console.log('ERROR', errorTwitter)
-                    //let user = await getUser({walletAddress : player ? player.walletAddress : walletAddress});
-                    //await setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
-
-
-                    if (!errorWallet.error && !errorTwitter.error) {
-                        //updatePlayerStorage(player);
-                        //let isWallet = await walletExist(player.walletAddress);
-                        /*
-                        if (!isWallet) {
-                            //await addUser({ walletAddress: player.walletAddress, twitterName: player.twitterName });
-                        }
-                        */
-                        //setUserSessionStorage();
-                        //setIsUserSessionStorage(true);
-                    }
-                    handleErrorWallet(errorWallet);
-                    handleErrorTwitter(errorTwitter);
-                    //deletePlayerStorage();
-                    //setUserByWallet({walletAddress: walletAddress, twitterName: twitterName, score: 37, airdropped: true});
-                    //setErrorWallet(true);
-                    //setMessageWallet('AAAARG');
-                }}>Save data</SaveButton>
         </>
 
     )

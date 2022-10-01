@@ -643,11 +643,12 @@ const WinnoAndBees = ({ database, app, playerList }) => {
                     updatePlayerStorage(_player_copy);
                     //refDivRestartGame.current.style.display = 'flex';
                     //setWalletAddress(playerJSON.walletAddress);
-                    refDivInfoPlayer.current.style.display = 'flex';
-                }else{
-                //refDivRestartGame.current.style.display = 'flex';
-                    openDivPlayer();
+                    //refDivInfoPlayer.current.style.display = 'flex';
                 }
+                //refDivRestartGame.current.style.display = 'flex';
+                    refDivInfoPlayer.current.style.display = 'flex';
+                    //openDivPlayer();
+                
                 //const _player = player;
 
 
@@ -739,7 +740,7 @@ const WinnoAndBees = ({ database, app, playerList }) => {
         });
 
 
-
+/*
         screen.orientation.addEventListener('change', function () {
             console.log('Current orientation is ' + screen.orientation.type);
             //document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
@@ -748,21 +749,11 @@ const WinnoAndBees = ({ database, app, playerList }) => {
                 if (!game.finished) {
                     game.stopped = true;
                 }
-            }/*else{
-                canvas.width = Game.IDEAL_MOBILE_WIDTH;
-                canvas.height = Game.IDEAL_MOBILE_HEIGHT;
-                game.stopped = false;
-                
-                if (refCanvas.current.fullscreenElement) {
-                    game.stopped = false;
-                }else{
-                    game.stopped = true;
-                }
-                
             }
-            */
+            
             canvasPosition = canvas.getBoundingClientRect();
         });
+        */
 
     }
 
@@ -855,14 +846,12 @@ const WinnoAndBees = ({ database, app, playerList }) => {
                     </div>
 
                     <div ref={refDivInfoPlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <InfoPlayer player={player} game={game} restartGame={restartGame} />
+                        <InfoPlayer openDivPlayer={openDivPlayer} player={player} game={game} restartGame={restartGame} />
                     </div>
 
                     <div ref={refDivSavePlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <SavePlayer closeDivPlayer={closeDivPlayer} signInTwitter={signInTwitter} signOutTwitter={signOutTwitter} player={player} handlePlayer={handlePlayer} errorWallet={errorWallet} errorTwitter={errorTwitter} handleErrorWallet={handleErrorWallet} handleErrorTwitter={handleErrorTwitter} />
                     </div>
-
-                    
                 </div>
             </div>
         </div>

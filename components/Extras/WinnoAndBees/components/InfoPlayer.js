@@ -1,4 +1,4 @@
-import { Card, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Button, Card, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Check } from '@mui/icons-material';
@@ -8,14 +8,23 @@ import CachedIcon from '@mui/icons-material/Cached';
 import TwitterConnect from './TwitterConnect';
 import TwitterShow from './TwitterShow';
 import RestartGame from './RestartGame';
+import { getPlayerByTwitterJSON } from '../lib/functions';
+import styleWinnoAndBees from "../WinnoAndBees.module.css";
+
 const Typo = styled(Typography)(({ }) => ({
     //color: theme.palette.getContrastText(purple[500]),
     color: 'var(--text-primary)',
     fontFamily: "'Press Start 2P', sans serif",
     fontSize: 'medium',
 }));
-const InfoPlayer = ({ player, game, restartGame }) => {
+const InfoPlayer = ({ player, game, restartGame, openDivPlayer }) => {
+    const [playerJSON, setPlayerJSON] = useState(null);
 
+    useEffect( async () => {
+        const _playerJSON = await getPlayerByTwitterJSON(player.twitter.displayName);
+        setPlayerJSON(_playerJSON);
+    });
+getPlayerByTwitterJSON
     //walletAddress: '', twitterName: '', bestScore: 0, whitelisted: false, airdropped: false, nGame: 0
     return (
         <Grid container>
@@ -63,7 +72,28 @@ const InfoPlayer = ({ player, game, restartGame }) => {
                             <Typo>NFT recieved: {player.airdropSent ? <CheckCircleRoundedIcon color='success' /> : <CancelIcon color='error' />}</Typo>
                         </Stack>
                     </Stack>
+                    <Stack
+                        direction={'column'}
+                        spacing={0}
+                        justifyContent="center"
+                        alignItems="center"
+                        pb={1}
+                    >
+                    <Button
+            //ref={refButtonStart}
+            //sx={{size:{xs:'small', md:'medium'}}}
+            size='small'
+            //disabled={isUserSessionStorage}
+            //disabled={true}
+            className={`${styleWinnoAndBees['button-save']}`}
+            variant='contained'
+            onClick={async () => {
+                openDivPlayer();
+                //setGame(null);
+                //initComponentState();
+            }}>Save player</Button>
                     <RestartGame game={game} restartGame={restartGame} />
+                    </Stack>
                 </Card>
             </Grid>
         </Grid>
