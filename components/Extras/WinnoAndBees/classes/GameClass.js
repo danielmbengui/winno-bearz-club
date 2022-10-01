@@ -54,7 +54,8 @@ class Game {
         this.salmonsArray = [];
         //this.salmon = new Salmon(canvas, mouse, this.gameFrame, ratioDevice);
         this.salmon = null;
-
+        this.salmon1 = null;
+        this.salmon2 = null;
 
         this.started = true;
         this.paused = false;
