@@ -61,7 +61,7 @@ const firebaseConfig = {
 };
 */
 const app = initializeApp(firebaseConfig);
-const database = getFirestore(app);
+//const database = getFirestore(app);
 //const app = initializeApp(firebaseConfig);
 
 
@@ -206,7 +206,7 @@ export default function App({ Component, pageProps }) {
         <meta property="og:url" content="https://bearzclub.io" />
         </Head>
         <div className="font-source-code-pro comps">
-        <Component {...pageProps} app={app} database={database} theme={theme} contractInfo={contractInfo} config={CONFIG} promoUrls={promoUrls} links={LINKS} images={IMAGES_PATH} rarity={RARITY} rarities={rarities} />
+        <Component {...pageProps} app={app} theme={theme} contractInfo={contractInfo} config={CONFIG} promoUrls={promoUrls} links={LINKS} images={IMAGES_PATH} rarity={RARITY} rarities={rarities} />
         <div className="pswp" tabIndex="-1" role="dialog" aria-hidden="true">
       <div className="pswp__bg"></div>
       <div className="pswp__scroll-wrap">
