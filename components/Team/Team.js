@@ -16,7 +16,7 @@ const Team = () => {
   const linkedinImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/linkedin.svg" : "/assets/img/icons/social/white/linkedin.svg";
   const team = [
     { name: "Winno E", image_path: winno_e_path, sex:"Man", role: "Artist", club:"WinnoBearz Club", socials:{discord:"", twitter:"",} },
-    { name: "Winno D", image_path: winno_d_path, sex:"Man", role: "Developer", club:"WinnoBearz Club", socials:{linkedin:"www.linkedin.com/in/daniel-mbengui"} },
+    { name: "Winno D", image_path: winno_d_path, sex:"Man", role: "Developer", club:"WinnoBearz Club", socials:{linkedin:"https://linkedin.com/in/daniel-mbengui"} },
     //{ name: "Winno O", image_path: winno_mod_path, sex:"Man", role: "Discord Admin", club:"WinnoBearz Partner", socials:{discord:"https://discord.gg/AQMYhXPebC", twitter:"https://twitter.com/__Cryptodragon", instagram: "https://www.instagram.com/otori_isaac/"} },
     //{ name: "Winno S", image_path: winno_mod_path, sex:"Man", role: "Discord Moderator", club:"WinnoBearz Partner", socials:{telegram:"https://t.me/sparrow178"} },
     //{ name: "Winno K", image_path: winno_mod_path, sex:"Man", role: "Discord Moderator", club:"WinnoBearz Partner", socials:{discord:"", twitter:"",} },
