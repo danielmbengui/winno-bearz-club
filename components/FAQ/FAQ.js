@@ -49,14 +49,14 @@ const FAQ = ({links, contractInfo}) => {
     {
       title:'Join us?',
       component:<><div>
-      <a onClick={redirect} target="_blank" style={{cursor:"pointer", color: 'black'}}>
+      <a onClick={redirect} target="_blank" style={{cursor:"pointer", color: 'var(--text-primary)'}}>
         <img loading="lazy" className="social-buttons__icon" alt="discord icon" src={links.EMAIL_IMAGE_PATH_BLACK} style={{marginRight:"1vw"}} />
         Email : contact@bearzclub.io</a>
       </div>
 
         <div style={{display:'none'}}>
         <Link href={links.DISCORD_LINK}>
-        <a target="_blank" style={{cursor:"pointer", color: 'black'}}>
+        <a target="_blank" style={{cursor:"pointer", color: 'var(--text-primary)'}}>
         <img loading="lazy" className="social-buttons__icon" alt="discord icon" src={links.DISCORD_IMAGE_PATH_BLACK} style={{marginRight:"1vw"}} />
         Discord : WinnoBearz NFT</a>
         </Link>
@@ -64,7 +64,7 @@ const FAQ = ({links, contractInfo}) => {
 
         <div>
         <Link href={links.TWITTER_LINK}>
-        <a target="_blank" style={{cursor:"pointer", color: 'black'}}>
+        <a target="_blank" style={{cursor:"pointer", color: 'var(--text-primary)'}}>
         <img loading="lazy" className="social-buttons__icon" alt="discord icon" src={links.TWITTER_IMAGE_PATH_BLACK} style={{marginRight:"1vw"}} />
         Twitter : WinnoBearzClub</a>
         </Link>
