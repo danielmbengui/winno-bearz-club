@@ -21,7 +21,7 @@ import { getAuth, onAuthStateChanged, signOut, signInWithPopup, TwitterAuthProvi
 import axios from 'axios';
 
 
-const WinnoAndBees = ({ database, app, playerList }) => {
+const WinnoAndBees = ({}) => {
     const theme = useTheme();
     const noProfilePic = theme.palette.mode === 'light' ? `${PATH_IMG}no-profile-black.png` : `${PATH_IMG}no-profile-white.png`;
     //console.log('LIIIIIIST', playerList);

@@ -17,12 +17,12 @@ import { ACTION_READ_PLAYER_LIST } from "../api/extras/winnoandbees/constants";
 //const url = `https://api.twitter.com/2/users/${userId}/followers`;
 //const bearerToken = process.env.BEARER_TOKEN;
 
-export default function WinnoAndBeesPage({ contractInfo, links, config, rarity, images, rarities, database, app, playerList }) {
+export default function WinnoAndBeesPage({ contractInfo, links, config, rarity, images, rarities, database, app, }) {
 
     return (
         <ContainerComponent winnoandbees={true} isItemsLess={true} isMenuGame={true} links={links}   >
             <HeaderPage title={"Winno&Bees"} />
-            <WinnoAndBees database={database} app={app} playerList={playerList}  />
+            <WinnoAndBees />
         </ContainerComponent>
     )
 }
@@ -33,20 +33,7 @@ const playerList = await readPLayerJsonList();
                                 const playerListCount = await readPLayerJsonListCount();
 
                                 */
-export async function getServerSideProps(context) {
-    const playerList = await axios.get(`${LINK_API_READ_PLAYER_LIST}?action=${ACTION_READ_PLAYER_LIST}`).then(response => {
-        console.log('LIIIIIIIIST response', response.data);
-        return response.data;
-    }).catch( error => {
-        return null;
-    });
-    //const playerList = await readPLayerJsonList();
-    return {
-        props: {
-            playerList
-        }, // will be passed to the page component as props
-    }
-}
+
 
 
 
