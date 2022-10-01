@@ -54,7 +54,7 @@ const FAQ = ({links, contractInfo}) => {
         Email : contact@bearzclub.io</a>
       </div>
 
-        <div>
+        <div style={{display:'none'}}>
         <Link href={links.DISCORD_LINK}>
         <a target="_blank" style={{cursor:"pointer", color: 'black'}}>
         <img loading="lazy" className="social-buttons__icon" alt="discord icon" src={links.DISCORD_IMAGE_PATH_BLACK} style={{marginRight:"1vw"}} />

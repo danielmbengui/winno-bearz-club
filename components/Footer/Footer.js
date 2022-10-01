@@ -35,7 +35,7 @@ const Footer = ({links}) => {
                 <img loading="lazy" className="social-buttons__icon" alt="email icon" src={email} />
               </button>
             </li>
-            <li className="social-buttons__item">
+            <li className="social-buttons__item" style={{display:'none'}}>
               <a className="social-buttons__link social-buttons__link--twitter" href={links.DISCORD_LINK} target="_blank">
                 <img loading="lazy" className="social-buttons__icon" alt="discord icon" src={discord} />
               </a>

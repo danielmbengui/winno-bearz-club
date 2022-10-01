@@ -100,7 +100,7 @@ const Features = ({contractInfo, links}) => {
 
                 
 
-                <li className="buttons-set__item">
+                <li className="buttons-set__item" style={{display:'none'}}>
                   <Link href={links.DISCORD_LINK}>
                     <a data-stripe-product-id="" data-stripe-mode="payment" data-successful-payment-url="" data-cancel-payment-url="" className="pill-link   pill-link--discord" target="_blank">
                       <span className="pill-link__pill">Discord</span>
