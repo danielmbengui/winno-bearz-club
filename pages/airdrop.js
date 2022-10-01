@@ -27,7 +27,8 @@ export default function AirdropPage({database, contractInfo, promoUrls, links, r
         <ContainerComponent airdrop={true} links={links}>
             {/* <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} /> */}
             <HeaderPage title={"Airdrop"} />
-            <Airdrop database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} />
+{/*            <Airdrop database={database} contractInfo={contractInfo} appCheck={appCheck} app={app} />
+ */}
         </ContainerComponent>
         </>
     )
