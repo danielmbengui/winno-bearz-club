@@ -36,12 +36,13 @@ class Game {
 
     */
 
-    constructor(canvas, mouse, ratioDevice = 1 /* for desktop */, animate) {
+    constructor(canvas, mouse, ratioDevice = 1 /* for desktop */, animate, unlimitedGame=false) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.mouse = mouse;
         this.ratioDevice = ratioDevice;
         this.animate = animate;
+        this.unlimitedGame = unlimitedGame;
 
         this.gameFrame = 0;
         this.score = 0;
@@ -433,23 +434,27 @@ class Game {
                             }, 500);
                         }
 
-                        if (this.score >= Game.SCORE_TO_WHITELIST) {
-                            //this.started = false;
-                            //this.stopped = true;
-                            //this.finished = true;
-                            this.winnerWhitelist = true;
-                            //this.winner = true;
-                            this.winnerSound.play();
-                            this.winnerSound.isPlaying = false;
+                        if( !this.unlimitedGame ){
+                            if (this.score >= Game.SCORE_TO_WHITELIST) {
+                                //this.started = false;
+                                //this.stopped = true;
+                                //this.finished = true;
+                                this.winnerWhitelist = true;
+                                //this.winner = true;
+                                this.winnerSound.play();
+                                this.winnerSound.isPlaying = false;
+                            }
+    
+                            if (this.score >= Game.SCORE_TO_AIRDROP) {
+                                //this.started = false;
+                                //this.stopped = true;
+                                this.finished = true;
+                                this.winnerAirdrop = true;
+                                this.winner = true;
+                            }
                         }
 
-                        if (this.score >= Game.SCORE_TO_AIRDROP) {
-                            //this.started = false;
-                            //this.stopped = true;
-                            this.finished = true;
-                            this.winnerAirdrop = true;
-                            this.winner = true;
-                        }
+                        
 
                     }
                 }
@@ -472,7 +477,8 @@ class Game {
         //const beeTouchSound = this.beeTouchSound;
         //this.updateGameFrameBees(beesArray);
 
-        if ( !this.finished && (this.score === Game.SCORE_FIRST_SALMON || this.score === Game.SCORE_SECOND_SALMON || this.score === Game.SCORE_THIRD_SALMON) ) {
+        //if ( !this.finished && (this.score === Game.SCORE_FIRST_SALMON || this.score === Game.SCORE_SECOND_SALMON || this.score === Game.SCORE_THIRD_SALMON) ) {
+        if( !this.finished && this.gameFrame / 50 === 100) {
             //beesArray.push(new Bee(escapeGame, winno));
             if( this.salmon === null ){
                 this.salmon = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
@@ -484,6 +490,7 @@ class Game {
             //bee.gameFrame = gameFrame;
             //console.log('BEEEEES', beesArray.length);
         }
+        console.log("GAMME GRAME", this.gameFrame);
 
         
 

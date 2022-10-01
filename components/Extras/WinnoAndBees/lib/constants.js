@@ -11,6 +11,9 @@ export const ACTION_UPDATE_PLAYER = 'update_player';
 //-------------------     LINKS     --------------------//
 export const LINK_API = `/api/extras/api_winnoandbees`;
 //export const LINK_API = `/api/extras/winnoandbees`;
+export const LINK_API_GET_PLAYER = `/api/extras/winnoandbees/player/getplayer`;
+
+
 export const LINK_API_CREATE_PLAYER = `/api/extras/winnoandbees/createplayer`;
 export const LINK_API_UPDATE_PLAYER = `/api/extras/winnoandbees/updateplayer`;
 export const LINK_API_READ_PLAYER = `/api/extras/winnoandbees/readplayer`;
@@ -50,8 +53,11 @@ export const DEFAULT_PLAYER = {
         isFollower: false,
     },
     //twitterName: '',
-    whitelisted: false, 
+    unlimitedGame: false,
+    whitelisted: false,
+    whitelistSent: false, 
     airdropped: false, 
+    airdropSent: false,
     bestScore: 0, 
     nGames: 0,
     nWins: 0,

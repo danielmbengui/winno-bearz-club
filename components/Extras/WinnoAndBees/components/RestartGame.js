@@ -9,6 +9,8 @@ const RestartGame = ({ game, restartGame }) => {
     return (
         <Button
             //ref={refButtonStart}
+            //sx={{size:{xs:'small', md:'medium'}}}
+            size='small'
             //disabled={isUserSessionStorage}
             //disabled={true}
             className={`${styleWinnoAndBees['button-action']}`}

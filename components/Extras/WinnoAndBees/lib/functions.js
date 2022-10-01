@@ -1,6 +1,6 @@
 import { ACTION_CREATE_PLAYER, ACTION_READ_PLAYER, ACTION_READ_PLAYER_LIST, ACTION_READ_PLAYER_LIST_COUNT, ACTION_READ_PLAYER_TWITTER, ACTION_READ_PLAYER_WALLET, 
     ACTION_UPDATE_PLAYER, DIGIT_WALLET_ADDRESS, ERROR_TWITTER_NAME_EMPTY, ERROR_WALLET_EMPTY, ERROR_WALLET_FORMAT, ERROR_WALLET_LENGTH, GET_PLAYER_STORAGE, 
-    LENGTH_WALLET_ADDRESS, LINK_API_CREATE_PLAYER, LINK_API_READ_PLAYER, LINK_API_READ_PLAYER_LIST, LINK_API_UPDATE_PLAYER } from "./constants";
+    LENGTH_WALLET_ADDRESS, LINK_API_CREATE_PLAYER, LINK_API_GET_PLAYER, LINK_API_READ_PLAYER, LINK_API_READ_PLAYER_LIST, LINK_API_UPDATE_PLAYER } from "./constants";
 import axios from 'axios';
 
 export async function createPlayerJson(player) {
@@ -11,6 +11,18 @@ export async function createPlayerJson(player) {
         return response.data;
     }).catch( error => {
         return error;
+    });
+    return playerJson;
+}
+
+export async function setPlayerJSON(player) {
+    const playerJson = axios.post(LINK_API_UPDATE_PLAYER, {
+        action: ACTION_UPDATE_PLAYER,
+        player: player,
+    }).then(response => {
+        return response.data;
+    }).catch( error => {
+        return null;
     });
     return playerJson;
 }
@@ -29,7 +41,7 @@ export async function updatePlayerJson(player) {
 
 export async function readPLayerJsonList() {
     const list = axios.get(`${LINK_API_READ_PLAYER_LIST}?action=${ACTION_READ_PLAYER_LIST}`).then(response => {
-        //console.log(response.data);
+        console.log('response', response.data);
         return response.data;
     }).catch( error => {
         return null;
@@ -56,9 +68,29 @@ export async function readPlayerJson(player) {
     return user;
 }
 
+export async function getPlayerByWalletJSON(walletAddress) {
+    const user = axios.get(`${LINK_API_GET_PLAYER}?action=${ACTION_READ_PLAYER_WALLET}&walletAddress=${walletAddress}`).then(response => {
+        console.log(response.data);
+        return response.data;
+    }).catch( error => {
+        return null;
+    });
+    return user;
+}
+
 export async function readPlayerJsonByWallet(player) {
     const user = axios.get(`${LINK_API_READ_PLAYER}?action=${ACTION_READ_PLAYER_WALLET}&player=${JSON.stringify(player)}`).then(response => {
         console.log(response.data);
+        return response.data;
+    }).catch( error => {
+        return null;
+    });
+    return user;
+}
+
+export async function getPlayerByTwitterJSON(displayName) {
+    const user = axios.get(`${LINK_API_GET_PLAYER}?action=${ACTION_READ_PLAYER_TWITTER}&displayName=${displayName}`).then(response => {
+        //console.log(response.data);
         return response.data;
     }).catch( error => {
         return null;
@@ -71,12 +103,11 @@ export async function readPlayerJsonByTwitter(player) {
         //console.log(response.data);
         return response.data;
     }).catch( error => {
+        console.log('function readPlayerJsonByTwitter', error)
         return null;
     });
     return user;
 }
-
-
 
 export const readPlayerStorage = () => {
     if (window.localStorage.getItem(GET_PLAYER_STORAGE)) {

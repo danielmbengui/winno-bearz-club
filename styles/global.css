@@ -84,6 +84,10 @@
 
   --red-decimal: 255,0,0;
   --orange-decimal: 255,165,0;
+
+
+  --text-style-general: 'VT323', monospace;
+  --text-style-title: 'Press Start 2P', sans-serif;
 }
 
 
