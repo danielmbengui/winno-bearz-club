@@ -17,26 +17,10 @@ import { getFirestore } from "firebase/firestore";
 import ToggleColorMode from '../components/ToggleColorMode';
 
 import { useTheme, } from '@mui/material/styles';
-//import {app, firestore} from "../lib/fireBaseConfig";
-//import {app, database} from "../firebase/firebase.config";
 require('dotenv').config({path: "./vars/.env"});
 
+
 /*
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-};
-const app = initializeApp(firebaseConfig);
-const database = getFirestore(app);
-*/
-
-//console.log('neeext env', process.env.NEXT_PUBLIC_FIREBASE_API_KEY)
-
 const firebaseConfig = {
   apiKey: "AIzaSyD52vVRfDYZgLdp0x9ykT5RbAS55dC2j10",
   authDomain: "winnobearznft.firebaseapp.com",
@@ -46,12 +30,12 @@ const firebaseConfig = {
   appId: "1:462203420048:web:2421178264238d2e018715",
   measurementId: "G-R0FZ8NJJ41"
 };
+*/
 
 
 
-/*
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
@@ -59,56 +43,11 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
-*/
+
 const app = initializeApp(firebaseConfig);
 //const database = getFirestore(app);
 //const app = initializeApp(firebaseConfig);
 
-
-//dotenv.config({path: "./vars/.env"});
-//import {ColorModeContext} from './ToggleColorMode';
-//import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
-
-/*
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#ebc908",
-      contrastText: '#000000',
-    },
-    brownbear: {
-      main: "#872222",
-      contrastText: '#fff',
-    },
-    brownbeardark: {
-      main: "#571616",
-      contrastText: '#fff',
-    },
-    bluewinno: {
-      main: "#0099DB",
-      contrastText: '#fff',
-    },
-    bluetwitter: {
-      //main: "#1D9BF0",
-      main:'var(--blue-twitter)',
-      contrastText: '#fff',
-    }
-
-
-    
-  },
-});
-
-*/
-
-
-//import Document from "./_document";
 
 const CONFIG = require('../redux/config/config.json');
 const LINKS = require('../redux/config/constants_links.json');
