@@ -24,7 +24,6 @@ const InfoPlayer = ({ player, game, restartGame, openDivPlayer }) => {
         const _playerJSON = await getPlayerByTwitterJSON(player.twitter.displayName);
         setPlayerJSON(_playerJSON);
     });
-getPlayerByTwitterJSON
     //walletAddress: '', twitterName: '', bestScore: 0, whitelisted: false, airdropped: false, nGame: 0
     return (
         <Grid container>
@@ -79,6 +78,7 @@ getPlayerByTwitterJSON
                         alignItems="center"
                         pb={1}
                     >
+                        { !playerJSON ?
                     <Button
             //ref={refButtonStart}
             //sx={{size:{xs:'small', md:'medium'}}}
@@ -91,7 +91,7 @@ getPlayerByTwitterJSON
                 openDivPlayer();
                 //setGame(null);
                 //initComponentState();
-            }}>Save player</Button>
+            }}>Save player</Button> : <></>}
                     <RestartGame game={game} restartGame={restartGame} />
                     </Stack>
                 </Card>

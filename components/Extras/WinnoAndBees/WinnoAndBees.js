@@ -685,7 +685,7 @@ const WinnoAndBees = ({}) => {
                 console.log('canvasPoistion FULL SCREEN', canvasPosition);
             }
             */
-
+            canvasPosition = canvas.getBoundingClientRect();
             console.log('canvasPoistion FULL SCREEN', canvasPosition);
         });
 
@@ -705,7 +705,7 @@ const WinnoAndBees = ({}) => {
                 console.log('canvasPoistion FULL SCREEN', canvasPosition);
             }
             */
-
+            canvasPosition = canvas.getBoundingClientRect();
             console.log('canvasPoistion WEBKIT FULL SCREEN', canvasPosition);
         });
 
@@ -725,7 +725,7 @@ const WinnoAndBees = ({}) => {
                 console.log('canvasPoistion FULL SCREEN', canvasPosition);
             }
             */
-
+            canvasPosition = canvas.getBoundingClientRect();
             console.log('canvasPoistion MS FULL SCREEN', canvasPosition);
         });
 
@@ -736,12 +736,13 @@ const WinnoAndBees = ({}) => {
                 //escapeGame.paused = true;
                 console.log('EXIT full screen', screen.width, screen.height);
             }
+            canvasPosition = canvas.getBoundingClientRect();
             console.log('canvasPoistion MOZ FULL SCREEN', canvasPosition);
         });
 
 
-/*
-        screen.orientation.addEventListener('change', function () {
+
+        window.screen.orientation.addEventListener('change', function () {
             console.log('Current orientation is ' + screen.orientation.type);
             //document.getElementById('score').innerHTML = 'Score : ' + screen.orientation.type;
 
@@ -753,8 +754,6 @@ const WinnoAndBees = ({}) => {
             
             canvasPosition = canvas.getBoundingClientRect();
         });
-        */
-
     }
 
     const restartGame = () => {

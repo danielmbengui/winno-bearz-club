@@ -149,6 +149,24 @@ const Roadmap = ({contractInfo, links}) => {
               </div>
             </div>
           </li>
+          <li className="steps-01__item">
+            <div className="steps-01__number" style={styleBubble}>5</div>
+            <div className="steps-01__content">
+              <div className="steps-01__text_box">
+                <h2 className="steps-01__heading " style={{color:theme.palette.text.primary}}>🎮 Winno&Bees 🎮</h2>
+                <div className="content_box ">
+                  <div className="steps-01__text ">
+                    <p>Help Winno to eat some bees and avoid the BelzeBearz & his friends.</p>
+                    <p>Best players will be whitelisted for the next collection of the club and maybe will recieve a free WinnoBearzNFT !</p>
+                    <p>The only question is – will you be one of the HolyBearz ?</p>
+                  </div>
+                </div>
+              </div>
+              <div className="steps-01__img_box">
+                <img loading="lazy" src="/extras/winnoandbees/img/winnoandbees.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img  js-lightbox-single-image " />
+              </div>
+            </div>
+          </li>
         </ul>
         <div className="steps-01__last_bubble">
           <img loading="lazy" src="/assets/logo.png" alt="Bearz club512" className="steps-01__last_bubble_img" height="100" />

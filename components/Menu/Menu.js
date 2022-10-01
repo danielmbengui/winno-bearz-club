@@ -130,12 +130,10 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
       styleBackground: pages.roadmap !== undefined && pages.roadmap ? styleItemActive : styleItem,
       styleText: pages.roadmap !== undefined && pages.roadmap ? styleTextActive : styleItem,
     },
-    /*
-    {name: "Games",link: "/games", 
-      styleBackground: pages.games!==undefined && pages.games ? styleItemActive : styleItem, 
-      styleText: pages.games!==undefined && pages.games ? styleTextActive : styleItem, 
+    {name: "Extras",link: "/extras", 
+      styleBackground: pages.extras!==undefined && pages.extras ? styleItemActive : styleItem, 
+      styleText: pages.extras!==undefined && pages.extras ? styleTextActive : styleItem, 
     },
-    */
     {
       name: "Mint", link: "/mint",
       styleBackground: pages.mint !== undefined && pages.mint ? styleItemActive : styleItem,
