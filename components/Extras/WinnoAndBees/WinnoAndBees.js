@@ -93,6 +93,7 @@ const WinnoAndBees = ({}) => {
     }
 
     const openDivPlayer = () => {
+        refDivInfoPlayer.current.style.display = 'none';
         refDivSavePlayer.current.style.display = 'flex';
     }
 

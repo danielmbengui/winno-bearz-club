@@ -17,13 +17,25 @@ const Typo = styled(Typography)(({ }) => ({
     fontFamily: "'Press Start 2P', sans serif",
     fontSize: 'medium',
 }));
+const SaveButton = styled(Button)(({ }) => ({
+    //color: theme.palette.getContrastText(purple[500]),
+    color: 'black',
+    fontFamily: "'Press Start 2P', sans serif",
+    fontSize: 'large',
+    backgroundColor: 'var(--primary)',
+    '&:hover': {
+        backgroundColor: 'var(--primary-dark)',
+    },
+}));
 const InfoPlayer = ({ player, game, restartGame, openDivPlayer }) => {
     const [playerJSON, setPlayerJSON] = useState(null);
 
-    useEffect( async () => {
-        const _playerJSON = await getPlayerByTwitterJSON(player.twitter.displayName);
+    useEffect(async () => {
+        let _playerJSON = await getPlayerByTwitterJSON(player.twitter.displayName);
+        console.log("PLAAAAYER", player);
+        console.log("PLAAAAYER JSON", _playerJSON);
         setPlayerJSON(_playerJSON);
-    });
+    }, [player.twitter.displayName]);
     //walletAddress: '', twitterName: '', bestScore: 0, whitelisted: false, airdropped: false, nGame: 0
     return (
         <Grid container>
@@ -73,26 +85,26 @@ const InfoPlayer = ({ player, game, restartGame, openDivPlayer }) => {
                     </Stack>
                     <Stack
                         direction={'column'}
-                        spacing={0}
+                        spacing={1}
                         justifyContent="center"
                         alignItems="center"
-                        pb={1}
                     >
-                        { !playerJSON ?
-                    <Button
-            //ref={refButtonStart}
-            //sx={{size:{xs:'small', md:'medium'}}}
-            size='small'
-            //disabled={isUserSessionStorage}
-            //disabled={true}
-            className={`${styleWinnoAndBees['button-save']}`}
-            variant='contained'
-            onClick={async () => {
-                openDivPlayer();
-                //setGame(null);
-                //initComponentState();
-            }}>Save player</Button> : <></>}
-                    <RestartGame game={game} restartGame={restartGame} />
+                        {!playerJSON ?
+                            <SaveButton
+                                //ref={refButtonStart}
+                                //sx={{size:{xs:'small', md:'medium'}}}
+                                //size='small'
+                                //disabled={isUserSessionStorage}
+                                //disabled={true}
+                                //className={`${styleWinnoAndBees['button-save']}`}
+                                variant='contained'
+                                onClick={async () => {
+                                    openDivPlayer();
+                                    //setGame(null);
+                                    //initComponentState();
+                                }}>Save player</SaveButton> :
+                            <RestartGame game={game} restartGame={restartGame} />
+                        }
                     </Stack>
                 </Card>
             </Grid>
