@@ -32,8 +32,8 @@ const InfoPlayer = ({ player, game, restartGame, openDivPlayer }) => {
 
     useEffect(async () => {
         let _playerJSON = await getPlayerByTwitterJSON(player.twitter.displayName);
-        console.log("PLAAAAYER", player);
-        console.log("PLAAAAYER JSON", _playerJSON);
+        //console.log("PLAAAAYER", player);
+        //console.log("PLAAAAYER JSON", _playerJSON);
         setPlayerJSON(_playerJSON);
     }, [player.twitter.displayName]);
     //walletAddress: '', twitterName: '', bestScore: 0, whitelisted: false, airdropped: false, nGame: 0

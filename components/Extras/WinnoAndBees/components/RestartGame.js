@@ -28,7 +28,7 @@ const RestartGame = ({ game, restartGame }) => {
             variant='contained'
             onClick={async () => {
                 restartGame();
-                console.log('restarted')
+                //console.log('restarted')
                 //setGame(null);
                 //initComponentState();
             }}>Restart Game</RestartButton>

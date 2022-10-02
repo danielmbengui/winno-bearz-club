@@ -85,7 +85,7 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
 
     useEffect(() => {
 
-        console.log('player change saveplayer', player.twitter.displayName.length)
+        //console.log('player change saveplayer', player.twitter.displayName.length)
 
         if (player.twitter.displayName) {
             setActiveStep(1);
@@ -169,10 +169,10 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
         setProcessingFollower(true);
         let _player = JSON.parse(JSON.stringify(player));
         const followed = await axios.get(`/api/extras/winnoandbees/gettwitterinfo?player=${JSON.stringify(player)}`).then(response => {
-            console.log('response isFollower', response.data);
+            //console.log('response isFollower', response.data);
             return response.data;
         }).catch(error => {
-            console.log('error', error.message)
+            //console.log('error', error.message)
             return null;
         });
         _player.twitter.isFollower = followed;
@@ -185,7 +185,7 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
 
     const saveNewPlayer = async (player) => {
         let errorWallet = isErrorWalletAddress(player.walletAddress);
-        console.log('ERROR', errorWallet)
+        //console.log('ERROR', errorWallet)
         //let _errorWallet = errorWallet.error;
         //const errorTwitter = isErrorTwitterName(player.twitter.displayName);
         //console.log('ERROR', errorTwitter)
@@ -318,7 +318,7 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
                                     //setProcessingFollower(true);
                                     const followed = await setIsFollower();
                                     //handlePlayer(_player);
-                                    console.log('isFollower PLAYER', followed);
+                                    //console.log('isFollower PLAYER', followed);
                                 }}
                             >
                                 Verify</VerifyButton>
@@ -738,7 +738,7 @@ const SavePlayer = ({ closeDivPlayer, player, signInTwitter, signOutTwitter, han
                                             //setProcessingFollower(true);
                                             const followed = await setIsFollower();
                                             //handlePlayer(_player);
-                                            console.log('isFollower PLAYER', followed);
+                                            //console.log('isFollower PLAYER', followed);
                                         }}
                                     >
                                         Verify</VerifyButton>
@@ -1105,7 +1105,7 @@ const TextFieldTwitterName = ({ player, handlePlayer, errorTwitter }) => {
         handlePlayer(_player);
         //console.log('player', _player);
         //setTwitterName(e.target.value);
-        console.log('twitter name', twitterName);
+       //console.log('twitter name', twitterName);
     }
 
     return (
