@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Menu from '../components/Menu/Menu';
 import Header from '../components/Header/Header';
 import HeaderPage from '../components/HeaderPage/HeaderPage';
-import ContainerComponent from '../components/Container';
+import ContainerComponent from '../components/Container/ContainerComponent';
 import FAQ from '../components/FAQ/FAQ';
 
 

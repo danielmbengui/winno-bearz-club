@@ -1,39 +1,18 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { ColorModeContext } from '../ToggleColorMode';
+import React, { useState, useEffect, useContext } from 'react';
+import { useDispatch } from "react-redux";
+import { ColorModeContext } from '../../ToggleColorMode';
 import { useTheme, } from '@mui/material/styles';
 import Image from 'next/image';
 import styleMenu from "./Menu.module.css";
 import Link from 'next/link';
-import Script from 'next/script';
-import { ConnectToWebsiteButton, InstallMetamaskButton, ShowUserAddressButton } from "../Buttons/Buttons";
-import { ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import Brightness1Icon from '@mui/icons-material/Brightness1';
+import { ShowUserAddressButton } from "../../Buttons/Buttons";
 import Brightness2Icon from '@mui/icons-material/Brightness2';
 import LightModeIcon from '@mui/icons-material/LightMode';
-
 import Switch from '@mui/material/Switch';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-
-import { updateScreenMode, } from "../../redux/user/userActions";
-import userReducer from '../../redux/user/userReducer';
+import { updateScreenMode, } from "../../../redux/user/userActions";
 const logoPath = "/assets/logo.png";
 
-
-
-
-
-
-/*
-background-color: rgba(var(--primary-decimal), 0.95) !important;
-  color: var(--primary-text);
-  */
-const Menu = ({ pages, isMenuGame, isItemsLess }) => {
+const Menu = ({ pages, isMenuGame }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const colorMode = useContext(ColorModeContext);
@@ -55,29 +34,16 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
     color: theme.palette.black.main,
   }
 
-  const [styleItemSelected, setStyleItemSelected] = useState(styleItem);
-
-
-
-
   useEffect(() => {
     let _mode = theme.palette.mode;
     setMode(_mode.toUpperCase().charAt(0) + _mode.slice(1));
-    //colorMode.toggleColorMode();
     setChecked(_mode !== 'light' ? true : false);
-
-    //console.log({USSSER__MODE:user.})
   }, [theme.palette.mode]);
 
   const onChangeMode = (event) => {
-    //setMode(prevMode === 'light' ? 'dark' : 'light');
     colorMode.toggleColorMode();
-    //setChecked(event.target.checked);
     dispatch(updateScreenMode(event.target.checked ? 'dark' : 'light'));
-    //console.log({VALUE_LOG: event.target.checked})
   }
-
-
 
   const menuWinnoAndBees = [
     /*
@@ -104,35 +70,28 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
     },
     */
   ]
-  //const { blockchain, connect, connectAccount } = props;
+
   const menuItems = [
     {
       name: "About", link: "/",
       styleBackground: pages.about !== undefined && pages.about ? styleItemActive : styleItem,
-      //styleHover: pages.about!==undefined && pages.about ? styleItemActive : styleItem, 
       styleText: pages.about !== undefined && pages.about ? styleTextActive : styleItem,
 
     },
-
     {
       name: "Rarity", link: "/rarity",
       styleBackground: pages.rarity !== undefined && pages.rarity ? styleItemActive : styleItem,
       styleText: pages.rarity !== undefined && pages.rarity ? styleTextActive : styleItem,
     },
-    /*
-    {name: "Collections",link: "/collections", 
-      styleBackground: pages.collections!==undefined && pages.collections ? styleBackgroundActive : null, 
-      styleText: pages.collections!==undefined && pages.collections ? styleTextActive : null, 
-    },
-    */
     {
       name: "Roadmap", link: "/roadmap",
       styleBackground: pages.roadmap !== undefined && pages.roadmap ? styleItemActive : styleItem,
       styleText: pages.roadmap !== undefined && pages.roadmap ? styleTextActive : styleItem,
     },
-    {name: "Extras",link: "/extras", 
-      styleBackground: pages.extras!==undefined && pages.extras ? styleItemActive : styleItem, 
-      styleText: pages.extras!==undefined && pages.extras ? styleTextActive : styleItem, 
+    {
+      name: "Extras", link: "/extras",
+      styleBackground: pages.extras !== undefined && pages.extras ? styleItemActive : styleItem,
+      styleText: pages.extras !== undefined && pages.extras ? styleTextActive : styleItem,
     },
     {
       name: "Mint", link: "/mint",
@@ -149,8 +108,6 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
   return (
     <nav
       className="js-nav nav-02  nav-02--sticky  nav-02--sticky--white"
-      //    className={`${styles["js-nav"]} ${styles["nav-02"]} ${styles["nav-02--sticky"]} ${styles["nav-02--sticky--black"]}`}
-
       style={{
         position: 'fixed', left: 0, top: 0, right: 0,
         backgroundColor: theme.palette.background.menu,
@@ -193,19 +150,19 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
                 }
 
                 {
-                  pages.winnoandbees ? 
-                  menuWinnoAndBees.map( (element, index) => {
-                    return (
-                      <li key={index} className={`nav-02__item`} style={element.styleBackground}
-                      >
-                        <Link href={element.link} >
-                          <a className={`button button--white-outline button--empty ${styleMenu['button--menu']}`} >
-                            <span className="button__text" style={element.styleText}>{element.name}</span>
-                          </a>
-                        </Link>
-                      </li>
-                    )
-                  }) : <></>
+                  pages.winnoandbees ?
+                    menuWinnoAndBees.map((element, index) => {
+                      return (
+                        <li key={index} className={`nav-02__item`} style={element.styleBackground}
+                        >
+                          <Link href={element.link} >
+                            <a className={`button button--white-outline button--empty ${styleMenu['button--menu']}`} >
+                              <span className="button__text" style={element.styleText}>{element.name}</span>
+                            </a>
+                          </Link>
+                        </li>
+                      )
+                    }) : <></>
                 }
 
                 <li className="nav-02__item">
@@ -221,13 +178,6 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
                       </li>
 
                       <li className="buttons-set__item">
-                        {/*
-                    <>
-                  <InstallMetamaskButton />
-                  <ConnectToWebsiteButton />
-                  </>
-                  */
-                        }
                         <ShowUserAddressButton />
                       </li>
                       <li className="buttons-set__item" style={{ display: 'none' }}>
@@ -237,22 +187,6 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
                           </button>
                         </Link>
                       </li>
-
-                      {
-                        /*
-                        <li>
-                      <ListItem button  key='theme-mode' onClick={colorMode.toggleColorMode}>
-                      <ListItemIcon >
-                      {theme.palette.mode === 'light' ? <Brightness7Icon fontSize={"large"} style={{color:'red'}} /> : <Brightness4Icon fontSize={"large"} color='text.primary' />}
-                      </ListItemIcon>
-                      <ListItemText primary={<Typography sx={{fontSize:{xs:"2.3vmax",sm:"1.8vmax", md:"1.3vmax"},}} style={{color:'red'}}>
-                                  Theme {theme.palette.mode}
-                              </Typography>} />
-                      </ListItem>
-                      </li>
-                      */
-                      }
-
                     </ul>
                   </div>
                 </li>
@@ -299,14 +233,6 @@ const Menu = ({ pages, isMenuGame, isItemsLess }) => {
                         </button>
                       </li>
                       <li className="buttons-set__item">
-                        {
-                          /*
-                        <>
-                        <InstallMetamaskButton />
-                        <ConnectToWebsiteButton />
-                        </>
-                          */
-                        }
                         <ShowUserAddressButton />
                       </li>
                       <li className="buttons-set__item" style={{ display: 'none' }} >

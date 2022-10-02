@@ -35,15 +35,9 @@ function ConfirmationDialogRaw(props) {
       fullScreen
       
       sx={{ '& .MuiDialog-paper': { background: theme.palette.background.default},  }}
-      //maxWidth="false"
-      //TransitionProps={{ onEntering: handleEntering }}
       open={open}
       {...other}
     >
-      {/* 
-            <DialogTitle color="brownbeardark" style={{fontWeight:'bold', display:"flex", direction:"column", justifyContent:"center", alignContent:"center", padding:"5vh", color:'var(--brown-bear-dark)'}}>WinnoBearz Club</DialogTitle>
-
-  */}
       <DialogContent style={{display:"flex", direction:"column", justifyContent:"center", alignContent:"center", padding:"5vh"}}>
         <>
         <div style={{display:'inline-block'}}>

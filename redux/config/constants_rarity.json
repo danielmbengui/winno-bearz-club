@@ -1,9 +1,9 @@
 {
     "RASPBERRY" : {
         "NAME": "Raspberry",
-        "PNG": "/assets/img/rarity/raspberry.png",
-        "GIF": "/assets/img/rarity/raspberry.gif",
-        "PATH": "/assets/img/rarity/raspberry.gif",
+        "PNG": "/assets/img/Rarity/raspberry.png",
+        "GIF": "/assets/img/Rarity/raspberry.gif",
+        "PATH": "/assets/img/Rarity/raspberry.gif",
         "POINTS_LAYER":1,
         "POINTS_NFT":15,
         "POINTS": 15,
@@ -12,9 +12,9 @@
 
     "PICNIC" : {
         "NAME": "Picnic",
-        "PNG": "/assets/img/rarity/picnic.png",
-        "GIF": "/assets/img/rarity/picnic.gif",
-        "PATH": "/assets/img/rarity/picnic.gif",
+        "PNG": "/assets/img/Rarity/picnic.png",
+        "GIF": "/assets/img/Rarity/picnic.gif",
+        "PATH": "/assets/img/Rarity/picnic.gif",
         "POINTS_LAYER":2,
         "POINTS_NFT":20,
         "POINTS": 20,
@@ -23,9 +23,9 @@
 
     "SALMON" : {
         "NAME": "Salmon",
-        "PNG": "/assets/img/rarity/salmon.png",
-        "GIF": "/assets/img/rarity/salmon.gif",
-        "PATH": "/assets/img/rarity/salmon.gif",
+        "PNG": "/assets/img/Rarity/salmon.png",
+        "GIF": "/assets/img/Rarity/salmon.gif",
+        "PATH": "/assets/img/Rarity/salmon.gif",
         "POINTS_LAYER":3,
         "POINTS_NFT":25,
         "POINTS": 25,
@@ -34,9 +34,9 @@
     
     "HONEY" : {
         "NAME": "Honey",
-        "PNG": "/assets/img/rarity/honey.png",
-        "GIF": "/assets/img/rarity/honey.gif",
-        "PATH": "/assets/img/rarity/honey.gif",
+        "PNG": "/assets/img/Rarity/honey.png",
+        "GIF": "/assets/img/Rarity/honey.gif",
+        "PATH": "/assets/img/Rarity/honey.gif",
         "POINTS_LAYER":4,
         "POINTS_NFT":35,
         "POINTS": 35,
@@ -45,9 +45,9 @@
 
     "BEEHIVE" : {
         "NAME": "Beehive",
-        "PNG": "/assets/img/rarity/beehive.png",
-        "GIF": "/assets/img/rarity/beehive.gif",
-        "PATH": "/assets/img/rarity/beehive.gif",
+        "PNG": "/assets/img/Rarity/beehive.png",
+        "GIF": "/assets/img/Rarity/beehive.gif",
+        "PATH": "/assets/img/Rarity/beehive.gif",
         "POINTS_LAYER":5,
         "POINTS_NFT":40,
         "POINTS": 40,

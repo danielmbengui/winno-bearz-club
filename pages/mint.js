@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {updateAdvertise} from "../redux/user/userActions";
 import HeaderPage from '../components/HeaderPage/HeaderPage';
-import ContainerComponent from '../components/Container';
+import ContainerComponent from '../components/Container/ContainerComponent';
 import Mint from '../components/Mint/Mint';
 
 import {connectUser} from "../redux/user/userActions";

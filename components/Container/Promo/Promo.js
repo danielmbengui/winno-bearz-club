@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useRef, useContext } from 'react';
+import React, { useState,useEffect} from 'react';
 import { useTheme, } from '@mui/material/styles';
 import Link from 'next/link';
 import stylePromo from "./Promo.module.css";
@@ -64,7 +64,6 @@ const Promo = ({links}) => {
     <div className="clients-03">
       <div className="container container--small">
         <div className="title-box title-box--center">
-          {/* <h2 className="heading  text-white">PROMO</h2> */}
         </div>
       </div>
       <div className="container container--mid">
@@ -84,8 +83,6 @@ const Promo = ({links}) => {
               </a>
             </Link>
           </li>
-
-         
 
           <li className="clients-03__item">
             <a className={`clients-03__img_box ${stylePromo["link"]}`} href={links.NFT_CALENDAR_LINK} target="_blank" style={{display: 'flex', direction: 'row', alignItems:'center', justifyItems:'center', textDecoration:'none'}}>

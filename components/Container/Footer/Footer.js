@@ -1,16 +1,14 @@
-import React, { useState,useEffect, useRef, useContext } from 'react';
-
+import React, { useState,useEffect} from 'react';
 import { useTheme, } from '@mui/material/styles';
 import { Chip, Divider } from '@mui/material';
+
 const Footer = ({links}) => {
   const theme = useTheme();
   const [email, setEmail] = useState(theme.palette.mode === 'light' ? links.EMAIL_IMAGE_PATH_BLACK : links.EMAIL_IMAGE_PATH_WHITE);
-  const [discord, setDiscord] = useState(theme.palette.mode === 'light' ? links.DISCORD_IMAGE_PATH_BLACK : links.DISCORD_IMAGE_PATH_WHITE);
   const [twitter, setTwitter] = useState(theme.palette.mode === 'light' ? links.TWITTER_IMAGE_PATH_BLACK : links.TWITTER_IMAGE_PATH_WHITE);
 
   useEffect( () => {
     setEmail(theme.palette.mode === 'light' ? links.EMAIL_IMAGE_PATH_BLACK : links.EMAIL_IMAGE_PATH_WHITE);
-    setDiscord(theme.palette.mode === 'light' ? links.DISCORD_IMAGE_PATH_BLACK : links.DISCORD_IMAGE_PATH_WHITE);
     setTwitter(theme.palette.mode === 'light' ? links.TWITTER_IMAGE_PATH_BLACK : links.TWITTER_IMAGE_PATH_WHITE);
   }, [theme.palette.mode])
 
@@ -35,19 +33,9 @@ const Footer = ({links}) => {
                 <img loading="lazy" className="social-buttons__icon" alt="email icon" src={email} />
               </button>
             </li>
-            <li className="social-buttons__item" style={{display:'none'}}>
-              <a className="social-buttons__link social-buttons__link--twitter" href={links.DISCORD_LINK} target="_blank">
-                <img loading="lazy" className="social-buttons__icon" alt="discord icon" src={discord} />
-              </a>
-            </li>
             <li className="social-buttons__item">
               <a className="social-buttons__link social-buttons__link--twitter" href={links.TWITTER_LINK} target="_blank">
                 <img loading="lazy" className="social-buttons__icon" alt="twitter icon" src={twitter} />
-              </a>
-            </li>
-            <li className="social-buttons__item" style={{display: 'none'}}>
-              <a className="social-buttons__link social-buttons__link--github" href={links.GITHUB_LINK} target="_blank">
-                <img loading="lazy" className="social-buttons__icon" alt="github icon" src={links.GITHUB_IMAGE_PATH_WHITE} />
               </a>
             </li>
           </ul>

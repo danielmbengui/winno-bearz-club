@@ -1,24 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
-//import { useDispatch, useSelector } from "react-redux";
-//import { updateBlockchain, connect, connectAccount } from "./redux/blockchain/blockchainActions";
-//import { fetchData } from "./redux/data/dataActions";
-
+import React from "react";
 import '../styles/global.css';
 import store from "../redux/store";
 import { Provider } from "react-redux";
 import Head from 'next/head';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-// Import the functions you need from the SDKs you need
-// Import the functions you need from the SDKs you need
-
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-
 import ToggleColorMode from '../components/ToggleColorMode';
-
 import { useTheme, } from '@mui/material/styles';
 require('dotenv').config({path: "./vars/.env"});
-
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -31,15 +19,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-//const database = getFirestore(app);
-//const app = initializeApp(firebaseConfig);
-
-
 const CONFIG = require('../redux/config/config.json');
 const LINKS = require('../redux/config/constants_links.json');
-
 const RARITY = require('../redux/config/constants_rarity.json');
-
 const IMAGES_PATH = require('../redux/config/constants_images.json');
 
 const promoUrls = [
@@ -88,18 +70,6 @@ const rarities = [
   RARITY.BEEHIVE
 ];
 
-
-
-
-/*
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
-*/
-
 export default function App({ Component, pageProps }) {
 
   const theme = useTheme();
@@ -126,9 +96,9 @@ export default function App({ Component, pageProps }) {
         <meta property="og:image" content="/bearz_club192.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="/bearz_club192.png" />
-        <link href="https://bearzclub.io" rel="canonical" />
-        <meta name="twitter:url" content="https://bearzclub.io" />
-        <meta property="og:url" content="https://bearzclub.io" />
+        <link href="https://winno.bearzclub.io" rel="canonical" />
+        <meta name="twitter:url" content="https://winno.bearzclub.io" />
+        <meta property="og:url" content="https://winno.bearzclub.io" />
         </Head>
         <div className="font-source-code-pro comps">
         <Component {...pageProps} app={app} theme={theme} contractInfo={contractInfo} config={CONFIG} promoUrls={promoUrls} links={LINKS} images={IMAGES_PATH} rarity={RARITY} rarities={rarities} />

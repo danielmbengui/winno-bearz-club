@@ -1,6 +1,10 @@
-import React, { useState,useEffect, useRef, useContext } from 'react';
+import React from 'react';
 import { useTheme, } from '@mui/material/styles';
 import Link from 'next/link';
+
+const right = "/assets/img/Features/right.png";
+const winno_community = "/assets/img/Features/winno_community.png";
+const hand = "/assets/img/Features/hand.png";
 
 const Features = ({contractInfo, links}) => {
     const theme = useTheme();
@@ -25,7 +29,7 @@ const Features = ({contractInfo, links}) => {
             <li className="text--06__item">
               <div className="text--06__box">
                 <div className="text--06__img">
-                  <img loading="lazy" src="assets/img/others/right.png" width="100%" className="" />
+                  <img loading="lazy" src={right} width="100%" />
                 </div>
                 <div className="text--06__text">
                   <h2 className="" style={{color:theme.palette.text.primary}}>{contractInfo.totalSupply.toLocaleString('en-US')} unique WinnoBearz</h2>
@@ -38,7 +42,7 @@ const Features = ({contractInfo, links}) => {
             <li className="text--06__item">
               <div className="text--06__box">
                 <div className="text--06__img">
-                  <img loading="lazy" src="assets/img/others/winno_community.png" width="100%" className="" />
+                  <img loading="lazy" src={winno_community} width="100%" />
                 </div>
                 <div className="text--06__text">
                   <h2 className="" style={{color:theme.palette.text.primary}}>Be the luckiest each withdraw</h2>
@@ -51,7 +55,7 @@ const Features = ({contractInfo, links}) => {
             <li className="text--06__item">
               <div className="text--06__box">
                 <div className="text--06__img">
-                  <img loading="lazy" src="assets/img/others/hand.png" width="100%" className="" />
+                  <img loading="lazy" src={hand} width="100%" />
                 </div>
                 <div className="text--06__text">
                   <h2 className="" style={{color:theme.palette.text.primary}}>Truly yours</h2>
@@ -96,43 +100,7 @@ const Features = ({contractInfo, links}) => {
                         </span>
                       </a>
                     </Link>
-                </li>
-
-                
-
-                <li className="buttons-set__item" style={{display:'none'}}>
-                  <Link href={links.DISCORD_LINK}>
-                    <a data-stripe-product-id="" data-stripe-mode="payment" data-successful-payment-url="" data-cancel-payment-url="" className="pill-link   pill-link--discord" target="_blank">
-                      <span className="pill-link__pill">Discord</span>
-                      <span className="pill-link__text">Join</span>
-                      <span className="pill-link__icon">
-                        <span className="icon">
-                          <svg viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.823 4.164L8.954.182a.592.592 0 0 0-.854 0 .635.635 0 0 0 0 .88l2.836 2.92H.604A.614.614 0 0 0 0 4.604c0 .344.27.622.604.622h10.332L8.1 8.146a.635.635 0 0 0 0 .88.594.594 0 0 0 .854 0l3.869-3.982a.635.635 0 0 0 0-.88z" fillRule="nonzero" fill="#00396B"></path>
-                          </svg>
-                        </span>
-                      </span>
-                    </a>
-                  </Link>
-                </li>
-
-                <li className="buttons-set__item" style={{display: 'none'}}>
-                  <Link href={links.GITHUB_LINK}>
-                    <a data-stripe-product-id="" data-stripe-mode="payment" data-successful-payment-url="" data-cancel-payment-url="" className="pill-link   pill-link--github" target="_blank">
-                      <span className="pill-link__pill">GitHub</span>
-                      <span className="pill-link__text"> Pull us </span>
-                      <span className="pill-link__icon">
-                        <span className="icon">
-                          <svg viewBox="0 0 13 10" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.823 4.164L8.954.182a.592.592 0 0 0-.854 0 .635.635 0 0 0 0 .88l2.836 2.92H.604A.614.614 0 0 0 0 4.604c0 .344.27.622.604.622h10.332L8.1 8.146a.635.635 0 0 0 0 .88.594.594 0 0 0 .854 0l3.869-3.982a.635.635 0 0 0 0-.88z" fillRule="nonzero" fill="#00396B"></path>
-                          </svg>
-                        </span>
-                      </span>
-                    </a>
-                  </Link>
-                </li>
-
-                
+                </li>          
               </ul>
             </div>
           </div>

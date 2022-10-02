@@ -1,6 +1,6 @@
 import React from "react";
 import HeaderPage from '../components/HeaderPage/HeaderPage';
-import ContainerComponent from '../components/Container';
+import ContainerComponent from '../components/Container/ContainerComponent';
 import Extras from "../components/Extras/Extras";
 
 //const needle = require('needle');

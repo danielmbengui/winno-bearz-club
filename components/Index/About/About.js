@@ -1,7 +1,6 @@
-import React, { useState,useEffect, useRef, useContext } from 'react';
+import React from 'react';
 import { useTheme, } from '@mui/material/styles';
-import Link from 'next/link';
-import {GoToMintPageButton} from "../Buttons/Buttons";
+import {GoToMintPageButton} from "../../Buttons/Buttons";
 
 const About = ({contractInfo, rarities}) => {
   const theme = useTheme();
