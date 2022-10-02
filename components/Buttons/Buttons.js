@@ -1,12 +1,8 @@
-import REact, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { useSelector } from "react-redux";
 import Link from 'next/link';
 import LoadingButton from '@mui/lab/LoadingButton';
 import PlumbingIcon from '@mui/icons-material/Plumbing';
-import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';//connect account
-import SwitchAccountIcon from '@mui/icons-material/SwitchAccount'; // connect account
-import AutorenewIcon from '@mui/icons-material/Autorenew'; // switch network
-import CloudSyncIcon from '@mui/icons-material/CloudSync'; // switch network
 
 import { connectUser, switchToWinnoNetwork } from "../../redux/user/userActions";
 import { useTheme, } from '@mui/material/styles';
