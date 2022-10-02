@@ -1,13 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-
-//import Menu from '../components/Menu/Menu';
-//import Header from '../components/Header/Header';
+import React from "react";
 import HeaderPage from '../../components/HeaderPage/HeaderPage';
-import Container from '../../components/Container';
-import Mint from '../../components/Mint/Mint';
-
-//import {connectUser} from "../../redux/user/userActions";
-
+import ContainerComponent from '../../components/Container/ContainerComponent';
 import GiveAways from "../../components/GiveAways/GiveAways";
 import {addressesJSON} from "../../redux/config/constants_addresses";
 
@@ -16,16 +9,12 @@ if (!process.env.PWD) {
 }
 
 const buildDir = `${process.env.PWD}`;
-//const nftDir = `${buildDir}/NFT_IMG/images`;
 const metadataDir = `${buildDir}/redux/config/constants_links.json`;
-const CONFIG = require(`../../redux/config/config.json`);
 
-export default function GiveAwaysPage({contractInfo, promoUrls, links, rarities, tab}) {
+export default function GiveAwaysPage({links}) {
     
     let _index = 0;
-    addressesJSON
-    
-    .map((i, index) => {
+    addressesJSON.map((i, index) => {
         let val = i;
         for(var j in val){
             var sub_key = j;
@@ -41,10 +30,10 @@ export default function GiveAwaysPage({contractInfo, promoUrls, links, rarities,
     //console.log({CONFIG: addressesJSON.length})
     return(
         <>
-        <Container mint={true} links={links}>
+        <ContainerComponent mint={true} links={links}>
             <HeaderPage title={"Give Aways"} />
             <GiveAways />
-        </Container>
+        </ContainerComponent>
         </>
     )
 }

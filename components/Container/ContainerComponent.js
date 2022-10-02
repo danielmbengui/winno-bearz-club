@@ -9,7 +9,7 @@ import { updateAdvertise, updateAdvertiseSession } from "../../redux/user/userAc
 import DialogAdvertise from "./Dialogs/DialogAdvertise";
 import { useTheme, } from '@mui/material/styles';
 
-export default function ContainerComponent({ children, about, rarity, collections, roadmap, games, faq, mint, airdrop, config, links, isMenuGame, extras, winnoandbees }) {
+export default function ContainerComponent({ children, about, rarity, roadmap, faq, mint, links, isMenuGame, extras,}) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -44,11 +44,11 @@ export default function ContainerComponent({ children, about, rarity, collection
   return (
     <>
       <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} showAdvertiseSession={showAdvertiseSession} updateStorageAdvertiseSession={updateStorageAdvertiseSession} />
-      <Menu pages={{ about: about, rarity: rarity, collections: collections, roadmap: roadmap, faq: faq, mint: mint, airdrop: airdrop, games: games, extras: extras, winnoandbees: winnoandbees }}
+      <Menu pages={{ about: about, rarity: rarity, roadmap: roadmap, faq: faq, mint: mint, extras: extras, }}
         isMenuGame={isMenuGame} dispatch={dispatch} user={user} connect={connectUser} />
       <main style={{ background: theme.palette.background.default, }}>{children}</main>
       <Promo links={links} />
-      <Footer config={config} links={links} />
+      <Footer links={links} />
     </>
   )
 }
