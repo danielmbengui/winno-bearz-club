@@ -1,15 +1,8 @@
-//import honey_bee from "../../assets/honey_bee.gif";
-//import honey_bee from "../../assets/honey_bee.gif";
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import { useTheme, } from '@mui/material/styles';
-import { useDispatch, useSelector } from "react-redux";
-import { fetchContract  } from "../../redux/contract/contractActions";
-import Link from 'next/link';
 import styleHeaderPage from './HeaderPage.module.css';
-import { ThemeProvider } from "styled-components";
-const honey_bee = "/assets/img/others/honey_bee.gif";
-const honey_bearz = "/assets/img/others/honey_bearz.gif";
-
+const honey_bee = "/assets/img/HeaderPage/honey_bee.gif";
+const honey_bearz = "/assets/img/HeaderPage/honey_bearz.gif";
 
 const HeaderPage = ({title}) => {
   const theme = useTheme();

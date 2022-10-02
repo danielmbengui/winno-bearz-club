@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {GoToMintPageButton} from "../Buttons/Buttons";
 
 import styleRarity from "./Rarity.module.css";
-const imgPhone = "/static/img/mockups_v2/phones/apple_iphone_11_pro_max_gold.png";
+const imgPhone = "/assets/img/Rarity/phones/apple_iphone_11_pro_max_gold.png";
 
 const Rarity = ({links, rarities}) => {
   const theme = useTheme();

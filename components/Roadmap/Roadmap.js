@@ -1,9 +1,7 @@
-import React, { useState,useEffect, useRef, useContext } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useTheme, } from '@mui/material/styles';
 import {GoToMintPageButton} from "../Buttons/Buttons";
-import styleRoadmap from "./Roadmap.module.css";
-
 import {addressesJSON} from "../../redux/config/constants_addresses";
 
 const Roadmap = ({contractInfo, links}) => {
