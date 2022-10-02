@@ -126,7 +126,7 @@ const Roadmap = ({contractInfo, links}) => {
               </div>
               <div className="steps-01__img_box">
                 <a href={contractInfo.scan.link_code} target="_blank">
-                <img loading="lazy" src="/assets/img/others/code_random_winner.png" alt="Image code random winner" data-width="256" data-height="256" className="steps-01__img " />
+                <img loading="lazy" src="/assets/img/others/code_random_winner.png" alt="Image code random winner" data-width="1500" data-height="1024" className="steps-01__img js-lightbox-single-image " />
                 </a>
               </div>
             </div>
@@ -145,7 +145,7 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <img loading="lazy" src="/assets/img/others/three_winno.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img  js-lightbox-single-image " />
+                <img loading="lazy" src="/assets/img/others/three_winno.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img" />
               </div>
             </div>
           </li>
@@ -163,7 +163,11 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <img loading="lazy" src="/extras/winnoandbees/img/winnoandbees.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img  js-lightbox-single-image " />
+                
+                <a href="https://footmercato.net" target={"_blank"}>
+                <img loading="lazy" src="/extras/winnoandbees/img/game-preview.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img" />
+                </a>
+                
               </div>
             </div>
           </li>

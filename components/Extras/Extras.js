@@ -3,8 +3,7 @@ import { useTheme, } from '@mui/material/styles';
 import styleExtras from "./Extras.module.css";
 import Link from 'next/link';
 
-const winno_s_path = "/assets/img/team/winno_s.png";
-const winno_e_path = "/assets/games/escape/game-preview.gif";
+const winnoandbees_img = "/extras/winnoandbees/img/game-preview.gif";
 const winno_d_path = "/assets/img/team/winno_d.png";
 const winno_mod_path = "/assets/img/team/winno_mod.png";
 
@@ -17,7 +16,7 @@ const Extras = () => {
   const telegramImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/telegram.svg" : "/assets/img/icons/social/white/telegram.svg";
   const linkedinImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/linkedin.svg" : "/assets/img/icons/social/white/linkedin.svg";
   const team = [
-    { name: "Collect the bees and help Winno to avoid the BelzeBearz !", image_path: winno_e_path, sex:"Man", role: "Winno&Bees", club:"WinnoBearz Club", socials:{discord:"", twitter:"",}, href: '/extras/winnoandbees'},
+    { name: "Collect the bees and help Winno to avoid the BelzeBearz !", image_path: winnoandbees_img, sex:"Man", role: "Winno&Bees", club:"WinnoBearz Club", socials:{discord:"", twitter:"",}, href: '/extras/winnoandbees'},
     //{ name: "Collect the bees and help Winno to avoid the BelzeBearz !", image_path: '', sex:"Man", role: "???", club:"WinnoBearz Club", socials:{discord:"", twitter:"",}, href: ''},
     //{ name: "Winno D", image_path: winno_d_path, sex:"Man", role: "Developer", club:"WinnoBearz Club", socials:{linkedin:""}, href: '/games/escape' },
     //{ name: "Winno O", image_path: winno_mod_path, sex:"Man", role: "Discord Admin", club:"WinnoBearz Partner", socials:{discord:"https://discord.gg/AQMYhXPebC", twitter:"https://twitter.com/__Cryptodragon", instagram: "https://www.instagram.com/otori_isaac/"}, href: '/games/escape'},

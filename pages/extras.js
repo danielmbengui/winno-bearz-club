@@ -1,15 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {updateAdvertise} from "../redux/user/userActions";
+import React from "react";
 import HeaderPage from '../components/HeaderPage/HeaderPage';
 import ContainerComponent from '../components/Container';
-import Mint from '../components/Mint/Mint';
-
-import {connectUser} from "../redux/user/userActions";
-
-import DialogAdvertise from "../components/Dialogs/DialogAdvertise";
-import Gallery from "../components/Gallery/Gallery";
-import Games from "../components/Games/Games";
 import Extras from "../components/Extras/Extras";
 
 //const needle = require('needle');

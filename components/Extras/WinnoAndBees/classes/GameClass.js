@@ -473,114 +473,104 @@ class Game {
         const mouse = this.mouse;
         const gameFrame = this.gameFrame;
         const ratioDevice = this.ratioDevice;
-        const salmonsArray = this.salmonsArray;
-
         //const salmonsArray = this.salmonsArray;
         //const beeTouchSound = this.beeTouchSound;
         //this.updateGameFrameBees(beesArray);
-        
-                if ( !this.finished && this.score >= Game.SCORE_FIRST_SALMON && this.score < Game.SCORE_FIRST_SALMON + 5 ) {
-                    if( this.salmon === null ){
-                        this.salmon = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
-                    }
-                }
-        
-                if ( !this.finished && this.score >= Game.SCORE_SECOND_SALMON && this.score < Game.SCORE_SECOND_SALMON + 5 ) {
-                    if( this.salmon1 === null ){
-                        this.salmon1 = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
-                    }
-                }
-        
-                if ( !this.finished && this.score >= Game.SCORE_THIRD_SALMON && this.score < Game.SCORE_THIRD_SALMON + 5 ) {
-                    if( this.salmon2 === null ){
-                        this.salmon2 = new Salmon(canvas, mouse, gameFrame, ratioDevice);   
-                    }
-                }
-                
-         if( this.salmon ){
-             const player = this.player;
-             const salmon = this.salmon;
-             const dx = salmon.x - player.x;
-             const dy = salmon.y - player.y;
-             salmon.distance = Math.sqrt(dx*dx + dy*dy);
- 
-             if( salmon.nTurn >= 2 ){
-                 this.salmon = null;
-             }else {
-                 salmon.update();
-                 salmon.draw();
-     
-                 if( salmon.distance < salmon.radius + player.radius ){
-                     console.log('collision slalmon');
-                     this.score = this.score + 2;
-                     salmon.counted = true;
-                     this.salmon = null;
-                 } 
-             }  
-         }
 
-         if( this.salmon1){
+        if (!this.finished && this.score >= Game.SCORE_FIRST_SALMON && this.score < Game.SCORE_FIRST_SALMON + 3) {
+            if (this.salmon === null) {
+                this.salmon = new Salmon(canvas, mouse, gameFrame, ratioDevice);
+            }
+        }
+
+        if (!this.finished && this.score >= Game.SCORE_SECOND_SALMON && this.score < Game.SCORE_SECOND_SALMON + 3) {
+            if (this.salmon1 === null) {
+                this.salmon1 = new Salmon(canvas, mouse, gameFrame, ratioDevice);
+            }
+        }
+
+        if (!this.finished && this.score >= Game.SCORE_THIRD_SALMON && this.score < Game.SCORE_THIRD_SALMON + 3) {
+            if (this.salmon2 === null) {
+                this.salmon2 = new Salmon(canvas, mouse, gameFrame, ratioDevice);
+            }
+        }
+
+        if (this.salmon) {
+            const player = this.player;
+            const salmon = this.salmon;
+            const dx = salmon.x - player.x;
+            const dy = salmon.y - player.y;
+            salmon.distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (salmon.nTurn >= 2) {
+                salmon.finished = true;
+            } else {
+                salmon.update();
+                salmon.draw();
+
+                if (salmon.distance < salmon.radius + player.radius) {
+                    console.log('collision slalmon');
+                    this.score += 2;
+                    salmon.counted = true;
+                    //salmon.finished = true;
+                }
+            }
+        }
+
+        if (this.salmon1) {
             const player = this.player;
             const salmon = this.salmon1;
             const dx = salmon.x - player.x;
             const dy = salmon.y - player.y;
-            salmon.distance = Math.sqrt(dx*dx + dy*dy);
+            salmon.distance = Math.sqrt(dx * dx + dy * dy);
 
-            if( salmon.nTurn >= 2 ){
-                this.salmon1 = null;
-            }else {
+            if (salmon.nTurn >= 2) {
+                salmon.finished = true;
+            } else {
                 salmon.update();
                 salmon.draw();
-    
-                if( salmon.distance < salmon.radius + player.radius ){
+
+                if (salmon.distance < salmon.radius + player.radius) {
                     console.log('collision slalmon');
                     this.score = this.score + 2;
                     salmon.counted = true;
-                    this.salmon1 = null;
-                } 
-            }  
+                    //this.salmon1 = null;
+                }
+            }
         }
 
-        if( this.salmon2 ){
+        if (this.salmon2) {
             const player = this.player;
             const salmon = this.salmon2;
             const dx = salmon.x - player.x;
             const dy = salmon.y - player.y;
-            salmon.distance = Math.sqrt(dx*dx + dy*dy);
+            salmon.distance = Math.sqrt(dx * dx + dy * dy);
 
-            if( salmon.nTurn >= 2 ){
-                this.salmon2 = null;
-            }else {
+            if (salmon.nTurn >= 2)
+                salmon.finished = true;
+            else {
                 salmon.update();
                 salmon.draw();
-    
-                if( salmon.distance < salmon.radius + player.radius ){
-                    console.log('collision slalmon');
+
+                if (salmon.distance < salmon.radius + player.radius) {
                     this.score = this.score + 2;
                     salmon.counted = true;
-                    this.salmon2 = null;
-                } 
-            }  
+                    //this.salmon2 = null;
+                }
+            }
         }
 
         if (this.score >= Game.SCORE_TO_WHITELIST) {
-            //this.started = false;
-            //this.stopped = true;
-            //this.finished = true;
             this.winnerWhitelist = true;
-            //this.winner = true;
             this.winnerSound.play();
             this.winnerSound.isPlaying = false;
         }
 
         if (this.score >= Game.SCORE_TO_AIRDROP) {
-            //this.started = false;
-            //this.stopped = true;
             this.finished = true;
             this.winnerAirdrop = true;
             this.winner = true;
         }
-
     }
 
     updateGameFrameElements() {
