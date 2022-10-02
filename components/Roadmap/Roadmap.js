@@ -163,11 +163,11 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                
-                <a href="https://footmercato.net" target={"_blank"}>
-                <img loading="lazy" src="/extras/winnoandbees/img/game-preview.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img" />
+                <Link href="/extras/winnoandbees">
+                <a target={"_blank"}>
+                <img loading="lazy" src="/assets/img/Roadmap/game-preview.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img" />
                 </a>
-                
+                </Link>
               </div>
             </div>
           </li>

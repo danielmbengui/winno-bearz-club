@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { useTheme, } from '@mui/material/styles';
 import Link from 'next/link';
 import styleFAQ from "./FAQ.module.css";
@@ -70,9 +70,6 @@ const FAQ = ({links, contractInfo}) => {
         </Link>
         </div></>,
     }
-
-
-    
   ]
 
 

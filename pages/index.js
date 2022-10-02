@@ -6,7 +6,6 @@ import Features from '../components/Index/Features/Features';
 import Team from '../components/Index/Team/Team';
 import ContainerComponent from '../components/Container/ContainerComponent';
 
-
 export default function Home({contractInfo, links, config, rarity, images, rarities,}) {
   return (
       <ContainerComponent about={true} config={config} links={links}>
@@ -18,9 +17,5 @@ export default function Home({contractInfo, links, config, rarity, images, rarit
       </ContainerComponent>
   )
 }
-
-/*
-Essentially, getStaticProps allows you to tell Next.js: “Hey, this page has some data dependencies — so when you pre-render this page at build time, make sure to resolve them first!”
-*/
 
 

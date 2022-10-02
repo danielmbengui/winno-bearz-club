@@ -6,14 +6,14 @@ const winno_d_path = "/assets/img/Team/winno_d.png";
 
 const Team = () => {
   const theme = useTheme();
-  const discordImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/discord.svg" : "/assets/img/icons/social/white/discord.svg";
-  const twitterImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/twitter.svg" : "/assets/img/icons/social/white/twitter.svg";
-  const instagramImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/instagram.svg" : "/assets/img/icons/social/white/instagram.svg";
-  const telegramImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/telegram.svg" : "/assets/img/icons/social/white/telegram.svg";
-  const linkedinImg = theme.palette.mode === 'light' ? "/assets/img/icons/social/black/linkedin.svg" : "/assets/img/icons/social/white/linkedin.svg";
+  const discordImg = theme.palette.mode === 'light' ? "/assets/img/Promo/social/black/discord.svg" : "/assets/img/Promo/social/white/discord.svg";
+  const twitterImg = theme.palette.mode === 'light' ? "/assets/img/Promo/social/black/twitter.svg" : "/assets/img/Promo/social/white/twitter.svg";
+  const instagramImg = theme.palette.mode === 'light' ? "/assets/img/Promo/social/black/instagram.svg" : "/assets/img/Promo/social/white/instagram.svg";
+  const telegramImg = theme.palette.mode === 'light' ? "/assets/img/Promo/social/black/telegram.svg" : "/assets/img/Promo/social/white/telegram.svg";
+  const linkedinImg = theme.palette.mode === 'light' ? "/assets/img/Promo/social/black/linkedin.svg" : "/assets/img/Promo/social/white/linkedin.svg";
   const team = [
     { name: "Winno E", image_path: winno_e_path, sex: "Man", role: "Artist", club: "WinnoBearz Club", socials: { discord: "", twitter: "", } },
-    { name: "Winno D", image_path: winno_d_path, sex: "Man", role: "Developer", club: "WinnoBearz Club", socials: { linkedin: "https://linkedin.com/in/daniel-mbengui" } },
+    { name: "Winno D", image_path: winno_d_path, sex: "Man", role: "Developer", club: "WinnoBearz Club", socials: { linkedin: "" } },
   ]
   const styleBoxPerson = {
     backgroundColor: theme.palette.background.card,
