@@ -9,29 +9,20 @@ export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 export default function ToggleColorMode({_child}) {
     let _screenMode = 'dark';
 
-    const [mode, setMode] = useState();
-    const [modeStorage, setModeStorage] = useLocalStorage('screenMode', _screenMode);
+    const [mode, setMode] = useState(_screenMode);
     const [primaryColor, setPrimaryColor] = useState('rgb(var(--primary-decimal))');
     const [secondaryColor, setSecondaryColor] = useState('rgb(var(--secondary-decimal))');
 
     useEffect( () => {
-      //document.documentElement.setAttribute("data-theme", "dark");
-      //setModeStorage(mode);
-      //let screenMode = modeStorage;
-      let screenMode = 'light';
+      let screenMode = 'dark';
       if( window.localStorage.getItem('screenMode') !== null ){
         screenMode = window.localStorage.getItem('screenMode');
       }
 
-      //setMode(typeof(Storage) !== "undefined" ? (window.localStorage.getItem('screenMode') !== null ? window.localStorage.getItem('screenMode') : 'light') : 'light');
       document.documentElement.setAttribute("data-theme", screenMode);
       setMode(screenMode);
-      //setModeStorage(screenMode);
       setPrimaryColor('rgb(var(--primary-decimal))');
       setSecondaryColor('rgb(var(--secondary-decimal))');
-      
-      //console.log(screenMode, {MOOOODE: window.localStorage.getItem('screenMode')})
-      //console.log({UPDa_MODE:window.localStorage.getItem('screenMode')})
     }, [mode]);
 
     const black = "rgb(" + 0 + "," + 0 + "," + 0 + ")"; // black
@@ -41,63 +32,31 @@ export default function ToggleColorMode({_child}) {
 
     const red = "rgb(255,0,0)";
     const orange = "rgb(255,165,0)";
-
-
     const green = "rgb(0,128,0)";
-
 
     const blueBabytoshi = "rgb(" + 20 + "," + 147 + "," + 239 + ")";// blue babytoshi
     const orangeBabytoshi = "rgb(" + 247 + "," + 147 + "," + 27 + ")"; // orange babytoshi
     const yellow = "#FFFF00";
 
-
     const grey = "var(--grey)";
     const greyDark = 'var(--grey-dark)';
     const blueTwitter = 'rgb(29, 155, 240)';
 
-    
-    //const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary');
-    //const primaryColor = "rgb(" + 246 + "," + 224 + "," + 94 + ")";// blue babytoshi
-    //const primaryColor = "rgb(" + 20 + "," + 147 + "," + 239 + ")";// blue babytoshi
-
-    //const primaryColor = 'rgb(var(--primary-decimal))';
-
-    //246,224,94;
-    //const primaryColor = 'rgb(var(--primary-decimal))';
     const primaryDecimal = 'var(--primary-decimal)';
-
-    //const secondaryColor = 'rgb(var(--secondary-decimal))';
-    const secondaryDecimal = 'var(--secondary-decimal)';
-
-    const thirdColor = 'rgb(var(--third-decimal))';
-    const thirdDecimal = 'var(--third-decimal)';
-
-
-
     const brownWinno = 'var(--brown-winno)';
     const brownWinnoDecimal = 'var(--brown-winno-decimal)';
-
-
     const greyLight = 'var(--grey-light)';
 
     const shadowLightDecimal = '37, 44, 97';
     const shadowParchmentDecimal = '136, 144, 195';
-    //const greyDark = "#202020";
-
-
     const greyDarkEthereum = 'var(--grey-dark-ethereum)';
 
     const colorMode = useMemo(
       () => ({
         toggleColorMode: () => {
-          let newScreenMode = mode === 'light' ? 'dark' : 'light';
-          setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+          let newScreenMode = mode === 'dark' ? 'light' : 'dark';
+          setMode((prevMode) => (prevMode === 'dark' ? 'light' : 'dark'));
           document.documentElement.setAttribute("data-theme", newScreenMode);
-          //setModeStorage(newScreenMode);
-          //window.localStorage.setItem('screenMode', newScreenMode);
-          //console.log({MOOOODE_NOW: mode === 'light' ? 'dark' : 'light'})
-          //document.documentElement.setAttribute("data-theme", window.localStorage.getItem('screenMode') === 'light' ? 'dark' : 'light');
-          //console.log({UPDa_MODE:window.localStorage.getItem('screenMode')})
         },
       }),
       [],

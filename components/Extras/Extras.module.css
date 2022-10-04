@@ -1,4 +1,4 @@
-.team-02__list {
+.extra-02__list {
 	padding: 0;
 	margin: 0;
 	list-style: none;
@@ -9,7 +9,7 @@
 	margin-bottom: -40px
 }
 
-.team-02__person {
+.extra-02__person {
 	cursor: pointer;
 	width: 500px;
 	/*padding: 25px 20px 10px;
@@ -19,7 +19,7 @@
 	padding: 1vw;
 }
 
-.team-02__person_img_box {
+.extra-02__person_img_box {
 	width: 100%;
 	height: 100%;
 	/*margin-bottom: 15px;
@@ -27,37 +27,25 @@
 	margin-left: auto;
 	margin-right: auto;
 	/*border-radius: 50%;*/
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-    /*padding: 1.5vh;
+	/*padding: 1.5vh;
 	border: 5px black solid;
 	*/
 }
 
-.team-02__person_img {
+.extra-02__person_img {
 	max-width: 100%;
 	max-height: 100%
 }
 
-.team-02__person_name {
-	margin-bottom: 15px;
-	letter-spacing: 0.02em;
-	font-size: 12px;
-	font-weight: 700;
-	/*text-transform: uppercase;*/
-	text-align: justify;
-	padding: 1.5vw;
-	font-family: 'Press Start 2P', sans-serif;
-}
-
-.team-02__person_tag {
+.extra-02__person_tag {
 	background-color: transparent;
 }
 
-.team-role {
-	color:var(--yellow-team);
+.extra-role {
+	color: var(--yellow-team);
 	font-size: xx-large;
 	font-weight: 700;
 	text-transform: uppercase;
@@ -69,8 +57,9 @@
 }
 
 @media only screen and (max-width: 768px) {
+
 	/* For mobile phones: */
-	.team-02__person {
+	.extra-02__person {
 		cursor: pointer;
 		width: 250px;
 		/*padding: 25px 20px 10px;*/
@@ -80,27 +69,7 @@
 		padding: 0.5vw;
 	}
 
-	.team-role {
+	.extra-role {
 		font-size: larger;
 	}
-  }
-
-.team-02__person_about {
-	margin-bottom: 15px;
-	font-size: 14px;
-	line-height: 1.6;
-}
-
-.team-02__person_social {
-	margin-bottom: 15px
-}
-
-.team-02__person_social .social-buttons__link {
-	opacity: 0.2
-}
-
-.team-02__person_social .social-buttons__link:hover {
-	opacity: 0.5;
-	-webkit-transform: translateY(-2px);
-	transform: translateY(-2px)
 }

@@ -1,34 +1,40 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+const PATH_PAGE_IMG = "/assets/img/Gallery/";
+const myLoader = ({ src, width, quality }) => {
+  return `${PATH_PAGE_IMG}${src}?w=${width}&q=${quality || 75}`
+}
 
 const gallery =
   [
     {
-      src: "/assets/img/Gallery/brown.png", alt: "brown",
+      src: "brown.png", alt: "brown",
     },
     {
-      src: "/assets/img/Gallery/grey.png", alt: "grey",
+      src: "grey.png", alt: "grey",
     },
     {
-      src: "/assets/img/Gallery/black.png", alt: "black",
+      src: "black.png", alt: "black",
     },
     {
-      src: "/assets/img/Gallery/green.png", alt: "green",
+      src: "green.png", alt: "green",
     },
     {
-      src: "/assets/img/Gallery/blue.png", alt: "blue",
+      src: "blue.png", alt: "blue",
     },
     {
-      src: "/assets/img/Gallery/white.png", alt: "white",
+      src: "white.png", alt: "white",
     },
     {
-      src: "/assets/img/Gallery/orange.png", alt: "orange",
+      src: "orange.png", alt: "orange",
     },
     {
-      src: "/assets/img/Gallery/pink.png", alt: "pink",
+      src: "pink.png", alt: "pink",
     },
     {
-      src: "/assets/img/Gallery/red.png", alt: "red",
+      src: "red.png", alt: "red",
     },
   ];
 
@@ -52,8 +58,17 @@ const Gallery = ({ links }) => {
                 gallery.map((img, index) => {
                   return(
                   <span key={index} className="photos-01__person">
-                    <div className="photos-01__image_box photos-01__link">
-                      <img loading="lazy" src={img.src} alt={img.alt} className="photos-01__image" />
+                    <div >
+                    <Image
+                          loader={myLoader}
+                          priority
+                          layout="responsive"
+                          src={img.src}
+                          quality={100}
+                          alt={img.alt}
+                          width={'100%'}
+                          height={'100%'}
+                        />
                     </div>
                   </span>
                   )
