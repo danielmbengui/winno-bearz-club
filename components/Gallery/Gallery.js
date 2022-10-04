@@ -56,10 +56,10 @@ const Gallery = ({ links }) => {
             <div className="photos-01__images_row">
               {
                 gallery.map((img, index) => {
-                  return(
-                  <span key={index} className="photos-01__person">
-                    <div >
-                    <Image
+                  return (
+                    <span key={index} className="photos-01__person">
+                      <div >
+                        <Image
                           loader={myLoader}
                           priority
                           layout="responsive"
@@ -69,12 +69,12 @@ const Gallery = ({ links }) => {
                           width={'100%'}
                           height={'100%'}
                         />
-                    </div>
-                  </span>
+                      </div>
+                    </span>
                   )
                 })
               }
-              </div>
+            </div>
             <div className="bottom_cta">
               <div className="buttons-set">
                 <ul className="buttons-set__list">
