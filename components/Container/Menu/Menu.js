@@ -10,13 +10,19 @@ import Brightness2Icon from '@mui/icons-material/Brightness2';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Switch from '@mui/material/Switch';
 import { updateScreenMode, } from "../../../redux/user/userActions";
+import { useLocalStorage } from '../../Storage/LocalStorage';
+
 const logoPath = "/assets/logo.png";
+const STORAGE_SCREEN_MODE = 'screenMode';
+const STORAGE_ADVERTISE = 'showAdvertise';
+const STORAGE_ADVERTISE_SESSION = 'showAdvertiseSession';
 
 const Menu = ({ pages, isMenuGame }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const colorMode = useContext(ColorModeContext);
   const [mode, setMode] = useState(theme.palette.mode);
+  //const [mode, setMode] = useLocalStorage(STORAGE_SCREEN_MODE, 'dark');
   const [checked, setChecked] = useState(theme.palette.mode !== 'light' ? true : false);
 
   const styleItem = {
@@ -35,13 +41,15 @@ const Menu = ({ pages, isMenuGame }) => {
   }
 
   useEffect(() => {
+    console.log('MOOODE', theme.palette.mode)
     let _mode = theme.palette.mode;
-    setMode(_mode.toUpperCase().charAt(0) + _mode.slice(1));
+    setMode(_mode);
     setChecked(_mode !== 'light' ? true : false);
   }, [theme.palette.mode]);
 
   const onChangeMode = (event) => {
     colorMode.toggleColorMode();
+    setMode(event.target.checked ? 'dark' : 'light');
     dispatch(updateScreenMode(event.target.checked ? 'dark' : 'light'));
   }
 

@@ -3,7 +3,7 @@ import { useTheme, } from '@mui/material/styles';
 import Link from 'next/link';
 import styleHeader from './Header.module.css';
 const advertise = "/assets/img/Header/advertise.png";
-const advertise_dark = "/assets/img/Header/advertiseBlack.png";
+const advertise_dark = "/assets/img/Header/advertise_dark.png";
 
 const Header = ({contractInfo}) => {
   const theme = useTheme();

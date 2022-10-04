@@ -1,26 +1,32 @@
 import React, { useState,useMemo, createContext, useEffect } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useLocalStorage } from './Storage/LocalStorage';
 
 //import App from './App';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export default function ToggleColorMode({_child}) {
-    let _screenMode = 'light';
+    let _screenMode = 'dark';
 
-    const [mode, setMode] = useState(_screenMode);
+    const [mode, setMode] = useState();
+    const [modeStorage, setModeStorage] = useLocalStorage('screenMode', _screenMode);
     const [primaryColor, setPrimaryColor] = useState('rgb(var(--primary-decimal))');
     const [secondaryColor, setSecondaryColor] = useState('rgb(var(--secondary-decimal))');
 
     useEffect( () => {
       //document.documentElement.setAttribute("data-theme", "dark");
+      //setModeStorage(mode);
+      //let screenMode = modeStorage;
       let screenMode = 'light';
-      if( typeof(Storage) !== "undefined" && window.localStorage.getItem('screenMode') !== null ){
+      if( window.localStorage.getItem('screenMode') !== null ){
         screenMode = window.localStorage.getItem('screenMode');
       }
+
       //setMode(typeof(Storage) !== "undefined" ? (window.localStorage.getItem('screenMode') !== null ? window.localStorage.getItem('screenMode') : 'light') : 'light');
       document.documentElement.setAttribute("data-theme", screenMode);
       setMode(screenMode);
+      //setModeStorage(screenMode);
       setPrimaryColor('rgb(var(--primary-decimal))');
       setSecondaryColor('rgb(var(--secondary-decimal))');
       
@@ -87,7 +93,8 @@ export default function ToggleColorMode({_child}) {
           let newScreenMode = mode === 'light' ? 'dark' : 'light';
           setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
           document.documentElement.setAttribute("data-theme", newScreenMode);
-          //window.localStorage.setItem('screenMode', screenMode);
+          //setModeStorage(newScreenMode);
+          //window.localStorage.setItem('screenMode', newScreenMode);
           //console.log({MOOOODE_NOW: mode === 'light' ? 'dark' : 'light'})
           //document.documentElement.setAttribute("data-theme", window.localStorage.getItem('screenMode') === 'light' ? 'dark' : 'light');
           //console.log({UPDa_MODE:window.localStorage.getItem('screenMode')})

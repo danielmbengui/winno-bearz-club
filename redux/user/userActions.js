@@ -1,4 +1,3 @@
-import React, {useEffect} from "react";
 import Web3 from "web3";
 
 // This function detects most providers injected at window.ethereum
@@ -108,8 +107,8 @@ export const updateUser = () => {
             window.localStorage.setItem(STORAGE_SCREEN_MODE, _screenMode);
           }
           _screenMode = window.localStorage.getItem(STORAGE_SCREEN_MODE);
-          //window.localStorage.clear();
         }
+        
 
         let _showAdvertise = true;
         if( typeof(Storage) !== "undefined" ){
@@ -214,6 +213,7 @@ export const connectUser = () => {
 export const updateScreenMode = (_screenMode) => {
   return async (dispatch) => {
     //let _isConnected = _account !== null ? true: false;
+    //window.localStorage.removeItem(STORAGE_SCREEN_MODE);
     if( typeof(Storage) !== "undefined" ){
       window.localStorage.setItem(STORAGE_SCREEN_MODE, _screenMode);
     }
