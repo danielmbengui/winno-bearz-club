@@ -1,36 +1,31 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 import { useTheme, } from '@mui/material/styles';
 import {GoToMintPageButton} from "../Buttons/Buttons";
-import {addressesJSON} from "../../redux/config/constants_addresses";
+
+const PATH_PAGE_IMG = "/assets/img/Roadmap/";
+const myLoader = ({ src, width, quality }) => {
+  return `${PATH_PAGE_IMG}${src}?w=${width}&q=${quality || 75}`
+}
 
 const Roadmap = ({contractInfo, links}) => {
   const theme = useTheme();
-  const listings = theme.palette.mode === 'light' ? '/assets/img/others/listings.gif' : '/assets/img/others/listings_black.gif';
+  const listings = theme.palette.mode === 'light' ? 'listings.gif' : 'listings-black.gif';
+  const polygonscanVerif = 'polygonscan-verif.png';
+  const codeRandomWinner = 'code-random-winner.png';
+  const socialWinno = 'social-winno.gif';
+  const gamePreview = 'game-preview.gif';
+  const gamePreviewLink = '/extras/winnoandbees';
 
   const styleLink = {
     color:theme.palette.mode === 'light' ? '' : theme.palette.primary.main,
-    //textDecoration: 'none',
   }
 
   const styleBubble = {
-    //border: '1px solid green',
 	  backgroundColor: theme.palette.background.default,
     color:theme.palette.text.primary
   }
-  //const ok = JSON.parse(addresses);
-  //console.log({OK: addressesJSON})
-  for(var i in addressesJSON){
-    var key = i;
-    var val = addressesJSON[i];
-    for(var j in val){
-        var sub_key = j;
-        var sub_val = val[j];
-        //console.log({KEY: sub_key + " / " + sub_val});
-        //console.log({VALUE: sub_val});
-    }
-  }
-  //console.log({LENGTH: addressesJSON.length});
 
     return(
         <div className="page-component__bg_image_box" id="steps-01-71881">
@@ -82,7 +77,17 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <img loading="lazy" src={listings} alt="Hometwo" data-width="1500" data-height="1024" className="steps-01__img  js-lightbox-single-image " />              
+              <Image
+              className="steps-01__img js-lightbox-single-image"
+              data-width="1500" data-height="1024"
+      loader={myLoader}
+      layout="responsive"
+      src={listings}
+      quality={100}
+      alt="Listings"
+      width={1500}
+      height={1024}
+    />
               </div>
             </div>
           </li>
@@ -104,9 +109,20 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <a href={contractInfo.scan.link_code} target="_blank">
-                <img loading="lazy" src="/assets/polygonscanVerif.png" alt="Image code random winner" data-width="256" data-height="256" className="steps-01__img " />
+                <Link href={contractInfo.scan.link_code}>
+                <a target="_blank">
+                <Image
+              className="steps-01__img"
+      loader={myLoader}
+      layout="responsive"
+      src={polygonscanVerif}
+      quality={100}
+      alt="Polygonscan Verification"
+      width={256}
+      height={'100%'}
+    />
                 </a>
+                </Link>
               </div>
             </div>
           </li>
@@ -123,9 +139,20 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <a href={contractInfo.scan.link_code} target="_blank">
-                <img loading="lazy" src="/assets/img/others/code_random_winner.png" alt="Image code random winner" data-width="1500" data-height="1024" className="steps-01__img js-lightbox-single-image " />
+                <Link href={contractInfo.scan.link_code}>
+                <a target="_blank">
+                <Image
+              className="steps-01__img"
+      loader={myLoader}
+      layout="responsive"
+      src={codeRandomWinner}
+      quality={100}
+      alt="Code for the WinnoLottery"
+      width={1500}
+      height={1024}
+    />
                 </a>
+                </Link>
               </div>
             </div>
           </li>
@@ -143,7 +170,16 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <img loading="lazy" src="/assets/img/others/three_winno.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img" />
+              <Image
+              className="steps-01__img"
+      loader={myLoader}
+      layout="responsive"
+      src={socialWinno}
+      quality={100}
+      alt="SocialWinno"
+      width={1500}
+      height={1024}
+    />
               </div>
             </div>
           </li>
@@ -161,9 +197,18 @@ const Roadmap = ({contractInfo, links}) => {
                 </div>
               </div>
               <div className="steps-01__img_box">
-                <Link href="/extras/winnoandbees">
+                <Link href={gamePreviewLink}>
                 <a target={"_blank"}>
-                <img loading="lazy" src="/assets/img/Roadmap/game-preview.gif" alt="Homeone" data-width="1500" data-height="1024" className="steps-01__img" />
+                <Image
+              className="steps-01__img"
+      loader={myLoader}
+      layout="responsive"
+      src={gamePreview}
+      quality={100}
+      alt="SocialWinno"
+      width={1500}
+      height={1024}
+    />
                 </a>
                 </Link>
               </div>
