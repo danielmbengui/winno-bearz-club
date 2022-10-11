@@ -25,6 +25,7 @@ export const PATH_IMG_SALMON = `${PATH_IMG}salmon-sprite.png`;
 
 export const PATH_MUSIC_GAME = `${PATH_MUSIC}music-game.mp3`;
 export const PATH_MUSIC_TOUCH_BEE = `${PATH_MUSIC}music-bee-touch.mp3`;
+export const PATH_MUSIC_TOUCH_SALMON = `${PATH_MUSIC}music-salmon-touch.mp3`;
 export const PATH_MUSIC_TOUCH_ENEMY = `${PATH_MUSIC}music-belzebearz-touch.mp3`;
 export const PATH_MUSIC_WINNER = `${PATH_MUSIC}music-winner.mp3`;
 export const PATH_MUSIC_GAME_OVER = `${PATH_MUSIC}music-game-over.mp3`;

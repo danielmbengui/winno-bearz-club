@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged, signInWithPopup, signOut, TwitterAuthProvi
 import DesktopTwitterStepper from './DesktopTwitterStepper/DesktopTwitterStepper';
 
 const SavePlayerGame = ({ player, handlePlayer, handleShowRestartButton }) => {
-    const [activeStep, setActiveStep] = useState(2);
+    const [activeStep, setActiveStep] = useState(0);
     const [processingFollower, setProcessingFollower] = useState(false);
     const [confirmingSave, setConfirmingSave] = useState(false);
     const [errorWallet, setErrorWallet] = useState({ error: false, message: '' });
@@ -26,7 +26,6 @@ const SavePlayerGame = ({ player, handlePlayer, handleShowRestartButton }) => {
     }, []);
 
     useEffect(async () => {
-        /*
         if (user) {
             setActiveStep(1);
             if (player.twitter.isFollower) {
@@ -39,7 +38,6 @@ const SavePlayerGame = ({ player, handlePlayer, handleShowRestartButton }) => {
         }else{
             setActiveStep(0);
         }
-        */
     }, [player.twitter.isFollower, player.walletAddress, user]);
 
     onAuthStateChanged(auth, async (user) => {

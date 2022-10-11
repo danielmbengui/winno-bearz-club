@@ -3,12 +3,11 @@ import { useTheme, } from '@mui/material/styles';
 import Link from 'next/link';
 import styleHeader from './Header.module.css';
 
-
 const Header = ({contractInfo}) => {
   const theme = useTheme();
   const textColor = theme.palette.text.primary;
   const advertise = "/assets/img/Header/advertise.png";
-  const advertise_dark = "/assets/img/Header/advertiseBlack.png";
+  const advertise_dark = "/assets/img/Header/advertiseDark.png";
 
     return(
         <div className={`page-component__bg_image_box page-component__bg_image_box--dark-bg bg-${theme.palette.mode === 'light' ? 'white' : 'black'}-color page-component__bg_image_box--has-image`} id="header-29-306531" 

@@ -12,12 +12,11 @@ class Game {
 
     static MAX_LIFE = 3;
     static MAX_SPEED = 5;
-    static SCORE_TO_WHITELIST = 50;
-    static SCORE_TO_AIRDROP = 70;
+    static SCORE_TO_WHITELIST = 30;
+    static SCORE_TO_AIRDROP = 50;
+    static SCORE_MAX = 100;
     static SCORE_SECOND_ENEMY = Game.SCORE_TO_AIRDROP * 30 / 100; // 30% of the game
-    //static SCORE_SECOND_ENEMY = 5; // 30% of the game
     static SCORE_THIRD_ENEMY = Game.SCORE_TO_AIRDROP * 70 / 100; // 70% of the game
-    //static SCORE_THIRD_ENEMY = 10; // 70% of the game
     static TIME_BACKGROUND_ENEMY = 3000;
     static SCORE_FIRST_SALMON = Math.ceil(Game.SCORE_TO_AIRDROP * 25 / 100); // 25% of the game
     static SCORE_SECOND_SALMON = Math.ceil(Game.SCORE_TO_AIRDROP * 50 / 100); // 50% of the game
@@ -41,6 +40,7 @@ class Game {
 
     static MUSIC_GAME = 'musicGame';
     static MUSIC_TOUCH_BEE = 'musicTouchBee';
+    static MUSIC_TOUCH_SALMON = 'musicTouchSalmon';
     static MUSIC_TOUCH_ENEMY = 'musicTouchEnemy';
     static MUSIC_WINNER = 'musicWinner';
     static MUSIC_GAME_OVER = 'musicGameOver';
@@ -52,6 +52,8 @@ class Game {
         this.ratioDevice = ratioDevice;
         this.animate = animate;
         this.unlimitedGame = unlimitedGame;
+
+        this.playSoundWinner = false;
 
         this.gameFrame = 0;
         this.score = 0;
@@ -87,6 +89,7 @@ class Game {
 
         this.musicSound = new Sound(Game.MUSIC_GAME);
         this.beeTouchSound = new Sound(Game.MUSIC_TOUCH_BEE);
+        this.salmonTouchSound = new Sound(Game.MUSIC_TOUCH_SALMON);
         this.enemyTouchSound = new Sound(Game.MUSIC_TOUCH_ENEMY);
         this.winnerSound = new Sound(Game.MUSIC_WINNER);
         this.gameOverSound = new Sound(Game.MUSIC_GAME_OVER);
@@ -152,15 +155,15 @@ class Game {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.handleBackground();
 
-        if (this.gameOver) {
+        if (this.winner) {
+            winnerSound.play();
+            winnerSound.isPlaying = false;
+        } else if (this.gameOver) {
             gameOverSound.play();
             gameOverSound.isPlaying = false;
         }
 
-        if (this.winner) {
-            winnerSound.play();
-            winnerSound.isPlaying = false;
-        }
+        
         this.handleLife();
     }
 
@@ -233,17 +236,19 @@ class Game {
             ctx.drawImage(imgScore, LEVEL.x1 + 20 + LEVEL.spriteWidth / 3 / ratioDevice, LEVEL.y + 10, LEVEL.spriteHeight / 3 / ratioDevice, LEVEL.spriteHeight / 3 / ratioDevice);
             ctx.fillStyle = 'red';
             ctx.fillText(score, LEVEL.x1 + 30 + LEVEL.spriteWidth / 3 / ratioDevice + LEVEL.spriteHeight / 3 / ratioDevice, ratioDevice > 1 ? LEVEL.spriteHeight / 3 / ratioDevice + 7 : (LEVEL.spriteHeight / 3 / ratioDevice));
+        }else{
+            if (this.winnerWhitelist || this.winnerAirdrop) {
+                this.winner = true;
+                const imgWinner = this.imgWinner;
+                let imgWidth = imgWinner.width / ratioDevice;
+                let imgHeight = imgWinner.height / ratioDevice;
+                ctx.drawImage(imgWinner, (canvas.width - imgWidth) / 2, (canvas.height - imgHeight) / 2, imgWidth, imgHeight);
+            } else if (this.gameOver) {
+                const imgGameOver = this.imgGameOver;
+                ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
+            }
         }
-
-        if (this.gameOver) {
-            const imgGameOver = this.imgGameOver;
-            ctx.drawImage(imgGameOver, 0, 0, canvas.width, canvas.height);
-        } else if (this.winner) {
-            const imgWinner = this.imgWinner;
-            let imgWidth = imgWinner.width / ratioDevice;
-            let imgHeight = imgWinner.height / ratioDevice;
-            ctx.drawImage(imgWinner, (canvas.width - imgWidth) / 2, (canvas.height - imgHeight) / 2, imgWidth, imgHeight);
-        }
+        
     }
 
     playerUpdate() {
@@ -356,26 +361,44 @@ class Game {
                         bee.update();
                         bee.draw();
                         beesArray.splice(i, 1);
-/*
-                        if (this.score === Game.SCORE_SECOND_ENEMY || this.score === Game.SCORE_THIRD_ENEMY) {
-                            this.enemyCame = true;
-                            setTimeout(() => {
-                                this.enemyCame = false;
-                            }, Game.TIME_BACKGROUND_ENEMY);
-                        }
-                        */
-
-                        if (!this.unlimitedGame) {
-                            if (this.score >= Game.SCORE_TO_WHITELIST) {
+                        if( !this.unlimitedGame){
+                            if (this.score == Game.SCORE_TO_WHITELIST) {
                                 this.winnerWhitelist = true;
-                                this.winnerSound.play();
-                                this.winnerSound.isPlaying = false;
+                                this.playSoundWinner = true;
+                                setTimeout(() => {
+                                    this.playSoundWinner = false;
+                                }, 1000);
                             }
-
+    
                             if (this.score >= Game.SCORE_TO_AIRDROP) {
                                 this.finished = true;
                                 this.winnerAirdrop = true;
-                                this.winner = true;
+                                this.playSoundWinner = true;
+                                setTimeout(() => {
+                                    this.playSoundWinner = false;
+                                }, 1000);
+                            }
+    
+                            if(this.playSoundWinner){
+                                this.playSoundWinner = true;
+                                this.winnerSound.play();
+                                this.winnerSound.isPlaying = false;
+                            }
+                        }else {
+                            if (this.score >= Game.SCORE_MAX) {
+                                this.finished = true;
+                                this.winnerWhitelist = true;
+                                this.winnerAirdrop = true;
+                                this.playSoundWinner = true;
+                                setTimeout(() => {
+                                    this.playSoundWinner = false;
+                                }, 1000);
+                            }
+    
+                            if(this.playSoundWinner){
+                                this.playSoundWinner = true;
+                                this.winnerSound.play();
+                                this.winnerSound.isPlaying = false;
                             }
                         }
                     }
@@ -395,6 +418,7 @@ class Game {
         const gameFrame = this.gameFrame;
         const ratioDevice = this.ratioDevice;
         const salmonsArray = this.salmonsArray;
+        const salmonTouchSound = this.salmonTouchSound;
 
         if (!this.finished && salmonsArray.length == 0
             && this.score >= Game.SCORE_FIRST_SALMON && this.score <= Game.SCORE_FIRST_SALMON + 3) {
@@ -430,12 +454,52 @@ class Game {
                     salmon.draw();
 
                     if (salmon.distance < salmon.radius + player.radius) {
-                        console.log('collision slalmon');
                         this.score += 2;
+                        salmonTouchSound.play();
+                        salmonTouchSound.isPlaying = false;
                         salmon.counted = true;
                         salmon.finished = true;
+                        if(!this.unlimitedGame){
+                            if (this.score === Game.SCORE_TO_WHITELIST || this.score === Game.SCORE_TO_WHITELIST + 1) {
+                                this.winnerWhitelist = true;
+                                this.playSoundWinner = true;
+                                setTimeout(() => {
+                                    this.playSoundWinner = false;
+                                }, 1000);
+                            }
+    
+                            if (this.score >= Game.SCORE_TO_AIRDROP) {
+                                this.finished = true;
+                                this.winnerAirdrop = true;
+                                this.playSoundWinner = true;
+                                setTimeout(() => {
+                                    this.playSoundWinner = false;
+                                }, 1000);
+                            }
+    
+                            if(this.playSoundWinner){
+                                this.playSoundWinner = true;
+                                this.winnerSound.play();
+                                this.winnerSound.isPlaying = false;
+                            }
+                        }else{
+                            if (this.score >= Game.SCORE_MAX) {
+                                this.finished = true;
+                                this.winnerWhitelist = true;
+                                this.winnerAirdrop = true;
+                                this.playSoundWinner = true;
+                                setTimeout(() => {
+                                    this.playSoundWinner = false;
+                                }, 1000);
+                            }
+    
+                            if(this.playSoundWinner){
+                                this.playSoundWinner = true;
+                                this.winnerSound.play();
+                                this.winnerSound.isPlaying = false;
+                            }
+                        }
                     }
-
                 }
             }
         }
@@ -493,7 +557,6 @@ class Game {
             salmon.gameFrame = this.gameFrame;
         }
     }
-
 
     handleGame() {
         this.animate();

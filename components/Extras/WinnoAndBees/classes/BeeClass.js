@@ -2,7 +2,6 @@ import Game from "./GameClass";
 
 class Bee {
     static IMG_BEE = 'imgBee';
-
     constructor(canvas, mouse, gameFrame, ratioDevice) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');

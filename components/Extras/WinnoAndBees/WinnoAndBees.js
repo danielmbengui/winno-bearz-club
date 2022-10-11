@@ -159,11 +159,9 @@ const WinnoAndBees = () => {
 
     const startGame = () => {
         showComponentGame();
-
         if (isMobile()) {
             openFullscreen();
         }
-
         const canvas = refPlayground.current;
         const ctx = canvas.getContext('2d');
         canvas.width = isMobile() ? Game.IDEAL_MOBILE_WIDTH : Game.IDEAL_DESKTOP_WIDTH;
@@ -209,7 +207,6 @@ const WinnoAndBees = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             game.gameFrame++;
             game.updateGameFrameElements();
-
             game.handleBackground();
             game.handleLife();
             game.playerUpdate();
@@ -234,10 +231,7 @@ const WinnoAndBees = () => {
                 game.finishGame();
 
                 const _player_copy = JSON.parse(JSON.stringify(player));
-                if (game.gameOver) {
-                    _player_copy.nLooses += 1;
-                    showComponentGameFinish();
-                } else if (game.winner) {
+                if (game.winner) {
                     _player_copy.nWins += 1;
                     if (!player.whitelisted && game.winnerWhitelist)
                         _player_copy.whitelisted = true;
@@ -245,6 +239,9 @@ const WinnoAndBees = () => {
                         _player_copy.airdropped = true;
                         _player_copy.unlimitedGame = true;
                     }
+                }else if (game.gameOver) {
+                    _player_copy.nLooses += 1;
+                    showComponentGameFinish();
                 }
                 _player_copy.nGames += 1;
                 const playerJSON = await readPlayerJson(_player_copy);

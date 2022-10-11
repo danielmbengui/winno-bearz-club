@@ -9,7 +9,7 @@ import { PATH_IMG_BACKGROUND, PATH_IMG_BACKGROUND1, PATH_IMG_BACKGROUND2,
     PATH_IMG_BACKGROUND3, PATH_IMG_BEE, PATH_IMG_ENEMY1, PATH_IMG_ENEMY2, PATH_IMG_ENEMY3, 
     PATH_IMG_GAME_OVER, PATH_IMG_LIFE0, PATH_IMG_LIFE1, PATH_IMG_LIFE2, PATH_IMG_LIFE3, PATH_IMG_PLAYER, 
     PATH_IMG_PLAYER_TOUCH, PATH_IMG_SALMON, PATH_IMG_SCORE, PATH_IMG_WINNER,PATH_MUSIC_GAME, 
-    PATH_MUSIC_GAME_OVER, PATH_MUSIC_TOUCH_BEE, PATH_MUSIC_TOUCH_ENEMY, PATH_MUSIC_WINNER} from './constants';
+    PATH_MUSIC_GAME_OVER, PATH_MUSIC_TOUCH_BEE, PATH_MUSIC_TOUCH_ENEMY, PATH_MUSIC_TOUCH_SALMON, PATH_MUSIC_WINNER} from './constants';
 
 const PlayGroundGame = () => {
     return (
@@ -44,6 +44,10 @@ const PlayGroundGame = () => {
 
             <audio id={Game.MUSIC_TOUCH_BEE}>
                 <source src={PATH_MUSIC_TOUCH_BEE} type="audio/mp3" />
+            </audio>
+
+            <audio id={Game.MUSIC_TOUCH_SALMON}>
+                <source src={PATH_MUSIC_TOUCH_SALMON} type="audio/mp3" />
             </audio>
 
             <audio id={Game.MUSIC_TOUCH_ENEMY}>
