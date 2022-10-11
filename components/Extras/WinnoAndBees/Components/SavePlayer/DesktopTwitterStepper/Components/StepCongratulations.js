@@ -4,7 +4,7 @@ import styleStepCongratulations from "./StepCongratulations.module.css";
 import { Check } from '@mui/icons-material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Stack from '@mui/material/Stack';
-import Game from '../../../../Classes/GameClass';
+import Game from '../../../../classes/GameClass';
 
 const StepCongratulations = ({ player }) => {
 

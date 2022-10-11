@@ -8,7 +8,7 @@ import MobileTwitterStepper from './MobileTwitterStepper/MobileTwitterStepper';
 import { getAuth, onAuthStateChanged, signInWithPopup, signOut, TwitterAuthProvider } from 'firebase/auth';
 import DesktopTwitterStepper from './DesktopTwitterStepper/DesktopTwitterStepper';
 
-const SavePlayer = ({ player, handlePlayer }) => {
+const SavePlayer = ({ player, handlePlayer, handleShowRestartButton }) => {
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(2);
     const [processingFollower, setProcessingFollower] = useState(false);

@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import { Grid } from "@mui/material";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import styleStepCongratulations from "./StepCongratulations.module.css";
 import { Check } from '@mui/icons-material';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Stack from '@mui/material/Stack';
-import Game from '../../../../Classes/GameClass';
+import Game from '../../../../classes/GameClass';
 
 const StepCongratulations = ({player}) => {
     return (

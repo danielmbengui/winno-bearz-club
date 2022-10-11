@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styleWinnoAndBees from "./WinnoAndBees.module.css";
 import Description from './Components/Description/Description';
-import Game from './Classes/GameClass';
+import Game from './classes/GameClass';
 import Error from './Components/Error/Error';
 import Restart from './Components/Restart/Restart';
 import Start from './Components/Start/Start';
@@ -9,8 +9,7 @@ import { isMobile, readPlayerJson, readPlayerStorage, updatePlayerJsonByTwitterU
 import { DEFAULT_PLAYER } from './LIB/constants';
 import InfoPlayer from './Components/InfoPlayer/InfoPlayer';
 import SavePlayer from './Components/SavePlayer/SavePlayer';
-import PlayGround from './Components/Playground/Playground';
-
+import PlayGround from './Components/PlayGround/PlayGround';
 
 const WinnoAndBees = () => {
     const refDivDescription = useRef();
@@ -103,11 +102,11 @@ const WinnoAndBees = () => {
             || document.webkitFullscreenEnabled;
 
         if (fullscreenEnabled) {
-            const canvas = refPlayground.current;
+            const canvas = refPlayground;
             const requestFullscreen =
-                canvas.requestFullscreen ||
-                canvas.mozRequestFullscreen ||
-                canvas.webkitRequestFullScreen;
+                canvas.current.requestFullscreen ||
+                canvas.current.mozRequestFullscreen ||
+                canvas.current.webkitRequestFullScreen;
             requestFullscreen()
                 .then(() => {
                     setIsFullScreen(true);

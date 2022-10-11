@@ -1,9 +1,9 @@
 import React from 'react';
-import Bee from '../../Classes/BeeClass';
-import Enemy from '../../Classes/EnemyClass';
-import Game from '../../Classes/GameClass';
-import Player from '../../Classes/PlayerClass';
-import Salmon from '../../Classes/SalmonClass';
+import Bee from '../../classes/BeeClass';
+import Enemy from '../../classes/EnemyClass';
+import Game from '../../classes/GameClass';
+import Player from '../../classes/PlayerClass';
+import Salmon from '../../classes/SalmonClass';
 
 import { PATH_IMG_BACKGROUND, PATH_IMG_BACKGROUND1, PATH_IMG_BACKGROUND2, 
     PATH_IMG_BACKGROUND3, PATH_IMG_BEE, PATH_IMG_ENEMY1, PATH_IMG_ENEMY2, PATH_IMG_ENEMY3, 
