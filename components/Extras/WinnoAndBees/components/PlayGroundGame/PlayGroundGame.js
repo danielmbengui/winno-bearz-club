@@ -11,7 +11,7 @@ import { PATH_IMG_BACKGROUND, PATH_IMG_BACKGROUND1, PATH_IMG_BACKGROUND2,
     PATH_IMG_PLAYER_TOUCH, PATH_IMG_SALMON, PATH_IMG_SCORE, PATH_IMG_WINNER,PATH_MUSIC_GAME, 
     PATH_MUSIC_GAME_OVER, PATH_MUSIC_TOUCH_BEE, PATH_MUSIC_TOUCH_ENEMY, PATH_MUSIC_WINNER} from './constants';
 
-const PlayGround = () => {
+const PlayGroundGame = () => {
     return (
         <>
             <img id={Game.IMG_BACKGROUND} src={PATH_IMG_BACKGROUND} alt={Game.IMG_BACKGROUND} />
@@ -61,4 +61,4 @@ const PlayGround = () => {
     )
 }
 
-export default PlayGround;
+export default PlayGroundGame;

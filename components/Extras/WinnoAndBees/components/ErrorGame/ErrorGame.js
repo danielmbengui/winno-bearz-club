@@ -1,8 +1,8 @@
 import React from 'react';
 import { ERROR_GAME_STOPPED } from './constants';
-import styleError from "./Error.module.css";
+import styleError from "./ErrorGame.module.css";
 
-const Error = () => {
+const ErrorGame = () => {
     return (
         <div className={`${styleError['error-game']}`}>
             <p>{'ERROR'}<br />{ERROR_GAME_STOPPED}</p>
@@ -10,4 +10,4 @@ const Error = () => {
     )
 }
 
-export default Error;
+export default ErrorGame;

@@ -13,7 +13,7 @@ const StartGameButton = styled(Button)(({}) => ({
     },
 }));
 
-const Start = ({ startGame }) => {
+const StartGame = ({ startGame }) => {
     return (
         <StartGameButton
             variant='contained'
@@ -24,4 +24,4 @@ const Start = ({ startGame }) => {
     )
 }
 
-export default Start;
+export default StartGame;

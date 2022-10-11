@@ -12,7 +12,7 @@ const RestartButton = styled(Button)(({ }) => ({
     },
 }));
 
-const Restart = ({ restartGame }) => {
+const RestartGame = ({ restartGame }) => {
     return (
         <RestartButton
             size='small'
@@ -28,4 +28,4 @@ const Restart = ({ restartGame }) => {
     )
 }
 
-export default Restart;
+export default RestartGame;

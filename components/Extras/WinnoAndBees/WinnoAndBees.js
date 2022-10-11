@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styleWinnoAndBees from "./WinnoAndBees.module.css";
-import Description from './components/Description/Description';
 import Game from './classes/GameClass';
-import Error from './components/Error/Error';
-import Restart from './components/Restart/Restart';
-import Start from './components/Start/Start';
 import { isMobile, readPlayerJson, readPlayerStorage, updatePlayerJsonByTwitterUid, updatePlayerStorage } from './lib/functions';
 import { DEFAULT_PLAYER } from './lib/constants';
-import InfoPlayer from './components/InfoPlayer/InfoPlayer';
-import SavePlayer from './components/SavePlayer/SavePlayer';
-import PlayGround from './components/PlayGround/PlayGround';
+import ErrorGame from './components/ErrorGame/ErrorGame';
+import StartGame from './components/StartGame/StartGame';
+import PlayGroundGame from './components/PlayGroundGame/PlayGroundGame';
+import DescriptionGame from './components/DescriptionGame/DescriptionGame';
+import RestartGame from './components/RestartGame/RestartGame';
+import InfoPlayerGame from './components/InfoPlayerGame/InfoPlayerGame';
+import SavePlayerGame from './components/SavePlayerGame/SavePlayerGame';
 
 const WinnoAndBees = () => {
     const refDivDescription = useRef();
@@ -337,30 +337,30 @@ const WinnoAndBees = () => {
             }}>
                 <div className={'container'}>
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <Description scoreToWhitelist={Game.SCORE_TO_WHITELIST} scoreToAirdrop={Game.SCORE_TO_AIRDROP} />
+                        <DescriptionGame scoreToWhitelist={Game.SCORE_TO_WHITELIST} scoreToAirdrop={Game.SCORE_TO_AIRDROP} />
                     </div>
                     <div className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <canvas ref={refPlayground} className={`${styleWinnoAndBees['canvas']}`}>
-                            <PlayGround />
+                            <PlayGroundGame />
                         </canvas>
                     </div>
 
                     <div ref={refDivError} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <Error />
+                        <ErrorGame />
                     </div>
                     <div ref={refDivStartGame} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <Start startGame={async () => {
+                        <StartGame startGame={async () => {
                             startGame();
                         }} />
                     </div>
                     <div ref={refDivInfoPlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <InfoPlayer player={player} game={game} />
+                        <InfoPlayerGame player={player} game={game} />
                     </div>
                     <div ref={refDivSavePlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <SavePlayer player={player} handlePlayer={handlePlayer} handleShowRestartButton={handleShowRestartButton} />
+                        <SavePlayerGame player={player} handlePlayer={handlePlayer} handleShowRestartButton={handleShowRestartButton} />
                     </div>
                     <div ref={refDivRestartGame} className={`${styleWinnoAndBees['flex-vertical']}`}>
-                        <Restart restartGame={restartGame} />
+                        <RestartGame restartGame={restartGame} />
                     </div>
                 </div>
             </div>

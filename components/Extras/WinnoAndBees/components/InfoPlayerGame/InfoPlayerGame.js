@@ -11,7 +11,7 @@ const CustomTypography = styled(Typography)(({ }) => ({
     fontSize: 'medium',
 }));
 
-const InfoPlayer = ({ player}) => {
+const InfoPlayerGame = ({ player}) => {
     return (
         <Grid container>
             <Grid item xs={12} sm={12} p={2}>
@@ -65,4 +65,4 @@ const InfoPlayer = ({ player}) => {
     )
 }
 
-export default InfoPlayer;
+export default InfoPlayerGame;

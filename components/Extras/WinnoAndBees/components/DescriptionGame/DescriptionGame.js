@@ -1,7 +1,7 @@
 import React from 'react';
-import styleDescription from "./Description.module.css";
+import styleDescription from "./DescriptionGame.module.css";
 
-const Description = ({ scoreToWhitelist, scoreToAirdrop }) => {
+const DescriptionGame = ({ scoreToWhitelist, scoreToAirdrop }) => {
     return (
         <ol className={`${styleDescription['description']}`}>
             <li>Eat {scoreToWhitelist} BEES to be whitelisted for the next collection.</li>
@@ -10,4 +10,4 @@ const Description = ({ scoreToWhitelist, scoreToAirdrop }) => {
     )
 }
 
-export default Description;
+export default DescriptionGame;
