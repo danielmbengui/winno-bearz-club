@@ -1,16 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styleWinnoAndBees from "./WinnoAndBees.module.css";
-import { useTheme } from '@mui/material/styles';
 import Description from './Components/Description/Description';
 import Game from './Classes/GameClass';
 import Error from './Components/Error/Error';
 import Restart from './Components/Restart/Restart';
 import Start from './Components/Start/Start';
 import { isMobile, readPlayerJson, readPlayerStorage, updatePlayerJsonByTwitterUid, updatePlayerStorage } from './LIB/functions';
-import Playground from './Components/Playground/Playground';
 import { DEFAULT_PLAYER } from './LIB/constants';
 import InfoPlayer from './Components/InfoPlayer/InfoPlayer';
 import SavePlayer from './Components/SavePlayer/SavePlayer';
+import PlayGround from './Components/Playground/Playground';
+
 
 const WinnoAndBees = () => {
     const refDivDescription = useRef();
@@ -342,7 +342,7 @@ const WinnoAndBees = () => {
                     </div>
                     <div className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <canvas ref={refPlayground} className={`${styleWinnoAndBees['canvas']}`}>
-                            <Playground />
+                            <PlayGround />
                         </canvas>
                     </div>
 
