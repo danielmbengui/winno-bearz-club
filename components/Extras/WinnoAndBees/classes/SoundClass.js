@@ -1,11 +1,9 @@
-
 class Sound {
     constructor(idMusic, volume = 0.95) {
         this.idMusic = idMusic;
         this.music = document.getElementById(idMusic);
         this.volume = volume;
         this.isPlaying = false;
-        //this.played = false;
     }
 
     play() {

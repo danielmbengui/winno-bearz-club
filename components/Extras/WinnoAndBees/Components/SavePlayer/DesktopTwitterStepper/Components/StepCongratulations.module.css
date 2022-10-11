@@ -1,0 +1,11 @@
+.final-step-label {
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.final-step-value {
+    font-size: x-large;
+    font-weight: normal;
+    font-style: italic;
+    /*margin-right: 1vw;*/
+}

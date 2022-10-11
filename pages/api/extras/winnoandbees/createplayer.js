@@ -1,5 +1,5 @@
 import Cors from 'cors';
-import initMiddleware from '../../../../lib/init-middleware';
+import initMiddleware from '../../init-middleware';
 import { ACTION_CREATE_PLAYER, TEXT_ACTION_DONT_EXIST, METHOD_PUT, } from './constants';
 import { createPlayer } from './functions';
 
@@ -16,11 +16,9 @@ export default async function handler(req, res) {
     await cors(req, res);
   
     if (req.method === METHOD_PUT) {
-      console.log('METHOD POST enter', req.body.player)
       if (req.body.action === ACTION_CREATE_PLAYER && req.body.player) {
         const player = req.body.player;
         const created = createPlayer(player);
-        //const created = createPlayerDataJson(player);
         return res.status(200).json({ player: player, created: created }); //201: created
       }
       return res.status(400).json(TEXT_ACTION_DONT_EXIST);

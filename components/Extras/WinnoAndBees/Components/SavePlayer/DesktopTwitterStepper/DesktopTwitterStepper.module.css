@@ -1,0 +1,5 @@
+.step-label {
+    color: var(--text-primary);
+    font-family: 'VT323', monospace;
+    font-size: x-large;
+}

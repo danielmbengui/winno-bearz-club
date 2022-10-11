@@ -1,7 +1,9 @@
 import Cors from 'cors';
-import initMiddleware from '../../../../lib/init-middleware';
-import { ACTION_READ_PLAYER, ACTION_READ_PLAYER_TWITTER, ACTION_READ_PLAYER_WALLET, METHOD_GET, TEXT_ACTION_DONT_EXIST } from './constants';
-import { getPlayerByTwitter, getPlayerByWallet } from './functions';
+import initMiddleware from '../../init-middleware';
+import { METHOD_GET} from './constants';
+import { ACTION_READ_PLAYER, ACTION_READ_PLAYER_WALLET, ACTION_READ_PLAYER_TWITTER_UID, ACTION_READ_PLAYER_TWITTER_NAME} from './constants';
+import { TEXT_ACTION_DONT_EXIST } from './constants';
+import { getPlayerByTwitterName, getPlayerByTwitterUid, getPlayerByWallet } from './functions';
 
 const cors = initMiddleware(
   // You can read more about the available options here: https://github.com/expressjs/cors#configuration-options
@@ -19,8 +21,8 @@ export default async function handler(req, res) {
     if (req.query.action === ACTION_READ_PLAYER) {
       const player = JSON.parse(req.query.player);
       let playerJson = getPlayerByWallet(player.walletAddress);
-      playerJson = !playerJson ? getPlayerByTwitter(player.twitter.displayName) : playerJson;
-      console.log('GET_USER', playerJson)
+      playerJson = !playerJson ? getPlayerByTwitterUid(player.twitter.uid) : playerJson;
+      playerJson = !playerJson ? getPlayerByTwitterName(player.twitter.displayName) : playerJson;
       return res.status(200).json(playerJson);
     }
 
@@ -30,11 +32,17 @@ export default async function handler(req, res) {
       return res.status(200).json(playerJson);
     }
 
-    if (req.query.action === ACTION_READ_PLAYER_TWITTER) {
+    if (req.query.action === ACTION_READ_PLAYER_TWITTER_UID) {
       const player = JSON.parse(req.query.player);
-      const playerJson = getPlayerByTwitter(player.twitter.displayName);
+      const playerJson = getPlayerByTwitterUid(player.twitter.uid);
       return res.status(200).json(playerJson);
     }
+
+    if (req.query.action === ACTION_READ_PLAYER_TWITTER_NAME) {
+        const player = JSON.parse(req.query.player);
+        const playerJson = getPlayerByTwitter(player.twitter.displayName);
+        return res.status(200).json(playerJson);
+      }
     return res.status(400).json(TEXT_ACTION_DONT_EXIST);
 
   }

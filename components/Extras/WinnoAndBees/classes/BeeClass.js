@@ -1,19 +1,20 @@
-import { ID_IMG_BEE } from "../lib/img";
 import Game from "./GameClass";
 
 class Bee {
+    static IMG_BEE = 'imgBee';
+
     constructor(canvas, mouse, gameFrame, ratioDevice) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
         this.mouse = mouse;
         this.gameFrame = gameFrame;
         this.ratioDevice = ratioDevice;
-        this.beeImage = document.getElementById(ID_IMG_BEE);
+        this.beeImage = document.getElementById(Bee.IMG_BEE);
 
         this.x = Math.random() * canvas.width;
         this.y = canvas.height + 100;
         this.radius = 40 / ratioDevice;
-        this.speed = Math.random() * (Game.SPEED) + 1;
+        this.speed = Math.random() * (Game.MAX_SPEED) + 1;
         this.distance;
         this.counted = false;
 

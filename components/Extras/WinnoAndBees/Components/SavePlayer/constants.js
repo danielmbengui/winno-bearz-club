@@ -24,6 +24,9 @@ export const LINK_API_UPDATE_PLAYER = `/api/extras/${PROJECT_NAME}/updateplayer`
 export const LINK_API_READ_PLAYER = `/api/extras/${PROJECT_NAME}/readplayer`;
 export const LINK_API_READ_PLAYER_LIST = `/api/extras/${PROJECT_NAME}/readplayerlist`;
 
+//-------------------     STORAGE     --------------------//
+export const GET_PLAYER_STORAGE = "player";
+
 //-------------------     UTILS     --------------------//
 export const DIGIT_WALLET_ADDRESS = '0x';
 export const LENGTH_WALLET_ADDRESS = 42;
@@ -34,30 +37,3 @@ export const ERROR_WALLET_FORMAT = "wallet address must start with " + DIGIT_WAL
 export const ERROR_WALLET_LENGTH = "wallet address must have " + LENGTH_WALLET_ADDRESS + " hexadecimal digits!!!";
 export const ERROR_TWITTER_NAME_EMPTY = "twitter username can't be empty !!!";
 export const ERROR_GAME_STOPPED = "Game stopped because you leave 'fullscreen' or/and orientation became on 'portrait mode'.";
-//-------------------     PATHS     --------------------//
-export const PATH_ASSET = `/extras/winnoandbees/`;
-export const PATH_IMG = `${PATH_ASSET}img/`;
-export const PATH_MUSIC = `${PATH_ASSET}music/`;
-
-//-------------------     STORAGE     --------------------//
-export const GET_PLAYER_STORAGE = "player";
-export const DEFAULT_PLAYER = {
-    walletAddress: '', 
-    twitter : {
-        uid: '',
-        displayName: '',
-        photoURL: '',
-        isFollower: false,
-        token: '',
-        secret: '',
-    },
-    unlimitedGame: false,
-    whitelisted: false,
-    whitelistActivated: false, 
-    airdropped: false, 
-    airdropSent: false,
-    bestScore: 0, 
-    nGames: 0,
-    nWins: 0,
-    nLooses: 0,
-};

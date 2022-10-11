@@ -1,0 +1,24 @@
+.description {
+    text-align: justify;
+    list-style: none;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 3vh;
+    font-weight: bold;
+}
+
+.description li {
+    background-color: var(--primary);
+    text-align: center;
+    padding: 3vh;
+    color: black;
+}
+
+.description li:last-child {
+    background-color: var(--secondary);
+    color: var(--text-secondary);
+}
