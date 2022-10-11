@@ -6,7 +6,11 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { PATH_IMG } from '../../../../LIB/constants';
+
+//-------------------     PATHS     --------------------//
+const PATH_ASSET = `/extras/winnoandbees/`;
+const PATH_IMG = `${PATH_ASSET}img/`;
+const PATH_MUSIC = `${PATH_ASSET}music/`;
 
 const HandleNextButton = styled(LoadingButton)(({ }) => ({
     color: 'black',

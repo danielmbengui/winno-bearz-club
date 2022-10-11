@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTheme } from '@mui/material/styles';
-import { DEFAULT_PLAYER, } from '../../LIB/constants';
+import { DEFAULT_PLAYER, LINK_API_GET_IS_FOLLOWER } from '../../LIB/constants';
 import axios from 'axios';
-import { createPlayerJson, isErrorWalletAddress, readPlayerJson, readPlayerStorage, updatePlayerJsonByTwitterUid, updatePlayerStorage } from './functions';
-import { LINK_API_GET_IS_FOLLOWER } from './constants';
+import { createPlayerJson, isErrorWalletAddress, readPlayerJson, 
+    readPlayerStorage, updatePlayerJsonByTwitterUid, updatePlayerStorage } from '../../LIB/functions';
 import MobileTwitterStepper from './MobileTwitterStepper/MobileTwitterStepper';
 import { getAuth, onAuthStateChanged, signInWithPopup, signOut, TwitterAuthProvider } from 'firebase/auth';
 import DesktopTwitterStepper from './DesktopTwitterStepper/DesktopTwitterStepper';
 
-const SavePlayer = ({ player, handlePlayer, handleShowRestartButton }) => {
+const SavePlayer = ({ player, handlePlayer }) => {
     const theme = useTheme();
     const [activeStep, setActiveStep] = useState(2);
     const [processingFollower, setProcessingFollower] = useState(false);

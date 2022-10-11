@@ -2,7 +2,6 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Avatar, Badge, Grid, Stack } from '@mui/material';
-//import { PATH_IMG } from '../../LIB/constants';
 
 const TwitterAccount = ({ player}) => {
     const theme = useTheme();

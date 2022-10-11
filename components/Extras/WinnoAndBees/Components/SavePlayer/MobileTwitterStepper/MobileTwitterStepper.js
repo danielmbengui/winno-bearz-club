@@ -1,13 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Box, Button, MobileStepper, Paper, Typography } from "@mui/material";
 import StepLoginTwitter from "./Components/StepLoginTwitter";
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import StepFollowTwitter from './Components/StepFollowTwitter';
 import StepPutWallet from './Components/StepPutWallet';
-import { isErrorWalletAddress } from '../functions';
 import StepCongratulations from './Components/StepCongratulations';
-
+import { isErrorWalletAddress } from '../../../LIB/functions';
 
 const MobileTwitterStepper = ({ player, activeStep, handlePlayer, saveNewPlayer, handleBack, handleNext, handleStep, user, signInTwitter, signOutTwitter, getIsFollower, processingFollower, confirmingSave, handleConfirmingSave, errorWallet, handleErrorWallet }) => {
     //const activeStep = activeStep;

@@ -1,31 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Avatar, Badge, Box, Grid, InputAdornment, MobileStepper, Paper, Step, StepContent, StepIcon, StepLabel, Stepper, TextField, Typography } from "@mui/material";
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import TwitterIcon from '@mui/icons-material/Twitter';
+import React from 'react';
+import { Box, Step, StepContent, StepLabel, Stepper } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
 import styleDesktopTwitterStepper from "./DesktopTwitterStepper.module.css";
-import { Check } from '@mui/icons-material';
-import { TwitterFollowButton } from 'react-twitter-embed';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CachedIcon from '@mui/icons-material/Cached';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import { purple } from '@mui/material/colors';
-import axios from 'axios';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-
-
-import InputBase from '@mui/material/InputBase';
 import StepLoginTwitter from './Components/StepLoginTwitter';
 import StepFollowTwitter from './Components/StepFollowTwitter';
 import StepPutWallet from './Components/StepPutWallet';
 import StepCongratulations from './Components/StepCongratulations';
-
-
 
 const styleStepIcon = {
     '& .MuiStepLabel-root .Mui-completed': {

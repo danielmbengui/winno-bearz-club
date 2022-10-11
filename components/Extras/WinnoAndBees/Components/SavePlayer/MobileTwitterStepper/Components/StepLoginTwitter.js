@@ -1,11 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Badge, Grid, Stack, Button } from "@mui/material";
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { DEFAULT_PLAYER, PATH_IMG } from '../../../../LIB/constants';
-import { getAuth, onAuthStateChanged, signInWithPopup, signOut, TwitterAuthProvider } from 'firebase/auth';
-import { createPlayerJson, readPlayerJson } from '../../functions';
-
+import { PATH_IMG } from '../../../../LIB/constants';
 
 
 const StepLoginTwitter = ({ user, signInTwitter, signOutTwitter }) => {

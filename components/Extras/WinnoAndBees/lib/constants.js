@@ -34,6 +34,7 @@ export const ERROR_WALLET_FORMAT = "wallet address must start with " + DIGIT_WAL
 export const ERROR_WALLET_LENGTH = "wallet address must have " + LENGTH_WALLET_ADDRESS + " hexadecimal digits!!!";
 export const ERROR_TWITTER_NAME_EMPTY = "twitter username can't be empty !!!";
 export const ERROR_GAME_STOPPED = "Game stopped because you leave 'fullscreen' or/and orientation became on 'portrait mode'.";
+
 //-------------------     PATHS     --------------------//
 export const PATH_ASSET = `/extras/winnoandbees/`;
 export const PATH_IMG = `${PATH_ASSET}img/`;

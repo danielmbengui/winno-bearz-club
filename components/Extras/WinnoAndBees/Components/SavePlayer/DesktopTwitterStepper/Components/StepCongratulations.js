@@ -1,22 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Alert, Avatar, Badge, Box, Grid, InputAdornment, MobileStepper, Paper, Step, StepContent, StepIcon, StepLabel, Stepper, TextField, Typography } from "@mui/material";
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import React from 'react';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { useTheme } from '@mui/material/styles';
 import styleStepCongratulations from "./StepCongratulations.module.css";
 import { Check } from '@mui/icons-material';
-import { TwitterFollowButton } from 'react-twitter-embed';
 import CancelIcon from '@mui/icons-material/Cancel';
-import CachedIcon from '@mui/icons-material/Cached';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { purple } from '@mui/material/colors';
-import axios from 'axios';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import Game from '../../../../Classes/GameClass';
 
 const StepCongratulations = ({ player }) => {

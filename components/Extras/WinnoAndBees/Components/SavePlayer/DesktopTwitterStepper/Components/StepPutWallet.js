@@ -8,7 +8,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 import DialogSavePlayer from '../../DialogSavePlayer';
-import { isErrorWalletAddress } from '../../functions';
+import { isErrorWalletAddress } from '../../../../LIB/functions';
 
 const HandleBackButton = styled(Button)(({ }) => ({
     color: 'var(--primary)',
