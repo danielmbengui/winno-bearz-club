@@ -1,9 +1,11 @@
 import React from 'react';
+/*
 import Bee from '../../Classes/BeeClass';
 import Enemy from '../../Classes/EnemyClass';
 import Game from '../../Classes/GameClass';
 import Player from '../../Classes/PlayerClass';
 import Salmon from '../../Classes/SalmonClass';
+*/
 
 
 import { PATH_IMG_BACKGROUND, PATH_IMG_BACKGROUND1, PATH_IMG_BACKGROUND2, 
