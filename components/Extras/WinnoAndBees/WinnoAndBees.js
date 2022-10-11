@@ -16,34 +16,34 @@ import { updateUser, updateAdvertise, updateAdvertiseSession } from '../../../re
 
 const WinnoAndBees = () => {
     const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const [showAdvertise, setShowAdvertise] = useState(user.showAdvertise);
-  const [showAdvertiseSession, setShowAdvertiseSession] = useState(user.showAdvertiseSession);
+    const user = useSelector((state) => state.user);
+    const [showAdvertise, setShowAdvertise] = useState(user.showAdvertise);
+    const [showAdvertiseSession, setShowAdvertiseSession] = useState(user.showAdvertiseSession);
 
-  const updateUserInfo = () => {
-    dispatch(updateUser());
-  }
-  useEffect(() => {
-    updateUserInfo();
-  }, [user.account]);
+    const updateUserInfo = () => {
+        dispatch(updateUser());
+    }
+    useEffect(() => {
+        updateUserInfo();
+    }, [user.account]);
 
-  const updateStorageAdvertise = (_showAdvertise) => {
-    setShowAdvertise(_showAdvertise);
-    dispatch(updateAdvertise(_showAdvertise));
-  }
+    const updateStorageAdvertise = (_showAdvertise) => {
+        setShowAdvertise(_showAdvertise);
+        dispatch(updateAdvertise(_showAdvertise));
+    }
 
-  const updateStorageAdvertiseSession = (_showAdvertiseSession) => {
-    setShowAdvertiseSession(_showAdvertiseSession);
-    dispatch(updateAdvertiseSession(_showAdvertiseSession));
-  }
+    const updateStorageAdvertiseSession = (_showAdvertiseSession) => {
+        setShowAdvertiseSession(_showAdvertiseSession);
+        dispatch(updateAdvertiseSession(_showAdvertiseSession));
+    }
 
-  useEffect(() => {
-    setShowAdvertise(user.showAdvertise);
-  }, [user.showAdvertise]);
+    useEffect(() => {
+        setShowAdvertise(user.showAdvertise);
+    }, [user.showAdvertise]);
 
-  useEffect(() => {
-    setShowAdvertiseSession(user.showAdvertiseSession);
-  }, [user.showAdvertiseSession]);
+    useEffect(() => {
+        setShowAdvertiseSession(user.showAdvertiseSession);
+    }, [user.showAdvertiseSession]);
 
     const refDivDescription = useRef();
     const refPlayground = useRef();
@@ -128,48 +128,32 @@ const WinnoAndBees = () => {
     }
 
     function openFullscreen() {
+        const canvas = refPlayground;
+        if (canvas.current.requestFullscreen) {
+            canvas.current.requestFullscreen();
+        } else if (canvas.current.webkitRequestFullscreen) {
+            canvas.current.webkitRequestFullscreen();
+        } else if (canvas.current.msRequestFullscreen) {
+            canvas.current.msRequestFullscreen();
+        }
 
-            const canvas = refPlayground;
-            if (canvas.current.requestFullscreen) {
-                canvas.current.requestFullscreen();
-            } else if (canvas.current.webkitRequestFullscreen) {
-                canvas.current.webkitRequestFullscreen();
-            } else if (canvas.current.msRequestFullscreen) { 
-                canvas.current.msRequestFullscreen();
-            }
-        
-            screen.orientation.lock("landscape-primary").then(function () {
-                // _LOCK_BUTTON.style.display = 'none';
-                // _UNLOCK_BUTTON.style.display = 'block';
-                //game.stopped = false;
-            })
-                .catch(function (error) {
-                    //game.stopped = true;
-                    alert(error);
-                });
+        screen.orientation.lock("landscape-primary").then(function () {
+            // _LOCK_BUTTON.style.display = 'none';
+            // _UNLOCK_BUTTON.style.display = 'block';
+            //game.stopped = false;
+        }).catch(function (error) {
+            //game.stopped = true;
+            alert(error);
+        });
     }
 
     function closeFullscreen() {
-        const fullscreenEnabled = document.fullscreenEnabled
-            || document.mozFullscreenEnabled
-            || document.webkitFullscreenEnabled;
-
-        if (fullscreenEnabled) {
-            if (isFullScreen) {
-                const exitFullscreen = document.exitFullscreen
-                    || document.mozExitFullscreen
-                    || document.webkitExitFullscreen;
-
-                exitFullscreen()
-                    .then(() => {
-                        screen.orientation.unlock();
-                        setIsFullScreen(false);
-                    })
-                    .catch((error) => {
-                        alert(error);
-                    });
-            }
-
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozExitFullScreen) {
+            document.mozExitFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
         }
     }
 
