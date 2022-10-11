@@ -367,7 +367,12 @@ const WinnoAndBees = () => {
                 paddingTop: '5vh',
                 paddingBottom: '5vh',
             }}>
+{
+    /*
                 <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} showAdvertiseSession={showAdvertiseSession} updateStorageAdvertiseSession={updateStorageAdvertiseSession} />
+
+    */
+}
                 <div className={'container'}>
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <DescriptionGame scoreToWhitelist={Game.SCORE_TO_WHITELIST} scoreToAirdrop={Game.SCORE_TO_AIRDROP} />
