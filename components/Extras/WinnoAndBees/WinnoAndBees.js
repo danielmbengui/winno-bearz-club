@@ -10,8 +10,41 @@ import DescriptionGame from './components/DescriptionGame/DescriptionGame';
 import RestartGame from './components/RestartGame/RestartGame';
 import InfoPlayerGame from './components/InfoPlayerGame/InfoPlayerGame';
 import SavePlayerGame from './components/SavePlayerGame/SavePlayerGame';
+import DialogAdvertise from '../../Container/Dialogs/DialogAdvertise';
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser, connectUser, updateAdvertise, updateAdvertiseSession } from '../../../redux/user/userActions';
 
 const WinnoAndBees = () => {
+    const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const [showAdvertise, setShowAdvertise] = useState(user.showAdvertise);
+  const [showAdvertiseSession, setShowAdvertiseSession] = useState(user.showAdvertiseSession);
+
+  const updateUserInfo = () => {
+    dispatch(updateUser());
+  }
+  useEffect(() => {
+    updateUserInfo();
+  }, [user.account]);
+
+  const updateStorageAdvertise = (_showAdvertise) => {
+    setShowAdvertise(_showAdvertise);
+    dispatch(updateAdvertise(_showAdvertise));
+  }
+
+  const updateStorageAdvertiseSession = (_showAdvertiseSession) => {
+    setShowAdvertiseSession(_showAdvertiseSession);
+    dispatch(updateAdvertiseSession(_showAdvertiseSession));
+  }
+
+  useEffect(() => {
+    setShowAdvertise(user.showAdvertise);
+  }, [user.showAdvertise]);
+
+  useEffect(() => {
+    setShowAdvertiseSession(user.showAdvertiseSession);
+  }, [user.showAdvertiseSession]);
+
     const refDivDescription = useRef();
     const refPlayground = useRef();
     const refDivError = useRef();
@@ -46,12 +79,12 @@ const WinnoAndBees = () => {
 
     const initComponentState = () => {
         refDivDescription.current.style.display = 'flex';
-        refPlayground.current.style.display = 'flex';
-        refDivError.current.style.display = 'flex';
+        refPlayground.current.style.display = 'none';
+        refDivError.current.style.display = 'none';
         refDivStartGame.current.style.display = 'flex';
-        refDivInfoPlayer.current.style.display = 'flex';
-        refDivSavePlayer.current.style.display = 'flex';
-        refDivRestartGame.current.style.display = 'flex';
+        refDivInfoPlayer.current.style.display = 'none';
+        refDivSavePlayer.current.style.display = 'none';
+        refDivRestartGame.current.style.display = 'none';
     }
 
     const showComponentGame = () => {
@@ -73,7 +106,6 @@ const WinnoAndBees = () => {
         refDivRestartGame.current.style.display = 'flex';
         refPlayground.current.style.display = 'flex';
     }
-
 
     const showComponentError = () => {
         refDivDescription.current.style.display = 'none';
@@ -335,6 +367,7 @@ const WinnoAndBees = () => {
                 paddingTop: '5vh',
                 paddingBottom: '5vh',
             }}>
+                <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} showAdvertiseSession={showAdvertiseSession} updateStorageAdvertiseSession={updateStorageAdvertiseSession} />
                 <div className={'container'}>
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <DescriptionGame scoreToWhitelist={Game.SCORE_TO_WHITELIST} scoreToAirdrop={Game.SCORE_TO_AIRDROP} />
