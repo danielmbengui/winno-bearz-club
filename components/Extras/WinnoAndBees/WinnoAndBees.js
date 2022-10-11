@@ -129,31 +129,24 @@ const WinnoAndBees = () => {
 
     function openFullscreen() {
 
-        const fullscreenEnabled = document.fullscreenEnabled
-            || document.mozFullscreenEnabled
-            || document.webkitFullscreenEnabled;
 
-        if (fullscreenEnabled) {
-            const canvas = refPlayground;
-            const requestFullscreen =
-                canvas.current.requestFullscreen ||
-                canvas.current.mozRequestFullscreen ||
-                canvas.current.webkitRequestFullScreen;
-            requestFullscreen()
-                .then(() => {
-                    setIsFullScreen(true);
-                    screen.orientation.lock("landscape-primary").then(function () {
-                        // _LOCK_BUTTON.style.display = 'none';
-                        // _UNLOCK_BUTTON.style.display = 'block';
-                        //game.stopped = false;
-                    })
-                        .catch(function (error) {
-                            //game.stopped = true;
-                            alert(error);
-                        });
-                })
-                .catch(() => console.error("Can't go full T_T"));
-        }
+            if (canvas.current.requestFullscreen) {
+                canvas.current.requestFullscreen();
+            } else if (canvas.current.webkitRequestFullscreen) {
+                canvas.current.webkitRequestFullscreen();
+            } else if (canvas.current.msRequestFullscreen) { 
+                canvas.current.msRequestFullscreen();
+            }
+        
+            screen.orientation.lock("landscape-primary").then(function () {
+                // _LOCK_BUTTON.style.display = 'none';
+                // _UNLOCK_BUTTON.style.display = 'block';
+                //game.stopped = false;
+            })
+                .catch(function (error) {
+                    //game.stopped = true;
+                    alert(error);
+                });
     }
 
     function closeFullscreen() {
