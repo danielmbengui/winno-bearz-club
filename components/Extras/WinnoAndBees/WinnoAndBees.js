@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styleWinnoAndBees from "./WinnoAndBees.module.css";
-import Description from './Components/Description/Description';
+import Description from './components/Description/Description';
 import Game from './classes/GameClass';
-import Error from './Components/Error/Error';
-import Restart from './Components/Restart/Restart';
-import Start from './Components/Start/Start';
+import Error from './components/Error/Error';
+import Restart from './components/Restart/Restart';
+import Start from './components/Start/Start';
 import { isMobile, readPlayerJson, readPlayerStorage, updatePlayerJsonByTwitterUid, updatePlayerStorage } from './lib/functions';
 import { DEFAULT_PLAYER } from './lib/constants';
-import InfoPlayer from './Components/InfoPlayer/InfoPlayer';
-import SavePlayer from './Components/SavePlayer/SavePlayer';
-import PlayGround from './Components/PlayGround/PlayGround';
+import InfoPlayer from './components/InfoPlayer/InfoPlayer';
+import SavePlayer from './components/SavePlayer/SavePlayer';
+import PlayGround from './components/PlayGround/PlayGround';
 
 const WinnoAndBees = () => {
     const refDivDescription = useRef();
