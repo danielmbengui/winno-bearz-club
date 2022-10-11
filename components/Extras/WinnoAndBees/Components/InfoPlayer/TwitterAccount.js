@@ -2,11 +2,11 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Avatar, Badge, Grid, Stack } from '@mui/material';
-import { PATH_IMG } from '../../LIB/constants';
+//import { PATH_IMG } from '../../LIB/constants';
 
 const TwitterAccount = ({ player}) => {
     const theme = useTheme();
-    const noProfilePic = theme.palette.mode === 'light' ? `${PATH_IMG}no-profile-black.png` : `${PATH_IMG}no-profile-white.png`;
+    const noProfilePic = theme.palette.mode === 'light' ? `${'/extras/winnoandbees/img/'}no-profile-black.png` : `${'/extras/winnoandbees/img/'}no-profile-white.png`;
 
     return (
         <Grid container>

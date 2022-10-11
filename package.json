@@ -45,7 +45,6 @@
     "remark": "^14.0.2",
     "remark-html": "^15.0.1",
     "request": "^2.79.0",
-    "serverless-mysql": "^1.5.4",
     "styled-components": "^5.3.5",
     "twitter-api-v2": "^1.12.2",
     "twitter-status": "^0.7.0",
