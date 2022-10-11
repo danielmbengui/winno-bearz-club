@@ -28,7 +28,7 @@ const WinnoAndBees = () => {
     useEffect(async () => {
         initComponentState();
         const playerStorage = await readPlayerStorage();
-        if(playerStorage){
+        if (playerStorage) {
             setPlayer(playerStorage);
         }
     }, []);
@@ -38,9 +38,9 @@ const WinnoAndBees = () => {
     }
 
     const handleShowRestartButton = (_show) => {
-        if( _show ){
+        if (_show) {
             refDivRestartGame.current.style.display = 'flex';
-        }else{
+        } else {
             refDivRestartGame.current.style.display = 'none';
         }
     }
@@ -60,7 +60,7 @@ const WinnoAndBees = () => {
         refDivError.current.style.display = 'none';
         refDivStartGame.current.style.display = 'none';
         refDivInfoPlayer.current.style.display = 'none';
-        refDivSavePlayer.current.style.display = 'none';        
+        refDivSavePlayer.current.style.display = 'none';
         refDivRestartGame.current.style.display = 'none';
         refPlayground.current.style.display = 'flex';
     }
@@ -70,11 +70,11 @@ const WinnoAndBees = () => {
         refDivError.current.style.display = 'none';
         refDivStartGame.current.style.display = 'none';
         refDivInfoPlayer.current.style.display = 'flex';
-        refDivSavePlayer.current.style.display = 'none';        
+        refDivSavePlayer.current.style.display = 'none';
         refDivRestartGame.current.style.display = 'flex';
         refPlayground.current.style.display = 'flex';
     }
-    
+
 
     const showComponentError = () => {
         refDivDescription.current.style.display = 'none';
@@ -95,60 +95,59 @@ const WinnoAndBees = () => {
         refDivInfoPlayer.current.style.display = 'none';
         refDivSavePlayer.current.style.display = 'flex';
     }
-    
+
     function openFullscreen() {
-        
-        const fullscreenEnabled = document.fullscreenEnabled 
-        || document.mozFullscreenEnabled 
-        || document.webkitFullscreenEnabled;
-      
-      if( fullscreenEnabled ){
+
+        const fullscreenEnabled = document.fullscreenEnabled
+            || document.mozFullscreenEnabled
+            || document.webkitFullscreenEnabled;
+
+        if (fullscreenEnabled) {
             const canvas = refPlayground.current;
-          const requestFullscreen =
-          canvas.requestFullscreen ||
-          canvas.mozRequestFullscreen ||
-          canvas.webkitRequestFullScreen;
-          requestFullscreen()
-	.then(() => {
-        setIsFullScreen(true);
-        screen.orientation.lock("landscape-primary").then(function () {
-            // _LOCK_BUTTON.style.display = 'none';
-            // _UNLOCK_BUTTON.style.display = 'block';
-            //game.stopped = false;
-        })
-            .catch(function (error) {
-                //game.stopped = true;
-                alert(error);
-            });
-    })
-	.catch(() => console.error("Can't go full T_T"));
-      }
+            const requestFullscreen =
+                canvas.requestFullscreen ||
+                canvas.mozRequestFullscreen ||
+                canvas.webkitRequestFullScreen;
+            requestFullscreen()
+                .then(() => {
+                    setIsFullScreen(true);
+                    screen.orientation.lock("landscape-primary").then(function () {
+                        // _LOCK_BUTTON.style.display = 'none';
+                        // _UNLOCK_BUTTON.style.display = 'block';
+                        //game.stopped = false;
+                    })
+                        .catch(function (error) {
+                            //game.stopped = true;
+                            alert(error);
+                        });
+                })
+                .catch(() => console.error("Can't go full T_T"));
+        }
     }
 
     function closeFullscreen() {
-        const fullscreenEnabled = document.fullscreenEnabled 
-          || document.mozFullscreenEnabled 
-          || document.webkitFullscreenEnabled;
-        
-        if( fullscreenEnabled ){
-            if( isFullScreen )
-            {
+        const fullscreenEnabled = document.fullscreenEnabled
+            || document.mozFullscreenEnabled
+            || document.webkitFullscreenEnabled;
+
+        if (fullscreenEnabled) {
+            if (isFullScreen) {
                 const exitFullscreen = document.exitFullscreen
-                || document.mozExitFullscreen
-                || document.webkitExitFullscreen;
-            
+                    || document.mozExitFullscreen
+                    || document.webkitExitFullscreen;
+
                 exitFullscreen()
-                .then(() => {
-                    screen.orientation.unlock();
-                    setIsFullScreen(false);
-                })
-                .catch((error) => {
-                    alert(error);
-                });  
+                    .then(() => {
+                        screen.orientation.unlock();
+                        setIsFullScreen(false);
+                    })
+                    .catch((error) => {
+                        alert(error);
+                    });
             }
-            
+
+        }
     }
-}
 
     const startGame = () => {
         showComponentGame();
@@ -227,32 +226,31 @@ const WinnoAndBees = () => {
                 game.finishGame();
 
                 const _player_copy = JSON.parse(JSON.stringify(player));
-                if( game.gameOver ){
+                if (game.gameOver) {
                     _player_copy.nLooses += 1;
                     showComponentGameFinish();
-                }else if( game.winner ){
+                } else if (game.winner) {
                     _player_copy.nWins += 1;
-                    if( !player.whitelisted && game.winnerWhitelist)
+                    if (!player.whitelisted && game.winnerWhitelist)
                         _player_copy.whitelisted = true;
-                    if( !player.airdropped && game.winnerAirdrop ){
+                    if (!player.airdropped && game.winnerAirdrop) {
                         _player_copy.airdropped = true;
                         _player_copy.unlimitedGame = true;
                     }
                 }
                 _player_copy.nGames += 1;
                 const playerJSON = await readPlayerJson(_player_copy);
-                if( playerJSON ){
+                if (playerJSON) {
                     let _playerJSON_copy = JSON.parse(JSON.stringify(playerJSON));
                     if (game.score > _playerJSON_copy.bestScore)
                         _playerJSON_copy.bestScore = game.score;
-                    if(game.winnerWhitelist)
+                    if (game.winnerWhitelist)
                         _playerJSON_copy.whitelisted = true;
-                    if(game.winnerAirdrop)
-                    {
+                    if (game.winnerAirdrop) {
                         _playerJSON_copy.airdropped = true;
                         _playerJSON_copy.unlimitedGame = true;
                     }
-                    if(game.winner)
+                    if (game.winner)
                         _playerJSON_copy.nWins += 1;
                     else
                         _playerJSON_copy.nLooses += 1;
@@ -267,8 +265,8 @@ const WinnoAndBees = () => {
                     _player_copy.nLooses = _playerJSON_copy.nLooses;
                     _player_copy.nGames = _playerJSON_copy.nGames;
                     showComponentGameFinish();
-                }else{
-                    if( game.winner )
+                } else {
+                    if (game.winner)
                         showComponentSavePlayer();
                 }
                 setPlayer(_player_copy);
@@ -321,7 +319,6 @@ const WinnoAndBees = () => {
                         game.stopped = true;
                     }
                 }
-
                 canvasPosition = canvas.getBoundingClientRect();
             });
         }
@@ -343,7 +340,6 @@ const WinnoAndBees = () => {
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <Description scoreToWhitelist={Game.SCORE_TO_WHITELIST} scoreToAirdrop={Game.SCORE_TO_AIRDROP} />
                     </div>
-
                     <div className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <canvas ref={refPlayground} className={`${styleWinnoAndBees['canvas']}`}>
                             <Playground />
@@ -353,27 +349,20 @@ const WinnoAndBees = () => {
                     <div ref={refDivError} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <Error />
                     </div>
-
                     <div ref={refDivStartGame} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <Start startGame={async () => {
                             startGame();
                         }} />
                     </div>
-                
-                        
                     <div ref={refDivInfoPlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <InfoPlayer player={player} game={game} />
                     </div>
-
-                    
-<div ref={refDivSavePlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
-                        <SavePlayer player={player} handlePlayer={handlePlayer} handleShowRestartButton={handleShowRestartButton} /> 
+                    <div ref={refDivSavePlayer} className={`${styleWinnoAndBees['flex-vertical']}`} >
+                        <SavePlayer player={player} handlePlayer={handlePlayer} handleShowRestartButton={handleShowRestartButton} />
                     </div>
                     <div ref={refDivRestartGame} className={`${styleWinnoAndBees['flex-vertical']}`}>
                         <Restart restartGame={restartGame} />
                     </div>
-
-                    
                 </div>
             </div>
         </div>
