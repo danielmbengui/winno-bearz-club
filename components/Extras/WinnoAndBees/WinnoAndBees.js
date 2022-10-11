@@ -12,7 +12,7 @@ import InfoPlayerGame from './components/InfoPlayerGame/InfoPlayerGame';
 import SavePlayerGame from './components/SavePlayerGame/SavePlayerGame';
 import DialogAdvertise from '../../Container/Dialogs/DialogAdvertise';
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser, connectUser, updateAdvertise, updateAdvertiseSession } from '../../../redux/user/userActions';
+import { updateUser, updateAdvertise, updateAdvertiseSession } from '../../../redux/user/userActions';
 
 const WinnoAndBees = () => {
     const dispatch = useDispatch();
@@ -367,12 +367,7 @@ const WinnoAndBees = () => {
                 paddingTop: '5vh',
                 paddingBottom: '5vh',
             }}>
-{
-    /*
                 <DialogAdvertise showAdvertise={showAdvertise} updateStorageAdvertise={updateStorageAdvertise} showAdvertiseSession={showAdvertiseSession} updateStorageAdvertiseSession={updateStorageAdvertiseSession} />
-
-    */
-}
                 <div className={'container'}>
                     <div ref={refDivDescription} className={`${styleWinnoAndBees['flex-vertical']}`} >
                         <DescriptionGame scoreToWhitelist={Game.SCORE_TO_WHITELIST} scoreToAirdrop={Game.SCORE_TO_AIRDROP} />
