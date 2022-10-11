@@ -1,6 +1,7 @@
-import { PATH_IMG, PATH_MUSIC } from "../../LIB/constants";
 //-------------------     PATHS     --------------------//
-//import { PATH_ASSET } from "./constants";
+export const PATH_ASSET = `/extras/winnoandbees/`;
+export const PATH_IMG = `${PATH_ASSET}img/`;
+export const PATH_MUSIC = `${PATH_ASSET}music/`;
 //-------------------     PATHS     --------------------//
 export const PATH_IMG_BACKGROUND = `${PATH_IMG}background-start.png`;
 export const PATH_IMG_BACKGROUND1 = `${PATH_IMG}background-middle1.png`;
