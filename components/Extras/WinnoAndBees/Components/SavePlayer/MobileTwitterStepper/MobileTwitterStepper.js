@@ -6,7 +6,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
 import StepFollowTwitter from './Components/StepFollowTwitter';
 import StepPutWallet from './Components/StepPutWallet';
 import StepCongratulations from './Components/StepCongratulations';
-import { isErrorWalletAddress } from '../../../LIB/functions';
+import { isErrorWalletAddress } from '../../../lib/functions';
 
 const MobileTwitterStepper = ({ player, activeStep, handlePlayer, saveNewPlayer, handleBack, handleNext, handleStep, user, signInTwitter, signOutTwitter, getIsFollower, processingFollower, confirmingSave, handleConfirmingSave, errorWallet, handleErrorWallet }) => {
     //const activeStep = activeStep;

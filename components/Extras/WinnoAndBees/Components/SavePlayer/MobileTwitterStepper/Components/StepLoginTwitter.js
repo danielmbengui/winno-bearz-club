@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Badge, Grid, Stack, Button } from "@mui/material";
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { PATH_IMG } from '../../../../LIB/constants';
+import { PATH_IMG } from '../../../../lib/constants';
 
 
 const StepLoginTwitter = ({ user, signInTwitter, signOutTwitter }) => {

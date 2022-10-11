@@ -7,7 +7,7 @@ import CachedIcon from '@mui/icons-material/Cached';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { updatePlayerStorage } from '../../../../LIB/functions';
+import { updatePlayerStorage } from '../../../../lib/functions';
 
 const HandleBackButton = styled(Button)(({ }) => ({
     color: 'var(--primary)',

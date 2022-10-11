@@ -6,7 +6,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import CachedIcon from '@mui/icons-material/Cached';
 import { styled } from '@mui/material/styles';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { updatePlayerStorage } from '../../../../LIB/functions';
+import { updatePlayerStorage } from '../../../../lib/functions';
 updatePlayerStorage
 
 const VerifyButton = styled(LoadingButton)(({ }) => ({
