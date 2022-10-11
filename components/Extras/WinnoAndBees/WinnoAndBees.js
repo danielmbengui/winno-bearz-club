@@ -129,7 +129,7 @@ const WinnoAndBees = () => {
 
     function openFullscreen() {
 
-
+            const canvas = refPlayground;
             if (canvas.current.requestFullscreen) {
                 canvas.current.requestFullscreen();
             } else if (canvas.current.webkitRequestFullscreen) {
@@ -177,7 +177,7 @@ const WinnoAndBees = () => {
         showComponentGame();
 
         if (isMobile()) {
-            openFullscreen(refPlayground, setIsFullScreen);
+            openFullscreen();
         }
 
         const canvas = refPlayground.current;
