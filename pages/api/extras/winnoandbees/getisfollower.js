@@ -33,10 +33,10 @@ export default async function handler(req, res) {
         const v1Client = userClient.v1;
         
         const { relationship } = await v1Client.friendship({ source_id: player.twitter.uid, target_id: WINNOBEARZ_TWITTER_ID });
-        let isFollower = false;
-        const limit = v1Client._requestMaker.rateLimits;
-        if (limit['https://api.twitter.com/1.1/friendships/show.json'].remaining > 0)
-            isFollower = relationship.source.following;
+        let isFollower = relationship.source.following;
+        //const limit = v1Client._requestMaker.rateLimits;
+        //if (limit['https://api.twitter.com/1.1/friendships/show.json'].remaining > 0)
+          //  isFollower = relationship.source.following;
 
         return res.status(200).json(isFollower);
     }
