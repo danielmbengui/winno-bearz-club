@@ -10,7 +10,6 @@ import Brightness2Icon from '@mui/icons-material/Brightness2';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import Switch from '@mui/material/Switch';
 import { updateScreenMode, } from "../../../redux/user/userActions";
-import { useLocalStorage } from '../../Storage/LocalStorage';
 
 const logoPath = "/assets/logo.png";
 const STORAGE_SCREEN_MODE = 'screenMode';
