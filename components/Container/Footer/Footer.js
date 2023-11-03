@@ -6,7 +6,7 @@ const Footer = ({links}) => {
   const theme = useTheme();
   const [email, setEmail] = useState(theme.palette.mode === 'light' ? links.EMAIL_IMAGE_PATH_BLACK : links.EMAIL_IMAGE_PATH_WHITE);
   const [twitter, setTwitter] = useState(theme.palette.mode === 'light' ? links.TWITTER_IMAGE_PATH_BLACK : links.TWITTER_IMAGE_PATH_WHITE);
-
+  const currentYear = new Date().getFullYear();
   useEffect( () => {
     setEmail(theme.palette.mode === 'light' ? links.EMAIL_IMAGE_PATH_BLACK : links.EMAIL_IMAGE_PATH_WHITE);
     setTwitter(theme.palette.mode === 'light' ? links.TWITTER_IMAGE_PATH_BLACK : links.TWITTER_IMAGE_PATH_WHITE);
@@ -24,7 +24,7 @@ const Footer = ({links}) => {
   <footer className="footer-02" id="footer">
     <div className="container">
       <div className="footer-02__wrapper">
-        <div className="footer-02__text content_box" style={{color:theme.palette.text.primary}}>&copy; 2022&nbsp; <p>WinnoBearz Club</p>
+        <div className="footer-02__text content_box" style={{color:theme.palette.text.primary}}>Copyright&copy;{currentYear == 2022 ? `${currentYear}` : `2022-${currentYear}`} <p>WinnoBearz Club</p>
         </div>
         <div className="social-buttons  ">
           <ul className="social-buttons__list">
