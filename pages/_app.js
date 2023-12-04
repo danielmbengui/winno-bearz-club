@@ -85,8 +85,6 @@ export default function App({ Component, pageProps }) {
         <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
         <script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
 
-
-        
         <meta property="og:type" content="website" />
         <meta property="og:title" content="WinnoBearz Club – NFT funny pixelated bearz" />
         <meta name="twitter:title" content="WinnoBearz Club – NFT funny pixelated bearz" />
