@@ -139,7 +139,6 @@ export default function App({ Component, pageProps }) {
         adjustIframeLayout(event.data.isOpen);
       }
     };
-
     window.addEventListener("resize", handleResize);
     window.addEventListener("message", handleMessage);
 
